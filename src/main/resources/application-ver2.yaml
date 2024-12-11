@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: frontapi
+
+server:
+  port: 8111
