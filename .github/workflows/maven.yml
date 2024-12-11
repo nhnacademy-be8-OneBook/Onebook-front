@@ -51,4 +51,4 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
         script_stop: true
-        script: "./onebook/develop_startup.sh"
+        script: "/home/nhnacademy/onebook/develop/startup/front_1_startup.sh"
