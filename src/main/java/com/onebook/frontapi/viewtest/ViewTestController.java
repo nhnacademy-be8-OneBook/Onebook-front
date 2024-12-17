@@ -102,4 +102,17 @@ public class ViewTestController {
         return "shop-single";
     }
 
+
+
+    // 리뷰 페이지 테스트용도
+    @GetMapping("/test/review")
+    public String getReviewTestForm() {
+        return "/reviewTest/reviewTestForm";
+    }
+
+    @GetMapping("/test/detail-book")
+    public String GetDetailBook() {
+        return "/reviewTest/detailBookTest";
+    }
+
 }
