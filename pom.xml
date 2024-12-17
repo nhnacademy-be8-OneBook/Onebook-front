@@ -49,7 +49,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<!---->
+
 <!--		OpenFeign 의존성 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
