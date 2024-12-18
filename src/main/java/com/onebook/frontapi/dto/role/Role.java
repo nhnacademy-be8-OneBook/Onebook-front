@@ -1,4 +1,4 @@
-package com.onebook.frontapi.auth.dto;
+package com.onebook.frontapi.dto.role;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

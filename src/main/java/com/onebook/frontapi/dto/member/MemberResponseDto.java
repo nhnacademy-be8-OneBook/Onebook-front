@@ -1,6 +1,4 @@
-package com.onebook.frontapi.auth.dto;
-
-import lombok.Setter;
+package com.onebook.frontapi.dto.member;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
