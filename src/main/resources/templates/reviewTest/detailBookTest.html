@@ -14,7 +14,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
 	<!-- StyleSheet -->
-
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="/css/bootstrap.css">
 	<!-- Magnific Popup -->
@@ -43,88 +42,32 @@
 
 	<!-- Color CSS -->
 	<link rel="stylesheet" href="/css/color/color1.css">
-	<!--<link rel="stylesheet" href="/css/color/color2.css">-->
-	<!-- ... 기타 색상 CSS 주석 처리 ... -->
-
 	<link rel="stylesheet" href="#" id="colors">
 
-	<!-- 추가적인 스타일 -->
 	<style>
-		/* 기존 스타일 유지 */
-
-		/* 리뷰 섹션 스타일 */
-		.ratting-main {
-			margin-bottom: 40px;
-			/* 부모 컨테이너의 너비에 맞추기 */
-			width: 100%;
-		}
-
-		.single-rating {
-			display: flex;
-			flex-direction: column; /* 좌우 정렬 문제 해결을 위해 컬럼 방향으로 변경 */
-			margin-bottom: 30px;
-			padding-bottom: 20px;
-			border-bottom: 1px solid #eee;
-			/* 고정된 너비 설정 (필요 시) */
-			/* width: 100%; */
-		}
-
-		.rating-des h6 {
-			font-size: 18px;
-			color: #333;
-			margin-bottom: 5px;
-		}
-
-		.rating-des .ratings {
-			display: flex;
-			align-items: center;
-			margin-bottom: 10px;
-		}
-
-		.rating-des .rating li {
-			color: #F7941D;
-			margin-right: 5px;
-		}
-
-		.rating-des p {
-			font-size: 14px;
-			color: #555;
-			word-wrap: break-word; /* 긴 단어가 넘칠 경우 줄 바꿈 */
-		}
-
-		/* 이미지 미리보기 스타일 수정 */
+		.ratting-main { margin-bottom: 40px; width: 100%; }
+		.single-rating { display: flex; flex-direction: column; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+		.rating-des h6 { font-size: 18px; color: #333; margin-bottom: 5px; }
+		.rating-des .ratings { display: flex; align-items: center; margin-bottom: 10px; }
+		.rating-des .rating li { color: #F7941D; margin-right: 5px; }
+		.rating-des p { font-size: 14px; color: #555; word-wrap: break-word; }
 		.image-preview {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 10px;
-			margin-top: 10px;
+			display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
 		}
-
 		.image-preview a {
-			display: inline-block;
-			border: 1px solid #ddd;
-			border-radius: 3px;
-			overflow: hidden;
+			display: inline-block; border: 1px solid #ddd; border-radius: 3px; overflow: hidden;
 		}
-
 		.image-preview img {
-			max-width: 100px; /* 이미지 최대 너비 설정 */
-			height: auto; /* 높이는 자동 조절 */
-			cursor: pointer; /* 마우스 커서를 포인터로 변경 */
-			transition: transform 0.3s ease; /* 부드러운 확대 효과 */
+			max-width: 100px; height: auto; cursor: pointer; transition: transform 0.3s ease;
 		}
-
-		.image-preview img:hover {
-			transform: scale(1.1); /* 마우스 오버 시 약간 확대 */
+		.image-preview img:hover { transform: scale(1.1); }
+		.edit-btn {
+			background: #ddd; border: none; color: #333; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 10px; font-size: 14px;
 		}
+		.edit-btn:hover { background: #ccc; }
 
-		/* 반응형 디자인 추가 */
 		@media (max-width: 768px) {
-			.single-rating {
-				flex-direction: column;
-				align-items: flex-start; /* 좌우 정렬 문제 해결 */
-				text-align: left;
-			}
+			.single-rating { flex-direction: column; align-items: flex-start; text-align: left; }
 		}
 	</style>
 </head>
@@ -134,8 +77,7 @@
 <div class="preloader">
 	<div class="preloader-inner">
 		<div class="preloader-icon">
-			<span></span>
-			<span></span>
+			<span></span><span></span>
 		</div>
 	</div>
 </div>
@@ -148,28 +90,23 @@
 	<p>Here is some awesome color's available on Eshop Template.</p>
 	<span class="color1"></span>
 	<span class="color2"></span>
-	<!-- ... 기타 색상 스팬 ... -->
 </div>
 <!-- /End Color Plate -->
 
 <!-- Header -->
 <header class="header shop">
-	<!-- Topbar -->
 	<div class="topbar">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-12 col-12">
-					<!-- Top Left -->
 					<div class="top-left">
 						<ul class="list-main">
 							<li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
 							<li><i class="ti-email"></i> support@shophub.com</li>
 						</ul>
 					</div>
-					<!--/ End Top Left -->
 				</div>
 				<div class="col-lg-8 col-md-12 col-12">
-					<!-- Top Right -->
 					<div class="right-content">
 						<ul class="list-main">
 							<li><i class="ti-location-pin"></i> Store location</li>
@@ -178,34 +115,24 @@
 							<li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
 						</ul>
 					</div>
-					<!-- End Top Right -->
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- End Topbar -->
 	<div class="middle-inner">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-2 col-md-2 col-12">
-					<!-- Logo -->
-					<div class="logo">
-						<a href="index.html"><img src="/images/logo.png" alt="logo"></a>
-					</div>
-					<!--/ End Logo -->
-					<!-- Search Form -->
+					<div class="logo"><a href="index.html"><img src="/images/logo.png" alt="logo"></a></div>
 					<div class="search-top">
 						<div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-						<!-- Search Form -->
 						<div class="search-top">
 							<form class="search-form">
 								<input type="text" placeholder="Search here..." name="search">
 								<button value="search" type="submit"><i class="ti-search"></i></button>
 							</form>
 						</div>
-						<!--/ End Search Form -->
 					</div>
-					<!--/ End Search Form -->
 					<div class="mobile-nav"></div>
 				</div>
 				<div class="col-lg-8 col-md-7 col-12">
@@ -226,7 +153,6 @@
 				</div>
 				<div class="col-lg-2 col-md-3 col-12">
 					<div class="right-bar">
-						<!-- Search Form -->
 						<div class="sinlge-bar">
 							<a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
 						</div>
@@ -235,7 +161,6 @@
 						</div>
 						<div class="sinlge-bar shopping">
 							<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
-							<!-- Shopping Item -->
 							<div class="shopping-item">
 								<div class="dropdown-cart-header">
 									<span>2 Items</span>
@@ -243,13 +168,13 @@
 								</div>
 								<ul class="shopping-list">
 									<li>
-										<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+										<a href="#" class="remove"><i class="fa fa-remove"></i></a>
 										<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
 										<h4><a href="#">Woman Ring</a></h4>
 										<p class="quantity">1x - <span class="amount">$99.00</span></p>
 									</li>
 									<li>
-										<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+										<a href="#" class="remove"><i class="fa fa-remove"></i></a>
 										<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
 										<h4><a href="#">Woman Necklace</a></h4>
 										<p class="quantity">1x - <span class="amount">$35.00</span></p>
@@ -257,27 +182,23 @@
 								</ul>
 								<div class="bottom">
 									<div class="total">
-										<span>Total</span>
-										<span class="total-amount">$134.00</span>
+										<span>Total</span><span class="total-amount">$134.00</span>
 									</div>
 									<a href="checkout.html" class="btn animate">Checkout</a>
 								</div>
 							</div>
-							<!--/ End Shopping Item -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Header Inner -->
 	<div class="header-inner">
 		<div class="container">
 			<div class="cat-nav-head">
 				<div class="row">
 					<div class="col-12">
 						<div class="menu-area">
-							<!-- Main Menu -->
 							<nav class="navbar navbar-expand-lg">
 								<div class="navbar-collapse">
 									<div class="nav-inner">
@@ -330,11 +251,9 @@
 			</div>
 		</div>
 	</div>
-	<!--/ End Header Inner -->
 </header>
 <!--/ End Header -->
 
-<!-- Breadcrumbs -->
 <div class="breadcrumbs">
 	<div class="container">
 		<div class="row">
@@ -349,21 +268,17 @@
 		</div>
 	</div>
 </div>
-<!-- End Breadcrumbs -->
 
-<!-- Shop Single -->
 <section class="shop single section">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
 				<div class="row">
 					<div class="col-lg-6 col-12">
-						<!-- Product Slider -->
 						<div class="product-gallery">
-							<!-- Images slider -->
 							<div class="flexslider-thumbnails">
 								<ul class="slides">
-									<li data-thumb="https://via.placeholder.com/570x520" rel="adjustX:10, adjustY:">
+									<li data-thumb="https://via.placeholder.com/570x520">
 										<img src="https://via.placeholder.com/570x520" alt="#">
 									</li>
 									<li data-thumb="https://via.placeholder.com/570x520">
@@ -377,13 +292,10 @@
 									</li>
 								</ul>
 							</div>
-							<!-- End Images slider -->
 						</div>
-						<!-- End Product slider -->
 					</div>
 					<div class="col-lg-6 col-12">
 						<div class="product-des">
-							<!-- Description -->
 							<div class="short">
 								<h4>Nonstick Dishwasher PFOA</h4>
 								<div class="rating-main">
@@ -394,14 +306,11 @@
 										<li><i class="fa fa-star-half-o"></i></li>
 										<li class="dark"><i class="fa fa-star-o"></i></li>
 									</ul>
-									<!-- "Reviews" 탭으로 이동하도록 링크 수정 -->
 									<a href="#" class="total-review" data-toggle="tab" data-target="#reviews">(102) Review</a>
 								</div>
-								<p class="price"><span class="discount">$70.00</span><s>$80.00</s> </p>
-								<p class="description">eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in</p>
+								<p class="price"><span class="discount">$70.00</span><s>$80.00</s></p>
+								<p class="description">eget velit. Donec ac tempus ante...</p>
 							</div>
-							<!--/ End Description -->
-							<!-- Color -->
 							<div class="color">
 								<h4>Available Options <span>Color</span></h4>
 								<ul>
@@ -411,8 +320,6 @@
 									<li><a href="#" class="four"><i class="ti-check"></i></a></li>
 								</ul>
 							</div>
-							<!--/ End Color -->
-							<!-- Size -->
 							<div class="size">
 								<h4>Size</h4>
 								<ul>
@@ -423,26 +330,22 @@
 									<li><a href="#" class="four">XXL</a></li>
 								</ul>
 							</div>
-							<!--/ End Size -->
-							<!-- Product Buy -->
 							<div class="product-buy">
 								<div class="quantity">
 									<h6>Quantity :</h6>
-									<!-- Input Order -->
 									<div class="input-group">
 										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus">
 												<i class="ti-minus"></i>
 											</button>
 										</div>
-										<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
+										<input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
 										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+											<button type="button" class="btn btn-primary btn-number" data-type="plus">
 												<i class="ti-plus"></i>
 											</button>
 										</div>
 									</div>
-									<!--/ End Input Order -->
 								</div>
 								<div class="add-to-cart">
 									<a href="#" class="btn">Add to cart</a>
@@ -452,7 +355,6 @@
 								<p class="cat">Category :<a href="#">Clothing</a></p>
 								<p class="availability">Availability : 180 Products In Stock</p>
 							</div>
-							<!--/ End Product Buy -->
 						</div>
 					</div>
 				</div>
@@ -460,31 +362,28 @@
 					<div class="col-12">
 						<div class="product-info">
 							<div class="nav-main">
-								<!-- Tab Nav -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
 									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li>
 								</ul>
-								<!--/ End Tab Nav -->
 							</div>
 							<div class="tab-content" id="myTabContent">
-								<!-- Description Tab -->
 								<div class="tab-pane fade show active" id="description" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-12">
 												<div class="single-des">
-													<p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ...</p>
+													<p>simply dummy text of the printing ...</p>
 												</div>
 												<div class="single-des">
-													<p>Suspendisse consequatur voluptates lorem nobis accumsan natus mattis. Optio pede, optio qui metus, delectus! ...</p>
+													<p>Suspendisse consequatur voluptates ...</p>
 												</div>
 												<div class="single-des">
 													<h4>Product Features:</h4>
 													<ul>
 														<li>long established fact.</li>
-														<li>has a more-or-less normal distribution. </li>
-														<li>lmany variations of passages of. </li>
+														<li>has a more-or-less normal distribution.</li>
+														<li>lmany variations of passages of.</li>
 														<li>generators on the Interne.</li>
 													</ul>
 												</div>
@@ -492,17 +391,11 @@
 										</div>
 									</div>
 								</div>
-								<!--/ End Description Tab -->
-								<!-- Reviews Tab -->
 								<div class="tab-pane fade" id="reviews" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-12">
-												<!-- 리뷰 표시를 위한 `ratting-main` 요소에 `id` 추가 -->
-												<div class="ratting-main" id="ratting-main">
-													<!-- 동적으로 리뷰가 로드됩니다 -->
-												</div>
-												<!-- Review 작성 폼 제거됨 -->
+												<div class="ratting-main" id="ratting-main"></div>
 											</div>
 										</div>
 									</div>
@@ -516,22 +409,12 @@
 		</div>
 	</div>
 </section>
-<!--/ End Shop Single -->
-
-<!-- Start Most Popular -->
 <div class="product-area most-popular related-product section">
 	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<div class="section-title">
-					<h2>Related Products</h2>
-				</div>
-			</div>
-		</div>
+		<div class="row"><div class="col-12"><div class="section-title"><h2>Related Products</h2></div></div></div>
 		<div class="row">
 			<div class="col-12">
 				<div class="owl-carousel popular-slider">
-					<!-- Start Single Product -->
 					<div class="single-product">
 						<div class="product-img">
 							<a href="product-details.html">
@@ -541,12 +424,12 @@
 							</a>
 							<div class="button-head">
 								<div class="product-action">
-									<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-									<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-									<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+									<a data-toggle="modal" data-target="#exampleModal" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+									<a href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+									<a href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 								</div>
 								<div class="product-action-2">
-									<a title="Add to cart" href="#">Add to cart</a>
+									<a href="#">Add to cart</a>
 								</div>
 							</div>
 						</div>
@@ -558,147 +441,103 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Single Product -->
-					<!-- ... 기타 상품 ... -->
+					<!-- ... 다른 상품들 ... -->
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- End Most Popular Area -->
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-			</div>
-			<div class="modal-body">
-				<div class="row no-gutters">
-					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-						<!-- Product Slider -->
-						<div class="product-gallery">
-							<div class="quickview-slider-active">
-								<div class="single-slider">
-									<img src="https://via.placeholder.com/569x528" alt="#">
-								</div>
-								<div class="single-slider">
-									<img src="https://via.placeholder.com/569x528" alt="#">
-								</div>
-								<div class="single-slider">
-									<img src="https://via.placeholder.com/569x528" alt="#">
-								</div>
-								<div class="single-slider">
-									<img src="https://via.placeholder.com/569x528" alt="#">
-								</div>
-							</div>
+	<div class="modal-dialog" role="document"><div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span class="ti-close" aria-hidden="true"></span></button>
+		</div>
+		<div class="modal-body">
+			<div class="row no-gutters">
+				<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+					<div class="product-gallery">
+						<div class="quickview-slider-active">
+							<div class="single-slider"><img src="https://via.placeholder.com/569x528" alt="#"></div>
+							<div class="single-slider"><img src="https://via.placeholder.com/569x528" alt="#"></div>
+							<div class="single-slider"><img src="https://via.placeholder.com/569x528" alt="#"></div>
+							<div class="single-slider"><img src="https://via.placeholder.com/569x528" alt="#"></div>
 						</div>
-						<!-- End Product slider -->
 					</div>
-					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-						<div class="quickview-content">
-							<h2>Flared Shift Dress</h2>
-							<div class="quickview-ratting-review">
-								<div class="quickview-ratting-wrap">
-									<div class="quickview-ratting">
-										<i class="yellow fa fa-star"></i>
-										<i class="yellow fa fa-star"></i>
-										<i class="yellow fa fa-star"></i>
-										<i class="yellow fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<a href="#"> (1 customer review)</a>
+				</div>
+				<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+					<div class="quickview-content">
+						<h2>Flared Shift Dress</h2>
+						<div class="quickview-ratting-review">
+							<div class="quickview-ratting-wrap">
+								<div class="quickview-ratting">
+									<i class="yellow fa fa-star"></i>
+									<i class="yellow fa fa-star"></i>
+									<i class="yellow fa fa-star"></i>
+									<i class="yellow fa fa-star"></i>
+									<i class="fa fa-star"></i>
 								</div>
-								<div class="quickview-stock">
-									<span><i class="fa fa-check-circle-o"></i> in stock</span>
-								</div>
+								<a href="#"> (1 customer review)</a>
 							</div>
-							<h3>$29.00</h3>
-							<div class="quickview-peragraph">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam.</p>
-							</div>
-							<div class="size">
-								<div class="row">
-									<div class="col-lg-6 col-12">
-										<h5 class="title">Size</h5>
-										<select>
-											<option selected="selected">s</option>
-											<option>m</option>
-											<option>l</option>
-											<option>xl</option>
-										</select>
-									</div>
-									<div class="col-lg-6 col-12">
-										<h5 class="title">Color</h5>
-										<select>
-											<option selected="selected">orange</option>
-											<option>purple</option>
-											<option>black</option>
-											<option>pink</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="quantity">
-								<!-- Input Order -->
-								<div class="input-group">
-									<div class="button minus">
-										<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-											<i class="ti-minus"></i>
-										</button>
-									</div>
-									<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
-									<div class="button plus">
-										<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-											<i class="ti-plus"></i>
-										</button>
-									</div>
-								</div>
-								<!--/ End Input Order -->
-							</div>
-							<div class="add-to-cart">
-								<a href="#" class="btn">Add to cart</a>
-								<a href="#" class="btn min"><i class="ti-heart"></i></a>
-								<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
-							</div>
-							<div class="default-social">
-								<h4 class="share-now">Share:</h4>
-								<ul>
-									<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a class="youtube" href="#"><i class="fa fa-pinterest-p"></i></a></li>
-									<li><a class="dribbble" href="#"><i class="fa fa-google-plus"></i></a></li>
-								</ul>
+							<div class="quickview-stock">
+								<span><i class="fa fa-check-circle-o"></i> in stock</span>
 							</div>
 						</div>
+						<h3>$29.00</h3>
+						<div class="quickview-peragraph">
+							<p>Lorem ipsum ...</p>
+						</div>
+						<div class="size">
+							<div class="row">
+								<div class="col-lg-6 col-12"><h5 class="title">Size</h5><select><option selected="selected">s</option><option>m</option><option>l</option><option>xl</option></select></div>
+								<div class="col-lg-6 col-12"><h5 class="title">Color</h5><select><option selected="selected">orange</option><option>purple</option><option>black</option><option>pink</option></select></div>
+							</div>
+						</div>
+						<div class="quantity">
+							<div class="input-group">
+								<div class="button minus">
+									<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus"><i class="ti-minus"></i></button>
+								</div>
+								<input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
+								<div class="button plus">
+									<button type="button" class="btn btn-primary btn-number" data-type="plus"><i class="ti-plus"></i></button>
+								</div>
+							</div>
+						</div>
+						<div class="add-to-cart">
+							<a href="#" class="btn">Add to cart</a>
+							<a href="#" class="btn min"><i class="ti-heart"></i></a>
+							<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
+						</div>
+						<div class="default-social">
+							<h4 class="share-now">Share:</h4>
+							<ul>
+								<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a class="youtube" href="#"><i class="fa fa-pinterest-p"></i></a></li>
+								<li><a class="dribbble" href="#"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div></div>
 </div>
-<!-- Modal end -->
 
-<!-- Start Footer Area -->
 <footer class="footer">
-	<!-- Footer Top -->
 	<div class="footer-top section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-5 col-md-6 col-12">
-					<!-- Single Widget -->
 					<div class="single-footer about">
-						<div class="logo">
-							<a href="index.html"><img src="/images/logo2.png" alt="#"></a>
-						</div>
-						<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+						<div class="logo"><a href="index.html"><img src="/images/logo2.png" alt="#"></a></div>
+						<p class="text">Praesent dapibus...</p>
 						<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
 					</div>
-					<!-- End Single Widget -->
 				</div>
 				<div class="col-lg-2 col-md-6 col-12">
-					<!-- Single Widget -->
 					<div class="single-footer links">
 						<h4>Information</h4>
 						<ul>
@@ -709,10 +548,8 @@
 							<li><a href="#">Help</a></li>
 						</ul>
 					</div>
-					<!-- End Single Widget -->
 				</div>
 				<div class="col-lg-2 col-md-6 col-12">
-					<!-- Single Widget -->
 					<div class="single-footer links">
 						<h4>Customer Service</h4>
 						<ul>
@@ -723,13 +560,10 @@
 							<li><a href="#">Privacy Policy</a></li>
 						</ul>
 					</div>
-					<!-- End Single Widget -->
 				</div>
 				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Single Widget -->
 					<div class="single-footer social">
 						<h4>Get In Tuch</h4>
-						<!-- Single Widget -->
 						<div class="contact">
 							<ul>
 								<li>NO. 342 - London Oxford Street.</li>
@@ -738,7 +572,6 @@
 								<li>+032 3456 7890</li>
 							</ul>
 						</div>
-						<!-- End Single Widget -->
 						<ul>
 							<li><a href="#"><i class="ti-facebook"></i></a></li>
 							<li><a href="#"><i class="ti-twitter"></i></a></li>
@@ -746,78 +579,53 @@
 							<li><a href="#"><i class="ti-instagram"></i></a></li>
 						</ul>
 					</div>
-					<!-- End Single Widget -->
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- End Footer Top -->
 	<div class="copyright">
 		<div class="container">
 			<div class="inner">
 				<div class="row">
 					<div class="col-lg-6 col-12">
-						<div class="left">
-							<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
-						</div>
+						<div class="left"><p>Copyright © 2020 <a href="#" target="_blank">Wpthemesgrid</a> - All Rights Reserved.</p></div>
 					</div>
 					<div class="col-lg-6 col-12">
-						<div class="right">
-							<img src="/images/payments.png" alt="#">
-						</div>
+						<div class="right"><img src="/images/payments.png" alt="#"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </footer>
-<!-- /End Footer Area -->
 
-<!-- Jquery -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-migrate-3.0.0.js"></script>
 <script src="/js/jquery-ui.min.js"></script>
-<!-- Popper JS -->
 <script src="/js/popper.min.js"></script>
-<!-- Bootstrap JS -->
 <script src="/js/bootstrap.min.js"></script>
-<!-- Color JS -->
 <script src="/js/colors.js"></script>
-<!-- Slicknav JS -->
 <script src="/js/slicknav.min.js"></script>
-<!-- Owl Carousel JS -->
 <script src="/js/owl-carousel.js"></script>
-<!-- Magnific Popup JS -->
 <script src="/js/magnific-popup.min.js"></script>
-<!-- Fancybox JS -->
 <script src="/js/facnybox.min.js"></script>
-<!-- Waypoints JS -->
 <script src="/js/waypoints.min.js"></script>
-<!-- Countdown JS -->
 <script src="/js/finalcountdown.min.js"></script>
-<!-- Nice Select JS -->
 <script src="/js/nicesellect.js"></script>
-<!-- Ytplayer JS -->
 <script src="/js/ytplayer.min.js"></script>
-<!-- Flex Slider JS -->
 <script src="/js/flex-slider.js"></script>
-<!-- ScrollUp JS -->
 <script src="/js/scrollup.js"></script>
-<!-- Onepage Nav JS -->
 <script src="/js/onepage-nav.min.js"></script>
-<!-- Easing JS -->
 <script src="/js/easing.js"></script>
-<!-- Active JS -->
 <script src="/js/active.js"></script>
-
-<!-- 추가적인 JS 스크립트 -->
 <script>
+	let loggedInUserId = 'user1234'; // 로그인된 사용자
+
 	$(document).ready(function() {
-		// 리뷰 불러오기 함수
 		function loadReviews() {
 			let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 			let rattingMain = $('#ratting-main');
-			rattingMain.empty(); // 기존 리뷰 삭제
+			rattingMain.empty();
 
 			if(reviews.length === 0){
 				rattingMain.append('<p>작성된 리뷰가 없습니다.</p>');
@@ -825,42 +633,44 @@
 			}
 
 			reviews.forEach(function(review, index) {
-				// 별점 HTML 생성
 				let starsHtml = '';
 				for(let i = 1; i <= 5; i++) {
-					if(i <= review.rating){
-						starsHtml += '<li><i class="fa fa-star"></i></li>';
-					} else {
-						starsHtml += '<li><i class="fa fa-star-o"></i></li>';
-					}
+					starsHtml += (i <= review.rating) ? '<li><i class="fa fa-star"></i></li>' : '<li><i class="fa fa-star-o"></i></li>';
 				}
 
-				// 이미지 HTML 생성 (있을 경우)
 				let imagesHtml = '';
 				if(review.images && review.images.length > 0){
 					imagesHtml += '<div class="image-preview">';
 					review.images.forEach(function(imgSrc){
-						imagesHtml += `
-                            <a href="${imgSrc}" target="_blank">
-                                <img src="${imgSrc}" alt="리뷰 이미지">
-                            </a>
-                        `;
+						imagesHtml += `<a href="${imgSrc}" target="_blank"><img src="${imgSrc}" alt="리뷰 이미지"></a>`;
 					});
 					imagesHtml += '</div>';
 				}
 
-				// Single Rating HTML 생성
+				// 시간 표시 로직 변경
+				let timeText = '';
+				if (review.updatedAt) {
+					// 수정된 경우 업데이트 시간 표시
+					timeText = review.updatedAt + ' (수정됨)';
+				} else {
+					// 최초 작성 시간
+					timeText = review.createdAt;
+				}
+
+				// 수정 버튼
+				let editButton = '';
+				if(review.user_id === loggedInUserId) {
+					editButton = `<button class="edit-btn" data-index="${index}">수정하기</button>`;
+				}
+
 				let singleRating = `
                     <div class="single-rating">
                         <div class="rating-des">
-                            <h6>${review.user_id}</h6>
-                            <div class="ratings">
-                                <ul class="rating">
-                                    ${starsHtml}
-                                </ul>
-                            </div>
+                            <h6>${review.user_id} <span style="font-size:12px; color:#999; margin-left:10px;">${timeText}</span></h6>
+                            <div class="ratings"><ul class="rating">${starsHtml}</ul></div>
                             <p>${review.message}</p>
                             ${imagesHtml}
+                            ${editButton}
                         </div>
                     </div>
                 `;
@@ -868,20 +678,22 @@
 			});
 		}
 
-		// "Reviews" 탭이 활성화될 때 리뷰 불러오기
+		$('#ratting-main').on('click', '.edit-btn', function() {
+			let index = $(this).data('index');
+			window.location.href = '/test/review?editIndex=' + index;
+		});
+
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-			var target = $(e.target).attr("href"); // 활성화된 탭의 href
+			var target = $(e.target).attr("href");
 			if(target === '#reviews'){
 				loadReviews();
 			}
 		});
 
-		// 페이지 로드 시 "Reviews" 탭이 활성화되어 있다면 리뷰 로드
 		if($('#reviews').hasClass('active')){
 			loadReviews();
 		}
 
-		// 창이 포커스될 때마다 리뷰 갱신 (선택 사항)
 		$(window).on('focus', function() {
 			if($('#reviews').hasClass('active')){
 				loadReviews();
