@@ -1,6 +1,8 @@
-package com.onebook.frontapi.auth.dto;
+package com.onebook.frontapi.dto.member;
 
 
+import com.onebook.frontapi.dto.role.Role;
+import com.onebook.frontapi.dto.grade.Grade;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +18,6 @@ public class Member {
 
 
     private Long id;
-
 
     private Grade grade;
 

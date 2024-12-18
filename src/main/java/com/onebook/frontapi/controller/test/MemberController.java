@@ -1,7 +1,7 @@
-package com.onebook.frontapi.auth.controller;
+package com.onebook.frontapi.controller.test;
 
-import com.onebook.frontapi.auth.dto.Member;
-import com.onebook.frontapi.auth.feign.MemberClient;
+import com.onebook.frontapi.dto.member.Member;
+import com.onebook.frontapi.feign.member.MemberClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

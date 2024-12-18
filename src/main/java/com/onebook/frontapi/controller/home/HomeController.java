@@ -1,4 +1,4 @@
-package com.onebook.frontapi.controller;
+package com.onebook.frontapi.controller.home;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

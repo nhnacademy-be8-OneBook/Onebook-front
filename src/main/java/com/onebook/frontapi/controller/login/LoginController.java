@@ -1,4 +1,4 @@
-package com.onebook.frontapi.auth.controller;
+package com.onebook.frontapi.controller.login;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.onebook.frontapi.auth.dto;
+package com.onebook.frontapi.dto.grade;
 
 
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.onebook.frontapi.address;
+package com.onebook.frontapi.controller.address;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
