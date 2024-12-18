@@ -9,5 +9,4 @@ public interface MemberClient {
 
     @GetMapping("/jwt/joo")
     Member test();
-
 }
