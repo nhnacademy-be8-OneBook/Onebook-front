@@ -115,7 +115,7 @@
 									<li><i class="ti-location-pin"></i> Store location</li>
 									<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
 									<li><i class="ti-user"></i> <a href="#">My account</a></li>
-									<li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
+									<li><i class="ti-power-off"></i><a href="../login/loginForm.html#">Login</a></li>
 								</ul>
 							</div>
 							<!-- End Top Right -->
@@ -244,8 +244,8 @@
 													<li><a href="#">Pages<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
 															<li><a href="about-us.html">About Us</a></li>
-															<li><a href="login.html">Login</a></li>
-															<li><a href="register.html">Register</a></li>
+															<li><a href="../login/loginForm.html">Login</a></li>
+															<li><a href="joinForm.html">Register</a></li>
 															<li><a href="mail-success.html">Mail Success</a></li>
 															<li><a href="404.html">404</a></li>
 														</ul>
@@ -282,7 +282,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="blog-single.html">Login</a></li>
+								<li class="active"><a href="blog-single.html">Register</a></li>
 							</ul>
 						</div>
 					</div>
@@ -297,15 +297,21 @@
 				<div class="row"> 
 					<div class="col-lg-6 offset-lg-3 col-12">
 						<div class="login-form">
-							<h2>Login</h2>
+							<h2>Register</h2>
 							<p>Please register in order to checkout more quickly</p>
 							<!-- Form -->
-							<form class="form" method="post" action="#">
+							<form class="form" method="post" action="/join">
 								<div class="row">
 									<div class="col-12">
 										<div class="form-group">
-											<label>Your Email<span>*</span></label>
-											<input type="email" name="email" placeholder="" required="required">
+											<label>Your Name<span>*</span></label>
+											<input type="text" name="name" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>Your ID<span>*</span></label>
+											<input type="text" name="id" placeholder="" required="required">
 										</div>
 									</div>
 									<div class="col-12">
@@ -315,14 +321,43 @@
 										</div>
 									</div>
 									<div class="col-12">
+										<div class="form-group">
+											<label>Confirm Password<span>*</span></label>
+											<input type="password" name="password" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>Your Date of Birth<span>*</span></label>
+											<input type="text" name="dateOfBirth" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>Your Gender<span>*</span></label>
+											<input type="text" name="gender" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>Your Email<span>*</span></label>
+											<input type="email" name="email" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>Your Phone Number<span>*</span></label>
+											<input type="text" name="phoneNumber" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-12">
 										<div class="form-group login-btn">
-											<button class="btn" type="submit">Login</button>
-											<a href="register.html" class="btn">Register</a>
+											<button class="btn" type="submit">Register</button>
+											<a href="../login/loginForm.html" class="btn">Login</a>
 										</div>
 										<div class="checkbox">
-											<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Remember me</label>
+											<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Sign Up for Newsletter</label>
 										</div>
-										<a href="#" class="lost-pass">Lost your password?</a>
 									</div>
 								</div>
 							</form>
