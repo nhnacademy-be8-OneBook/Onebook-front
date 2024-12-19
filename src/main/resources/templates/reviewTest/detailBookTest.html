@@ -110,7 +110,6 @@
 			transform: scale(1.1);
 		}
 
-		/* 수정하기 버튼 스타일 (배경색 변경) */
 		.edit-btn {
 			background: #eee;
 			border: none;
@@ -125,7 +124,6 @@
 			background: #ccc;
 		}
 
-		/* 더보기/접기 버튼 */
 		.toggle-more-btn {
 			margin-left:5px;
 			font-size:12px;
@@ -153,7 +151,6 @@
 			border-radius:3px;
 			cursor:pointer;
 		}
-
 	</style>
 </head>
 <body class="js">
@@ -276,6 +273,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<div class="header-inner">
 		<div class="container">
@@ -382,16 +380,8 @@
 						<div class="product-des">
 							<div class="short">
 								<h4>Nonstick Dishwasher PFOA</h4>
-								<div class="rating-main">
-									<ul class="rating">
-										<li><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star-half-o"></i></li>
-										<li class="dark"><i class="fa fa-star-o"></i></li>
-									</ul>
-									<a href="#" class="total-review" data-toggle="tab" data-target="#reviews">(102) Review</a>
-								</div>
+								<!-- 평균 평점 및 리뷰 수 표시 영역 -->
+								<div id="avg-rating-container" style="margin-bottom:10px;"></div>
 								<p class="price"><span class="discount">$70.00</span><s>$80.00</s></p>
 								<p class="description">eget velit. Donec ac tempus ante...</p>
 							</div>
@@ -491,6 +481,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </section>
 
@@ -629,88 +620,14 @@
 	</div></div>
 </div>
 
-<footer class="footer">
-	<div class="footer-top section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-5 col-md-6 col-12">
-					<div class="single-footer about">
-						<div class="logo"><a href="index.html"><img src="/images/logo2.png" alt="#"></a></div>
-						<p class="text">Praesent dapibus...</p>
-						<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-6 col-12">
-					<div class="single-footer links">
-						<h4>Information</h4>
-						<ul>
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Faq</a></li>
-							<li><a href="#">Terms & Conditions</a></li>
-							<li><a href="#">Contact Us</a></li>
-							<li><a href="#">Help</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-6 col-12">
-					<div class="single-footer links">
-						<h4>Customer Service</h4>
-						<ul>
-							<li><a href="#">Payment Methods</a></li>
-							<li><a href="#">Money-back</a></li>
-							<li><a href="#">Returns</a></li>
-							<li><a href="#">Shipping</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-12">
-					<div class="single-footer social">
-						<h4>Get In Tuch</h4>
-						<div class="contact">
-							<ul>
-								<li>NO. 342 - London Oxford Street.</li>
-								<li>012 United Kingdom.</li>
-								<li>info@eshop.com</li>
-								<li>+032 3456 7890</li>
-							</ul>
-						</div>
-						<ul>
-							<li><a href="#"><i class="ti-facebook"></i></a></li>
-							<li><a href="#"><i class="ti-twitter"></i></a></li>
-							<li><a href="#"><i class="ti-flickr"></i></a></li>
-							<li><a href="#"><i class="ti-instagram"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="copyright">
-		<div class="container">
-			<div class="inner">
-				<div class="row">
-					<div class="col-lg-6 col-12">
-						<div class="left"><p>Copyright © 2020 <a href="#" target="_blank">Wpthemesgrid</a> - All Rights Reserved.</p></div>
-					</div>
-					<div class="col-lg-6 col-12">
-						<div class="right"><img src="/images/payments.png" alt="#"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</footer>
-
 <!-- 주의사항:
-   - "수정하기" 버튼은 다시 리뷰 하단(이미지 하단) 위치로 돌아왔습니다.
-   - "더보기" 버튼은 축약된 텍스트 바로 옆에 그대로 유지.
-   - "수정하기" 버튼의 스타일은 더보기 버튼과 동일한 배경색(#eee) 적용.
+   - 탭을 누르지 않아도 평균평점과 리뷰수는 항상 표시되게 수정함.
+   - 별 표시 로직 수정: 항상 별은 5개 유지.
+   - (리뷰수)를 클릭하면 리뷰 탭으로 이동하고 그쪽으로 스크롤 이동.
    - 페이지네이션, 더보기/접기 기능은 동일하게 동작.
    - 실제 서버연동이 아닌 로컬스토리지 기반 예제임.
 -->
 
-<!-- Jquery -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-migrate-3.0.0.js"></script>
 <script src="/js/jquery-ui.min.js"></script>
@@ -737,10 +654,76 @@
 	const previewLength = 100;
 
 	$(document).ready(function() {
+		function displayAverageRatingAndCount(reviews) {
+			let avgContainer = $('#avg-rating-container');
+			avgContainer.empty();
+			if(reviews.length === 0) {
+				avgContainer.append('<div class="rating-main"><p>No reviews yet.</p></div>');
+				return;
+			}
+			let sum = 0;
+			reviews.forEach(r => sum += r.rating);
+			let avg = sum / reviews.length;
+			let reviewCount = reviews.length;
+
+			// 별 표시 로직
+			function getStarIcons(avgRating) {
+				let fullStars = Math.floor(avgRating);
+				let fraction = avgRating - fullStars;
+				let stars = '';
+
+				// Add full stars
+				for(let i=0; i<fullStars; i++){
+					stars += '<li><i class="fa fa-star"></i></li>';
+				}
+
+				// Check fraction
+				if(fraction >= 0.75){
+					// add one full star
+					stars += '<li><i class="fa fa-star"></i></li>';
+				} else if(fraction >= 0.25){
+					// add half star
+					stars += '<li><i class="fa fa-star-half-o"></i></li>';
+				}
+
+				// Count how many stars so far
+				let totalStarCount = (stars.match(/fa-star/g) || []).length;
+				let halfStarCount = stars.includes('fa-star-half-o') ? 1 : 0;
+				totalStarCount = totalStarCount - halfStarCount; // full stars count
+				let usedSlots = totalStarCount + halfStarCount;
+
+				// Fill remaining with empty stars
+				for(let i=usedSlots; i<5; i++){
+					stars += '<li class="dark"><i class="fa fa-star-o"></i></li>';
+				}
+
+				return stars;
+			}
+
+			let starIcons = getStarIcons(avg);
+			let avgDisplay = avg.toFixed(1);
+
+			// 리뷰 수 클릭 -> 리뷰 탭 이동
+			// data-target="#reviews" 가 있는 a를 클릭시 부트스트랩 탭 이동 가능
+			let html = `
+                <div class="rating-main">
+                    <ul class="rating">
+                        ${starIcons}
+                    </ul>
+                    <a href="#" class="total-review-link" style="cursor:pointer;">(${reviewCount} Review)</a>
+                    <span style="margin-left:10px; font-size:14px; color:#333;">평균 평점: ${avgDisplay}</span>
+                </div>
+            `;
+			avgContainer.append(html);
+		}
+
 		function loadReviews() {
 			let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 			let rattingMain = $('#ratting-main');
 			rattingMain.empty();
+
+			// 평균 평점 표시(항상)
+			displayAverageRatingAndCount(reviews);
 
 			if(reviews.length === 0){
 				rattingMain.append('<p>작성된 리뷰가 없습니다.</p>');
@@ -779,12 +762,10 @@
 				}
 
 				let fullMessage = review.message;
-				let shortened = false;
 				let displayMessage = fullMessage;
 				let toggleBtnHtml = '';
 				if(fullMessage.length > previewLength) {
 					displayMessage = fullMessage.substring(0, previewLength) + '...';
-					shortened = true;
 					toggleBtnHtml = `<button class="toggle-more-btn">더보기</button>`;
 				}
 
@@ -854,6 +835,24 @@
 			window.location.href = '/test/review?editIndex=' + index;
 		});
 
+		// 리뷰 탭 자동 진입
+		// (리뷰수)를 클릭하면 리뷰 탭으로 이동하고 scroll
+		$(document).on('click', '.total-review-link', function(e){
+			e.preventDefault();
+			// 탭 변경
+			$('a[data-toggle="tab"][href="#reviews"]').tab('show');
+			// 스크롤 이동
+			$('html, body').animate({
+				scrollTop: $("#reviews").offset().top
+			}, 500);
+		});
+
+		// 페이지 로드 시 리뷰 로드(평균평점 항상 표시)
+		// 그리고 탭을 열지 않아도 평균평점을 표시하기 위해 로드
+		loadReviews();
+
+		// 탭 전환시에도 loadReviews()는 필요하지만 이미 위에서 처리했으니
+		// 리뷰 탭 클릭시 다시 한번 로드 (데이터 최신화 대비)
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			var target = $(e.target).attr("href");
 			if(target === '#reviews'){
@@ -861,11 +860,8 @@
 			}
 		});
 
-		if($('#reviews').hasClass('active')){
-			loadReviews();
-		}
-
 		$(window).on('focus', function() {
+			// 포커스 돌아왔을 때 리뷰탭 활성화 상태면 최신화
 			if($('#reviews').hasClass('active')){
 				loadReviews();
 			}
@@ -875,4 +871,3 @@
 
 </body>
 </html>
-
