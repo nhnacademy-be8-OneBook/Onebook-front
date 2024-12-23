@@ -24,7 +24,7 @@ public class SecurityConfig {
     private final MemberFeignClient memberFeignClient;
     private final AuthFeignClient authFeignClient;
 
-    @Bean
+//    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
 
@@ -38,10 +38,16 @@ public class SecurityConfig {
 //                        .successForwardUrl("/")
                         .permitAll() // 로그인 페이지 접근 허용
         );
-        http.authorizeHttpRequests(authRequest -> {
-            authRequest.requestMatchers("/auth/login", "/public/**").permitAll()
-                    .anyRequest().authenticated();
-        });
+
+
+        // 개발 할 때는 꺼놓기
+//        http.authorizeHttpRequests(authRequest -> {
+//            authRequest.requestMatchers("/auth/login", "/public/**").permitAll()
+//                    .anyRequest().authenticated();
+//        });
+
+        // 개발 중일 때
+        http.authorizeHttpRequests( authRequest -> authRequest.anyRequest().permitAll());
 
         // logout 시 쿠키 삭제하기
         http.logout( logout -> {
@@ -52,6 +58,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
 
     // Password Encoder, InMemory is Dev

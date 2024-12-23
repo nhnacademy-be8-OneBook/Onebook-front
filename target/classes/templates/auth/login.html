@@ -53,7 +53,34 @@
         </div>
     </div>
     <script>
+        document.getElementById('form').addEventListener('submit', async (event) => {
+            event.preventDefault(); // 기본 폼 제출 방지
 
+            console.log("hello")
+            const id = document.getElementById('id').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/login/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    id: id,
+                    password: password,
+                }),
+            });
+
+            console.log(response)
+
+            if (response.ok) {
+                // 로그인 성공 처리
+                window.location.href = '/'; // 리다이렉션
+            } else {
+                // 로그인 실패 처리
+                alert('Login failed');
+            }
+        });
     </script>
 </section>
 <!--/ End Login -->
