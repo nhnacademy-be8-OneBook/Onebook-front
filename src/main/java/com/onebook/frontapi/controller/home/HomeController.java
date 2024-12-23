@@ -21,8 +21,9 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("serverPort", port);
-        String s = authFeignClient.returnString();
-        log.info("string : {}", s);
+        // TODO jwt 개발
+//        String s = authFeignClient.returnString();
+//        log.info("string : {}", s);
 
         return "home";
     }
