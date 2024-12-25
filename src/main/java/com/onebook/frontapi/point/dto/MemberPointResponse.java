@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class UserPointResponse {
+public class MemberPointResponse {
     private Long pointId;
     private Integer pointHistoryValue;
     private PointHistoryType pointHistoryType;

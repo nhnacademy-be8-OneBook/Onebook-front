@@ -2,7 +2,7 @@ package com.onebook.frontapi.point.service;
 
 import com.onebook.frontapi.point.adapter.PointAdapter;
 import com.onebook.frontapi.point.dto.CommonResponse;
-import com.onebook.frontapi.point.dto.UserPointResponse;
+import com.onebook.frontapi.point.dto.MemberPointResponse;
 import com.onebook.frontapi.point.exception.LoginRequiredException;
 import feign.FeignException;
 import java.util.List;
@@ -17,10 +17,10 @@ public class PointService {
 
     private final PointAdapter pointAdapter;
 
-    public List<UserPointResponse> getUserPointHistories() {
-        CommonResponse<List<UserPointResponse>> userPointHistories;
+    public List<MemberPointResponse> getMemberPointHistories() {
+        CommonResponse<List<MemberPointResponse>> userPointHistories;
         try {
-            userPointHistories = pointAdapter.getUserPointHistories();
+            userPointHistories = pointAdapter.getMemberPointHistories();
         } catch (FeignException.Unauthorized | FeignException.BadRequest ex) {
             throw new LoginRequiredException("나의 포인트 내역 조회에 접근하나 로그인 되어있지 않음");
         } catch (FeignException.NotFound ex) {

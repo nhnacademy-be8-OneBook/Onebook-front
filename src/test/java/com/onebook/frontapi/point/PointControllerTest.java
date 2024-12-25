@@ -1,7 +1,7 @@
 package com.onebook.frontapi.point;
 
 import com.onebook.frontapi.point.controller.PointController;
-import com.onebook.frontapi.point.dto.UserPointResponse;
+import com.onebook.frontapi.point.dto.MemberPointResponse;
 import com.onebook.frontapi.point.enums.PointHistoryType;
 import com.onebook.frontapi.point.service.PointService;
 import org.hibernate.service.spi.ServiceException;
@@ -33,26 +33,26 @@ class PointControllerTest {
     }
 
     @Test
-    void getUserPointHistories_shouldReturnPointHistories() throws Exception {
-        List<UserPointResponse> mockPointHistories = Arrays.asList(
-                new UserPointResponse(1L, 100, PointHistoryType.PURCHASE, null),
-                new UserPointResponse(2L, 200, PointHistoryType.CASHBACK, null)
+    void getMemberPointHistories_shouldReturnPointHistories() throws Exception {
+        List<MemberPointResponse> mockPointHistories = Arrays.asList(
+                new MemberPointResponse(1L, 100, PointHistoryType.PURCHASE, null),
+                new MemberPointResponse(2L, 200, PointHistoryType.CASHBACK, null)
         );
 
-        when(pointService.getUserPointHistories()).thenReturn(mockPointHistories);
+        when(pointService.getMemberPointHistories()).thenReturn(mockPointHistories);
 
         mockMvc.perform(get("/point/my_point"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("point/point_history"))
-                .andExpect(model().attributeExists("userPointHistories"))
-                .andExpect(model().attribute("userPointHistories", mockPointHistories));
+                .andExpect(model().attributeExists("memberPointHistories"))
+                .andExpect(model().attribute("memberPointHistories", mockPointHistories));
 
-        verify(pointService, times(1)).getUserPointHistories();
+        verify(pointService, times(1)).getMemberPointHistories();
     }
 
     @Test
-    void getUserPointHistories_shouldReturnError_whenServiceFails() throws Exception {
-        when(pointService.getUserPointHistories()).thenThrow(new RuntimeException("Error"));
+    void getMemberPointHistories_shouldReturnError_whenServiceFails() throws Exception {
+        when(pointService.getMemberPointHistories()).thenThrow(new RuntimeException("Error"));
 
         mockMvc.perform(get("/point/my_point"))
                 .andExpect(status().isInternalServerError())
@@ -60,32 +60,32 @@ class PointControllerTest {
                 .andExpect(model().attributeExists("errorMessage"))
                 .andExpect(model().attribute("errorMessage", "An error occurred while fetching point histories"));
 
-        verify(pointService, times(1)).getUserPointHistories();
+        verify(pointService, times(1)).getMemberPointHistories();
     }
 
     @Test
-    void getUserPointHistories_shouldReturnEmptyList_whenNoHistoriesFound() throws Exception {
-        when(pointService.getUserPointHistories()).thenReturn(Arrays.asList());
+    void getMemberPointHistories_shouldReturnEmptyList_whenNoHistoriesFound() throws Exception {
+        when(pointService.getMemberPointHistories()).thenReturn(Arrays.asList());
 
         mockMvc.perform(get("/point/my_point"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("point/point_history"))
-                .andExpect(model().attributeExists("userPointHistories"))
-                .andExpect(model().attribute("userPointHistories", Arrays.asList()));
+                .andExpect(model().attributeExists("memberPointHistories"))
+                .andExpect(model().attribute("memberPointHistories", Arrays.asList()));
 
-        verify(pointService, times(1)).getUserPointHistories();
+        verify(pointService, times(1)).getMemberPointHistories();
     }
 
     @Test
-    void getUserPointHistories_shouldHandleServiceException() throws Exception {
-        when(pointService.getUserPointHistories()).thenThrow(new ServiceException("An error occurred while fetching point histories"));
+    void getMemberPointHistories_shouldHandleServiceException() throws Exception {
+        when(pointService.getMemberPointHistories()).thenThrow(new ServiceException("An error occurred while fetching point histories"));
 
         mockMvc.perform(get("/point/my_point"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(view().name("error"))
                 .andExpect(model().attributeExists("errorMessage"))
-                .andExpect(model().attribute("errorMessage", "An error occurred while fetching point histories"));  // 기대값 수정
+                .andExpect(model().attribute("errorMessage", "An error occurred while fetching point histories"));
 
-        verify(pointService, times(1)).getUserPointHistories();
+        verify(pointService, times(1)).getMemberPointHistories();
     }
 }

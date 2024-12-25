@@ -2,7 +2,7 @@ package com.onebook.frontapi.point;
 
 import com.onebook.frontapi.point.adapter.PointAdapter;
 import com.onebook.frontapi.point.dto.CommonResponse;
-import com.onebook.frontapi.point.dto.UserPointResponse;
+import com.onebook.frontapi.point.dto.MemberPointResponse;
 import com.onebook.frontapi.point.enums.PointHistoryType;
 import com.onebook.frontapi.point.service.PointService;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,64 +36,64 @@ class PointAdapterTest {
     @Test
     void getUserPointHistories_shouldReturnPointHistories() {
         // Prepare mock data
-        UserPointResponse userPointResponse = UserPointResponse.builder()
+        MemberPointResponse userPointResponse = MemberPointResponse.builder()
                 .pointId(1L)
                 .pointHistoryValue(100)
                 .pointHistoryType(PointHistoryType.PURCHASE)
                 .createdAt(null)
                 .build();
 
-        CommonResponse<List<UserPointResponse>> mockResponse = CommonResponse.<List<UserPointResponse>>builder()
+        CommonResponse<List<MemberPointResponse>> mockResponse = CommonResponse.<List<MemberPointResponse>>builder()
                 .header(null)  // Not relevant for this test
                 .result(Arrays.asList(userPointResponse))
                 .build();
 
         // Mock the adapter's behavior
-        when(pointAdapter.getUserPointHistories()).thenReturn(mockResponse);
+        when(pointAdapter.getMemberPointHistories()).thenReturn(mockResponse);
 
         // Test the adapter method
-        CommonResponse<List<UserPointResponse>> response = pointAdapter.getUserPointHistories();
+        CommonResponse<List<MemberPointResponse>> response = pointAdapter.getMemberPointHistories();
 
         assertNotNull(response);
         assertNotNull(response.getResult());
         assertEquals(1, response.getResult().size());
         assertEquals(100, response.getResult().get(0).getPointHistoryValue());
-        verify(pointAdapter, times(1)).getUserPointHistories();
+        verify(pointAdapter, times(1)).getMemberPointHistories();
     }
 
     @Test
     void getUserPointHistories_shouldReturnEmptyListWhenNoPoints() {
         // Prepare mock response with an empty list
-        CommonResponse<List<UserPointResponse>> emptyResponse = CommonResponse.<List<UserPointResponse>>builder()
+        CommonResponse<List<MemberPointResponse>> emptyResponse = CommonResponse.<List<MemberPointResponse>>builder()
                 .header(null)
                 .result(Collections.emptyList())  // Empty list response
                 .build();
 
         // Mock the adapter's behavior
-        when(pointAdapter.getUserPointHistories()).thenReturn(emptyResponse);
+        when(pointAdapter.getMemberPointHistories()).thenReturn(emptyResponse);
 
         // Test the adapter method for empty list
-        CommonResponse<List<UserPointResponse>> response = pointAdapter.getUserPointHistories();
+        CommonResponse<List<MemberPointResponse>> response = pointAdapter.getMemberPointHistories();
 
         assertNotNull(response);
         assertNotNull(response.getResult());
         assertTrue(response.getResult().isEmpty());  // Ensure the result is an empty list
-        verify(pointAdapter, times(1)).getUserPointHistories();
+        verify(pointAdapter, times(1)).getMemberPointHistories();
     }
 
     @Test
     void getUserPointHistories_shouldReturnErrorWhenAdapterFails() {
         // Mock the adapter to throw an exception (simulating failure)
-        when(pointAdapter.getUserPointHistories()).thenThrow(new RuntimeException("Service failure"));
+        when(pointAdapter.getMemberPointHistories()).thenThrow(new RuntimeException("Service failure"));
 
         // Test the adapter method when it fails
         try {
-            pointAdapter.getUserPointHistories();
+            pointAdapter.getMemberPointHistories();
             fail("Expected exception was not thrown");
         } catch (RuntimeException e) {
             assertEquals("Service failure", e.getMessage());
         }
 
-        verify(pointAdapter, times(1)).getUserPointHistories();
+        verify(pointAdapter, times(1)).getMemberPointHistories();
     }
 }

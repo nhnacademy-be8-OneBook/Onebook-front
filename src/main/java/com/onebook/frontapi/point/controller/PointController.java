@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Controller
 @RequestMapping("/point")
 public class PointController {
-
     private final PointService pointService;
 
     public PointController(PointService pointService) {
@@ -21,9 +20,9 @@ public class PointController {
     }
 
     @GetMapping("/my_point")
-    public String getUserPointHistories(Model model) {
+    public String getMemberPointHistories(Model model) {
         try {
-            model.addAttribute("userPointHistories", pointService.getUserPointHistories());
+            model.addAttribute("memberPointHistories", pointService.getMemberPointHistories());
             return "point/point_history";
         } catch (RuntimeException e) {
             throw new ServiceException("An error occurred while fetching point histories", e);
