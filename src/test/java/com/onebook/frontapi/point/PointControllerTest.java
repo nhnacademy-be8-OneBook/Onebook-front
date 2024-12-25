@@ -4,12 +4,11 @@ import com.onebook.frontapi.point.controller.PointController;
 import com.onebook.frontapi.point.dto.UserPointResponse;
 import com.onebook.frontapi.point.enums.PointHistoryType;
 import com.onebook.frontapi.point.service.PointService;
+import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -20,25 +19,21 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(PointController.class)
 class PointControllerTest {
 
-    @Mock
+    @MockBean
     private PointService pointService;
-
-    @InjectMocks
-    private PointController pointController;
 
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(pointController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new PointController(pointService)).build();
     }
 
     @Test
     void getUserPointHistories_shouldReturnPointHistories() throws Exception {
-        // Mocking the service call to return a list of UserPointResponse objects
         List<UserPointResponse> mockPointHistories = Arrays.asList(
                 new UserPointResponse(1L, 100, PointHistoryType.PURCHASE, null),
                 new UserPointResponse(2L, 200, PointHistoryType.CASHBACK, null)
@@ -46,27 +41,51 @@ class PointControllerTest {
 
         when(pointService.getUserPointHistories()).thenReturn(mockPointHistories);
 
-        // Perform the GET request to the controller and validate the response
         mockMvc.perform(get("/point/my_point"))
-                .andExpect(status().isOk()) // Ensure HTTP 200 OK response
-                .andExpect(view().name("point/point_history")) // Check view name
-                .andExpect(model().attributeExists("userPointHistories")) // Check model attribute
-                .andExpect(model().attribute("userPointHistories", mockPointHistories)); // Check the model attribute value
+                .andExpect(status().isOk())
+                .andExpect(view().name("point/point_history"))
+                .andExpect(model().attributeExists("userPointHistories"))
+                .andExpect(model().attribute("userPointHistories", mockPointHistories));
 
-        // Verify that the service method was called exactly once
         verify(pointService, times(1)).getUserPointHistories();
     }
 
     @Test
     void getUserPointHistories_shouldReturnError_whenServiceFails() throws Exception {
-        // Simulate an exception in the service layer (e.g., LoginRequiredException)
         when(pointService.getUserPointHistories()).thenThrow(new RuntimeException("Error"));
 
-        // Perform the GET request and validate that the error page is returned
         mockMvc.perform(get("/point/my_point"))
-                .andExpect(status().isInternalServerError()); // Check for internal server error
+                .andExpect(status().isInternalServerError())
+                .andExpect(view().name("error"))
+                .andExpect(model().attributeExists("errorMessage"))
+                .andExpect(model().attribute("errorMessage", "An error occurred while fetching point histories"));
 
-        // Verify that the service method was called exactly once
+        verify(pointService, times(1)).getUserPointHistories();
+    }
+
+    @Test
+    void getUserPointHistories_shouldReturnEmptyList_whenNoHistoriesFound() throws Exception {
+        when(pointService.getUserPointHistories()).thenReturn(Arrays.asList());
+
+        mockMvc.perform(get("/point/my_point"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("point/point_history"))
+                .andExpect(model().attributeExists("userPointHistories"))
+                .andExpect(model().attribute("userPointHistories", Arrays.asList()));
+
+        verify(pointService, times(1)).getUserPointHistories();
+    }
+
+    @Test
+    void getUserPointHistories_shouldHandleServiceException() throws Exception {
+        when(pointService.getUserPointHistories()).thenThrow(new ServiceException("An error occurred while fetching point histories"));
+
+        mockMvc.perform(get("/point/my_point"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(view().name("error"))
+                .andExpect(model().attributeExists("errorMessage"))
+                .andExpect(model().attribute("errorMessage", "An error occurred while fetching point histories"));  // 기대값 수정
+
         verify(pointService, times(1)).getUserPointHistories();
     }
 }

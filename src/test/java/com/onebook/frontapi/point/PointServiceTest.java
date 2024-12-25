@@ -24,15 +24,15 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)  // MockitoExtension을 사용하여 자동으로 Mock 객체 초기화
 class PointServiceTest {
 
-    @Mock
-    private PointAdapter pointAdapter;  // Mock 객체로 선언
+    @Mock  // Mock 객체로 선언
+    private PointAdapter pointAdapter;
 
-    @InjectMocks
-    private PointService pointService;  // @Mock 객체가 자동으로 주입됨
+    @InjectMocks  // @Mock 객체가 자동으로 주입됨
+    private PointService pointService;
 
     @BeforeEach
     void setUp() {
-        // mock setup is done automatically with @Mock and @InjectMocks
+        // Mock setup is done automatically with @Mock and @InjectMocks
     }
 
     @Test

@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -57,6 +58,42 @@ class PointAdapterTest {
         assertNotNull(response.getResult());
         assertEquals(1, response.getResult().size());
         assertEquals(100, response.getResult().get(0).getPointHistoryValue());
+        verify(pointAdapter, times(1)).getUserPointHistories();
+    }
+
+    @Test
+    void getUserPointHistories_shouldReturnEmptyListWhenNoPoints() {
+        // Prepare mock response with an empty list
+        CommonResponse<List<UserPointResponse>> emptyResponse = CommonResponse.<List<UserPointResponse>>builder()
+                .header(null)
+                .result(Collections.emptyList())  // Empty list response
+                .build();
+
+        // Mock the adapter's behavior
+        when(pointAdapter.getUserPointHistories()).thenReturn(emptyResponse);
+
+        // Test the adapter method for empty list
+        CommonResponse<List<UserPointResponse>> response = pointAdapter.getUserPointHistories();
+
+        assertNotNull(response);
+        assertNotNull(response.getResult());
+        assertTrue(response.getResult().isEmpty());  // Ensure the result is an empty list
+        verify(pointAdapter, times(1)).getUserPointHistories();
+    }
+
+    @Test
+    void getUserPointHistories_shouldReturnErrorWhenAdapterFails() {
+        // Mock the adapter to throw an exception (simulating failure)
+        when(pointAdapter.getUserPointHistories()).thenThrow(new RuntimeException("Service failure"));
+
+        // Test the adapter method when it fails
+        try {
+            pointAdapter.getUserPointHistories();
+            fail("Expected exception was not thrown");
+        } catch (RuntimeException e) {
+            assertEquals("Service failure", e.getMessage());
+        }
+
         verify(pointAdapter, times(1)).getUserPointHistories();
     }
 }
