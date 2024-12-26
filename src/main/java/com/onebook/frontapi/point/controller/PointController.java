@@ -19,11 +19,11 @@ public class PointController {
         this.pointService = pointService;
     }
 
-    @GetMapping("/my_point")
+    @GetMapping("/mypoint")
     public String getMemberPointHistories(Model model) {
         try {
             model.addAttribute("memberPointHistories", pointService.getMemberPointHistories());
-            return "point/point_history";
+            return "point/pointhistory";
         } catch (RuntimeException e) {
             throw new ServiceException("An error occurred while fetching point histories", e);
         }
