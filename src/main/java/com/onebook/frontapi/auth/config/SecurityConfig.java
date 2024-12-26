@@ -41,6 +41,7 @@ public class SecurityConfig {
             log.info("dev profile ");
             http.authorizeHttpRequests(authRequest ->
                     authRequest.anyRequest().permitAll());
+
         } else {
             log.info("not dev ");
             http.formLogin(formLogin ->
@@ -49,12 +50,12 @@ public class SecurityConfig {
                                     .usernameParameter("id") // 사용자명 파라미터 이름
                                     .passwordParameter("password") // 비밀번호 파라미터 이름
                                     .loginProcessingUrl("/login/process") // 로그인 처리 URL
-//                        .successHandler(new AuthSuccessHandler(authFeignClient))// jwt token 추가하기
+                                    .successHandler(new AuthSuccessHandler(authFeignClient))// jwt token 추가하기
                                     .permitAll() // 로그인 페이지 접근 허용
             );
             // dev 외의 환경에서는 제한된 접근만 허용
             http.authorizeHttpRequests(authRequest -> {
-                authRequest.requestMatchers("/auth/login", "/public/**",
+                authRequest.requestMatchers("/", "/auth/login", "/public/**",
                                 "/css/**", "/js/**", "/images/**",
                                 "/style.css").permitAll()
                         .anyRequest().authenticated();
