@@ -10,6 +10,6 @@ public class MyInfoController {
 
     @GetMapping
     public String myInfoForm() {
-        return "myInfo";
+        return "myInfo/home";
     }
 }

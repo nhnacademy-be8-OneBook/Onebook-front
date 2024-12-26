@@ -39,6 +39,23 @@
             <scope>test</scope>
         </dependency>
 
+<!--		validate 의존성 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+<!--		redis 의존성-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
         <!-- OpenFeign 의존성 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -46,6 +63,7 @@
 <!--            문영호 open feign 이 스프링부트랑 3.3.0 이랑 버전이 안맞아서 지워놓음 -->
 <!--            <version>4.2.0</version>-->
         </dependency>
+
 
         <!-- security -->
         <dependency>
