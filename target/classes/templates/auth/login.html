@@ -10,6 +10,44 @@
     <!-- Title Tag  -->
     <title>Eshop - eCommerce HTML5 Template.</title>
 
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <!-- StyleSheet -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Fancybox -->
+<!--    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">-->
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="/css/color/color1.css">
+
+    <link rel="stylesheet" href="#" id="colors">
+
+
 </head>
 <body>
 
@@ -52,36 +90,6 @@
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('form').addEventListener('submit', async (event) => {
-            event.preventDefault(); // 기본 폼 제출 방지
-
-            console.log("hello")
-            const id = document.getElementById('id').value;
-            const password = document.getElementById('password').value;
-
-            const response = await fetch('/login/process', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    id: id,
-                    password: password,
-                }),
-            });
-
-            console.log(response)
-
-            if (response.ok) {
-                // 로그인 성공 처리
-                window.location.href = '/'; // 리다이렉션
-            } else {
-                // 로그인 실패 처리
-                alert('Login failed');
-            }
-        });
-    </script>
 </section>
 <!--/ End Login -->
 
