@@ -4,18 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@Setter
-@Getter
-public class Role {
-
-    /* 1: MEMBER, 2: ADMIN */
-
-    private Integer id;
-
-    private String name;
-
-    private String description;
-
-
-}
+public record Role(
+        /* 1: MEMBER, 2: ADMIN */
+        Integer id,
+        String name,
+        String description
+){ }
