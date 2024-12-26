@@ -56,7 +56,7 @@ public class SecurityConfig {
             // dev 외의 환경에서는 제한된 접근만 허용
             http.authorizeHttpRequests(authRequest -> {
                 authRequest.requestMatchers("/", "/auth/login", "/public/**",
-                                "/css/**", "/js/**", "/images/**",
+                                "/css/**", "/js/**", "/images/**", "/join", "/test/**",
                                 "/style.css").permitAll()
                         .anyRequest().authenticated();
             });
