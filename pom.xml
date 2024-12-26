@@ -56,8 +56,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-	</dependencies>
-
         <!-- OpenFeign 의존성 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
