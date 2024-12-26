@@ -14,6 +14,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
     private final HttpServletRequest request;
     @Override
     public void apply(RequestTemplate requestTemplate) {
+
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){

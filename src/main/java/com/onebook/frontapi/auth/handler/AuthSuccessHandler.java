@@ -44,6 +44,8 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         log.info("jwt token tokenType : {}", jwtToken.getBody().getTokenType());
         log.info("jwt token ExpiredIn : {}", jwtToken.getBody().getExpiredIn());
 //          cookie
+
+        // cookie 이름 바꾸기
         Cookie cookie = new Cookie("Authorization",
                  jwtToken.getBody().getAccessToken()
         );
