@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Packaging List</title>
+    <style>
+        table {
+            width: 50%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center;">Packaging List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="packaging : ${packagingList}">
+        <td th:text="${packaging.id}"></td>
+        <td th:text="${packaging.name}"></td>
+        <td th:text="${packaging.price}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
