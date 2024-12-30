@@ -115,4 +115,9 @@ public class ViewTestController {
         return "/reviewTest/detailBookTest";
     }
 
+    @GetMapping("/test/fragments")
+    public String getFragments(){
+        return "/fragments/view";
+    }
+
 }
