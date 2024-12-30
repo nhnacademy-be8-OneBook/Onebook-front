@@ -3,8 +3,7 @@ package com.onebook.frontapi.adaptor.packaging;
 import lombok.Getter;
 
 @Getter
-public class PackagingResponseAdaptor {
-    int id;
+public class PackagingRequestAdaptor {
     String name;
     int price;
 }
