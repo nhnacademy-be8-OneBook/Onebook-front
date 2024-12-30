@@ -1,0 +1,75 @@
+<!--// 삭제 필요-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Address Management</title>
+  <style>
+    table {
+      width: 80%;
+      margin: auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 12px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script>
+    // 부모 창으로 데이터를 전달하는 함수
+    function selectAddress(name, phone, address) {
+      window.opener.setAddress(name, phone, address);
+      window.close(); // 팝업창 닫기
+    }
+  </script>
+</head>
+<body>
+<h1 style="text-align: center;">주소 관리</h1>
+<table>
+  <thead>
+  <tr>
+    <th>이름</th>
+    <th>전화번호</th>
+    <th>주소</th>
+    <th>선택</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- 테스트 데이터 -->
+  <tr>
+    <td>홍길동</td>
+    <td>010-1234-5678</td>
+    <td>서울특별시 강남구 테헤란로 123</td>
+    <td>
+      <button class="btn" onclick="selectAddress('홍길동', '010-1234-5678', '서울특별시 강남구 테헤란로 123')">선택</button>
+    </td>
+  </tr>
+  <tr>
+    <td>김철수</td>
+    <td>010-8765-4321</td>
+    <td>부산광역시 해운대구 우동 456</td>
+    <td>
+      <button class="btn" onclick="selectAddress('김철수', '010-8765-4321', '부산광역시 해운대구 우동 456')">선택</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
