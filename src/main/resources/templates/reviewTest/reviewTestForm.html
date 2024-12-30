@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name='copyright' content=''>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Title Tag  -->
     <title>리뷰 작성 페이지 - Eshop</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
+
     <!-- Web Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
@@ -35,7 +37,9 @@
             justify-content: flex-end;
             gap: 5px;
         }
-        .star-rating input[type="radio"] { display: none; }
+        .star-rating input[type="radio"] {
+            display: none;
+        }
         .star-rating label.star {
             font-size: 30px;
             color: #ccc;
@@ -47,87 +51,182 @@
         .star-rating input[type="radio"]:checked ~ label.star ~ label.star {
             color: #f5b301;
         }
-
-        .form .form-group label { margin-bottom: 5px; font-weight: 500; }
+        .form .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
         .form .form-group input,
         .form .form-group textarea,
         .form .form-group select {
-            width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 3px; background: #F6F7FB; color: #333;
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background: #F6F7FB;
+            color: #333;
         }
-        .form .form-group textarea { resize: vertical; }
+        .form .form-group textarea {
+            resize: vertical;
+        }
         .form .btn {
-            background: #F7941D; color: #fff; border: none; cursor: pointer; padding: 10px 20px; border-radius: 3px; transition: background 0.3s;
+            background: #F7941D;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 3px;
+            transition: background 0.3s;
         }
-        .form .btn:hover { background: #333; }
-
+        .form .btn:hover {
+            background: #333;
+        }
         .purchase-info {
-            display: flex; align-items: center; margin-bottom: 20px; gap: 20px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 20px;
         }
         .purchase-info img {
-            width: 100px; height: 150px; object-fit: cover; border: 1px solid #ddd; border-radius: 3px;
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 3px;
         }
-        .purchase-info .book-name { font-size: 20px; color: #333; font-weight: 600; }
-
+        .purchase-info .book-name {
+            font-size: 20px;
+            color: #333;
+            font-weight: 600;
+        }
         @media (max-width: 768px) {
-            .single-rating { flex-direction: column; align-items: flex-start; text-align: left; }
-            .purchase-info { flex-direction: column; gap: 10px; }
+            .single-rating {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+            .purchase-info {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
-
-        .custom-file-input { display: none; }
+        .custom-file-input {
+            display: none;
+        }
         .custom-file-label {
-            display: inline-block; padding: 10px 15px; background-color: #F6F7FB; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; margin-top: 10px; transition: background-color 0.3s;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #F6F7FB;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
         }
-        .custom-file-label:hover { background-color: #e9ecef; }
-
+        .custom-file-label:hover {
+            background-color: #e9ecef;
+        }
         .image-preview {
-            display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
         }
         .image-preview .image-container {
-            position: relative; width: 100px; height: 100px;
+            position: relative;
+            width: 100px;
+            height: 100px;
         }
-        .image-preview img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #ddd; border-radius: 3px; }
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
         .image-preview .image-container .delete-image {
-            position: absolute; top: 1px; right: 1px; background-color: rgba(0, 0, 0, 0.7); color: #fff; border: none; width: 20px; height: 20px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; transition: background-color 0.3s, transform 0.2s; z-index: 2;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border: none;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            transition: background-color 0.3s, transform 0.2s;
+            z-index: 2;
         }
-        .image-preview .image-container .delete-image:hover { background-color: rgba(255, 0, 0, 0.8); transform: scale(1.2); }
-        .image-preview .image-container.fade-out { opacity: 0; transition: opacity 0.5s; }
+        .image-preview .image-container .delete-image:hover {
+            background-color: rgba(255, 0, 0, 0.8);
+            transform: scale(1.2);
+        }
+        .image-preview .image-container.fade-out {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
     </style>
 </head>
 <body class="js">
-
 <div class="preloader">
-    <div class="preloader-inner"><div class="preloader-icon"><span></span><span></span></div></div>
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span><span></span>
+        </div>
+    </div>
 </div>
 
 <section class="shop single section">
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <!-- 구매한 도서 정보 (예시) -->
                 <div class="comment-review">
                     <div class="purchase-info">
                         <img src="https://via.placeholder.com/100x150" alt="도서 이미지">
-                        <div class="book-name">구매한 도서의 이름</div>
+                        <div class="book-name">구매한 도서의 이름(bookName)</div>
                     </div>
                 </div>
-                <form class="form" id="review-form">
+
+                <!-- 리뷰 작성 폼 -->
+                <form class="form" id="review-form"> <!-- enctype="multipart/form-data"> -->
                     <div class="row">
-                        <!-- ID를 사용자가 수정할 수 있게 변경(테스트용) -->
+                        <!-- MemberID 입력 -->
+                        <!-- 추후에는 MemberId를 가지고 loginId를 가져와야함 -->
                         <div class="col-lg-12 col-12">
                             <div class="form-group">
-                                <div>현재 로그인 된 아이디 user1234 (테스트용)</div>
-                                <label for="user-id">ID<span>*</span></label>
+                                <div>현재 로그인 된 아이디가 나오도록 수정해야함</div>
+                                <label for="user-id">Member ID<span>*</span></label>
                                 <input type="text" id="user-id" name="user_id" required="required" value="">
                             </div>
                         </div>
+
+                        <!-- BookID 입력(실제로는 가져와야댐) -->
+                        <div class="col-lg-12 col-12">
+                            <div class="form-group">
+                                <label for="book-id">Book ID<span>*</span></label>
+                                <input type="number" id="book-id" name="book_id" required="required" value="1">
+                            </div>
+                        </div>
+
+                        <!-- 리뷰 내용 -->
                         <div class="col-lg-12 col-12">
                             <div class="form-group">
                                 <label for="review-message">리뷰 작성<span>*</span></label>
                                 <textarea id="review-message" name="message" rows="6" placeholder="리뷰를 작성하세요" required></textarea>
                             </div>
                         </div>
+
                         <!-- 리뷰 사진 첨부 -->
                         <div class="col-lg-12 col-12">
                             <div class="form-group">
+<!--                                <input type="file" accept="image/*"/>-->
+<!--                                <input type="file" accept="image/*"/>-->
+<!--                                <input type="file" accept="image/*"/>-->
                                 <label for="review-images">사진 첨부 (최대 3장)</label>
                                 <!-- 커스텀 파일 입력 버튼 -->
                                 <div>
@@ -140,23 +239,26 @@
                                 <div class="image-preview" id="image-preview"></div>
                             </div>
                         </div>
+
+                        <!-- 별점(1~5) -->
                         <div class="col-lg-12 col-12">
                             <div class="form-group">
                                 <label>별점<span>*</span></label>
                                 <div class="star-rating">
-                                    <input type="radio" id="5-stars" name="rating" value="5" />
+                                    <input type="radio" id="5-stars" name="rating" value=5 />
                                     <label for="5-stars" class="star"><i class="fa fa-star"></i></label>
-                                    <input type="radio" id="4-stars" name="rating" value="4" />
+                                    <input type="radio" id="4-stars" name="rating" value=4 />
                                     <label for="4-stars" class="star"><i class="fa fa-star"></i></label>
-                                    <input type="radio" id="3-stars" name="rating" value="3" />
+                                    <input type="radio" id="3-stars" name="rating" value=3 />
                                     <label for="3-stars" class="star"><i class="fa fa-star"></i></label>
-                                    <input type="radio" id="2-stars" name="rating" value="2" />
+                                    <input type="radio" id="2-stars" name="rating" value=2 />
                                     <label for="2-stars" class="star"><i class="fa fa-star"></i></label>
-                                    <input type="radio" id="1-star" name="rating" value="1" />
+                                    <input type="radio" id="1-star" name="rating" value=1 />
                                     <label for="1-star" class="star"><i class="fa fa-star"></i></label>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-12 col-12">
                             <div class="form-group button5">
                                 <button type="submit" class="btn">리뷰 제출하기</button>
@@ -164,10 +266,13 @@
                         </div>
                     </div>
                 </form>
+                <!-- /리뷰 작성 폼 끝 -->
             </div>
         </div>
     </div>
 </section>
+
+
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-migrate-3.0.0.js"></script>
@@ -188,29 +293,12 @@
 <script src="/js/onepage-nav.min.js"></script>
 <script src="/js/easing.js"></script>
 <script src="/js/active.js"></script>
+
 <script>
     $(document).ready(function() {
         let selectedFiles = [];
-        let editIndex = null;
 
-        // URL 파라미터에서 editIndex 확인
-        const urlParams = new URLSearchParams(window.location.search);
-        if(urlParams.has('editIndex')) {
-            editIndex = parseInt(urlParams.get('editIndex'), 10);
-        }
-
-        // 기존 리뷰 로드
-        let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-        if(editIndex !== null && reviews[editIndex]) {
-            // 수정 모드
-            let reviewToEdit = reviews[editIndex];
-            $('#user-id').val(reviewToEdit.user_id);
-            $('#review-message').val(reviewToEdit.message);
-            // 별점 선택
-            $('input[name="rating"][value="'+reviewToEdit.rating+'"]').prop('checked', true);
-            // 이미지 로딩은 생략 (이미 Base64로 저장되어 있으나 실제 File객체 아님, 재첨부 필요)
-        }
-
+        // 이미지 파일 선택 시(최대 3장)
         $('.custom-file-label').on('click', function(e) {
             if(selectedFiles.length >= 3){
                 alert('리뷰 사진은 최대 3장까지 첨부할 수 있습니다.');
@@ -225,23 +313,28 @@
                 alert('리뷰 사진은 최대 3장까지 첨부할 수 있습니다.');
                 files = files.slice(0, 3 - selectedFiles.length);
             }
-
             files.forEach(function(file) {
-                if(!file.type.startsWith('image/')){return;}
+                if(!file.type.startsWith('image/')) { return; }
                 selectedFiles.push(file);
+
                 let reader = new FileReader();
                 reader.onload = function(e) {
                     let imgContainer = $('<div>').addClass('image-container');
                     let img = $('<img>').attr('src', e.target.result);
-                    let deleteBtn = $('<button>').addClass('delete-image').attr('aria-label', '이미지 삭제').attr('tabindex', '0').attr('type','button').html('&times;');
+                    let deleteBtn = $('<button>').addClass('delete-image')
+                        .attr('aria-label', '이미지 삭제')
+                        .attr('tabindex', '0')
+                        .attr('type','button')
+                        .html('&times;');
                     imgContainer.append(img).append(deleteBtn);
                     $('#image-preview').append(imgContainer);
-                }
+                };
                 reader.readAsDataURL(file);
             });
             $(this).val('');
         });
 
+        // 첨부 이미지 삭제
         $('#image-preview').on('click', '.delete-image', function() {
             let index = $(this).parent().index();
             $(this).parent().addClass('fade-out');
@@ -250,7 +343,6 @@
                 $('#image-preview .image-container').eq(index).remove();
             }, 500);
         });
-
         $('#image-preview').on('keydown', '.delete-image', function(e) {
             if(e.key === 'Enter' || e.key === ' '){
                 e.preventDefault();
@@ -258,6 +350,7 @@
             }
         });
 
+        // 폼 전송
         $('#review-form').on('submit', function(e) {
             e.preventDefault();
 
@@ -266,78 +359,85 @@
                 alert('별점을 선택해주세요.');
                 return;
             }
-
             let message = $('#review-message').val().trim();
             if(message === ''){
                 alert('리뷰 내용을 입력해주세요.');
                 return;
             }
-
             if(selectedFiles.length > 3){
                 alert('리뷰 사진은 최대 3장까지 첨부할 수 있습니다.');
                 return;
             }
-
             let userId = $('#user-id').val().trim();
             if(userId === ''){
-                alert('ID를 입력해주세요.');
+                alert('Member ID를 입력해주세요.');
+                return;
+            }
+            let bookId = parseInt($('#book-id').val(), 10);
+            if(!bookId){
+                alert('Book ID가 유효하지 않습니다.');
                 return;
             }
 
-            let review = {
-                user_id: userId,
-                rating: parseInt(rating),
-                message: message,
-                images: []
-            };
-
-            let imagePromises = selectedFiles.map(function(file) {
-                return new Promise(function(resolve, reject) {
+            // 이미지(Base64) 변환
+            // 추후 수정
+            let promises = selectedFiles.map(file => {
+                return new Promise((resolve, reject) => {
                     let reader = new FileReader();
                     reader.onload = function(e) {
                         resolve(e.target.result);
-                    }
-                    reader.onerror = function(e) {
-                        reject(e);
-                    }
+                    };
+                    reader.onerror = function(err) {
+                        reject(err);
+                    };
                     reader.readAsDataURL(file);
                 });
             });
 
-            Promise.all(imagePromises)
-                .then(function(base64Images) {
-                    review.images = base64Images;
-                    let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            Promise.all(promises)
+                .then(base64Images => {
+                    // 서버에 전달할 body
+                    let requestBody = {
+                        memberId: userId,
+                        bookId: bookId,
+                        grade: parseInt(rating, 10),
+                        description: message,
+                        imageUrl: base64Images
+                    };
 
-                    let now = new Date().toLocaleString();
-
-                    if(editIndex !== null && reviews[editIndex]) {
-                        // 수정 모드
-                        reviews[editIndex].user_id = userId;
-                        reviews[editIndex].rating = review.rating;
-                        reviews[editIndex].message = review.message;
-                        reviews[editIndex].images = review.images;
-                        reviews[editIndex].updatedAt = now;
-                    } else {
-                        // 신규 작성
-                        review.createdAt = now;
-                        reviews.push(review);
+                    // POST /front/reviews/{bookId}
+                    return fetch(`/front/reviews/${bookId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+                })
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error('리뷰 등록 실패!');
                     }
-
-                    localStorage.setItem('reviews', JSON.stringify(reviews));
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('리뷰 등록 성공:', data);
                     alert('리뷰가 성공적으로 제출되었습니다!');
-                    $('form').trigger('reset');
+                    // 폼 리셋
+                    $('#review-form')[0].reset();
                     $('#image-preview').empty();
                     selectedFiles = [];
+                    // 페이지 이동 (도서id에 해당하는 도서 상세페이지로 이동해야함, 혹은 마이페이지로 리다이렉트)
                     window.location.href = '/test/detail-book';
                 })
-                .catch(function(error) {
-                    console.error('이미지 처리 중 오류 발생:', error);
-                    alert('이미지 처리 중 오류가 발생했습니다.');
+                .catch(error => {
+                    console.error(error);
+                    alert('리뷰 등록 중 오류가 발생했습니다.');
                 });
+
         });
     });
 </script>
-
 </body>
 </html>
+
