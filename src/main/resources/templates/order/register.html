@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Register</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        // 팝업창 열기 함수
+        function openAddressPopup() {
+            window.open('/task/address-test', 'addressPopup', 'width=600,height=400');
+        }
+
+        // 팝업창에서 선택된 주소 데이터를 업데이트
+        function setAddress(name, phone, address) {
+            document.querySelector('input[name="receiverName"]').value = name;
+            document.querySelector('input[name="receiverPhone"]').value = phone;
+            document.querySelector('input[name="receiverAddress"]').value = address;
+        }
+
+        // 포장지 팝업창 열기
+        function openPackagingPopup() {
+            window.open('/packagings', 'packagingPopup', 'width=600,height=400');
+        }
+
+        // 팝업창에서 선택된 포장지 데이터를 업데이트
+        function setPackaging(packagingName, packagingPrice) {
+            document.getElementById("packagingInputName").value = packagingName;
+            document.getElementById("packagingInputPrice").value = packagingPrice;
+        }
+    </script>
+</head>
+<body>
+<form action="/order/register" method="post">
+    <h1>주문 상품 정보</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>포장지</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>상품명</td>
+            <td>가격</td>
+            <td>
+                <input type="text" id="packagingInputName" name="packagingName" value="포장지 없음" readonly>
+                /
+                <input type="text" id="packagingInputPrice" name="packagingPrice" value="0" readonly>
+                <!-- 포장지 선택 버튼 -->
+                <button type="button" class="btn" onclick="openPackagingPopup()">포장지 선택</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h1>배송지 입력</h1>
+    <h3>주문인</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>항목</th>
+            <th>입력창</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" name="ordererName" placeholder="이름을 입력하세요" required></td>
+        </tr>
+        <tr>
+            <td>전화번호</td>
+            <td><input type="tel" name="ordererPhone" value="controller에서 받는 값" readonly></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>받으시는 분</h3>
+    <a href="javascript:void(0)" class="btn" onclick="openAddressPopup()">주소 관리</a>
+    <table>
+        <thead>
+        <tr>
+            <th>항목</th>
+            <th>값</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" name="receiverName" value="" placeholder="선택 버튼을 통해 받는 값" readonly></td>
+        </tr>
+        <tr>
+            <td>전화번호</td>
+            <td><input type="tel" name="receiverPhone" value="" placeholder="선택 버튼을 통해 받는 값" readonly></td>
+        </tr>
+        <tr>
+            <td>주소</td>
+            <td>
+                <input type="text" name="receiverAddress" value="" placeholder="선택 버튼을 통해 받는 값" readonly>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn">등록</button>
+</form>
+</body>
+</html>

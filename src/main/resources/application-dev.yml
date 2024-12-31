@@ -1,12 +1,7 @@
-spring:
-  application:
-    name: frontapi
-
 server:
   port: 8110
+#  port: 8111
 
-
-# 수정자 문영호
-# gateway가 안되어 있어서 바로 auth server로 가게 해놨음
 onebook:
-  gatewayUrl: http://localhost:8410
+  gatewayUrl: http://localhost:8210
+  taskName: TASK-SERVICE
