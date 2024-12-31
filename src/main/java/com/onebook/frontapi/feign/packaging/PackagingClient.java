@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 //@FeignClient(name = "task-api", url = "http://localhost:8510")
-@FeignClient(name = "${onebook.taskName}", url = "${onebook.gatewayUrl}")
+@FeignClient(name = "packagingClient", url = "${onebook.gatewayUrl}")
 @Component
 public interface PackagingClient {
     @GetMapping("/task/packagings")
