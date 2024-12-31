@@ -2,10 +2,6 @@
 document.getElementById("sendAuthCode").addEventListener("click", function (event) {
     event.preventDefault();
 
-    // 인증번호 입력칸과 타이머 바로 표시
-    document.getElementById("authSection").style.display = "block";
-    startTimer(); // 타이머 시작
-
     // 인증번호를 요청하는 GET 요청
     fetch("/dooray-message-authentication", {
         method: "GET",
@@ -15,6 +11,10 @@ document.getElementById("sendAuthCode").addEventListener("click", function (even
             if (data.success) {
                 document.getElementById("resultMessage").textContent = "인증번호가 전송되었습니다.";
                 document.getElementById("sendAuthCode").disabled = true; // 본인 인증 버튼 비활성화
+
+                // 인증번호 전송이 성공한 후에 타이머 시작
+                document.getElementById("authSection").style.display = "block"; // 인증번호 입력란 표시
+                startTimer(); // 타이머 시작
             } else {
                 document.getElementById("resultMessage").textContent = "인증번호 전송 실패. 다시 시도해주세요.";
             }

@@ -337,7 +337,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>생년월일 8자리<span>*</span></label>
-                                    <input type="text" name="dateOfBirth" placeholder="" required="required">
+                                    <input type="date" name="dateOfBirth" placeholder="" required="required">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -357,30 +357,29 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="mb-0">
+                                <div class="form-group">
                                     <label>휴대 전화번호<span>*</span></label>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-6 form-group">
+                                    <div class="col-8 form-group">
                                         <input type="text" name="phoneNumber" placeholder="" required="required">
                                     </div>
-                                    <div class="col-6">
-                                        <button id="sendAuthCode" class="btn">본인인증</button>
-<!--                                        <a href="#" id="sendAuthCode" class="btn">본인인증</a>-->
+                                    <div class="col-sm-4">
+                                        <button id="sendAuthCode" class="btn" disabled>본인인증</button>
                                     </div>
+
                                     <!-- 인증번호 전송 후 입력 필드 및 확인 버튼 -->
                                     <div id="authSection" style="display: none;">
                                         <input type="text" id="code" placeholder="인증번호 입력">
-                                        <button id="verifyAuthCode">인증번호 확인</button>
+                                        <button id="verifyAuthCode" type="button">인증번호 확인</button>
                                         <p id="resultMessage"></p>
                                         <p id="timer"></p> <!-- 타이머를 표시할 영역 -->
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-6">
                                 <div class="form-group login-btn">
@@ -390,7 +389,9 @@
                         </div>
                     </form>
                     <!--/ End Form -->
-                    <script src="/js/registerValidation.js" defer></script>
+<!--                    joo -->
+                    <script src="/js/registerDoorayAuthentication.js"></script>
+                    <script src="/js/registerInputValidation.js"></script>
 
                 </div>
             </div>
