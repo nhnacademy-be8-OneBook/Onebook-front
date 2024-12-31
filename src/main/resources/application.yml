@@ -8,3 +8,4 @@ server:
 
 onebook:
   gatewayUrl: http://localhost:8200
+  taskName: TASK-SERVICE
