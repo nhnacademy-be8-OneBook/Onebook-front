@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 //@FeignClient(name = "memberClient", url="localhost:8210/task/members")
 @FeignClient(name = "memberClient", url = "${onebook.gatewayUrl}")
 public interface MemberClient {
-    @PostMapping
+    @PostMapping("/task/members")
     MemberResponseDto registerRequest(@RequestBody MemberRegisterRequestDto memberRegisterRequestDto);
 }
 

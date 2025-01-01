@@ -27,15 +27,21 @@ public class MemberAdaptor {
 
         }catch(FeignException e) {
             String errorJson = e.contentUTF8();
+
+            if (errorJson == null || errorJson.isEmpty()) {
+                log.error("Received empty error response from server.");
+                return false;
+            }
+
             // JSON 파싱하여 ErrorResponse로 변환 (Jackson 예시)
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 ErrorResponse errorResponse = objectMapper.readValue(errorJson, ErrorResponse.class);
-                log.info("Error Title: {}", errorResponse.getTitle());
-                log.info("Error Status: {}", errorResponse.getStatus());
+                log.error("Error Title: {}", errorResponse.getTitle());
+                log.error("Error Status: {}", errorResponse.getStatus());
                 return false;
             } catch (JsonProcessingException jsonException) {
-                log.info("Failed to parse error response: {}", jsonException.getMessage());
+                log.error("Failed to parse error response: {}", jsonException.getMessage());
                 return false;
             }
         }
