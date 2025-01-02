@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name="DoorayMessageClient", url = "https://nhnacademy.dooray.com/services")
 public interface DoorayMessageClient {
 
-    @PostMapping("/3204376758577275363/3964904430046863536/O9MYgDpOQ6m1cOzp8uve2Q")
+    @PostMapping("/3204376758577275363/3971922182908339443/XdEJesvHQeqf1I9yORe0Nw")
         ResponseEntity<String> send(@RequestBody DoorayMessageRequestDto doorayMessageRequestDto);
 
 }
