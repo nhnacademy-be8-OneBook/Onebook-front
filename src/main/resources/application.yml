@@ -7,4 +7,4 @@ server:
 #  port: 8101
 
 onebook:
-  gatewayUrl: http://localhost:8200
+  gatewayUrl: http://localhost:8210
