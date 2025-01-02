@@ -28,7 +28,6 @@ public class PackagingController {
     @PostMapping("/admin/packagings")
     public String registerPackaging(@ModelAttribute PackagingRequestDTO packagingRequestDTO) {
 
-
         return null;
     }
 }

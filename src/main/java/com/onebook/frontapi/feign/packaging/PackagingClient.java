@@ -10,7 +10,6 @@ import java.util.List;
 
 //@FeignClient(name = "task-api", url = "http://localhost:8510")
 @FeignClient(name = "packagingClient", url = "${onebook.gatewayUrl}")
-@Component
 public interface PackagingClient {
     @GetMapping("/task/packagings")
     List<PackagingResponseAdaptor> getAllPackaging();
