@@ -77,10 +77,12 @@ public class SecurityConfig {
 
     // Password Encoder, InMemory is Dev
     @Bean
-    @Profile("dev")
+//    @Profile("dev")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); // BCrypt 암호화 사용
     }
+
+
 
     @Bean
     @Profile("dev")
