@@ -1,6 +1,8 @@
 package com.onebook.frontapi.controller.order;
 
 import com.onebook.frontapi.dto.order.OrderRequestDTO;
+import com.onebook.frontapi.service.order.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@RequiredArgsConstructor
 @Controller
 public class OrderController {
+
+    private final OrderService orderService;
 
     @GetMapping("/order/register")
     public String orderRegister() {
@@ -27,6 +32,8 @@ public class OrderController {
         // 데이터를 리다이렉트할 페이지로 전달
         redirectAttributes.addFlashAttribute("orderSuccess", true);
         redirectAttributes.addFlashAttribute("orderDetails", orderRequestDto);
+
+        orderService.createOrder(orderRequestDto);
 
         return "redirect:/order/success"; // 등록 성공 페이지로 이동
     }
