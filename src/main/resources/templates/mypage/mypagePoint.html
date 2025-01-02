@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>Eshop - eCommerce HTML5 Template.</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
+
+    <!-- StyleSheet -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="/css/color/color1.css">
+    <!--<link rel="stylesheet" href="/css/color/color2.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color3.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color4.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color5.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color6.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color7.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color8.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color9.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color10.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color11.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color12.css">-->
+
+    <link rel="stylesheet" href="#" id="colors">
+
+</head>
+<html lang="en" layout:decorate="~{layouts/layout}"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div layout:fragment="content"><!-- ==== fragment:content === -->
+
+    <main id="main">
+        <section class="contact mb-5" id="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+                    <div class="col-lg-12 text-center mt-2 mb-5">
+                        <h1 class="page-title">마이페이지</h1>
+                    </div>
+                </div>
+
+                <!-- ======= New Layout Start ======= -->
+                <div class="d-flex align-items-start mx-3 row g-5">
+                    <!-- ======= Sidebar Start ======= -->
+                    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light col-lg-3 col-md-auto"
+                         style="width: 230px;">
+                        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+                           href="/">
+                            <span class="fs-4">Sidebar</span>
+                        </a>
+                        <hr>
+                        <ul class="nav nav-pills flex-column mb-auto">
+                            <li class="nav-item">
+                                <a class="nav-link link-dark" href="/mypage">회원 정보</a>
+                            </li>
+                            <li class="nav-item">
+                                <a aria-current="page" class="nav-link active" href="#">주소 관리</a>
+                            </li>
+                            <li>
+                                <a class="nav-link link-dark" href="/my_grade_title">나의 등급</a>
+                            </li>
+                            <li>
+                                <a class="nav-link link-dark" href="/point/my_point">나의 포인트</a>
+                            </li>
+                            <li>
+                                <a class="nav-link link-dark" href="#">나의 찜 목록</a>
+                            </li>
+                            <li>
+                                <a class="nav-link link-dark" href="#">주문 내역</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <script>
+                        // Siderbar 에서 마우스가 올라가 있는 요소의 색을 변경
+                        var navLinks = document.querySelectorAll('.nav-link');
+
+                        navLinks.forEach(function (navLink) {
+                            navLink.addEventListener('mouseover', function () {
+                                navLinks.forEach(function (link) {
+                                    link.classList.remove('active');
+                                    link.classList.add('link-dark');
+                                });
+
+                                this.classList.add('active');
+                                this.classList.remove('link-dark');
+                            })
+                        })
+                    </script>
+                    <!-- ======= Sidebar End ======= -->
+
+                    <!-- ======= Point History Start ======= -->
+                    <div class="my-info col-lg-9 col-md-auto col-sm-auto">
+                        <div class="form login-form ml-5">
+                            <h2>나의 포인트 내역</h2>
+                            <hr>
+
+                            <div class="table">
+                                <div class="row border-bottom py-2" style="--bs-bg-opacity: .5;">
+                                    <span class="fw-bold text-center col-2">No</span>
+                                    <span class="fw-bold text-center col-2">적립 포인트</span>
+                                    <span class="fw-bold text-center col-4">변경 사유</span>
+                                    <span class="fw-bold text-center col-4">변경 일시</span>
+                                </div>
+                                <!-- ======= Point History List Start ======= -->
+                                <div class="user-point-history">
+                                    <th:block th:each="pointHistory, status : ${memberPointHistories}">
+                                        <div class="row py-2">
+                                            <span class="col-2 text-center" th:text="${status.count}"></span>
+                                            <span class="col-2 text-end"
+                                                  th:text="${#numbers.formatInteger(pointHistory.pointHistoryValue, 1, 'COMMA')} + ' p'"></span>
+                                            <span class="col-4 text-center"
+                                                  th:text="${pointHistory.pointHistoryType}"></span>
+                                            <span class="col-4 text-center"
+                                                  th:text="${#temporals.format(pointHistory.createdAt, 'yyyy-MM-dd hh시 mm분')}"></span>
+                                        </div>
+
+
+                                    </th:block>
+
+                                </div><!-- ======= Point History List End ======= -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ======= Point History End ======= -->
+                </div>
+                <!-- ======= New Layout End ======= -->
+            </div>
+        </section>
+    </main>
+</div><!-- ==== End fragment:content === -->
+<!-- Start Footer Area -->
+<footer class="footer">
+    <!-- Footer Top -->
+    <div class="footer-top section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer about">
+                        <div class="logo">
+                            <a href="index.html"><img src="/images/logo2.png" alt="#"></a>
+                        </div>
+                        <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros
+                            eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis
+                            luctus, metus.</p>
+                        <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span>
+                        </p>
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer links">
+                        <h4>Information</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Faq</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Help</a></li>
+                        </ul>
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer links">
+                        <h4>Customer Service</h4>
+                        <ul>
+                            <li><a href="#">Payment Methods</a></li>
+                            <li><a href="#">Money-back</a></li>
+                            <li><a href="#">Returns</a></li>
+                            <li><a href="#">Shipping</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Single Widget -->
+                    <div class="single-footer social">
+                        <h4>Get In Tuch</h4>
+                        <!-- Single Widget -->
+                        <div class="contact">
+                            <ul>
+                                <li>NO. 342 - London Oxford Street.</li>
+                                <li>012 United Kingdom.</li>
+                                <li>info@eshop.com</li>
+                                <li>+032 3456 7890</li>
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                        <ul>
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter"></i></a></li>
+                            <li><a href="#"><i class="ti-flickr"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- End Single Widget -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Top -->
+    <div class="copyright">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="left">
+                            <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a> -
+                                All Rights Reserved.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="right">
+                            <img src="/images/payments.png" alt="#">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- /End Footer Area -->
+
+<!-- Jquery -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.0.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<!-- Popper JS -->
+<script src="/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Color JS -->
+<script src="/js/colors.js"></script>
+<!-- Slicknav JS -->
+<script src="/js/slicknav.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="/js/owl-carousel.js"></script>
+<!-- Magnific Popup JS -->
+<script src="/js/magnific-popup.js"></script>
+<!-- Fancybox JS -->
+<script src="/js/facnybox.min.js"></script>
+<!-- Waypoints JS -->
+<script src="/js/waypoints.min.js"></script>
+<!-- Countdown JS -->
+<script src="/js/finalcountdown.min.js"></script>
+<!-- Nice Select JS -->
+<script src="/js/nicesellect.js"></script>
+<!-- Ytplayer JS -->
+<script src="/js/ytplayer.min.js"></script>
+<!-- Flex Slider JS -->
+<script src="/js/flex-slider.js"></script>
+<!-- ScrollUp JS -->
+<script src="/js/scrollup.js"></script>
+<!-- Onepage Nav JS -->
+<script src="/js/onepage-nav.min.js"></script>
+<!-- Easing JS -->
+<script src="/js/easing.js"></script>
+<!-- Active JS -->
+<script src="/js/active.js"></script>
+</body>
+</html>
