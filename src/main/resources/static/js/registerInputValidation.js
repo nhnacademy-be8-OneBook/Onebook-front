@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const nameInput = document.querySelector("input[name='name']");
     const loginIdInput = document.querySelector("input[name='loginId']");
     const passwordInput = document.querySelector("input[name='password']");
@@ -21,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function validateLoginId() {
         const value = loginIdInput.value;
-        if (!/^[a-zA-Z0-9]{1,10}$/.test(value)) {
-            setInvalid(loginIdInput, "영문자와 숫자만 입력 가능하고, 최대 10자까지 작성 가능합니다.");
+        if (!/^[a-zA-Z0-9]{1,20}$/.test(value)) {
+            setInvalid(loginIdInput, "영문자와 숫자만 입력 가능하고, 최대 20자까지 작성 가능합니다.");
         } else {
             setValid(loginIdInput);
         }
@@ -30,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function validatePassword() {
         const value = passwordInput.value;
-        if (!/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(value)) {
-            setInvalid(passwordInput, "영문, 숫자, 특수 문자를 모두 하나씩 포함한 8~20자를 입력하세요.");
+        if (!/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,20}$/.test(value)) {
+            setInvalid(passwordInput, "영문, 숫자, 특수 문자를 모두 하나씩 포함한 10~20자를 입력하세요.");
         } else {
             setValid(passwordInput);
         }
@@ -119,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 제출 버튼 활성화/비활성화
     allInputs.forEach(input => input.addEventListener("input", () => {
         const allValid = allInputs.every(input => input.classList.contains("is-valid"));
-        submitButton.disabled = !allValid;
+        submitButton.disabled = !(allValid && window.isAuthVerified); // 입력이 모두 유효하고, 본인 인증이 완료되면
     }));
 
     // 본인인증 버튼이 전화번호 입력을 올바르게 했을 때만 활성화되도록 하기
