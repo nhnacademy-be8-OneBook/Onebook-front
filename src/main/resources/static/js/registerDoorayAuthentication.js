@@ -1,6 +1,5 @@
 // 본인인증 버튼 클릭 시 동작
 document.addEventListener("DOMContentLoaded", () => {
-    let isAuthVerified = false; // 인증 완료 여부
 
     document.getElementById("sendAuthCode").addEventListener("click", function (event) {
         event.preventDefault();
@@ -49,8 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     clearInterval(timerInterval); // 타이머 멈추기
                     document.getElementById("timer").style.display = "none"; // 타이머 숨기기
                     document.getElementById("verifyAuthCode").disabled = true; // 인증번호 확인 버튼 비활성화
-                    isAuthVerified = true; // 인증 성공 시 변경
-                    window.isAuthVerified=true; // 글로벌 변수로 설정 - registerInputValidation 에서 사용.
                 } else {
                     document.getElementById("resultMessage").textContent = "인증 실패. 인증번호를 다시 확인해주세요.";
                 }

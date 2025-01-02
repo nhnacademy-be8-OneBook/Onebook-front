@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 제출 버튼 활성화/비활성화
     allInputs.forEach(input => input.addEventListener("input", () => {
         const allValid = allInputs.every(input => input.classList.contains("is-valid"));
-        submitButton.disabled = !(allValid && window.isAuthVerified); // 입력이 모두 유효하고, 본인 인증이 완료되면
+        submitButton.disabled = !(allValid); // 입력이 모두 유효하고, 본인 인증이 완료되면
     }));
 
     // 본인인증 버튼이 전화번호 입력을 올바르게 했을 때만 활성화되도록 하기
