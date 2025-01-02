@@ -1,10 +1,10 @@
 spring:
   application:
-    name: frontapi
+    name: front-service
 
 server:
-  port: 8110
+  port: 8100
+#  port: 8101
 
 onebook:
   gatewayUrl: http://localhost:8210
-
