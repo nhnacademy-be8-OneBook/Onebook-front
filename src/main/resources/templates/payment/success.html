@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png"/>
+    <link rel="stylesheet" type="text/css" href="/templates/payment/css/style.css"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>결제 성공</title>
+</head>
+<body>
+<div class="box_section" style="width:600px">
+    <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"/>
+    <h2>결제를 완료했어요</h2>
+
+    <div class="p-grid typography--p" style="margin-top:50px">
+        <div class="p-grid-col text--left"><b>결제금액</b></div>
+        <div class="p-grid-col text--right" id="amount"></div>
+    </div>
+    <div class="p-grid typography--p" style="margin-top:10px">
+        <div class="p-grid-col text--left"><b>주문번호</b></div>
+        <div class="p-grid-col text--right" id="orderId"></div>
+    </div>
+    <div class="p-grid typography--p" style="margin-top:10px">
+        <div class="p-grid-col text--left"><b>paymentKey</b></div>
+        <div class="p-grid-col text--right" id="paymentKey" style="white-space:initial;width:250px"></div>
+    </div>
+    <div class="p-grid" style="margin-top:30px">
+        <button class="button p-grid-col5"
+                onclick="location.href='https://docs.tosspayments.com/guides/v2/payment-widget/integration';">
+            연동 문서
+        </button>
+        <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
+                style="background-color: #e8f3ff; color: #1b64da">
+            실시간 문의
+        </button>
+    </div>
+</div>
+
+<div class="box_section" style="width:600px;text-align:left">
+    <b>Response Data :</b>
+    <div id="response" style="white-space:initial"></div>
+</div>
+
+<script>
+    // URL 파라미터
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentKeyElement = document.getElementById("paymentKey");
+    const orderIdElement = document.getElementById("orderId");
+    const amountElement = document.getElementById("amount");
+
+    paymentKeyElement.textContent = urlParams.get("paymentKey");
+    orderIdElement.textContent = urlParams.get("orderId");
+    amountElement.textContent = (urlParams.get("amount") || "0") + "원";
+
+    // Front -> gateway -> TaskAPI : 결제 승인(confirm)
+    async function confirmPayment() {
+        let requestData = {
+            paymentKey: urlParams.get("paymentKey"),
+            orderId: urlParams.get("orderId"),  // String
+            amount: urlParams.get("amount")      // string
+        };
+
+        // X-MEMBER-ID
+        // TODO : X-MEMBER-ID 현재 로그인 중인 사용자로 가져오도록 수정
+        const res = await fetch("/front/payments/toss/confirm", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-MEMBER-ID": "662815698466120492"
+            },
+            body: JSON.stringify(requestData),
+        });
+
+        const json = await res.json();
+        if (!res.ok) {
+            console.error("결제 승인 실패", json);
+
+            // fail 페이지로 이동.
+            const failMessage = encodeURIComponent(json.message || 'fail');
+            const failCode = encodeURIComponent(json.code || 'fail');
+            window.location.href = `/fail?message=${failMessage}&code=${failCode}`;
+            return null;
+        }
+        return json;
+    }
+
+    confirmPayment().then((data) => {
+        if(!data) return;
+        document.getElementById("response").innerHTML =
+            "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
+    });
+</script>
+</body>
+</html>
