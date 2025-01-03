@@ -5,8 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class AddMemberAddressResponse {
+public class MemberAddressResponse {
 
+    private Long id;
     private String name;
     private String phoneNumber;
     private String alias;
