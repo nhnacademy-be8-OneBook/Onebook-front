@@ -1,10 +1,10 @@
 package com.onebook.frontapi.feign.address;
 
 import com.onebook.frontapi.dto.address.request.AddMemberAddressRequest;
-import com.onebook.frontapi.dto.address.response.AddMemberAddressResponse;
-import com.onebook.frontapi.dto.address.response.GetMemberAddressResponse;
+import com.onebook.frontapi.dto.address.response.MemberAddressResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,9 +14,10 @@ import java.util.List;
 public interface AddressClient {
 
     @PostMapping("/task/addresses")
-    ResponseEntity<AddMemberAddressResponse> addMemberAddress
+    ResponseEntity<MemberAddressResponse> addMemberAddress
             (@RequestBody AddMemberAddressRequest addMemberAddressRequest);
 
-//    ResponseEntity<List<GetMemberAddressResponse>> getAllMemberAddressByMemberId();
+    @GetMapping("/task/addresses")
+    ResponseEntity<List<MemberAddressResponse>> getAllMemberAddressByMemberId();
 
 }
