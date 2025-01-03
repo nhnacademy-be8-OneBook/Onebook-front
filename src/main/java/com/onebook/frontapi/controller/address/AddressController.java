@@ -21,14 +21,18 @@ public class AddressController {
         return "/address/address-register-form";
     }
 
+    // 배송지 목록 페이지 불러오기
+    @GetMapping("/address/address-list")
+    public String getAddressList(){
+
+        return null;
+    }
+
     // 배송지 등록 기능
     @PostMapping("/address/register")
     public String registerAddress(@ModelAttribute AddMemberAddressRequest addMemberAddressRequest){
 
         addressService.addMemberAddress(addMemberAddressRequest);
-
-        System.out.println("잘됏음!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
         return null;
     }
 
