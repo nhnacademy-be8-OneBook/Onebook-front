@@ -105,6 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
         validatePhone();
     });
 
+    // 제출 시 하이픈 제거
+    const form = document.querySelector("#loginForm");
+    form.addEventListener("submit", (event) => {
+        phoneInput.value = phoneInput.value.replace(/-/g, ""); // 하이픈 제거
+    });
+
     // 생년월일 달력 추가
     dobInput.type = "date";
 
