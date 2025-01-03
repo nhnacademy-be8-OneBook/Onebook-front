@@ -1,7 +1,8 @@
 package com.onebook.frontapi.controller.packaging;
 
 import com.onebook.frontapi.adaptor.packaging.PackagingResponseAdaptor;
-import com.onebook.frontapi.dto.packaging.PackagingRequestDTO;
+import com.onebook.frontapi.dto.packaging.PackagingCreateDto;
+import com.onebook.frontapi.dto.packaging.PackagingRequestDto;
 import com.onebook.frontapi.service.packaging.PackagingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,15 @@ public class PackagingController {
         return "packaging/packagings";
     }
 
-    @PostMapping("/admin/packagings")
-    public String registerPackaging(@ModelAttribute PackagingRequestDTO packagingRequestDTO) {
+    @GetMapping("/admin/packaging")
+    public String registerPackaging() {
+        return "admin/packagingRegister";
+    }
 
-        return null;
+    @PostMapping("/admin/packaging")
+    public String registerPackaging(@ModelAttribute PackagingRequestDto packagingRequestDto) {
+        packagingService.createPackaging(packagingRequestDto);
+
+        return "redirect:/admin/packaging";
     }
 }

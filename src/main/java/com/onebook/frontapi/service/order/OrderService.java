@@ -27,6 +27,6 @@ public class OrderService {
                 deliveryPrice,
                 totalPrice);
 
-        orderClient.createOrder(659219841608987391L, orderCreateDTO);
+        orderClient.createOrder(orderCreateDTO);
     }
 }

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @FeignClient(name = "OrderClient", url = "${onebook.gatewayUrl}")
 public interface OrderClient {
     @PostMapping("/task/order")
-    void createOrder(@RequestHeader("X-MEMBER-ID") Long memberId, @RequestBody OrderCreateDTO orderCreateDTO);
+    void createOrder(@RequestBody OrderCreateDTO orderCreateDTO);
 
 }

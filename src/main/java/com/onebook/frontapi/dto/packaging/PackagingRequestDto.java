@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class PackagingRequestDTO {
+public class PackagingRequestDto {
     String name;
     int price;
 }
