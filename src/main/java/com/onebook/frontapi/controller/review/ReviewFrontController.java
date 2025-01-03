@@ -4,11 +4,10 @@ import com.onebook.frontapi.dto.review.ReviewPageResponseDto;
 import com.onebook.frontapi.dto.review.ReviewRequestDto;
 import com.onebook.frontapi.dto.review.ReviewResponseDto;
 import com.onebook.frontapi.feign.review.ReviewClient;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,17 +22,12 @@ public class ReviewFrontController {
     @PostMapping("/{bookId}")
     public ResponseEntity<ReviewResponseDto> createReview(
             @PathVariable Long bookId,
-            @RequestBody ReviewRequestDto requestDto
-
+            @Validated @RequestBody ReviewRequestDto requestDto
     ) {
-
-        // test
-
-        // TaskAPI로부터 응답(ReviewResponseDto)을 받아서 그대로 반환
-
-        log.info("member id : {}", requestDto.getMemberId());
+        // 이제는 X-MEMBER-ID를 게이트웨이에서 넣어주므로, body에 memberId는 없음
+        log.info("Creating review for bookId: {}", bookId);
         ReviewResponseDto response = reviewClient.registerReview(bookId, requestDto);
-        return ResponseEntity.ok(response);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     // 특정 도서 리뷰 조회 (페이지네이션)
@@ -43,7 +37,6 @@ public class ReviewFrontController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "5") int size
     ) {
-        // TaskAPI에서 Page<ReviewResponse> → FrontAPI에서 ReviewPageResponseDto
         ReviewPageResponseDto pageResponse = reviewClient.getReviews(bookId, page, size);
         return ResponseEntity.ok(pageResponse);
     }
@@ -53,12 +46,11 @@ public class ReviewFrontController {
     public ResponseEntity<ReviewResponseDto> updateReview(
             @PathVariable Long bookId,
             @PathVariable Long reviewId,
-            @RequestBody ReviewRequestDto requestDto
+            @Validated @RequestBody ReviewRequestDto requestDto
     ) {
         ReviewResponseDto updated = reviewClient.updateReview(bookId, reviewId, requestDto);
         return ResponseEntity.ok(updated);
     }
 
-    // (필요하다면) 리뷰 삭제
+    // 리뷰 삭제 (필요 시 추가)
 }
-

@@ -11,7 +11,10 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 	<!-- Web Font -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	<link
+			href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+			rel="stylesheet"
+	>
 
 	<!-- StyleSheet -->
 	<!-- Bootstrap -->
@@ -142,8 +145,7 @@
 <div class="preloader">
 	<div class="preloader-inner">
 		<div class="preloader-icon">
-			<span></span>
-			<span></span>
+			<span></span><span></span>
 		</div>
 	</div>
 </div>
@@ -416,6 +418,12 @@
 									<a href="#" class="btn min"><i class="ti-heart"></i></a>
 									<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
 								</div>
+
+								<!-- (추가) 결제하기 버튼 -->
+								<div style="margin-top:15px;">
+									<button class="btn btn-primary" id="pay-button">결제하기</button>
+								</div>
+
 								<p class="cat">Category :<a href="#">Clothing</a></p>
 								<p class="availability">Availability : 180 Products In Stock</p>
 							</div>
@@ -641,19 +649,33 @@
 <script src="/js/active.js"></script>
 
 <script>
-	// 임시로 bookId=1 가정
+	// 임시로 bookId=1
 	const currentBookId = 1;
 	const reviewsPerPage = 5;
 	let currentPage = 1;
 	const previewLength = 100;
-	let reviewsData = []; // 서버에서 받은 전체 리뷰 목록 (content)
+	let reviewsData = [];
 
 	$(document).ready(function() {
 
+		// (★) 결제하기 버튼 클릭 → /front/payments/checkout-page?orderId=..
+		$("#pay-button").on("click", function(e){
+			e.preventDefault();
+
+			// 실제로는 서버에서 받은 orderId를 써야 함
+			// 여기서는 데모로 임시 orderId = 100
+			const orderId = "662841173016060658";
+			// 새 컨트롤러(CheckoutController) 경로로 이동
+			window.location.href = `/front/payments/checkout-page?orderId=${orderId}`;
+		});
+
+
 		// 1) 평균 평점 호출
 		function loadAverageRating() {
-			// GET /front/reviews/{bookId}/average
-			fetch(`/front/reviews/${currentBookId}/average`)
+			fetch(`/front/reviews/${currentBookId}/average`, {
+				method: "GET"//,
+				//credentials: "include"  // ★ JWT 쿠키 포함
+			})
 					.then(res => {
 						if(!res.ok) { throw new Error('평균 평점 조회 실패'); }
 						return res.json();
@@ -667,34 +689,28 @@
 					});
 		}
 
-		// 평균 평점 UI
 		function displayAverageRatingAndCount(avg) {
 			let avgContainer = $('#avg-rating-container');
 			avgContainer.empty();
 
 			if(!avg || avg <= 0) {
-				// 평점 데이터가 없거나 0
 				let html = '<div class="rating-main"><p>No reviews yet.</p></div>';
 				avgContainer.append(html);
 				return;
 			}
 
-			// TODO: 별점으로 변환 (5개)
 			function getStarIcons(avgRating) {
 				let fullStars = Math.floor(avgRating);
 				let fraction = avgRating - fullStars;
 				let stars = '';
-				// full star
 				for(let i=0; i<fullStars; i++){
 					stars += '<li><i class="fa fa-star"></i></li>';
 				}
-				// fraction
 				if(fraction >= 0.75){
 					stars += '<li><i class="fa fa-star"></i></li>';
 				} else if(fraction >= 0.25){
 					stars += '<li><i class="fa fa-star-half-o"></i></li>';
 				}
-				// fill empty
 				let usedSlots = (stars.match(/fa-star/g) || []).length;
 				for(let i=usedSlots; i<5; i++){
 					stars += '<li class="dark"><i class="fa fa-star-o"></i></li>';
@@ -705,25 +721,26 @@
 			let starIcons = getStarIcons(avg);
 			let avgDisplay = avg.toFixed(1);
 			let html = `
-                <div class="rating-main">
-                    <ul class="rating">${starIcons}</ul>
-                    <span style="margin-left:10px; font-size:14px; color:#333;">평균 평점: ${avgDisplay}</span>
-                </div>
-            `;
+				<div class="rating-main">
+					<ul class="rating">${starIcons}</ul>
+					<span style="margin-left:10px; font-size:14px; color:#333;">평균 평점: ${avgDisplay}</span>
+				</div>
+			`;
 			avgContainer.append(html);
 		}
 
 		// 2) 리뷰 목록 호출
 		function loadReviews(page=1, size=reviewsPerPage) {
-			// GET /front/reviews/{bookId}?page=page-1(size=5)  (주의: TaskAPI는 0-based page)
 			let realPage = page - 1;
-			fetch(`/front/reviews/${currentBookId}?page=${realPage}&size=${size}`)
+			fetch(`/front/reviews/${currentBookId}?page=${realPage}&size=${size}`, {
+				method: "GET",
+				credentials: "include"  // ★ JWT 쿠키 포함
+			})
 					.then(res => {
 						if(!res.ok) { throw new Error('리뷰 조회 실패'); }
 						return res.json();
 					})
 					.then(data => {
-						// data: { content, totalPages, totalElements, size, number }
 						reviewsData = data.content;
 						currentPage = page;
 						renderReviews(data);
@@ -734,7 +751,6 @@
 					});
 		}
 
-		// 리뷰 목록 렌더링
 		function renderReviews(pageData) {
 			let rattingMain = $('#ratting-main');
 			rattingMain.empty();
@@ -745,14 +761,11 @@
 				return;
 			}
 
-			// 페이지 데이터
 			let reviews = pageData.content;
 			let totalPages = pageData.totalPages;
-			let pageNumber = pageData.number; // 0-based
-			let startIndex = 0;
+			let pageNumber = pageData.number;
 
-			// render each
-			reviews.forEach(function(review, index) {
+			reviews.forEach(function(review) {
 				let starsHtml = '';
 				for(let i=1; i<=5; i++){
 					starsHtml += (i <= review.grade)
@@ -761,7 +774,7 @@
 				}
 
 				let imagesHtml = '';
-				if(review.imageUrl && review.imageUrl.length>0){
+				if(review.imageUrl && review.imageUrl.length > 0){
 					imagesHtml += '<div class="image-preview">';
 					review.imageUrl.forEach(function(imgSrc){
 						imagesHtml += `<a href="${imgSrc}" target="_blank"><img src="${imgSrc}" alt="리뷰 이미지"></a>`;
@@ -769,52 +782,37 @@
 					imagesHtml += '</div>';
 				}
 
-				let timeText = '';
-				if(review.updatedAt) {
-					// updated
-					timeText = review.updatedAt + ' (수정됨)';
-				} else {
-					// created
-					timeText = review.createdAt;
-				}
-
-				// 더보기/접기
+				let timeText = review.updatedAt ? review.updatedAt + ' (수정됨)' : review.createdAt;
 				let fullMessage = review.description;
 				let displayMessage = fullMessage;
 				let toggleBtnHtml = '';
+
 				if(fullMessage.length > previewLength) {
 					displayMessage = fullMessage.substring(0, previewLength) + '...';
 					toggleBtnHtml = `<button class="toggle-more-btn">더보기</button>`;
 				}
 
-				// editButton (작성자만 보이게 - 예시)
-				// let editButton = '';
-				// if(review.memberId === someLoggedInMemberId) { ... }
-				// if(review.memberId === someLoggedInMemberId) { ... }
-
 				let singleRating = `
-                    <div class="single-rating">
-                        <div class="rating-des">
-                            <h6>ID: ${review.memberId}
-                                <span style="font-size:12px; color:#999; margin-left:10px;">${timeText}</span>
-                            </h6>
-                            <div class="ratings">
-                                <ul class="rating">${starsHtml}</ul>
-                            </div>
-                            <p class="review-text" data-full="${encodeURIComponent(fullMessage)}">${displayMessage}</p>
-                            ${toggleBtnHtml}
-                            ${imagesHtml}
-                        </div>
-                    </div>
-                `;
-
+					<div class="single-rating">
+						<div class="rating-des">
+							<h6>ID: ${review.memberId}
+								<span style="font-size:12px; color:#999; margin-left:10px;">${timeText}</span>
+							</h6>
+							<div class="ratings">
+								<ul class="rating">${starsHtml}</ul>
+							</div>
+							<p class="review-text" data-full="${encodeURIComponent(fullMessage)}">${displayMessage}</p>
+							${toggleBtnHtml}
+							${imagesHtml}
+						</div>
+					</div>
+				`;
 				rattingMain.append(singleRating);
 			});
 
 			renderPagination(totalPages, pageNumber+1);
 		}
 
-		// 페이지네이션
 		function renderPagination(totalPages, currentPage) {
 			$('#pagination').remove();
 			if(totalPages <= 1) return;
@@ -831,13 +829,11 @@
 			$('#ratting-main').after(paginationHtml);
 		}
 
-		// 페이지 버튼 클릭
 		$(document).on('click', '.page-btn', function(){
 			let page = parseInt($(this).data('page'), 10);
 			loadReviews(page, reviewsPerPage);
 		});
 
-		// 더보기/접기
 		$(document).on('click', '.toggle-more-btn', function(){
 			let p = $(this).siblings('.review-text');
 			let fullMessage = decodeURIComponent(p.data('full'));
@@ -857,19 +853,17 @@
 
 		// 탭 전환 (Reviews 탭 열릴 때마다 로드)
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-			var target = $(e.target).attr("href");
+			let target = $(e.target).attr("href");
 			if(target === '#reviews'){
-				loadReviews(); // page=1
+				loadReviews();
 			}
 		});
 
 		// 초기 평균 평점 로드
 		loadAverageRating();
 		// (Reviews 탭을 눌러야 리뷰 목록이 보임)
-
 	});
 </script>
 
 </body>
 </html>
-
