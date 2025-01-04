@@ -2,13 +2,11 @@ package com.onebook.frontapi.feign.address;
 
 import com.onebook.frontapi.dto.address.request.AddMemberAddressRequest;
 import com.onebook.frontapi.dto.address.request.DeleteMemberAddressRequest;
+import com.onebook.frontapi.dto.address.request.UpdateMemberAddressRequest;
 import com.onebook.frontapi.dto.address.response.MemberAddressResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,13 @@ public interface AddressClient {
 
     @GetMapping("/task/addresses")
     ResponseEntity<List<MemberAddressResponse>> getAllMemberAddressByMemberId();
+
+    @GetMapping("/task/addresses/{addressId}")
+    ResponseEntity<MemberAddressResponse> getMemberAddressById(@PathVariable Long addressId);
+
+    @PutMapping("/task/addresses")
+    ResponseEntity<MemberAddressResponse> updateMemberAddressById
+            (@RequestBody UpdateMemberAddressRequest updateMemberAddressRequest);
 
     @DeleteMapping("/task/addresses")
     ResponseEntity<MemberAddressResponse> deleteMemberAddress
