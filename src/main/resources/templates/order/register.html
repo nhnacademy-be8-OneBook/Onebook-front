@@ -40,14 +40,18 @@
     <script>
         // 팝업창 열기 함수
         function openAddressPopup() {
-            window.open('/task/address-test', 'addressPopup', 'width=600,height=400');
+            window.open('/order/addresses', 'addressPopup', 'width=600,height=400');
         }
 
         // 팝업창에서 선택된 주소 데이터를 업데이트
-        function setAddress(name, phone, address) {
-            document.querySelector('input[name="receiverName"]').value = name;
-            document.querySelector('input[name="receiverPhone"]').value = phone;
-            document.querySelector('input[name="receiverAddress"]').value = address;
+        function setAddress(recipientName, recipientPhoneNumber, recipientRoadNameAddress, recipientDetailAddress, recipientNotes, recipientRequestedTerm) {
+            // console.log(recipientName, recipientPhoneNumber) //, recipientRoadNameAddress);
+            document.getElementById("recipientInputName").value = recipientName;
+            document.getElementById("recipientInputPhoneNumber").value = recipientPhoneNumber;
+            document.getElementById("recipientInputRoadNameAddress").value = recipientRoadNameAddress;
+            document.getElementById("recipientInputDetailAddress").value = recipientDetailAddress;
+            document.getElementById("recipientInputNotes").value = recipientNotes;
+            document.getElementById("recipientInputRequestedTerm").value = recipientRequestedTerm;
         }
 
         // 포장지 팝업창 열기
@@ -110,7 +114,7 @@
     </table>
 
     <h3>받으시는 분</h3>
-    <a href="javascript:void(0)" class="btn" onclick="openAddressPopup()">주소 관리</a>
+    <button type="button" class="btn" onclick="openAddressPopup()">주소 선택</button>
     <table>
         <thead>
         <tr>
@@ -121,17 +125,21 @@
         <tbody>
         <tr>
             <td>이름</td>
-            <td><input type="text" name="receiverName" value="" placeholder="선택 버튼을 통해 받는 값" readonly></td>
+            <td><input type="text" id="recipientInputName" name="recipientInputName"></td>
+<!--            <td><span id="recipientName"></span></td>-->
+<!--            <td><input type="text" id="inputAddressName" name="name" readonly></td>-->
         </tr>
         <tr>
             <td>전화번호</td>
-            <td><input type="tel" name="receiverPhone" value="" placeholder="선택 버튼을 통해 받는 값" readonly></td>
+            <td><input type="text" id="recipientInputPhoneNumber" name="recipientInputPhoneNumber"></td>
         </tr>
         <tr>
             <td>주소</td>
-            <td>
-                <input type="text" name="receiverAddress" value="" placeholder="선택 버튼을 통해 받는 값" readonly>
-            </td>
+            <td><input type="text" id="recipientInputRoadNameAddress" name="recipientInputRoadNameAddress"> <input type="text" id="recipientInputDetailAddress" name="recipientInputDetailAddress"> <input type="text" id="recipientInputNotes" name="recipientInputNotes"></td>
+        </tr>
+        <tr>
+            <td>요청사항</td>
+            <td><input type="text" id="recipientInputRequestedTerm" name="recipientInputRequestedTerm"></td>
         </tr>
         </tbody>
     </table>
