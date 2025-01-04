@@ -18,7 +18,7 @@ import java.util.List;
 // TODO 여기 열기 Dev일 때 Inmemeory UserDetails
 
 @Service
-@Profile("!dev")
+//@Profile("!dev")
 @RequiredArgsConstructor
 public class FeignUserDetailsService implements UserDetailsService {
 

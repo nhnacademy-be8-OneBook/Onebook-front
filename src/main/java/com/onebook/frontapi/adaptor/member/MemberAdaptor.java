@@ -11,19 +11,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class MemberAdaptor {
+    /**
+     * FeignClient -> Adaptor -> Service -> Client 로 하려고 했으나, 시간상의 문제로 Adaptor 사용 X.
+     */
 
     private final MemberClient memberClient;
 
-    public boolean register(@Valid MemberRegisterRequestDto memberRegisterRequestDto) {
+    public boolean join(@Valid MemberRegisterRequestDto memberRegisterRequestDto) {
 
         try {
-            memberClient.registerRequest(memberRegisterRequestDto);
+            memberClient.joinRequest(memberRegisterRequestDto);
 
         }catch(FeignException e) {
             String errorJson = e.contentUTF8();
@@ -47,4 +48,5 @@ public class MemberAdaptor {
         }
         return true;
     }
+
 }
