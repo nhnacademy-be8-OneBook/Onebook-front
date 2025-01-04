@@ -1,6 +1,10 @@
 package com.onebook.frontapi.controller.book;
 
+import com.onebook.frontapi.dto.author.AuthorDTO;
+import com.onebook.frontapi.dto.book.BookAuthorDTO;
 import com.onebook.frontapi.dto.book.BookDTO;
+import com.onebook.frontapi.service.author.AuthorService;
+import com.onebook.frontapi.service.book.BookAuthorService;
 import com.onebook.frontapi.service.book.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class BookController {
     private final BookService bookService;
+    private final BookAuthorService bookAuthorService;
+    private final AuthorService authorService;
 
     @GetMapping("/newbooks")
     public String newBooks(Model model, Pageable pageable) {
@@ -30,12 +36,19 @@ public class BookController {
 
 
     @GetMapping("/bookDetail")
-    public String bookDetail(@RequestParam("bookId") long bookId, Model model) {
+    public String bookDetail(@RequestParam("bookId") long bookId,
+                             @RequestParam("url") String url,
+                             Model model) {
         BookDTO book = bookService.getBook(bookId);
+        BookAuthorDTO bookAuthor = bookAuthorService.getBookAuthor(bookId);
+
+        AuthorDTO author = authorService.getAuthor(bookAuthor.getAuthor().getAuthorId());
 
         log.info("bookId: {}", book.getBookId());
         log.info("bookTitle: {}", book.getTitle());
         model.addAttribute("book", book);
+        model.addAttribute("url", url);
+        model.addAttribute("author", author);
 
         return "book/bookDetail";
     }
