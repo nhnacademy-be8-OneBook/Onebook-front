@@ -9,9 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/book")
 @Slf4j
 public class BookController {
     private final BookService bookService;
@@ -23,5 +26,17 @@ public class BookController {
         model.addAttribute("bookList", bookDTOPage.getContent());
 
         return "index";
+    }
+
+
+    @GetMapping("/bookDetail")
+    public String bookDetail(@RequestParam("bookId") long bookId, Model model) {
+        BookDTO book = bookService.getBook(bookId);
+
+        log.info("bookId: {}", book.getBookId());
+        log.info("bookTitle: {}", book.getTitle());
+        model.addAttribute("book", book);
+
+        return "book/bookDetail";
     }
 }
