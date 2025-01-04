@@ -1,7 +1,7 @@
 package com.onebook.frontapi.controller.join;
 
 import com.onebook.frontapi.dto.member.MemberRegisterRequestDto;
-import com.onebook.frontapi.service.join.JoinService;
+import com.onebook.frontapi.service.member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/join")
 public class JoinController {
 
-    private final JoinService joinService;
+    private final MemberService memberService;
 
     @GetMapping
-    public String registerForm() {
-        return "auth/register";
+    public String joinForm() {
+        return "join/joinForm";
     }
 
     @PostMapping
-    public String memberRegister(@ModelAttribute @Valid MemberRegisterRequestDto memberRegisterRequestDto) {
-        if(joinService.memberJoin(memberRegisterRequestDto)) {
+    public String memberJoin(@ModelAttribute @Valid MemberRegisterRequestDto memberRegisterRequestDto) {
+        if(memberService.joinMember(memberRegisterRequestDto)) {
             return "redirect:/login";
         }
-        return "auth/register";
+        return "join/joinForm";
     }
 
 }

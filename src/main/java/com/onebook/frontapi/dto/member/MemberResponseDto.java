@@ -15,5 +15,6 @@ public record MemberResponseDto(
         String status,
         LocalDateTime createdAt,
         LocalDateTime lastLoginAt
-) {}
+) {
 
+}
