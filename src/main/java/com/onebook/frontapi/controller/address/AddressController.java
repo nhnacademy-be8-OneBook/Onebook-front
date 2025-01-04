@@ -1,11 +1,13 @@
 package com.onebook.frontapi.controller.address;
 
 import com.onebook.frontapi.dto.address.request.AddMemberAddressRequest;
+import com.onebook.frontapi.dto.address.request.DeleteMemberAddressRequest;
 import com.onebook.frontapi.dto.address.response.MemberAddressResponse;
 import com.onebook.frontapi.service.address.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,4 +45,13 @@ public class AddressController {
 
         return "/address/address-list";
     }
+
+//     배송지 삭제 기능
+    @DeleteMapping("/address/delete")
+    public String deleteAddress(@ModelAttribute DeleteMemberAddressRequest deleteMemberAddressRequest){
+
+        addressService.deleteMemberAddress(deleteMemberAddressRequest);
+        return "redirect:/address/all";
+    }
+
 }

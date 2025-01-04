@@ -2,9 +2,15 @@ spring:
   application:
     name: front-service
 
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
 server:
   port: 8100
 #  port: 8101
 
 onebook:
   gatewayUrl: http://localhost:8210
+
