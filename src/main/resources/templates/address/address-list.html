@@ -328,7 +328,14 @@
 								<button type="button" class="btn btn-dark">설정</button><!-- Input Order -->
 								</div>
 								</td>
-								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
+								<td>
+									<form class="text-center" action="/address/delete" method="POST">
+										<input type="hidden" name="_method" value="DELETE"/>
+										<input type="hidden" name="id" th:value="${address.getId()}"/>
+										<button class="btn btn-dark">삭제</button>
+									</form>
+								</td>
+<!--								<td class="action" data-title="Remove"><a methods="delete" href="/address/delete"><i class="ti-trash remove-icon"></i></a></td>-->
 							</tr>
 						</div>
 						</tbody>
