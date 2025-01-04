@@ -17,4 +17,9 @@ public class BookService {
     public Page<BookDTO> newBooks(Pageable pageable) {
         return bookClient.getNewBooks(pageable.getPageNumber());
     }
+
+    //getBook
+    public BookDTO getBook(Long id) {
+        return bookClient.getBookById(id);
+    }
  }
