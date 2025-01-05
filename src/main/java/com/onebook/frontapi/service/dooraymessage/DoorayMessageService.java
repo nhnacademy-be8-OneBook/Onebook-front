@@ -72,7 +72,7 @@ public class DoorayMessageService {
             throw new BadRequestException();
         }
 
-        String authCode = (String) redisTemplate.opsForValue().get(DOORAY_AUTH+sessionId);
+        String authCode = String.valueOf(redisTemplate.opsForValue().get(DOORAY_AUTH+sessionId));
 
         if(code.equals(authCode)) {
             return new AuthResponseDto(true, "인증 성공");
