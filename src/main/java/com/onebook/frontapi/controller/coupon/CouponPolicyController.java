@@ -1,6 +1,8 @@
 package com.onebook.frontapi.controller.coupon;
 
 import com.onebook.frontapi.dto.category.CategoryDTO;
+import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddPricePolicyForBookRequest;
+import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddPricePolicyForCategoryRequest;
 import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddRatePolicyForBookRequest;
 import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddRatePolicyForCategoryRequest;
 import com.onebook.frontapi.service.coupon.CouponPolicyService;
@@ -45,21 +47,34 @@ public class CouponPolicyController {
     }
 
     // 쿠폰 정책 등록
-    // 정책 등록 폼
+    // 정률정책forBook 등록 폼
     @GetMapping("/coupon-policies/rate/book/register")
     public String getRatePolicyForBookRegisterForm(){
         return "/coupon/policy-register/rate-policy-for-book-register-form";
     }
 
-    // 정책 등록 폼
+    // 정률정책forCategory 등록 폼
     @GetMapping("/coupon-policies/rate/category/register")
     public String getRatePolicyForCategoryRegisterForm(Model model){
 
         List<CategoryDTO> categoriesForSelect = couponPolicyService.getCategoriesForSelect();
-
         model.addAttribute("categoriesForSelect",categoriesForSelect);
-
         return "/coupon/policy-register/rate-policy-for-category-register-form";
+    }
+
+    // 정액정책forBook 등록 폼
+    @GetMapping("/coupon-policies/price/book/register")
+    public String getPricePolicyForBookRegisterForm(){
+
+        return "/coupon/policy-register/price-policy-for-book-register-form";
+    }
+    // 정액정책forCategory 등록 폼
+    @GetMapping("/coupon-policies/price/category/register")
+    public String getPricePolicyForCategoryRegisterForm(Model model){
+
+        List<CategoryDTO> categoriesForSelect = couponPolicyService.getCategoriesForSelect();
+        model.addAttribute("categoriesForSelect",categoriesForSelect);
+        return "/coupon/policy-register/price-policy-for-category-register-form";
     }
 
 
@@ -79,8 +94,22 @@ public class CouponPolicyController {
         return "redirect:/coupon-policies/rate-policies-for-book/list";
     }
 
+    // 정액정책 for Book 등록
+    @PostMapping("/coupon-policies/price/book/register")
+    public String registerPricePolicyForBook(@ModelAttribute AddPricePolicyForBookRequest addPricePolicyForBookRequest){
 
-    // category select를 위한 카테고리 목록 호출 메서드
+        couponPolicyService.registerPricePolicyForBook(addPricePolicyForBookRequest);
+        return "redirect:/coupon-policies/price-policies-for-book/list";
+    }
+
+    // 정액정책 for Category 등록
+    @PostMapping("/coupon-policies/price/category/register")
+    public String registerPricePolicyForCategory(@ModelAttribute AddPricePolicyForCategoryRequest addPricePolicyForCategoryRequest){
+
+        couponPolicyService.registerPricePolicyForCategory(addPricePolicyForCategoryRequest);
+        return "redirect:/coupon-policies/price-policy-for-category/list";
+    }
+
 
 
 

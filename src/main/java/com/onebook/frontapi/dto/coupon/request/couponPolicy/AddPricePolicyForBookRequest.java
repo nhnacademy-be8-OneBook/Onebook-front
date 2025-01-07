@@ -1,9 +1,12 @@
 package com.onebook.frontapi.dto.coupon.request.couponPolicy;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-
+@Getter
+@Setter
 public class AddPricePolicyForBookRequest {
     @NotNull
     private Integer minimumOrderAmount;
@@ -18,7 +21,5 @@ public class AddPricePolicyForBookRequest {
     @NotNull
     private String description;
     @NotNull
-    private Long bookId;
-    @NotNull
-    private Integer policyStatusId;
+    private String bookIsbn13;
 }

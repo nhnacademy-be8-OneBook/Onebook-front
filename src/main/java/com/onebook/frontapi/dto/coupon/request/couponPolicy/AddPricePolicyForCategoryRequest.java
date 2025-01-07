@@ -7,9 +7,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
+@Setter
 @Getter
-
 public class AddPricePolicyForCategoryRequest {
     @NotNull
     private Integer minimumOrderAmount;
@@ -24,6 +23,6 @@ public class AddPricePolicyForCategoryRequest {
     @NotNull
     private String description;
     @NotNull
-    private Integer category;
+    private Integer categoryId;
 
 }
