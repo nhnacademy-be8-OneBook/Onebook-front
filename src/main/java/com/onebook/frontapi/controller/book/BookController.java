@@ -65,8 +65,8 @@ public class BookController {
 
 
 
-    @PostMapping("/register")
-    public String register(BookSaveDTO dto, MultipartFile image, Model model) {
-        BookDTO book = bookService.createBook(dto, image);
-    }
+//    @PostMapping("/register")
+//    public String register(BookSaveDTO dto, MultipartFile image, Model model) {
+//        BookDTO book = bookService.createBook(dto, image);
+//    }
 }
