@@ -4,6 +4,7 @@ import com.onebook.frontapi.dto.address.request.AddMemberAddressRequest;
 import com.onebook.frontapi.dto.address.request.DeleteMemberAddressRequest;
 import com.onebook.frontapi.dto.address.request.UpdateMemberAddressRequest;
 import com.onebook.frontapi.dto.address.response.MemberAddressResponse;
+import com.onebook.frontapi.dto.category.CategoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,5 @@ public interface AddressClient {
     @DeleteMapping("/task/addresses")
     ResponseEntity<MemberAddressResponse> deleteMemberAddress
             (@RequestBody DeleteMemberAddressRequest deleteMemberAddressRequest);
-
 
 }

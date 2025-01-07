@@ -1,9 +1,14 @@
 package com.onebook.frontapi.dto.coupon.request.couponPolicy;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 public class AddRatePolicyForCategoryRequest {
     @NotNull
     private Integer discountRate;
@@ -21,6 +26,4 @@ public class AddRatePolicyForCategoryRequest {
     private String description;
     @NotNull
     private Integer categoryId;
-    @NotNull
-    private Integer policyStatusId;
 }

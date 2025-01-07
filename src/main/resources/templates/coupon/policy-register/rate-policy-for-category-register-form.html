@@ -12,11 +12,12 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <!-- Web Font -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
 
     <!-- StyleSheet -->
     <!--    모달창 css-->
-    <link rel="stylesheet" href="/css/coupon/couponPolicy/rate-policy-for-book-register.css" />
+    <link rel="stylesheet" href="/css/coupon/couponPolicy/rate-policy-for-category-register.css"/>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/css/bootstrap.css">
@@ -176,7 +177,8 @@
                             <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                         </div>
                         <div class="sinlge-bar shopping">
-                            <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
+                            <a href="#" class="single-icon"><i class="ti-bag"></i> <span
+                                    class="total-count">2</span></a>
                             <!-- Shopping Item -->
                             <div class="shopping-item">
                                 <div class="dropdown-cart-header">
@@ -186,13 +188,15 @@
                                 <ul class="shopping-list">
                                     <li>
                                         <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70"
+                                                                          alt="#"></a>
                                         <h4><a href="#">Woman Ring</a></h4>
                                         <p class="quantity">1x - <span class="amount">$99.00</span></p>
                                     </li>
                                     <li>
                                         <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70"
+                                                                          alt="#"></a>
                                         <h4><a href="#">Woman Necklace</a></h4>
                                         <p class="quantity">1x - <span class="amount">$35.00</span></p>
                                     </li>
@@ -234,7 +238,8 @@
                                             </li>
                                             <li><a href="#">Product</a></li>
                                             <li><a href="#">Service</a></li>
-                                            <li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
+                                            <li><a href="#">Shop<i class="ti-angle-down"></i><span
+                                                    class="new">New</span></a>
                                                 <ul class="dropdown">
                                                     <li><a href="shop-grid.html">Shop Grid</a></li>
                                                     <li><a href="shop-list.html">Shop List</a></li>
@@ -301,7 +306,7 @@
                 <div class="col-lg-8 col-12 ">
                     <div class="form-main">
                         <div class="title">
-                            <h4>정률정책 for Book</h4>
+                            <h4>정률정책 for Category</h4>
                             <h3>쿠폰 정책 등록</h3>
                         </div>
                         <form class="form" method="post" action="/coupon-policies/rate/category/register">
@@ -356,47 +361,24 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>적용 도서<span>*</span></label>
-<!--                                        <input name="bookId" type="hidden" readonly>-->
-                                        <input id="bookIsbn13" name="bookIsbn13" type="text" readonly>
-                                    </div>
-                                <button type="button" id="popupBtn">적용할 도서 지정하기</button>
-                                </div>
-                                <div class="col-12">
-                                </div>
-
-                                <div class="col-12" id="modalWrap">
-                                    <div class="form-group">
-                                    <div id="modalBody">
-
-                                        <div class="row">
-                                        <div class="col-12">
-                                        <p>도서 ISBN13 입력</p>
-                                        <input type="text" id="modalBookId">
-                                        </div>
-                                        <div class="col-4 pt-3">
-                                        <input type="button" id="text" onclick="inputBookId()" value="확인">
-                                        </div>
-                                        <div class="col-4 pt-3">
-                                            <input type="button" id="closeBtn" value="취소">
-                                        </div>
-                                        </div>
-
-                                    </div>
+                                        <label>적용 카테고리<span>*</span></label>
+                                        <p></p>
+                                        <select name="categoryId" onchange="func(this.value)">
+                                            <div th:each="category : ${categoriesForSelect}">
+                                                <option th:value="${category.getCategoryId()}">
+                                                    <p th:text="${category.getName()}"></p>
+                                                </option>
+                                            </div>
+                                        </select>
+                                        <input type="hidden" name="categoryId">
                                     </div>
                                 </div>
-
-                                <div class="col-12 pt-5 text-right">
-                                    <div class="form-group button col-12">
-                                        <button type="submit" class="btn ">정책 등록</button>
-                                        <button type="submit" class="btn ">취소</button>
-                                    </div>
+<!--                                <div class="col-12 pt-5 text-right">-->
+                                <div class="form-group button col-12 text-right">
+                                        <button type="submit" class="btn">정책 등록</button>
+                                        <button type="submit" class="btn">취소</button>
                                 </div>
-<!--                                <div class="col-12 pt-5">-->
-<!--                                    <div class="form-group button">-->
-<!--                                        <button type="submit" class="btn ">취소</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+
                             </div>
                         </form>
                     </div>
@@ -448,8 +430,11 @@
                         <div class="logo">
                             <a href="index.html"><img src="/images/logo2.png" alt="#"></a>
                         </div>
-                        <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-                        <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
+                        <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros
+                            eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis
+                            luctus, metus.</p>
+                        <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span>
+                        </p>
                     </div>
                     <!-- End Single Widget -->
                 </div>
@@ -514,7 +499,8 @@
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="left">
-                            <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
+                            <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a> -
+                                All Rights Reserved.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
@@ -529,7 +515,13 @@
 </footer>
 <!-- /End Footer Area -->
 
-
+<script>
+    function func(number) {
+        document.fr.categoryId.value  = number;
+        // 파라미터로 전달받은 셀렉트박스 속성값을
+        // 텍스트 박스 속성값에 전달함
+    }
+</script>
 
 <!-- Jquery -->
 <script src="/js/jquery.min.js"></script>
@@ -575,6 +567,6 @@
 <script src="/js/active.js"></script>
 
 <!-- 모달창 js-->
-<script src="/js/coupon/modalscript-for-book-search.js"></script>
+<script src="/js/coupon/rate-policy-for-category.js"></script>
 </body>
 </html>
