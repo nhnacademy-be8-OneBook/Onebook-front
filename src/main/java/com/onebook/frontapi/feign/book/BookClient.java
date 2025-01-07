@@ -2,11 +2,11 @@ package com.onebook.frontapi.feign.book;
 
 import com.onebook.frontapi.adaptor.packaging.PackagingResponseAdaptor;
 import com.onebook.frontapi.dto.book.BookDTO;
+import com.onebook.frontapi.dto.book.BookSaveDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.List;
@@ -20,5 +20,9 @@ public interface BookClient {
 
     @GetMapping("/task/book/{bookId}")
     BookDTO getBookById(@PathVariable("bookId") Long bookId);
+
+    @PostMapping("/task/book")
+    BookDTO createBook(@RequestPart(value = "dto") BookSaveDTO bookSaveDTO,
+                       @RequestPart(value = "image") MultipartFile image);
 
 }
