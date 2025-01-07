@@ -40,7 +40,7 @@ class PointControllerTest {
     }
 
     @Test
-    void testGetUserPointHistories() throws Exception {
+    void testGetMemberPointHistories() throws Exception {
         // Mock 데이터 준비
         MemberPointResponse pointHistory1 = MemberPointResponse.builder()
                 .pointId(1L)
@@ -69,7 +69,7 @@ class PointControllerTest {
         mockMvc.perform(get("/point/myPoint"))
                 .andExpect(status().isOk())  // 상태 코드 200 OK 확인
                 .andExpect(view().name("mypage/mypagePoint"))  // 뷰 이름 확인
-                .andExpect(model().attributeExists("userPointHistories"))  // 모델에 "userPointHistories" 속성 존재 확인
-                .andExpect(model().attribute("userPointHistories", mockResponse));  // 모델 속성 값 검증
+                .andExpect(model().attributeExists("memberPointHistories"))  // 모델에 "memberPointHistories" 속성 존재 확인
+                .andExpect(model().attribute("memberPointHistories", mockResponse));  // 모델 속성 값 검증
     }
 }
