@@ -34,7 +34,11 @@
       </tr>
       <tr>
         <td>수령인</td>
-        <td th:text="${orderDetails.receiverName} + ', ' + ${orderDetails.receiverPhone} + ', ' + ${orderDetails.receiverAddress}" />
+        <td th:text="${orderDetails.recipientName} + ', ' + ${orderDetails.recipientPhone} + ', ' + ${orderDetails.recipientAddress}" />
+      </tr>
+      <tr>
+        <td>요구사항</td>
+        <td th:text="${orderDetails.recipientRequestedTerm}"></td>
       </tr>
       </tbody>
     </table>

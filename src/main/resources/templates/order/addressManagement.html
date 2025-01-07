@@ -73,17 +73,20 @@
 <script>
     function handleAddressSelection(button) {
         // data 속성 값 읽기
+        const safeValue = (value) => value || "";
+
         const recipientName = button.getAttribute('data-address-name');
         const recipientPhoneNumber = button.getAttribute('data-address-phone');
         const recipientZipCode = button.getAttribute('data-address-zipcode');
-        const recipientRoadNameAddress = button.getAttribute('data-address-road');
         const recipientNumberAddress = button.getAttribute('data-address-number');
-        const recipientDetailAddress = button.getAttribute('data-address-detail');
-        const recipientNotes = button.getAttribute('data-address-notes');
-        const recipientRequestedTerm = button.getAttribute('data-address-requestedTerm')
+        // const recipientRoadNameAddress = button.getAttribute('data-address-road');
+        // const recipientNotes = button.getAttribute('data-address-notes');
+        // const recipientDetailAddress = button.getAttribute('data-address-detail');
+        const recipientRequestedTerm = button.getAttribute('data-address-requestedTerm');
 
+        const recipientAddress = safeValue(button.getAttribute('data-address-road')) + " " + safeValue(button.getAttribute('data-address-notes')) + " " + safeValue(button.getAttribute('data-address-detail'));
         // 부모 창에 주소 데이터 전달
-        window.opener.setAddress(recipientName, recipientPhoneNumber, recipientRoadNameAddress, recipientDetailAddress, recipientNotes, recipientRequestedTerm);
+        window.opener.setAddress(recipientName, recipientPhoneNumber, recipientRequestedTerm, recipientAddress);
         // 팝업창 닫기
         window.close();
     }
