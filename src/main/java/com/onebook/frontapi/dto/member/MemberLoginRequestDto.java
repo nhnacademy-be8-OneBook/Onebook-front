@@ -1,7 +1,7 @@
 package com.onebook.frontapi.dto.member;
 
 
-public record MemberLoginDto(
+public record MemberLoginRequestDto(
 
         String loginId,
         String password
