@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-public class OrderCreateDTO {
+public class OrderRegisterDto {
     String orderer;
     String phoneNumber;
     LocalDateTime dateTime;

@@ -11,12 +11,9 @@
 </head>
 
 <body>
-<!-- 주문서 영역 -->
 <div class="wrapper">
     <div class="box_section" style="padding: 40px 30px 50px 30px; margin-top: 30px; margin-bottom: 50px">
-        <!-- 결제 UI -->
         <div id="payment-method"></div>
-        <!-- 이용약관 UI -->
         <div id="agreement"></div>
 
         <div class="checkable typography--p" style="margin-top:20px;">
@@ -44,21 +41,18 @@
 
 <script>
     async function main() {
-        // URL 파라미터에서 orderId 추출 예: /checkout?orderId=123
         const urlParams = new URLSearchParams(window.location.search);
         const orderIdParam = urlParams.get("orderId");
 
-        // 1) TaskAPI에서 체크아웃 정보 GET
+        // 1) 체크아웃 정보 가져오기
         let checkoutInfo = {};
         try {
             const res = await fetch(`/front/payments/checkout-info/${orderIdParam}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
-                credentials: "include" // JWT 쿠키 포함
+                credentials: "include"
             });
-            if (!res.ok) {
-                throw new Error("체크아웃 정보 조회 실패");
-            }
+            if (!res.ok) throw new Error("체크아웃 정보 조회 실패");
             checkoutInfo = await res.json();
         } catch (error) {
             console.error(error);
@@ -66,82 +60,104 @@
             return;
         }
 
-        // 2) 결제위젯 초기화
-        const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; // 테스트용 키
-        const tossPayments = TossPayments(clientKey);
+        let orderAmount = checkoutInfo.orderAmount || 0;
+        let maxPoint = checkoutInfo.userPoint || 0;
 
-        // (예) customerKey는 사용자 식별용 임의값
-        // TODO 추후 멤버 id를 가져오는걸로 수정필요
-        const customerKey = "662815698466120492";
+        // 2) 토스페이먼츠 위젯 초기화
+        const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+        const tossPayments = TossPayments(clientKey);
+        const customerKey = checkoutInfo.memberId;
         const widgets = tossPayments.widgets({ customerKey });
 
-        // 결제금액
-        let orderAmount = checkoutInfo.orderAmount || 0;
+        // 초기 금액 설정
         await widgets.setAmount({ currency: "KRW", value: orderAmount });
 
-        // 결제수단 UI
         await widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" });
-        // 이용약관 UI
         await widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" });
 
-        // 3) 포인트 사용 로직
+        // 3) 포인트 관련 로직
         const pointCheck = document.getElementById("point-box");
         const pointSection = document.getElementById("point-section");
         const userPointEl = document.getElementById("user-point");
         const usePointInput = document.getElementById("usePointInput");
 
-        userPointEl.textContent = checkoutInfo.userPoint || 0;
+        userPointEl.textContent = maxPoint;
 
-        pointCheck.addEventListener("change", async () => {
+        pointCheck.addEventListener("change", () => {
             if (pointCheck.checked) {
                 pointSection.style.display = "block";
                 usePointInput.value = 0;
             } else {
                 pointSection.style.display = "none";
                 usePointInput.value = 0;
-                // 포인트 사용 해제 -> 결제금액 복원
-                await widgets.setAmount({ currency: "KRW", value: orderAmount });
+                // 포인트 사용 해제 시 결제금액 초기화
+                widgets.setAmount({ currency: "KRW", value: orderAmount });
             }
         });
 
-        usePointInput.addEventListener("input", async () => {
+        usePointInput.addEventListener("input", () => {
             let inputVal = Number(usePointInput.value);
-            const myPoint = Number(checkoutInfo.userPoint || 0);
-
-            if (inputVal > myPoint) {
-                inputVal = myPoint;
-                usePointInput.value = myPoint;
+            if (inputVal > maxPoint) {
+                inputVal = maxPoint;
+                usePointInput.value = maxPoint;
             }
-            const newAmount = orderAmount - inputVal;
-            const finalAmount = newAmount < 0 ? 0 : newAmount;
-            await widgets.setAmount({ currency: "KRW", value: finalAmount });
         });
 
-        // 4) 결제하기 버튼
+        // 4) 결제하기 버튼 클릭 이벤트
         document.getElementById("payment-button").addEventListener("click", async () => {
             const usedPoint = pointCheck.checked ? Number(usePointInput.value) : 0;
 
-            // 5) 토스 결제위젯
-            // TODO : 모든 정보를 taskapi DB에서 가져오도록 수정 필요
-            await widgets.requestPayment({
-                // orderId를 String으로 만들어야 중복 방지 + Long 파싱 오류 방지
-                orderId: checkoutInfo.orderId + "_" + generateRandomString(),
-                orderName: checkoutInfo.orderName || "주문 상품",
-                successUrl: window.location.origin + "/success",
-                failUrl: window.location.origin + "/fail",
-                customerEmail: checkoutInfo.ordererEmail,
-                customerName: checkoutInfo.ordererName ,
-                // 특수문자 없이
-                customerMobilePhone: "01011112222"
-            });
+            // A) 결제 생성(READY) 요청
+            let paymentResponse;
+            try {
+                const response = await fetch(`/front/payments/${orderIdParam}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                        // 필요 시 X-MEMBER-ID 헤더 추가
+                    },
+                    body: JSON.stringify({
+                        usedPoint: usedPoint,
+                        method: "TOSS",
+                        currency: "KRW"
+                    })
+                });
+                if (!response.ok) throw new Error("결제 생성 실패");
+                paymentResponse = await response.json();
+            } catch (err) {
+                console.error(err);
+                alert("결제 생성 중 오류가 발생했습니다.");
+                return;
+            }
+
+            const finalPayAmount = paymentResponse.totalAmount;
+            console.log("서버 계산 결제 금액:", finalPayAmount);
+
+            // B) 토스 위젯에 최종 결제 금액 설정
+            try {
+                await widgets.setAmount({ currency: "KRW", value: finalPayAmount });
+            } catch (err) {
+                console.error("금액 설정 실패:", err);
+                return;
+            }
+
+            // C) 토스 결제 요청
+            try {
+                await widgets.requestPayment({
+                    orderId: checkoutInfo.orderId + "_" + generateRandomString(),
+                    orderName: checkoutInfo.orderName || "주문 상품",
+                    successUrl: window.location.origin + "/success",
+                    failUrl: window.location.origin + "/fail",
+                    customerName: checkoutInfo.ordererName,
+                    customerMobilePhone: checkoutInfo.ordererPhone
+                });
+            } catch (err) {
+                console.error("결제 요청 중 오류:", err);
+            }
         });
     }
 
     function generateRandomString() {
-        // 중복 방지용.
-        // orderId를 사용하지만, 만약 결제 취소 후, 재결제 시도시
-        // 토스에서는 동일한 orderId가 또 들어오는걸 차단함
-        // 그래서 orderId + 뒤에 임의의 랜덤 문자열을 생성함
         return Math.random().toString(36).substring(2,10);
     }
 

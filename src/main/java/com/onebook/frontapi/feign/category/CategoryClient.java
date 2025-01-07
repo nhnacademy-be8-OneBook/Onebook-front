@@ -26,4 +26,8 @@ public interface CategoryClient {
 
     @GetMapping("/task/categories")
     ResponseEntity<List<CategoryDTO>> getCategories();
+  
+    @GetMapping("/task/categories/{categoryId}")
+    CategoryDTO getCategoryById(@PathVariable int categoryId);
+
 }

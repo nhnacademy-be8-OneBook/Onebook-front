@@ -28,4 +28,8 @@ public class CategoryService {
 
         return topCategories;
     }
+
+    public CategoryDTO getCategoryById(Integer categoryId) {
+        return categoryClient.getCategoryById(categoryId);
+    }
 }

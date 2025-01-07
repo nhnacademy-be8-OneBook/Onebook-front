@@ -17,6 +17,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,8 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Model model, Pageable pageable) {
+    public String home(@RequestParam(value = "categoryId", required = false) Integer categoryId,
+                       Model model, Pageable pageable) {
         log.info("BookClient: {}", bookService);
 
         Page<BookDTO> bookDTOPage = bookService.newBooks(pageable);
@@ -82,7 +84,7 @@ public class HomeController {
         log.info("ImageListSize: {}", imageList.size());
         model.addAttribute("imageList", imageList);
         model.addAttribute("bookList", bookList);
-
+        model.addAttribute("categoryId", categoryId);
         model.addAttribute("productList", productDTOList);
 
 
