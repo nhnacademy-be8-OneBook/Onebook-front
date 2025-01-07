@@ -19,7 +19,8 @@ public record MemberViewDto(
 {
     public static MemberViewDto from(MemberResponseDto memberResponseDto) {
         return new MemberViewDto(
-                convertGradeToString(memberResponseDto.gradeId()),
+//                convertGradeToString(memberResponseDto.gradeId()),
+                memberResponseDto.grade(),
                 memberResponseDto.name(),
                 memberResponseDto.loginId(),
                 memberResponseDto.dateOfBirth(),
