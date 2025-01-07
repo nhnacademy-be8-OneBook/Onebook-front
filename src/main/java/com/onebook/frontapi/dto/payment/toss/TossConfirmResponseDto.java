@@ -13,4 +13,6 @@ public class TossConfirmResponseDto {
     private String status;
     private String approvedAt;
     private String message;
+
+    private String memberId;
 }

@@ -62,12 +62,11 @@
         };
 
         // X-MEMBER-ID
-        // TODO : X-MEMBER-ID 현재 로그인 중인 사용자로 가져오도록 수정
         const res = await fetch("/front/payments/toss/confirm", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-MEMBER-ID": "662815698466120492"
+                // X-MEMBER-ID 로그인 된 사용자꺼 가져옴
             },
             body: JSON.stringify(requestData),
         });
