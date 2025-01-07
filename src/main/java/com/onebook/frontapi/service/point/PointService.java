@@ -21,10 +21,10 @@ public class PointService {
 
     public List<MemberPointResponse> getMemberPointHistories() {
         try {
-            CommonResponse<List<MemberPointResponse>> response = pointFeign.getUserPointHistories();
+            CommonResponse<List<MemberPointResponse>> response = pointFeign.getMemberPointHistories();
             return response.getResult();
         } catch (FeignException.Unauthorized ex) {
-            throw new RuntimeException("로그인되지 않은 상태에서 포인트 내역을 조회할 수 없습니다.");
+            throw new RuntimeException("로그인을 하십시오.");
         } catch (FeignException.BadRequest ex) {
             throw new RuntimeException("잘못된 요청입니다.");
         } catch (FeignException.NotFound ex) {

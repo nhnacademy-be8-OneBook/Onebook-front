@@ -18,7 +18,7 @@ public class PointController {
     private final PointService pointService;
 
     @GetMapping("/myPoint")
-    public ModelAndView getUserPointHistories() {
+    public ModelAndView getMemberPointHistories() {
         ModelAndView mv = new ModelAndView();
         List<MemberPointResponse> memberPointHistories = pointService.getMemberPointHistories();
 

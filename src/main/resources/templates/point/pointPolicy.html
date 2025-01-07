@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트 정책 관리</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<main id="main">
+    <section class="container mt-5">
+        <h2>포인트 정책 관리</h2>
+        <form id="pointPolicyForm">
+            <div class="form-group">
+                <label for="actionType">작업 선택</label>
+                <select id="actionType" class="form-control">
+                    <option value="create">포인트 정책 생성</option>
+                    <option value="update">포인트 정책 수정</option>
+                    <option value="delete">포인트 정책 삭제</option>
+                </select>
+            </div>
+
+            <!-- 생성/수정 폼 -->
+            <div id="createOrUpdateFields">
+                <div class="form-group">
+                    <label for="policyName">정책명</label>
+                    <input type="text" id="policyName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="policyConditionAmount">적용 조건 금액</label>
+                    <input type="number" id="policyConditionAmount" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="policyRate">적용 비율 (%)</label>
+                    <input type="number" id="policyRate" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="policyApplyAmount">적용 금액</label>
+                    <input type="number" id="policyApplyAmount" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="policyCondition">적용 조건 설명</label>
+                    <textarea id="policyCondition" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="policyApplyType">적용 유형 (포인트 적립 / 차감)</label>
+                    <select id="policyApplyType" class="form-control">
+                        <option value="true">포인트 적립</option>
+                        <option value="false">포인트 차감</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="policyState">정책 상태 (활성 / 비활성)</label>
+                    <select id="policyState" class="form-control">
+                        <option value="true">활성</option>
+                        <option value="false">비활성</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 수정 및 삭제 시, 정책 ID 입력 -->
+            <div id="policyIdField" class="form-group" style="display:none;">
+                <label for="policyId">정책 ID</label>
+                <input type="text" id="policyId" class="form-control" placeholder="수정 또는 삭제할 정책 ID를 입력하세요">
+            </div>
+
+            <!-- 제출 버튼 -->
+            <button type="submit" class="btn btn-primary">제출</button>
+        </form>
+    </section>
+</main>
+
+<script>
+    $(document).ready(function() {
+        // 작업 선택에 따라 폼 동적 처리
+        $('#actionType').change(function() {
+            var actionType = $(this).val();
+
+            if (actionType === 'create' || actionType === 'update') {
+                // 생성 및 수정 폼 보여주기
+                $('#createOrUpdateFields').show();
+                // 수정 시 정책 ID 입력 필드 보여주기
+                if (actionType === 'update') {
+                    $('#policyIdField').show();
+                } else {
+                    $('#policyIdField').hide();
+                }
+            } else if (actionType === 'delete') {
+                // 삭제 폼만 표시
+                $('#createOrUpdateFields').hide();
+                $('#policyIdField').show();
+            }
+        });
+
+        // 폼 제출 처리
+        $('#pointPolicyForm').submit(function(event) {
+            event.preventDefault();
+
+            var actionType = $('#actionType').val();
+            var policyName = $('#policyName').val();
+            var policyConditionAmount = $('#policyConditionAmount').val();
+            var policyRate = $('#policyRate').val();
+            var policyApplyAmount = $('#policyApplyAmount').val();
+            var policyCondition = $('#policyCondition').val();
+            var policyApplyType = $('#policyApplyType').val() === 'true';
+            var policyState = $('#policyState').val() === 'true';
+            var policyId = $('#policyId').val();
+
+            var url, method, requestBody;
+
+            if (actionType === 'create') {
+                url = 'http://localhost:8500/member/admin/point-policies';
+                method = 'POST';
+                requestBody = JSON.stringify({
+                    pointPolicyName: policyName,
+                    pointPolicyConditionAmount: policyConditionAmount,
+                    pointPolicyRate: policyRate,
+                    pointPolicyApplyAmount: policyApplyAmount,
+                    pointPolicyCondition: policyCondition,
+                    pointPolicyApplyType: policyApplyType,
+                    pointPolicyState: policyState
+                });
+            } else if (actionType === 'update') {
+                url = 'http://localhost:8500/member/admin/point-policies/' + policyId;
+                method = 'PUT';
+                requestBody = JSON.stringify({
+                    pointPolicyName: policyName,
+                    pointPolicyConditionAmount: policyConditionAmount,
+                    pointPolicyRate: policyRate,
+                    pointPolicyApplyAmount: policyApplyAmount,
+                    pointPolicyCondition: policyCondition,
+                    pointPolicyApplyType: policyApplyType,
+                    pointPolicyState: policyState
+                });
+            } else if (actionType === 'delete') {
+                url = 'http://localhost:8500/member/admin/point-policies/' + policyId;
+                method = 'DELETE';
+                requestBody = null;
+            }
+
+            // 요청 보내기
+            $.ajax({
+                url: url,
+                method: method,
+                contentType: 'application/json',
+                data: requestBody,
+                success: function(response) {
+                    alert('작업이 완료되었습니다!');
+                    $('#pointPolicyForm')[0].reset();
+                    $('#policyIdField').hide();
+                    $('#createOrUpdateFields').show();
+                },
+                error: function(xhr, status, error) {
+                    alert('작업에 실패했습니다. 다시 시도해주세요.');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
