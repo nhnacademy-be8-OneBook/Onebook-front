@@ -13,4 +13,6 @@ public class CheckoutInfoResponseDto {
     private String ordererName;
     private String ordererEmail;
     private String ordererPhone;
+
+    private String memberId;
 }
