@@ -62,6 +62,23 @@
 
     <div th:replace="~{fragments/header :: header}"></div>
 
+    <div class="container mt-5">
+        <h2>카테고리 등록</h2>
+
+        <!-- 카테고리 등록 폼 -->
+        <form action="/categories/create" method="POST">
+            <div class="form-group">
+                <label for="categoryName">카테고리 이름</label>
+                <div>
+                    <input type="hidden" name="categoryId" th:value="${categoryId}">
+                </div>
+                <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="카테고리 이름을 입력하세요" required>
+            </div>
+            <button type="submit" class="btn btn-primary">카테고리 등록</button>
+        </form>
+
+
+    </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
 
