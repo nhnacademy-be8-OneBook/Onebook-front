@@ -1,34 +1,50 @@
 package com.onebook.frontapi.service.order;
 
-import com.onebook.frontapi.dto.order.OrderCreateDTO;
-import com.onebook.frontapi.dto.order.OrderRequestDTO;
-import com.onebook.frontapi.feign.address.AddressClient;
+import com.onebook.frontapi.dto.order.OrderRegisterDto;
+import com.onebook.frontapi.dto.order.OrderRegisterResponseDto;
+import com.onebook.frontapi.dto.order.OrderRequestDto;
+import com.onebook.frontapi.dto.order.OrderResponseDto;
 import com.onebook.frontapi.feign.order.OrderClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class OrderService {
     private final OrderClient orderClient;
 
-    public void createOrder(OrderRequestDTO orderRequestDTO) {
+    public void createOrder(OrderRegisterResponseDto orderRegisterResponseDto) {
         // TODO 배송비 입력
         int deliveryPrice = 3000;
         int totalPrice = 15000;
 
         System.out.println("진입!!!!!!!");
 
-        OrderCreateDTO orderCreateDTO = new OrderCreateDTO(
-                orderRequestDTO.getOrdererName(),
-                orderRequestDTO.getOrdererPhone(),
+        OrderRegisterDto orderRegisterDto = new OrderRegisterDto(
+                orderRegisterResponseDto.getOrdererName(),
+                orderRegisterResponseDto.getOrdererPhone(),
                 LocalDateTime.now(),
                 deliveryPrice,
                 totalPrice);
 
-        orderClient.createOrder(orderCreateDTO);
+        orderClient.createOrder(orderRegisterDto);
     }
 
+    public List<OrderResponseDto> getAllOrders() {
+        List<OrderRequestDto> allOrders = orderClient.findAllOrders();
+        return allOrders.stream().map(orderRequestDto -> new OrderResponseDto(
+                orderRequestDto.getOrderer(),
+                orderRequestDto.getDateTime(),
+                orderRequestDto.getDeliveryPrice(),
+                orderRequestDto.getTotalPrice(),
+                orderRequestDto.getOrderStatusName()
+        )).toList();
+    }
+
+    public List<String> getAllOrderStatuses() {
+        return orderClient.findAllOrderStatuses();
+    }
 }

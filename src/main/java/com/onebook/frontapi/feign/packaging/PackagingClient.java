@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@FeignClient(name = "packagingClient", url = "http://localhost:8510")
-//@FeignClient(name = "packagingClient", url = "${onebook.gatewayUrl}")
+//@FeignClient(name = "packagingClient", url = "http://localhost:8510")
+@FeignClient(name = "packagingClient", url = "${onebook.gatewayUrl}")
 public interface PackagingClient {
     @GetMapping("/task/packagings")
     List<PackagingResponseAdaptor> getAllPackaging();
