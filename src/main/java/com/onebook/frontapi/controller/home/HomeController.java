@@ -2,9 +2,11 @@ package com.onebook.frontapi.controller.home;
 
 import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.book.ProductDTO;
+import com.onebook.frontapi.dto.category.CategoryDTO;
 import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.feign.auth.AuthFeignClient;
 import com.onebook.frontapi.service.book.BookService;
+import com.onebook.frontapi.service.category.CategoryService;
 import com.onebook.frontapi.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ import java.util.List;
 public class HomeController {
     private final BookService bookService;
     private final ImageService imageService;
+    private final CategoryService categoryService;
 
 
     @Value("${server.port}")
@@ -69,6 +72,10 @@ public class HomeController {
                     productDTOList.add(productDTO);
             }
 
+            List<CategoryDTO> categoryDTOList = categoryService.getTopCategories();
+
+            model.addAttribute("topCategories", categoryDTOList);
+
 
 
         log.info("BookListSize: {}", bookList.size());
@@ -81,4 +88,5 @@ public class HomeController {
 
         return "index4";
     }
+
 }

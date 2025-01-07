@@ -1,11 +1,13 @@
 package com.onebook.frontapi.service.book;
 
 import com.onebook.frontapi.dto.book.BookDTO;
+import com.onebook.frontapi.dto.book.BookSaveDTO;
 import com.onebook.frontapi.feign.book.BookClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Service
@@ -21,5 +23,10 @@ public class BookService {
     //getBook
     public BookDTO getBook(Long id) {
         return bookClient.getBookById(id);
+    }
+
+    //RegisterBook
+    public BookDTO createBook(BookSaveDTO dto, MultipartFile image) {
+        return bookClient.createBook(dto, image);
     }
  }
