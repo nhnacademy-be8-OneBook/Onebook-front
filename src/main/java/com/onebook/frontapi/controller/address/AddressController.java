@@ -22,7 +22,7 @@ public class AddressController {
     @GetMapping("/addresses/register")
     public String getAddressRegisterForm(){
 
-        return "/address/address-register-form";
+        return "address/address-register-form";
     }
 
     // 배송지 등록하기
@@ -39,7 +39,7 @@ public class AddressController {
 
         List<MemberAddressResponse> memberAddresses = addressService.getAllMemberAddressByMemberId();
         model.addAttribute("memberAddresses",memberAddresses);
-        return "/address/address-list";
+        return "address/address-list";
     }
 
     // 배송지 수정 기능
@@ -51,7 +51,7 @@ public class AddressController {
                 addressService.getMemberAddressById(id);
 
         model.addAttribute("memberAddress",memberAddressResponse);
-        return "/address/address-modify-form";
+        return "address/address-modify-form";
     }
 
     // 배송지 수정 기능

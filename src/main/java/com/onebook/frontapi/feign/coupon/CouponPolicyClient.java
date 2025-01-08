@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,5 +37,7 @@ public interface CouponPolicyClient {
     ResponseEntity<PricePolicyForCategoryResponse> addPricePolicyForCategory
             (@RequestBody AddPricePolicyForCategoryRequest addPricePolicyForCategoryRequest);
 
-
+    @GetMapping("task/policies/rate/book")
+    ResponseEntity<List<RatePolicyForBookResponse>> getRatePoliciesForBook
+            (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo);
 }
