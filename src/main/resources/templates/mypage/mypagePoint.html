@@ -1,303 +1,67 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="zxx">-->
-<!--<head>-->
-<!--    &lt;!&ndash; Meta Tag &ndash;&gt;-->
-<!--    <meta charset="utf-8">-->
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta name='copyright' content=''>-->
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-<!--    &lt;!&ndash; Title Tag  &ndash;&gt;-->
-<!--    <title>Eshop - eCommerce HTML5 Template.</title>-->
-<!--    &lt;!&ndash; Favicon &ndash;&gt;-->
-<!--    <link rel="icon" type="image/png" href="/images/favicon.png">-->
-<!--    &lt;!&ndash; Web Font &ndash;&gt;-->
-<!--    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"-->
-<!--          rel="stylesheet">-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>나의 포인트 내역</title>
 
-<!--    &lt;!&ndash; StyleSheet &ndash;&gt;-->
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
 
-<!--    &lt;!&ndash; Bootstrap &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/bootstrap.css">-->
-<!--    &lt;!&ndash; Magnific Popup &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/magnific-popup.min.css">-->
-<!--    &lt;!&ndash; Font Awesome &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/font-awesome.css">-->
-<!--    &lt;!&ndash; Fancybox &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">-->
-<!--    &lt;!&ndash; Themify Icons &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/themify-icons.css">-->
-<!--    &lt;!&ndash; Nice Select CSS &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/niceselect.css">-->
-<!--    &lt;!&ndash; Animate CSS &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/animate.css">-->
-<!--    &lt;!&ndash; Flex Slider CSS &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/flex-slider.min.css">-->
-<!--    &lt;!&ndash; Owl Carousel &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/owl-carousel.css">-->
-<!--    &lt;!&ndash; Slicknav &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/slicknav.min.css">-->
+<body>
 
-<!--    &lt;!&ndash; Eshop StyleSheet &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/reset.css">-->
-<!--    <link rel="stylesheet" href="/style.css">-->
-<!--    <link rel="stylesheet" href="/css/responsive.css">-->
+<main id="main">
+    <section class="contact mb-5" id="contact">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="col-lg-12 text-center mt-2 mb-5">
+                    <h1 class="page-title">마이페이지</h1>
+                </div>
+            </div>
 
-<!--    &lt;!&ndash; Color CSS &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="/css/color/color1.css">-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color2.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color3.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color4.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color5.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color6.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color7.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color8.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color9.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color10.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color11.css">&ndash;&gt;-->
-<!--    &lt;!&ndash;<link rel="stylesheet" href="/css/color/color12.css">&ndash;&gt;-->
+            <div class="d-flex align-items-start mx-3 row g-5">
+                <!-- 포인트 내역 출력 시작 -->
+                <div class="my-info col-lg-9 col-md-auto col-sm-auto">
+                    <div class="form login-form ml-5">
+                        <h2>나의 포인트 내역</h2>
+                        <hr>
 
-<!--    <link rel="stylesheet" href="#" id="colors">-->
+                        <div class="table">
+                            <div class="row border-bottom py-2" style="--bs-bg-opacity: .5;">
+                                <span class="fw-bold text-center col-2">No</span>
+                                <span class="fw-bold text-center col-2">적립 포인트</span>
+                                <span class="fw-bold text-center col-4">변경 사유</span>
+                                <span class="fw-bold text-center col-4">변경 일시</span>
+                            </div>
 
-<!--</head>-->
-<!--<html lang="en" layout:decorate="~{layouts/layout}"-->
-<!--      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"-->
-<!--      xmlns:th="http://www.thymeleaf.org">-->
+                            <!-- 포인트 내역 리스트 출력 시작 -->
+                            <div class="user-point-history">
+                                <th:block th:each="pointHistory, status : ${memberPointHistories}">
+                                    <div class="row py-2">
+                                        <span class="col-2 text-center" th:text="${status.count}"></span>
+                                        <span class="col-2 text-end"
+                                              th:text="${#numbers.formatInteger(pointHistory.pointHistoryValue, 1, 'COMMA')} + ' p'"></span>
+                                        <span class="col-4 text-center"
+                                              th:text="${pointHistory.pointHistoryType}"></span>
+                                        <span class="col-4 text-center"
+                                              th:text="${#temporals.format(pointHistory.createdAt, 'yyyy-MM-dd hh시 mm분')}"></span>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <!-- 포인트 내역 리스트 출력 끝 -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 포인트 내역 출력 끝 -->
+            </div>
+        </div>
+    </section>
+</main>
 
-<!--<div layout:fragment="content">&lt;!&ndash; ==== fragment:content === &ndash;&gt;-->
-
-<!--    <main id="main">-->
-<!--        <section class="contact mb-5" id="contact">-->
-<!--            <div class="container" data-aos="fade-up">-->
-
-<!--                <div class="row">-->
-<!--                    <div class="col-lg-12 text-center mt-2 mb-5">-->
-<!--                        <h1 class="page-title">마이페이지</h1>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; ======= New Layout Start ======= &ndash;&gt;-->
-<!--                <div class="d-flex align-items-start mx-3 row g-5">-->
-<!--                    &lt;!&ndash; ======= Sidebar Start ======= &ndash;&gt;-->
-<!--                    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light col-lg-3 col-md-auto"-->
-<!--                         style="width: 230px;">-->
-<!--                        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"-->
-<!--                           href="/">-->
-<!--                            <span class="fs-4">Sidebar</span>-->
-<!--                        </a>-->
-<!--                        <hr>-->
-<!--                        <ul class="nav nav-pills flex-column mb-auto">-->
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link link-dark" href="/mypage">회원 정보</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item">-->
-<!--                                <a aria-current="page" class="nav-link active" href="#">주소 관리</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a class="nav-link link-dark" href="/my_grade_title">나의 등급</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a class="nav-link link-dark" href="/point/my_point">나의 포인트</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a class="nav-link link-dark" href="#">나의 찜 목록</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a class="nav-link link-dark" href="#">주문 내역</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-
-<!--                    <script>-->
-<!--                        // Siderbar 에서 마우스가 올라가 있는 요소의 색을 변경-->
-<!--                        var navLinks = document.querySelectorAll('.nav-link');-->
-
-<!--                        navLinks.forEach(function (navLink) {-->
-<!--                            navLink.addEventListener('mouseover', function () {-->
-<!--                                navLinks.forEach(function (link) {-->
-<!--                                    link.classList.remove('active');-->
-<!--                                    link.classList.add('link-dark');-->
-<!--                                });-->
-
-<!--                                this.classList.add('active');-->
-<!--                                this.classList.remove('link-dark');-->
-<!--                            })-->
-<!--                        })-->
-<!--                    </script>-->
-<!--                    &lt;!&ndash; ======= Sidebar End ======= &ndash;&gt;-->
-
-<!--                    &lt;!&ndash; ======= Point History Start ======= &ndash;&gt;-->
-<!--                    <div class="my-info col-lg-9 col-md-auto col-sm-auto">-->
-<!--                        <div class="form login-form ml-5">-->
-<!--                            <h2>나의 포인트 내역</h2>-->
-<!--                            <hr>-->
-
-<!--                            <div class="table">-->
-<!--                                <div class="row border-bottom py-2" style="&#45;&#45;bs-bg-opacity: .5;">-->
-<!--                                    <span class="fw-bold text-center col-2">No</span>-->
-<!--                                    <span class="fw-bold text-center col-2">적립 포인트</span>-->
-<!--                                    <span class="fw-bold text-center col-4">변경 사유</span>-->
-<!--                                    <span class="fw-bold text-center col-4">변경 일시</span>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; ======= Point History List Start ======= &ndash;&gt;-->
-<!--                                <div class="user-point-history">-->
-<!--                                    <th:block th:each="pointHistory, status : ${memberPointHistories}">-->
-<!--                                        <div class="row py-2">-->
-<!--                                            <span class="col-2 text-center" th:text="${status.count}"></span>-->
-<!--                                            <span class="col-2 text-end"-->
-<!--                                                  th:text="${#numbers.formatInteger(pointHistory.pointHistoryValue, 1, 'COMMA')} + ' p'"></span>-->
-<!--                                            <span class="col-4 text-center"-->
-<!--                                                  th:text="${pointHistory.pointHistoryType}"></span>-->
-<!--                                            <span class="col-4 text-center"-->
-<!--                                                  th:text="${#temporals.format(pointHistory.createdAt, 'yyyy-MM-dd hh시 mm분')}"></span>-->
-<!--                                        </div>-->
-
-
-<!--                                    </th:block>-->
-
-<!--                                </div>&lt;!&ndash; ======= Point History List End ======= &ndash;&gt;-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; ======= Point History End ======= &ndash;&gt;-->
-<!--                </div>-->
-<!--                &lt;!&ndash; ======= New Layout End ======= &ndash;&gt;-->
-<!--            </div>-->
-<!--        </section>-->
-<!--    </main>-->
-<!--</div>&lt;!&ndash; ==== End fragment:content === &ndash;&gt;-->
-<!--&lt;!&ndash; Start Footer Area &ndash;&gt;-->
-<!--<footer class="footer">-->
-<!--    &lt;!&ndash; Footer Top &ndash;&gt;-->
-<!--    <div class="footer-top section">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-lg-5 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer about">-->
-<!--                        <div class="logo">-->
-<!--                            <a href="index.html"><img src="/images/logo2.png" alt="#"></a>-->
-<!--                        </div>-->
-<!--                        <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros-->
-<!--                            eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis-->
-<!--                            luctus, metus.</p>-->
-<!--                        <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span>-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="col-lg-2 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer links">-->
-<!--                        <h4>Information</h4>-->
-<!--                        <ul>-->
-<!--                            <li><a href="#">About Us</a></li>-->
-<!--                            <li><a href="#">Faq</a></li>-->
-<!--                            <li><a href="#">Terms & Conditions</a></li>-->
-<!--                            <li><a href="#">Contact Us</a></li>-->
-<!--                            <li><a href="#">Help</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="col-lg-2 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer links">-->
-<!--                        <h4>Customer Service</h4>-->
-<!--                        <ul>-->
-<!--                            <li><a href="#">Payment Methods</a></li>-->
-<!--                            <li><a href="#">Money-back</a></li>-->
-<!--                            <li><a href="#">Returns</a></li>-->
-<!--                            <li><a href="#">Shipping</a></li>-->
-<!--                            <li><a href="#">Privacy Policy</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="col-lg-3 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer social">-->
-<!--                        <h4>Get In Tuch</h4>-->
-<!--                        &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                        <div class="contact">-->
-<!--                            <ul>-->
-<!--                                <li>NO. 342 - London Oxford Street.</li>-->
-<!--                                <li>012 United Kingdom.</li>-->
-<!--                                <li>info@eshop.com</li>-->
-<!--                                <li>+032 3456 7890</li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                        <ul>-->
-<!--                            <li><a href="#"><i class="ti-facebook"></i></a></li>-->
-<!--                            <li><a href="#"><i class="ti-twitter"></i></a></li>-->
-<!--                            <li><a href="#"><i class="ti-flickr"></i></a></li>-->
-<!--                            <li><a href="#"><i class="ti-instagram"></i></a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; End Footer Top &ndash;&gt;-->
-<!--    <div class="copyright">-->
-<!--        <div class="container">-->
-<!--            <div class="inner">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-lg-6 col-12">-->
-<!--                        <div class="left">-->
-<!--                            <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a> - -->
-<!--                                All Rights Reserved.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6 col-12">-->
-<!--                        <div class="right">-->
-<!--                            <img src="/images/payments.png" alt="#">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</footer>-->
-<!--&lt;!&ndash; /End Footer Area &ndash;&gt;-->
-
-<!--&lt;!&ndash; Jquery &ndash;&gt;-->
-<!--<script src="/js/jquery.min.js"></script>-->
-<!--<script src="/js/jquery-migrate-3.0.0.js"></script>-->
-<!--<script src="/js/jquery-ui.min.js"></script>-->
-<!--&lt;!&ndash; Popper JS &ndash;&gt;-->
-<!--<script src="/js/popper.min.js"></script>-->
-<!--&lt;!&ndash; Bootstrap JS &ndash;&gt;-->
-<!--<script src="/js/bootstrap.min.js"></script>-->
-<!--&lt;!&ndash; Color JS &ndash;&gt;-->
-<!--<script src="/js/colors.js"></script>-->
-<!--&lt;!&ndash; Slicknav JS &ndash;&gt;-->
-<!--<script src="/js/slicknav.min.js"></script>-->
-<!--&lt;!&ndash; Owl Carousel JS &ndash;&gt;-->
-<!--<script src="/js/owl-carousel.js"></script>-->
-<!--&lt;!&ndash; Magnific Popup JS &ndash;&gt;-->
-<!--<script src="/js/magnific-popup.js"></script>-->
-<!--&lt;!&ndash; Fancybox JS &ndash;&gt;-->
-<!--<script src="/js/facnybox.min.js"></script>-->
-<!--&lt;!&ndash; Waypoints JS &ndash;&gt;-->
-<!--<script src="/js/waypoints.min.js"></script>-->
-<!--&lt;!&ndash; Countdown JS &ndash;&gt;-->
-<!--<script src="/js/finalcountdown.min.js"></script>-->
-<!--&lt;!&ndash; Nice Select JS &ndash;&gt;-->
-<!--<script src="/js/nicesellect.js"></script>-->
-<!--&lt;!&ndash; Ytplayer JS &ndash;&gt;-->
-<!--<script src="/js/ytplayer.min.js"></script>-->
-<!--&lt;!&ndash; Flex Slider JS &ndash;&gt;-->
-<!--<script src="/js/flex-slider.js"></script>-->
-<!--&lt;!&ndash; ScrollUp JS &ndash;&gt;-->
-<!--<script src="/js/scrollup.js"></script>-->
-<!--&lt;!&ndash; Onepage Nav JS &ndash;&gt;-->
-<!--<script src="/js/onepage-nav.min.js"></script>-->
-<!--&lt;!&ndash; Easing JS &ndash;&gt;-->
-<!--<script src="/js/easing.js"></script>-->
-<!--&lt;!&ndash; Active JS &ndash;&gt;-->
-<!--<script src="/js/active.js"></script>-->
-<!--</body>-->
-<!--</html>-->
+</body>
+</html>
