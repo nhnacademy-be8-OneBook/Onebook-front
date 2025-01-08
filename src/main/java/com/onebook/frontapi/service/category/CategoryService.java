@@ -1,6 +1,7 @@
 package com.onebook.frontapi.service.category;
 
 import com.onebook.frontapi.dto.category.CategoryDTO;
+import com.onebook.frontapi.dto.category.CategoryUpdateDTO;
 import com.onebook.frontapi.dto.category.CreateCategoryDTO;
 import com.onebook.frontapi.feign.category.CategoryClient;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,13 @@ public class CategoryService {
 
     public CategoryDTO getCategoryById(Integer categoryId) {
         return categoryClient.getCategoryById(categoryId);
+    }
+
+    public CategoryDTO updateCategory(CategoryUpdateDTO dto){
+        return categoryClient.updateCategory(dto);
+    }
+
+    public void deleteCategoryById(Integer categoryId) {
+        categoryClient.deleteCategoryById(categoryId);
     }
 }
