@@ -35,8 +35,7 @@ public class CategoryController {
 
     @PostMapping("/create")
     public String createCategory(@RequestParam(value = "categoryId", required = false) Integer categoryId,
-                                 @RequestParam("categoryName") String name,
-                                 Model model) {
+                                 @RequestParam("categoryName") String name) {
         CreateCategoryDTO dto = new CreateCategoryDTO();
         dto.setCategoryName(name);
         if(Objects.isNull(categoryId)) {
@@ -76,6 +75,7 @@ public class CategoryController {
     @DeleteMapping("/delete")
     public String deleteCategory(@RequestParam(value = "categoryId") int categoryId){
         log.info("CategoryId: {}", categoryId);
+
         categoryService.deleteCategoryById(categoryId);
         return "redirect:/";
     }
