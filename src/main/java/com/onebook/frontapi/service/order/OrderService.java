@@ -47,4 +47,8 @@ public class OrderService {
     public List<String> getAllOrderStatuses() {
         return orderClient.findAllOrderStatuses();
     }
+
+    public List<OrderRequestDto> getOrdersByStatus(String status) {
+        return orderClient.findOrderByStatus(status);
+    }
 }

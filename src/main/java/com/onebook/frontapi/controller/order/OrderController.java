@@ -3,6 +3,7 @@ package com.onebook.frontapi.controller.order;
 import com.onebook.frontapi.dto.delivery.DeliveryRequestDto;
 import com.onebook.frontapi.dto.order.OrderAddressResponseDto;
 import com.onebook.frontapi.dto.order.OrderRegisterResponseDto;
+import com.onebook.frontapi.dto.order.OrderRequestDto;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.order.OrderAddressService;
 import com.onebook.frontapi.service.order.OrderService;
@@ -87,5 +88,12 @@ public class OrderController {
             System.out.println("주문 성공! " + orderDetails);
         }
         return "order/orderSuccess"; // 주문 성공 페이지 반환
+    }
+
+    @GetMapping("/admin/order/status")
+    public String orderStatus(Model model, @RequestParam String status) {
+        List<OrderRequestDto> ordersByStatus = orderService.getOrdersByStatus(status);
+        model.addAttribute("ordersByStatus", ordersByStatus);
+        return "admin/orderStatus";
     }
 }
