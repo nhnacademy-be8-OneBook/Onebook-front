@@ -31,7 +31,7 @@ public class CouponPolicyController {
     @GetMapping("/coupon-policies/rate-policies-for-book/list")
     public String getRatePolicyForBookList()
     {
-        return "coupon/policy-list/rate-policy-for-book-list";
+        return "policy-for-book-list";
     }
 
     @GetMapping("/coupon-policies/rate-policy-for-category/list")
@@ -88,7 +88,7 @@ public class CouponPolicyController {
     public String registerRatePolicyForBook(@ModelAttribute AddRatePolicyForBookRequest addRatePolicyForBookRequest){
 
         couponPolicyService.registerRatePolicyForBook(addRatePolicyForBookRequest);
-        return "redirect:/coupon-policies/rate-policies-for-book/list";
+        return "redirect:/coupon-policies/rate/book";
     }
 
     // 정률정책 for category 등록
@@ -96,7 +96,7 @@ public class CouponPolicyController {
     public String registerRatePolicyForCategory(@ModelAttribute AddRatePolicyForCategoryRequest addRatePolicyForCategoryRequest){
 
         couponPolicyService.registerRatePolicyForCategory(addRatePolicyForCategoryRequest);
-        return "redirect:/coupon-policies/rate-policies-for-book/list";
+        return "redirect:/coupon-policies/rate/category";
     }
 
     // 정액정책 for Book 등록
@@ -104,7 +104,7 @@ public class CouponPolicyController {
     public String registerPricePolicyForBook(@ModelAttribute AddPricePolicyForBookRequest addPricePolicyForBookRequest){
 
         couponPolicyService.registerPricePolicyForBook(addPricePolicyForBookRequest);
-        return "redirect:/coupon-policies/price-policies-for-book/list";
+        return "redirect:/coupon-policies/price/book";
     }
 
     // 정액정책 for Category 등록
@@ -112,7 +112,7 @@ public class CouponPolicyController {
     public String registerPricePolicyForCategory(@ModelAttribute AddPricePolicyForCategoryRequest addPricePolicyForCategoryRequest){
 
         couponPolicyService.registerPricePolicyForCategory(addPricePolicyForCategoryRequest);
-        return "redirect:/coupon-policies/price-policy-for-category/list";
+        return "redirect:/coupon-policies/price/category";
     }
 
     // 정률정책 for Book 조회
@@ -120,7 +120,9 @@ public class CouponPolicyController {
     public String getRatePoliciesForBook
     (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model model){
         Page<RatePolicyForBookResponse> policyList = couponPolicyService.getRatePoliciesForBook(pageNo);
-        model.addAttribute("policyList",policyList);
+
+        model.addAttribute("policyList",policyList.getContent());
+        model.addAttribute("totalPages",policyList.getTotalPages());
         return "coupon/policy-list/rate-policy-for-book-list";
     }
 
@@ -131,8 +133,7 @@ public class CouponPolicyController {
         Page<RatePolicyForCategoryResponse> policyList = couponPolicyService.getRatePoliciesForCategory(pageNo);
 
         model.addAttribute("policyList",policyList.getContent());
-        model.addAttribute("totalPage",policyList.getTotalPages());
-
+        model.addAttribute("totalPages",policyList.getTotalPages());
         return "coupon/policy-list/rate-policy-for-category-list";
     }
 
@@ -141,7 +142,9 @@ public class CouponPolicyController {
     public String getPricePoliciesForBook
     (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model model){
         Page<PricePolicyForBookResponse> policyList = couponPolicyService.getPricePoliciesForBook(pageNo);
-        model.addAttribute("policyList",policyList);
+
+        model.addAttribute("policyList",policyList.getContent());
+        model.addAttribute("totalPages",policyList.getTotalPages());
         return "coupon/policy-list/price-policy-for-book-list";
     }
 
@@ -150,7 +153,9 @@ public class CouponPolicyController {
     public String getPricePoliciesForCategory
     (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model model){
         Page<PricePolicyForCategoryResponse> policyList = couponPolicyService.getPricePoliciesForCategory(pageNo);
-        model.addAttribute("policyList",policyList);
+
+        model.addAttribute("policyList",policyList.getContent());
+        model.addAttribute("totalPages",policyList.getTotalPages());
         return "coupon/policy-list/price-policy-for-category-list";
     }
 }
