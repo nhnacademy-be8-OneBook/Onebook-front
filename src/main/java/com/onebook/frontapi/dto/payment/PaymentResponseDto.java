@@ -18,5 +18,5 @@ public class PaymentResponseDto {
     private String status;
     private String requestedAt;
     private String approvedAt;
-    private long usePoint;
+    private int usePoint;
 }

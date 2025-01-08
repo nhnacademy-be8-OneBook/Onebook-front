@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class PaymentRequestDto {
-    private long usedPoint;
+    private int usedPoint;
     private String method;
     private int totalAmount;
     private String currency;
