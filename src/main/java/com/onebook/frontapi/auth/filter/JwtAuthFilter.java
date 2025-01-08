@@ -26,9 +26,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private  final AuthFeignClient authFeignClient;
 
+    // JWT 기반 인증: Authorization 쿠키에 있는 jwt 토큰 가져다가 검증함.
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
+
+        // 쿠키가 없으면 여기서 걸려서 홈페이지에 쿠키 없이 접근하면 login 페이지로 이동함.
+        // -> 해결: 쿠키가 없으면 JWT 필터 태우지 않고, 그냥 넘김.
+        if(Objects.isNull(cookies)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         for(Cookie c : cookies) {
             if(c.getName().equals("Authorization")) {
                MemberInfoResponse memberInfoResponse = authFeignClient.getInfoByAuthorization("Bearer " + c.getValue());

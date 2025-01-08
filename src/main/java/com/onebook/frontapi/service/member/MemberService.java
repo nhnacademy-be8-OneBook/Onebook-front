@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -39,8 +41,5 @@ public class MemberService {
         MemberResponseDto memberResponseDto = memberClient.getRequest();
         return MemberViewDto.from(memberResponseDto);
     }
-
-
-
 
 }
