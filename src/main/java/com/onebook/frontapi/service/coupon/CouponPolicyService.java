@@ -44,4 +44,8 @@ public class CouponPolicyService {
     public List<CategoryDTO> getCategoriesForSelect(){
         return categoryClient.getCategories().getBody();
     }
+
+    public List<RatePolicyForBookResponse> getRatePoliciesForBook(int pageNo){
+        return couponPolicyClient.getRatePoliciesForBook(pageNo).getBody();
+    }
 }
