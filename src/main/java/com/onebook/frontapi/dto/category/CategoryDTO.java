@@ -17,4 +17,6 @@ public class CategoryDTO {
     private String name;
 
     private List<CategoryDTO> subCategories;
+
+    private boolean status;
 }
