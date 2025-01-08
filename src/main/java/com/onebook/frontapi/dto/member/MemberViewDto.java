@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public record MemberViewDto(
-        String grade, // 1: REGULAR, 2: ROYAL, 3: GOLD, 4: PLATINUM
+        String grade,
         String name,
         String loginId,
         LocalDate dateOfBirth,

@@ -3,12 +3,10 @@ package com.onebook.frontapi.feign.member;
 import com.onebook.frontapi.dto.member.MemberRegisterRequestDto;
 import com.onebook.frontapi.dto.member.MemberResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 //@FeignClient(name = "memberClient", url="localhost:8210/task/members")
-@FeignClient(name = "memberClient", url = "${onebook.gatewayUrl}")
+@FeignClient(name = "memberClient", url="${onebook.gatewayUrl}")
 public interface MemberClient {
 
     /**
@@ -25,6 +23,12 @@ public interface MemberClient {
      */
     @GetMapping("/task/members")
     MemberResponseDto getRequest();
+
+    /**
+     * 멤버 로그인 기록 업데이트 by loginId
+     */
+    @PutMapping("/task/auth/{loginId}/login-history")
+    void updateLoginHistoryRequest(@PathVariable("loginId") String loginId);
 
 
 }

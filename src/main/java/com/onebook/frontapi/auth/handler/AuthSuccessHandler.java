@@ -4,7 +4,7 @@ import com.onebook.frontapi.adaptor.member.MemberAdaptor;
 import com.onebook.frontapi.dto.auth.JwtLoginIdRequest;
 import com.onebook.frontapi.dto.auth.TokenResponse;
 import com.onebook.frontapi.feign.auth.AuthFeignClient;
-import com.onebook.frontapi.feign.member.MemberFeignClient;
+import com.onebook.frontapi.feign.member.MemberClient;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +23,8 @@ import java.io.IOException;
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private final AuthFeignClient authFeignClient;
+
+    private final MemberClient memberClient;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -55,6 +57,12 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         cookie.setMaxAge(jwtToken.getBody().getExpiredIn());
 
         response.addCookie(cookie);
+
+        /**
+         * 멤버 로그인 기록 업데이트 by loginId
+         */
+        memberClient.updateLoginHistoryRequest(username);
+
 
 //        response.addHeader("Authorization", jwtToken.getBody().getTokenType() + " " + jwtToken.getBody().getAccessToken());
         response.sendRedirect("/");

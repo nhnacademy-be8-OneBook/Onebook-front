@@ -21,7 +21,7 @@ public interface AuthFeignClient {
     @GetMapping("/auth/test")
     public String returnString();
 
-    // authorization에 토큰만 담김 Berear 뺐음.
+    // jwt 토큰으로 멤버 정보(이름, 아이디, role) 가져옴.
     @GetMapping("/auth/my/info")
     MemberInfoResponse getInfoByAuthorization(@RequestHeader("Authorization") String authorization);
 

@@ -4,6 +4,8 @@ import com.onebook.frontapi.auth.filter.JwtAuthFilter;
 import com.onebook.frontapi.auth.handler.AuthSuccessHandler;
 import com.onebook.frontapi.auth.handler.CustomAccessDeniedHandler;
 import com.onebook.frontapi.feign.auth.AuthFeignClient;
+import com.onebook.frontapi.feign.member.MemberClient;
+import com.onebook.frontapi.service.member.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,6 +34,7 @@ public class SecurityConfig {
 
     private final AuthFeignClient authFeignClient;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final MemberClient memberClient;
 
     @Bean
     public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -47,7 +50,7 @@ public class SecurityConfig {
                         .usernameParameter("id") // 사용자명 파라미터 이름
                         .passwordParameter("password") // 비밀번호 파라미터 이름
                         .loginProcessingUrl("/login/process") // 로그인 처리 URL
-                        .successHandler(new AuthSuccessHandler(authFeignClient))// jwt token 추가하기
+                        .successHandler(new AuthSuccessHandler(authFeignClient, memberClient))// jwt token 추가하기
                         .permitAll() // 로그인 페이지 접근 허용
         );
 
