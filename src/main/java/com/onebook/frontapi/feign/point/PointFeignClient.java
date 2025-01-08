@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+//@FeignClient(name = "pointAdaptor", url = "http://localhost:8500/task/point")
 @FeignClient(name = "pointFeignClient", url = "${onebook.gatewayUrl}")
 public interface PointFeignClient {
 
-    @GetMapping("/member/admin/point-policies")
-    CommonResponse<List<MemberPointResponse>> getMemberPointHistories();
+    @GetMapping
+    CommonResponse<List<MemberPointResponse>> getUserPointHistories();
 }
