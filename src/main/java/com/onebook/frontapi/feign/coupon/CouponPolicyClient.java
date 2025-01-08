@@ -10,6 +10,8 @@ import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForCateg
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForBookResponse;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForCategoryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +40,14 @@ public interface CouponPolicyClient {
             (@RequestBody AddPricePolicyForCategoryRequest addPricePolicyForCategoryRequest);
 
     @GetMapping("task/policies/rate/book")
-    ResponseEntity<List<RatePolicyForBookResponse>> getRatePoliciesForBook
-            (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo);
+    ResponseEntity<Page<RatePolicyForBookResponse>> getRatePoliciesForBook(Pageable pageable);
+
+    @GetMapping("task/policies/rate/category")
+    ResponseEntity<Page<RatePolicyForCategoryResponse>> getRatePoliciesForCategory(Pageable pageable);
+
+    @GetMapping("task/policies/price/book")
+    ResponseEntity<Page<PricePolicyForBookResponse>> getPricePoliciesForBook(Pageable pageable);
+
+    @GetMapping("task/policies/price/category")
+    ResponseEntity<Page<PricePolicyForCategoryResponse>> getPricePoliciesForCategory(Pageable pageable);
 }
