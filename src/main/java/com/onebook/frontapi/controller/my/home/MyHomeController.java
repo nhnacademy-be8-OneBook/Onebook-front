@@ -1,4 +1,4 @@
-package com.onebook.frontapi.controller.my;
+package com.onebook.frontapi.controller.my.home;
 
 import com.onebook.frontapi.dto.member.MemberViewDto;
 import com.onebook.frontapi.service.member.MemberService;
@@ -19,6 +19,7 @@ public class MyHomeController {
     public String myHome(Model model) {
         MemberViewDto memberViewDto = memberService.getMember();
         model.addAttribute("member", memberViewDto);
-        return "my/home";
+        return "my/home/home";
     }
+
 }
