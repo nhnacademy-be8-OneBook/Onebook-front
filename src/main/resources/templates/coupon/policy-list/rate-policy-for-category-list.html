@@ -442,6 +442,9 @@
 							</div>
 						</div>
 						<div class="row">
+							<div class="col-12 pt-2 text-right">
+								<a href="/coupon-policies/rate/category/register" class="btn mr-2" style="color: white">+ 정책 등록</a>
+							</div>
 <!--							<div th:each="policy : ${policyList}">-->
 								<!-- Start Single List -->
 								<div class="col-12" th:each="policy : ${policyList}">
@@ -463,7 +466,7 @@
 												<li class="des" th:text="|최소 주문 금액: |+ ${policy.getMinimumOrderAmount()}"></li>
 												<li class="des" th:text="|할인율: |+${policy.getDiscountRate()}"></li>
 												<li class="des" th:text="|카테고리 이름: |+ ${policy.getCategoryName()}"></li>
-												<a href="#" class="btn mr-2">정책 수정</a>
+												<a th:href="'/coupon-policies/rate/category/modify/' + ${policy.getId()}" class="btn mr-2">정책 수정</a>
 												<a href="#" class="btn">정책 삭제</a>
 											</div>
 <!--										</div>-->
