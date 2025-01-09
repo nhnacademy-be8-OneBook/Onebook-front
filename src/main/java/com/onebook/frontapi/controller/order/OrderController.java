@@ -2,7 +2,9 @@ package com.onebook.frontapi.controller.order;
 
 import com.onebook.frontapi.dto.delivery.DeliveryRequestDto;
 import com.onebook.frontapi.dto.order.OrderAddressResponseDto;
+import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
 import com.onebook.frontapi.dto.order.OrderRegisterResponseDto;
+import com.onebook.frontapi.dto.order.OrderRequestDto;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.order.OrderAddressService;
 import com.onebook.frontapi.service.order.OrderService;
@@ -76,7 +78,8 @@ public class OrderController {
         orderService.createOrder(orderRegisterResponseDto);
         System.out.println(deliveryRequestDto);
 
-        return "redirect:/order/success"; // 등록 성공 페이지로 이동
+//        return "redirect:/order/success"; // 등록 성공 페이지로 이동
+        return "redirect:/front/payments/checkout-page?orderId=664403193597707249";
     }
 
     @GetMapping("/order/success")
@@ -87,5 +90,12 @@ public class OrderController {
             System.out.println("주문 성공! " + orderDetails);
         }
         return "order/orderSuccess"; // 주문 성공 페이지 반환
+    }
+
+    @GetMapping("/admin/orders")
+    public String orderStatus(Model model, @RequestParam String status) {
+        List<OrderByStatusResponseDto> ordersByStatus = orderService.getOrdersByStatus(status);
+        model.addAttribute("ordersByStatus", ordersByStatus);
+        return "admin/orderStatus";
     }
 }
