@@ -9,7 +9,7 @@ public class CommonResponse<T> {
     private final T result;
 
     @Builder
-    private CommonResponse(CommonHeader header, T result) {
+    public CommonResponse(CommonHeader header, T result) {
         this.header = header;
         this.result = result;
     }

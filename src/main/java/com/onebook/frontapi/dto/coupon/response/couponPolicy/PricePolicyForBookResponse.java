@@ -1,7 +1,11 @@
 package com.onebook.frontapi.dto.coupon.response.couponPolicy;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
+@Getter
 public class PricePolicyForBookResponse {
     private Long id;
     private Integer minimumOrderAmount;

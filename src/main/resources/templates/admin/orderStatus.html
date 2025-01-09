@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders by Status</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Orders by Status</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Orderer</th>
+        <th>Date & Time</th>
+        <th>Delivery Price</th>
+        <th>Total Price</th>
+        <th>Order Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${ordersByStatus}">
+        <td th:text="${order.orderer}">Orderer Name</td>
+        <td th:text="${order.dateTime}">2025-01-01T10:00:00</td>
+        <td th:text="${order.deliveryPrice}">0</td>
+        <td th:text="${order.totalPrice}">0</td>
+        <td th:text="${order.orderStatusName}">Pending</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,9 +1,6 @@
 package com.onebook.frontapi.service.order;
 
-import com.onebook.frontapi.dto.order.OrderRegisterDto;
-import com.onebook.frontapi.dto.order.OrderRegisterResponseDto;
-import com.onebook.frontapi.dto.order.OrderRequestDto;
-import com.onebook.frontapi.dto.order.OrderResponseDto;
+import com.onebook.frontapi.dto.order.*;
 import com.onebook.frontapi.feign.order.OrderClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,5 +43,9 @@ public class OrderService {
 
     public List<String> getAllOrderStatuses() {
         return orderClient.findAllOrderStatuses();
+    }
+
+    public List<OrderByStatusResponseDto> getOrdersByStatus(String status) {
+        return orderClient.findOrderByStatus(status);
     }
 }
