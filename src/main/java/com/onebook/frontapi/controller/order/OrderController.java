@@ -78,7 +78,8 @@ public class OrderController {
         orderService.createOrder(orderRegisterResponseDto);
         System.out.println(deliveryRequestDto);
 
-        return "redirect:/order/success"; // 등록 성공 페이지로 이동
+//        return "redirect:/order/success"; // 등록 성공 페이지로 이동
+        return "redirect:/front/payments/checkout-page?orderId=664403193597707249";
     }
 
     @GetMapping("/order/success")
