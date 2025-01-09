@@ -112,4 +112,20 @@ public class CouponPolicyService {
     public PricePolicyForCategoryResponse updatePricePolicyForCategory(UpdatePricePolicyForCategoryRequest updatePricePolicyForCategoryRequest){
         return couponPolicyClient.updatePricePolicyForCategory(updatePricePolicyForCategoryRequest).getBody();
     }
+
+    public RatePolicyForBookResponse deleteRatePolicyForBook(Long id){
+        return couponPolicyClient.deleteRatePolicyForBook(id).getBody();
+    }
+
+    public RatePolicyForBookResponse deleteRatePolicyForCategory(Long id){
+        return couponPolicyClient.deleteRatePolicyForCategory(id).getBody();
+    }
+
+    public RatePolicyForBookResponse deletePricePolicyForBook(Long id){
+        return couponPolicyClient.deletePricePolicyForBook(id).getBody();
+    }
+
+    public RatePolicyForBookResponse deletePricePolicyForCategory(Long id){
+        return couponPolicyClient.deletePricePolicyForCategory(id).getBody();
+    }
 }

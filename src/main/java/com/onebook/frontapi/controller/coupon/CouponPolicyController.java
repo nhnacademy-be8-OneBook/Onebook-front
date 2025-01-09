@@ -196,7 +196,7 @@ public class CouponPolicyController {
         return "coupon/policy-modify/price-policy-for-category-modify-form";
     }
 
-    // 정률정책forBook 수정
+    // 수정
     @PutMapping("/coupon-policies/rate/book/modify")
     public String modifyRatePolicyForBook(@ModelAttribute UpdateRatePolicyForBookRequest updateRatePolicyForBookRequest){
 
@@ -225,4 +225,30 @@ public class CouponPolicyController {
         return "redirect:/coupon-policies/price/category";
     }
 
+    // 삭제
+
+    @DeleteMapping("/coupon-policies/rate/book/{id}")
+    public String deleteRatePolicyForBook(@PathVariable Long id){
+        couponPolicyService.deleteRatePolicyForBook(id);
+        return "redirect:/coupon-policies/rate/book";
+
+    }
+
+    @DeleteMapping("/coupon-policies/rate/category/{id}")
+    public String deleteRatePolicyForCategory(@PathVariable Long id){
+        couponPolicyService.deleteRatePolicyForCategory(id);
+        return "redirect:/coupon-policies/rate/category";
+    }
+
+    @DeleteMapping("/coupon-policies/price/book/{id}")
+    public String deletePricePolicyForBook(@PathVariable Long id){
+        couponPolicyService.deletePricePolicyForBook(id);
+        return "redirect:/coupon-policies/price/book";
+    }
+
+    @DeleteMapping("/coupon-policies/price/category/{id}")
+    public String deletePricePolicyForCategory(@PathVariable Long id){
+        couponPolicyService.deletePricePolicyForCategory(id);
+        return "redirect:/coupon-policies/price/category";
+    }
 }
