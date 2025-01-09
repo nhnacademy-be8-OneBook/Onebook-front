@@ -1,10 +1,7 @@
 package com.onebook.frontapi.controller.coupon;
 
 import com.onebook.frontapi.dto.category.CategoryDTO;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddPricePolicyForBookRequest;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddPricePolicyForCategoryRequest;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddRatePolicyForBookRequest;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddRatePolicyForCategoryRequest;
+import com.onebook.frontapi.dto.coupon.request.couponPolicy.*;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForBookResponse;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForCategoryResponse;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForBookResponse;
@@ -14,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +25,7 @@ public class CouponPolicyController {
     @GetMapping("/coupon-policies/rate-policies-for-book/list")
     public String getRatePolicyForBookList()
     {
-        return "policy-for-book-list";
+        return "coupon/policy-list/rate-policy-for-book-list";
     }
 
     @GetMapping("/coupon-policies/rate-policy-for-category/list")
@@ -115,6 +109,8 @@ public class CouponPolicyController {
         return "redirect:/coupon-policies/price/category";
     }
 
+    // 쿠폰 조회
+
     // 정률정책 for Book 조회
     @GetMapping("/coupon-policies/rate/book")
     public String getRatePoliciesForBook
@@ -158,4 +154,75 @@ public class CouponPolicyController {
         model.addAttribute("totalPages",policyList.getTotalPages());
         return "coupon/policy-list/price-policy-for-category-list";
     }
+
+    // 쿠폰 수정
+    // 정률정책forBook 수정 폼
+    @GetMapping("/coupon-policies/rate/book/modify/{id}")
+    public String getRatePolicyForBookModifyForm(@PathVariable Long id, Model model){
+
+        RatePolicyForBookResponse ratePolicyForBookResponse = couponPolicyService.getRatePolicyForBook(id);
+        model.addAttribute("ratePolicyForBook",ratePolicyForBookResponse);
+        return "coupon/policy-modify/rate-policy-for-book-modify-form";
+    }
+
+    // 정률정책forCategory 수정 폼
+    @GetMapping("/coupon-policies/rate/category/modify/{id}")
+    public String getRatePolicyForCategoryModifyForm(@PathVariable Long id,Model model){
+
+        RatePolicyForCategoryResponse ratePolicyForCategoryResponse = couponPolicyService.getRatePolicyForCategory(id);
+        model.addAttribute("ratePolicyForCategory",ratePolicyForCategoryResponse);
+        List<CategoryDTO> categoriesForSelect = couponPolicyService.getCategoriesForSelect();
+        model.addAttribute("categoriesForSelect",categoriesForSelect);
+        return "coupon/policy-modify/rate-policy-for-category-modify-form";
+    }
+
+    // 정액정책forBook 수정 폼
+    @GetMapping("/coupon-policies/price/book/modify/{id}")
+    public String getPricePolicyForBookModifyForm(@PathVariable Long id,Model model){
+
+        PricePolicyForBookResponse pricePolicyForBookResponse = couponPolicyService.getPricePolicyForBook(id);
+        model.addAttribute("pricePolicyForBook",pricePolicyForBookResponse);
+        return "coupon/policy-modify/price-policy-for-book-modify-form";
+    }
+
+    // 정액정책forCategory 수정 폼
+    @GetMapping("/coupon-policies/price/category/modify/{id}")
+    public String getPricePolicyForCategoryModifyForm(@PathVariable Long id,Model model){
+
+        PricePolicyForCategoryResponse pricePolicyForCategoryResponse = couponPolicyService.getPricePolicyForCategory(id);
+        model.addAttribute("pricePolicyForCategory",pricePolicyForCategoryResponse);
+        List<CategoryDTO> categoriesForSelect = couponPolicyService.getCategoriesForSelect();
+        model.addAttribute("categoriesForSelect",categoriesForSelect);
+        return "coupon/policy-modify/price-policy-for-category-modify-form";
+    }
+
+    // 정률정책forBook 수정
+    @PutMapping("/coupon-policies/rate/book/modify")
+    public String modifyRatePolicyForBook(@ModelAttribute UpdateRatePolicyForBookRequest updateRatePolicyForBookRequest){
+
+        couponPolicyService.updateRatePolicyForBook(updateRatePolicyForBookRequest);
+        return "redirect:/coupon-policies/rate/book";
+    }
+
+    @PutMapping("/coupon-policies/rate/category/modify")
+    public String modifyRatePolicyForCategory(@ModelAttribute UpdateRatePolicyForCategoryRequest updateRatePolicyForCategoryRequest){
+
+        couponPolicyService.updateRatePolicyForCategory(updateRatePolicyForCategoryRequest);
+        return "redirect:/coupon-policies/rate/category";
+    }
+
+    @PutMapping("/coupon-policies/price/book/modify")
+    public String modifyPricePolicyForBook(@ModelAttribute UpdatePricePolicyForBookRequest updatePricePolicyForBookRequest){
+
+        couponPolicyService.updatePricePolicyForBook(updatePricePolicyForBookRequest);
+        return "redirect:/coupon-policies/price/book";
+    }
+
+    @PutMapping("/coupon-policies/price/category/modify")
+    public String modifyPricePolicyForCategory(@ModelAttribute UpdatePricePolicyForCategoryRequest updatePricePolicyForCategoryRequest){
+
+        couponPolicyService.updatePricePolicyForCategory(updatePricePolicyForCategoryRequest);
+        return "redirect:/coupon-policies/price/category";
+    }
+
 }

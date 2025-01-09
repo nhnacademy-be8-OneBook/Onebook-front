@@ -1,10 +1,7 @@
 package com.onebook.frontapi.feign.coupon;
 
 import com.onebook.frontapi.dto.category.CategoryDTO;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddPricePolicyForBookRequest;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddPricePolicyForCategoryRequest;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddRatePolicyForBookRequest;
-import com.onebook.frontapi.dto.coupon.request.couponPolicy.AddRatePolicyForCategoryRequest;
+import com.onebook.frontapi.dto.coupon.request.couponPolicy.*;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForBookResponse;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForCategoryResponse;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForBookResponse;
@@ -14,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,4 +45,32 @@ public interface CouponPolicyClient {
 
     @GetMapping("task/policies/price/category")
     ResponseEntity<Page<PricePolicyForCategoryResponse>> getPricePoliciesForCategory(Pageable pageable);
+
+    @GetMapping("task/policies/rate/book/{id}")
+    ResponseEntity<RatePolicyForBookResponse> getRatePolicyForBook(@PathVariable Long id);
+
+    @GetMapping("task/policies/rate/category/{id}")
+    ResponseEntity<RatePolicyForCategoryResponse> getRatePolicyForCategory(@PathVariable Long id);
+
+    @GetMapping("task/policies/price/book/{id}")
+    ResponseEntity<PricePolicyForBookResponse> getPricePolicyForBook(@PathVariable Long id);
+
+    @GetMapping("task/policies/price/category/{id}")
+    ResponseEntity<PricePolicyForCategoryResponse> getPricePolicyForCategory(@PathVariable Long id);
+
+    @PutMapping("/task/policies/rate/book")
+    ResponseEntity<RatePolicyForBookResponse> updateRatePolicyForBook
+            (@RequestBody UpdateRatePolicyForBookRequest updateRatePolicyForBookRequest);
+
+    @PutMapping("/task/policies/rate/category")
+    ResponseEntity<RatePolicyForCategoryResponse> updateRatePolicyForCategory
+            (@RequestBody UpdateRatePolicyForCategoryRequest updateRatePolicyForCategoryRequest);
+
+    @PutMapping("/task/policies/price/book")
+    ResponseEntity<PricePolicyForBookResponse> updatePricePolicyForBook
+            (@RequestBody UpdatePricePolicyForBookRequest updatePricePolicyForBookRequest);
+
+    @PutMapping("/task/policies/price/category")
+    ResponseEntity<PricePolicyForCategoryResponse> updatePricePolicyForCategory
+            (@RequestBody UpdatePricePolicyForCategoryRequest updatePricePolicyForCategoryRequest);
 }
