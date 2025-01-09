@@ -8,6 +8,7 @@ import com.onebook.frontapi.dto.order.OrderRequestDto;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.order.OrderAddressService;
 import com.onebook.frontapi.service.order.OrderService;
+import com.onebook.frontapi.service.order.OrderStatusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final OrderAddressService orderAddressService;
+    private final OrderStatusService orderStatusService;
 
 //    /*
     @GetMapping("/order/register")
@@ -94,8 +98,24 @@ public class OrderController {
 
     @GetMapping("/admin/orders")
     public String orderStatus(Model model, @RequestParam String status) {
+        model.addAttribute("status", status);
+
+        List<String> orderStatusList = orderStatusService.getAllOrderStatuses();
+        model.addAttribute("orderStatusList", orderStatusList);
+
         List<OrderByStatusResponseDto> ordersByStatus = orderService.getOrdersByStatus(status);
         model.addAttribute("ordersByStatus", ordersByStatus);
+
         return "admin/orderStatus";
+    }
+
+    @PostMapping("/admin/update-orderstatus")
+    public String orderStatus(@RequestParam("orderIds") List<Long> orderIds, @RequestParam("preStatus") String preStatus, String postStatus) {
+        orderService.updateOrderStatus(orderIds, postStatus);
+
+        // 상태 값 URL 인코딩
+        String encodedStatus = URLEncoder.encode(preStatus, StandardCharsets.UTF_8);
+
+        return "redirect:/admin/orders?status=" + encodedStatus;
     }
 }
