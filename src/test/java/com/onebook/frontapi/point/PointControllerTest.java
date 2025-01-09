@@ -1,29 +1,28 @@
 package com.onebook.frontapi.point;
 
 import com.onebook.frontapi.controller.point.PointController;
-import com.onebook.frontapi.enums.PointHistoryType;
-import com.onebook.frontapi.service.point.PointService;
 import com.onebook.frontapi.dto.point.MemberPointResponse;
-import com.onebook.frontapi.common.CommonResponse;
-import com.onebook.frontapi.common.CommonHeader;
+import com.onebook.frontapi.service.point.PointService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
-import static org.mockito.Mockito.*;
+import static com.onebook.frontapi.enums.PointHistoryType.PURCHASE;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest // 전체 애플리케이션 컨텍스트를 로드
-class PointControllerTest {
+@ExtendWith(MockitoExtension.class)
+public class PointControllerTest {
 
     private MockMvc mockMvc;
 
@@ -34,42 +33,40 @@ class PointControllerTest {
     private PointController pointController;
 
     @BeforeEach
-    void setUp() {
-        // MockMvc 빌더를 설정하여 테스트 환경을 준비합니다.
+    public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(pointController).build();
     }
 
     @Test
-    void testGetMemberPointHistories() throws Exception {
-        // Mock 데이터 준비
-        MemberPointResponse pointHistory1 = MemberPointResponse.builder()
+    public void testGetUserPointHistories_Success() throws Exception {
+        MemberPointResponse response = MemberPointResponse.builder()
                 .pointId(1L)
                 .pointHistoryValue(100)
-                .pointHistoryType(PointHistoryType.valueOf("PURCHASE"))
+                .pointHistoryType(PURCHASE)
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        MemberPointResponse pointHistory2 = MemberPointResponse.builder()
-                .pointId(2L)
-                .pointHistoryValue(50)
-                .pointHistoryType(PointHistoryType.valueOf("CASHBACK"))
-                .createdAt(LocalDateTime.now())
-                .build();
+        when(pointService.getMemberPointHistories()).thenReturn(Collections.singletonList(response));
 
-        List<MemberPointResponse> mockResponse = Arrays.asList(pointHistory1, pointHistory2);
-        CommonResponse<List<MemberPointResponse>> commonResponse = CommonResponse.<List<MemberPointResponse>>builder()
-                .header(CommonHeader.builder().httpStatus(org.springframework.http.HttpStatus.OK).resultMessage("Success").build())
-                .result(mockResponse)
-                .build();
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("user", "testUser");
 
-        // 서비스 메서드 모킹
-        when(pointService.getMemberPointHistories()).thenReturn(mockResponse);
+        mockMvc.perform(get("/point/myPoint").session(session))
+                .andExpect(status().isOk())  // HTTP 200
+                .andExpect(view().name("mypage/mypagePoint"))  // view name 확인
+                .andExpect(model().attribute("memberPointHistories", Collections.singletonList(response)));  // 모델에 데이터 확인
+    }
 
-        // GET 요청 보내고 결과 검증
-        mockMvc.perform(get("/point/myPoint"))
-                .andExpect(status().isOk())  // 상태 코드 200 OK 확인
-                .andExpect(view().name("mypage/mypagePoint"))  // 뷰 이름 확인
-                .andExpect(model().attributeExists("memberPointHistories"))  // 모델에 "memberPointHistories" 속성 존재 확인
-                .andExpect(model().attribute("memberPointHistories", mockResponse));  // 모델 속성 값 검증
+    @Test
+    public void testGetUserPointHistories_Fail_NoData() throws Exception {
+        when(pointService.getMemberPointHistories()).thenReturn(Collections.emptyList());
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("user", "testUser");
+
+        mockMvc.perform(get("/point/myPoint").session(session))
+                .andExpect(status().isOk())  // HTTP 200
+                .andExpect(view().name("mypage/mypagePoint"))
+                .andExpect(model().attribute("memberPointHistories", Collections.emptyList()));  // 빈 리스트 확인
     }
 }
