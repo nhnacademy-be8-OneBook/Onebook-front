@@ -331,10 +331,10 @@
 								<br/>
 								<h3 class="title">회원 정보</h3>
 								<ul class="categor-list">
-									<li><a href="/my/member/modify">회원정보 수정</a></li>
+									<li><a href="/my/member/modify-validate">회원정보 수정</a></li>
 									<li><a href="/my/member/grade">회원 등급</a></li>
-									<li><a href="#">주소 관리</a></li>
-									<li><a href="/my/member/leave-form">회원 탈퇴</a></li>
+									<li><a href="/addresses">주소 관리</a></li>
+									<li><a href="/my/member/leave-validate">회원 탈퇴</a></li>
 								</ul>
 							</div>
 							<!--/ End Single Widget -->
@@ -363,7 +363,7 @@
 
 						<div class="col-12" style="padding: 0; border: 1px solid #b4bcbc; border-radius: 5px">
 							<div style="padding:35px">
-								<form method="POST" action="/my/member/membership">
+								<form method="POST" action="/my/member/leave/membership">
 									<div class="form-group" style="text-align: center; margin:0;">
 										<span style="font-size: 110%; padding-right:20px">비밀번호 확인</span>
 										<input style="width:400px; height:42px" type="password" id="password" name="password" required>

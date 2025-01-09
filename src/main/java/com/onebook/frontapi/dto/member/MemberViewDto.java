@@ -82,16 +82,15 @@ public record MemberViewDto(
         return localPart + "@" + domainPart;
     }
 
-    // 전화번호 마스킹 처리 (예: 01011112222 -> 010-12**-23**)
+    // 전화번호 마스킹 처리 (예: 01012345678 -> 010-12**-5678)
     private static String maskPhoneNumber(String phoneNumber) {
         // 전화번호를 3부분으로 나누기
-        String firstPart = phoneNumber.substring(0, 3); // 첫 3자리
-        String middlePart = phoneNumber.substring(5, 7); // 중간 4자리 중 마지막 2자리
-        String endPart = phoneNumber.substring(9); // 마지막 2자리
+        String firstPart = phoneNumber.substring(0, 3); // 010
+        String middlePart = phoneNumber.substring(3, 7); // 중간 4자리
+        String endPart = phoneNumber.substring(7); // 마지막 4자리
 
-        // 중간 부분과 마지막 부분을 마스킹
-        middlePart = middlePart.charAt(0) + makeMask(middlePart.length() - 1); // 첫 문자 유지, 나머지는 마스크
-        endPart = endPart.charAt(0) + makeMask(endPart.length() - 1); // 첫 문자 유지, 나머지는 마스크
+        // 중간 부분 뒤 2자리 마스킹
+        middlePart = middlePart.substring(0, 2) + makeMask(middlePart.length() - 2); // 첫 문자 유지, 나머지는 마스크
 
         // 마스킹 처리된 전화번호 반환 (하이픈 추가)
         return firstPart + "-" + middlePart + "-" + endPart;
