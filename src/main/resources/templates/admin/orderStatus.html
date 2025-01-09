@@ -5,44 +5,84 @@
     <title>Orders by Status</title>
     <style>
         table {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             border-collapse: collapse;
         }
         th, td {
             border: 1px solid #ccc;
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #f4f4f4;
         }
         h1 {
             text-align: center;
+            margin-top: 20px;
+        }
+        .submit-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 <h1>Orders by Status</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Orderer</th>
-        <th>Date & Time</th>
-        <th>Delivery Price</th>
-        <th>Total Price</th>
-        <th>Order Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="order : ${ordersByStatus}">
-        <td th:text="${order.orderer}">Orderer Name</td>
-        <td th:text="${order.dateTime}">2025-01-01T10:00:00</td>
-        <td th:text="${order.deliveryPrice}">0</td>
-        <td th:text="${order.totalPrice}">0</td>
-        <td th:text="${order.orderStatusName}">Pending</td>
-    </tr>
-    </tbody>
-</table>
+<form th:action="@{/admin/update-orderstatus}" method="post">
+    <input type="hidden" name="preStatus" th:value="${status}">
+    <select id="postStatus" name="postStatus" required>
+        <option value="" disabled selected>상태를 선택하세요</option>
+        <option th:each="status : ${orderStatusList}"
+                th:value="${status}"
+                th:text="${status}"></option>
+    </select>
+    <table>
+        <thead>
+        <tr>
+            <th>Select</th>
+            <th>Order ID</th>
+            <th>Member ID</th>
+            <th>Order Status</th>
+            <th>Order Name</th>
+            <th>Orderer</th>
+            <th>Phone Number</th>
+            <th>Order Time</th>
+            <th>Delivery Time</th>
+            <th>Delivery Price</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 데이터가 없을 경우 처리 -->
+        <tr th:if="${ordersByStatus.isEmpty()}">
+            <td colspan="11" style="text-align: center;">No orders found</td>
+        </tr>
+        <!-- 데이터 반복 출력 -->
+        <tr th:each="order : ${ordersByStatus}">
+            <td><input type="checkbox" name="orderIds" th:value="${order.orderId}"></td>
+            <td th:text="${order.orderId}">1</td>
+            <td th:text="${order.memberId}">100</td>
+            <td th:text="${order.orderStatus}">Pending</td>
+            <td th:text="${order.orderName}">Sample Order</td>
+            <td th:text="${order.orderer}">John Doe</td>
+            <td th:text="${order.phoneNumber}">010-1234-5678</td>
+            <td th:text="${order.orderTime}">2025-01-01T10:00:00</td>
+            <td th:text="${order.deliveryTime}">2025-01-03</td>
+            <td th:text="${order.deliveryPrice}">3000</td>
+            <td th:text="${order.totalPrice}">15000</td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="submit-button">Submit Selected Orders</button>
+</form>
 </body>
 </html>

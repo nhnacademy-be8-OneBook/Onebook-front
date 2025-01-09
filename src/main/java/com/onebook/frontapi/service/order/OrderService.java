@@ -41,11 +41,12 @@ public class OrderService {
         )).toList();
     }
 
-    public List<String> getAllOrderStatuses() {
-        return orderClient.findAllOrderStatuses();
-    }
-
     public List<OrderByStatusResponseDto> getOrdersByStatus(String status) {
         return orderClient.findOrderByStatus(status);
     }
+
+    public void updateOrderStatus(List<Long> orderIds, String status) {
+        orderClient.updateOrderStatus(orderIds, status);
+    }
+
 }

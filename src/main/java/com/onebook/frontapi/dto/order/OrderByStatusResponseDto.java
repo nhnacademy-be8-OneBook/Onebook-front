@@ -1,15 +1,11 @@
 package com.onebook.frontapi.dto.order;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderByStatusResponseDto {
     // 주문id
     // 회원id
