@@ -12,7 +12,7 @@ public class CommonHeader {
     private final String resultMessage;     // Success or Error message
 
     @Builder
-    private CommonHeader(HttpStatus httpStatus, String resultMessage) {
+    public CommonHeader(HttpStatus httpStatus, String resultMessage) {
         httpStatus = Objects.isNull(httpStatus) ? HttpStatus.OK : httpStatus;
         resultMessage = Objects.isNull(resultMessage) ? httpStatus.getReasonPhrase() : resultMessage;
 
