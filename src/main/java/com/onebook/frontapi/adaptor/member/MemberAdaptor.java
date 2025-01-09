@@ -30,7 +30,7 @@ public class MemberAdaptor {
             String errorJson = e.contentUTF8();
 
             if (errorJson == null || errorJson.isEmpty()) {
-                log.error("Received empty error response from server.");
+                log.error("FeignException: 회원가입에 대한 task의 응답이 비어있습니다.");
                 return false;
             }
 

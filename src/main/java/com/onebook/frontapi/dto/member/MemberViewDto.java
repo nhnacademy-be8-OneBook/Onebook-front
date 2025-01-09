@@ -21,7 +21,7 @@ public record MemberViewDto(
         return new MemberViewDto(
 //                convertGradeToString(memberResponseDto.gradeId()),
                 memberResponseDto.grade(),
-                memberResponseDto.name(),
+                maskName(memberResponseDto.name()),
                 memberResponseDto.loginId(),
                 memberResponseDto.dateOfBirth(),
                 memberResponseDto.gender(),
@@ -34,24 +34,24 @@ public record MemberViewDto(
     }
 
     // 등급 String 으로 변환.
-    private static String convertGradeToString(Integer gradeId) {
-        if(Objects.isNull(gradeId)) {
-            throw new IllegalArgumentException("GradeId is null");
-        }
-
-        switch (gradeId) {
-            case 1:
-                return "일반";
-            case 2:
-                return "로얄";
-            case 3:
-                return "골드";
-            case 4:
-                return "플래티넘";
-        }
-
-        throw new IllegalArgumentException("GradeId is Wrong");
-    }
+//    private static String convertGradeToString(Integer gradeId) {
+//        if(Objects.isNull(gradeId)) {
+//            throw new IllegalArgumentException("GradeId is null");
+//        }
+//
+//        switch (gradeId) {
+//            case 1:
+//                return "일반";
+//            case 2:
+//                return "로얄";
+//            case 3:
+//                return "골드";
+//            case 4:
+//                return "플래티넘";
+//        }
+//
+//        throw new IllegalArgumentException("GradeId is Wrong");
+//    }
 
     private static String makeMask(int number) {
         StringBuilder mask = new StringBuilder();
@@ -61,6 +61,13 @@ public record MemberViewDto(
         }
 
         return mask.toString();
+    }
+
+    // 이름 마스킹 처리 ex) 김주혁 -> 김*혁, 신사임당 -> 신*임당
+    private static String maskName(String name) {
+        String first = name.substring(0, 1);
+        String last = name.substring(2);
+        return first+"*"+last;
     }
 
     // 이메일 마스킹 처리 (예: helloworld@gmail.com -> hel******@gmail.com)
@@ -75,12 +82,12 @@ public record MemberViewDto(
         return localPart + "@" + domainPart;
     }
 
-    // 전화번호 마스킹 처리 (예: 01011112222 -> 010-1***-2***)
+    // 전화번호 마스킹 처리 (예: 01011112222 -> 010-12**-23**)
     private static String maskPhoneNumber(String phoneNumber) {
         // 전화번호를 3부분으로 나누기
         String firstPart = phoneNumber.substring(0, 3); // 첫 3자리
-        String middlePart = phoneNumber.substring(3, 7); // 중간 4자리
-        String endPart = phoneNumber.substring(7); // 마지막 4자리
+        String middlePart = phoneNumber.substring(5, 7); // 중간 4자리 중 마지막 2자리
+        String endPart = phoneNumber.substring(9); // 마지막 2자리
 
         // 중간 부분과 마지막 부분을 마스킹
         middlePart = middlePart.charAt(0) + makeMask(middlePart.length() - 1); // 첫 문자 유지, 나머지는 마스크
