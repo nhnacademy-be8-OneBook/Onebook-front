@@ -73,4 +73,16 @@ public interface CouponPolicyClient {
     @PutMapping("/task/policies/price/category")
     ResponseEntity<PricePolicyForCategoryResponse> updatePricePolicyForCategory
             (@RequestBody UpdatePricePolicyForCategoryRequest updatePricePolicyForCategoryRequest);
+
+    @DeleteMapping("/task/policies/rate/book/{id}")
+    ResponseEntity<RatePolicyForBookResponse> deleteRatePolicyForBook(@PathVariable Long id);
+
+    @DeleteMapping("/task/policies/rate/category/{id}")
+    ResponseEntity<RatePolicyForBookResponse> deleteRatePolicyForCategory(@PathVariable Long id);
+
+    @DeleteMapping("/task/policies/price/book/{id}")
+    ResponseEntity<RatePolicyForBookResponse> deletePricePolicyForBook(@PathVariable Long id);
+
+    @DeleteMapping("/task/policies/price/category/{id}")
+    ResponseEntity<RatePolicyForBookResponse> deletePricePolicyForCategory(@PathVariable Long id);
 }
