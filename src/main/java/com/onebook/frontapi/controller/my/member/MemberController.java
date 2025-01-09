@@ -22,15 +22,34 @@ public class MemberController {
     private final MemberService memberService;
     private final GradeService gradeService;
 
-    // 개인정보 수정 폼
+    // 회원정보 수정 폼
     @GetMapping("/member/modify")
     public String memberInfoModifyForm(Model model) {
         MemberViewDto member = memberService.getMember();
         model.addAttribute("member", member);
-        return "my/member/modify";
+        return "my/member/modifyForm";
     }
 
-    // 개인정보 수정
+    // 회원 정보수정 전 비밀번호 입력으로 검증.
+    @GetMapping("/member/modify-validate")
+    public String memberModifyValidate() {
+        return "my/member/modifyValidate";
+    }
+
+    // 회원정보 수정: 회원 여부 조회.
+    @PostMapping("/member/modify/membership")
+    public String modifyCheckMembership(@ModelAttribute MembershipCheckRequestDto membershipCheckRequestDto) {
+        boolean result = memberService.checkMembership(membershipCheckRequestDto);
+
+        if(result) {
+            return "redirect:/my/member/modify";
+        }
+
+        return "redirect:/error/401";
+    }
+
+
+    // 회원정보 수정
     @PostMapping("/member/modify")
     public String memberInfoModify(@ModelAttribute @Valid MemberModifyRequestDto memberModifyRequestDto) {
         MemberViewDto member = memberService.modifyMember(memberModifyRequestDto);
@@ -53,9 +72,9 @@ public class MemberController {
         return "my/member/grade";
     }
 
-    // 회원 여부 조회 - 비밀번호 입력.
-    @PostMapping("/member/membership")
-    public String checkMembership(@ModelAttribute MembershipCheckRequestDto membershipCheckRequestDto) {
+    // 회원탈퇴 - 회원 여부 조회.
+    @PostMapping("/member/leave/membership")
+    public String leaveCheckMembership(@ModelAttribute MembershipCheckRequestDto membershipCheckRequestDto) {
         boolean result = memberService.checkMembership(membershipCheckRequestDto);
 
         if(result) {
@@ -65,19 +84,19 @@ public class MemberController {
         return "redirect:/error/401";
     }
 
-    // 회원 탈퇴 동의 폼
+    // 회원 탈퇴 동의 폼 - '탈퇴 버튼' 누르면 탈퇴 요청(/member/leave) 날라감.
     @GetMapping("/member/leave-agreement")
     public String checkAgreement() {
         return "my/member/leaveAgreement";
     }
 
-    // 회원 탈퇴 폼
-    @GetMapping("/member/leave-form")
-    public String memberLeaveForm() {
-        return "my/member/leaveForm";
+    // 회원 탈퇴 약관 안내 및 비밀번호 입력.
+    @GetMapping("/member/leave-validate")
+    public String memberLeaveValidate() {
+        return "my/member/leaveValidate";
     }
 
-    // 회원 탈퇴
+    // 회원 탈퇴 요청
     @GetMapping("/member/leave")
     public String memberLeave() {
         boolean result = memberService.deleteMember();

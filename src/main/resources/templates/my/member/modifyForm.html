@@ -334,10 +334,10 @@
 						<br/>
 						<h3 class="title">회원 정보</h3>
 						<ul class="categor-list">
-							<li><a href="/my/member/modify">회원정보 수정</a></li>
+							<li><a href="/my/member/modify-validate">회원정보 수정</a></li>
 							<li><a href="/my/member/grade">회원 등급</a></li>
-							<li><a href="#">주소 관리</a></li>
-							<li><a href="#">회원 탈퇴</a></li>
+							<li><a href="/addresses">주소 관리</a></li>
+							<li><a href="/my/member/leave-validate">회원 탈퇴</a></li>
 						</ul>
 					</div>
 					<!--/ End Single Widget -->
@@ -353,7 +353,7 @@
 					<div class="row" style="display: flex; justify-content: center; align-items: center;">
 						<div class="col-8" style="margin:0">
 							<div class="login-form">
-								<h2>개인정보 수정</h2>
+								<h2>회원정보 수정</h2>
 								<!-- Form -->
 								<form id="loginForm" class="form" method="post" action="/my/member/modify">
 									<div class="row">
@@ -395,14 +395,38 @@
 											<div class="form-group">
 												<label style="color: #bbbbbd">성별</label>
 												<br/>
-												<div class="btn-group w-100 btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-outline-primary w-50 m=0 " style="background-color: #F6F7FB; text-align: center;">
-														<input type="radio" name="gender" id="M" value="M" th:checked="${member.gender() == 'M'}"> 남자
-													</label>
-													<label class="btn btn-outline-primary w-50 m=0" style="background-color: #F6F7FB; text-align: center;">
-														<input type="radio" name="gender" id="F" value="F" th:checked="${member.gender() == 'F'}"> 여자
-													</label>
-												</div>
+
+												<th:block th:if="${member.gender() == 'M'}">
+													<div class="btn-group w-100 btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-outline-primary w-50 m=0 " style="background-color: #F6F7FB; border:solid; border-color:#1b64da; text-align: center;">
+															<input type="radio" disabled> 남자
+														</label>
+														<label class="btn btn-outline-primary w-50 m=0" style="background-color: #F6F7FB; text-align: center;">
+															<input type="radio" disabled> 여자
+														</label>
+													</div>
+												</th:block>
+
+												<th:block th:if="${member.gender() == 'F'}">
+													<div class="btn-group w-100 btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-outline-primary w-50 m=0 " style="background-color: #F6F7FB; text-align: center;">
+															<input type="radio" disabled> 남자
+														</label>
+														<label class="btn btn-outline-primary w-50 m=0" style="background-color: #F6F7FB; border:solid; border-color:#1b64da; text-align: center;">
+															<input type="radio" disabled> 여자
+														</label>
+													</div>
+												</th:block>
+
+<!--												<div class="btn-group w-100 btn-group-toggle" data-toggle="buttons">-->
+<!--													<label class="btn btn-outline-primary w-50 m=0 " style="background-color: #F6F7FB; text-align: center;">-->
+<!--														<input type="radio" th:checked="${member.gender() == 'M'}"> 남자-->
+<!--													</label>-->
+<!--													<label class="btn btn-outline-primary w-50 m=0" style="background-color: #F6F7FB; text-align: center;">-->
+<!--														<input type="radio" th:checked="${member.gender() == 'F'}"> 여자-->
+<!--													</label>-->
+<!--												</div>-->
+
 											</div>
 										</div>
 

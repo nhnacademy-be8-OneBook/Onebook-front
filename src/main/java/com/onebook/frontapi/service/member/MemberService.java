@@ -42,7 +42,7 @@ public class MemberService {
             MemberResponseDto memberResponseDto = memberClient.getRequest();
             return MemberViewDto.from(memberResponseDto);
         }catch(FeignException e) {{
-            throw new RuntimeException("task api 로부터 member 조회 실패.");
+            throw new RuntimeException("task api 로부터 회원 조회 실패.");
         }}
     }
 
@@ -58,13 +58,17 @@ public class MemberService {
      * 회원 등급 조회
      */
     public GradeViewDto getMemberGrade() {
-        GradeResponseDto gradeResponseDto = memberClient.getMemberGradeRequest();
-        GradeViewDto gradeViewDto = new GradeViewDto(
-                gradeResponseDto.name(),
-                gradeResponseDto.accumulationRate(),
-                gradeResponseDto.description()
-                );
-        return gradeViewDto;
+        try {
+            GradeResponseDto gradeResponseDto = memberClient.getMemberGradeRequest();
+            GradeViewDto gradeViewDto = new GradeViewDto(
+                    gradeResponseDto.name(),
+                    gradeResponseDto.accumulationRate(),
+                    gradeResponseDto.description()
+            );
+            return gradeViewDto;
+        }catch(FeignException e) {
+            throw new RuntimeException("task api 로부터 회원 등급 조회 실패");
+        }
     }
 
     /**

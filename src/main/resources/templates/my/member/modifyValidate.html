@@ -347,41 +347,35 @@
 <!--						Start 회원탈퇴 content-->
 						<div class="col-12" style="display: flex; justify-content: space-between; padding:0;">
 							<div>
-								<h2 class="d-inline">회원 탈퇴</h2>
-								<span class="d-inline" style="color:#bbbbbd;">  탈퇴 시 주의사항을 꼭 확인해주세요</span>
+								<h2 class="d-inline">회원정보 수정</h2>
+								<span class="d-inline" style="color:#bbbbbd;">  수정 시 주의사항을 꼭 확인해주세요</span>
 							</div>
 						</div>
 
 						<hr>
-						<br>
 
-						<div class="col-12" style="padding-left:0">
-							<p style="font-size: 150%; color: #f13147;">회원탈퇴 주의사항</p>
+						<div class="col-12" style="text-align: center">
+							<p>고객님의 정보보호를 위해 본인확인을 진행합니다.</p>
+							<p><strong>비밀번호</strong>를 입력해주세요.</p>
 						</div>
 
 						<hr>
 
 						<div class="col-12" style="padding: 0; border: 1px solid #b4bcbc; border-radius: 5px">
 							<div style="padding:35px">
+								<form method="POST" action="/my/member/modify/membership">
 									<div class="form-group" style="text-align: center; margin:0;">
-										<span style="font-size: 110%; padding-right:20px">탈퇴 안내 약관</span>
+										<span style="font-size: 110%; padding-right:20px">비밀번호 확인</span>
+										<input style="width:400px; height:42px" type="password" id="password" name="password" required>
+										<button class="btn" type="submit">확인</button>
 									</div>
+								</form>
 							</div>
 						</div>
 
-						<div class="col-12" style="padding-left:0; padding-top:10px;">
-<!--							<input type="checkbox" name="agreement" style="box-sizing: border-box; width: 25px; height: 25px; padding: 10px; border: 2px solid black; padding-top:5px ">-->
-							<input type="checkbox">
-							<span> 회원 탈퇴 시 처리사항 안내 내용을 확인하였으며, 회원탈퇴에 동의합니다.</span>
-						</div>
-
-						<div style="padding-top: 20px">
-							<form method="GET" action="/my/member/leave">
-								<div class="form-group" style="text-align: center; margin:0;">
-									<button class="btn" type="submit">회원 탈퇴</button>
-								</div>
-							</form>
-						</div>
+						<br/>
+						<br/>
+						<br/>
 <!--					END	회원탈퇴 content-->
 
 

@@ -39,6 +39,7 @@ public interface MemberClient {
     @PutMapping("/task/members")
     MemberResponseDto modifyRequest(@RequestBody MemberModifyRequestDto memberModifyRequestDto);
 
+    // 회원 등급 조회.
     @GetMapping("/task/members/grade")
     GradeResponseDto getMemberGradeRequest();
 
