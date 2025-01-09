@@ -1,5 +1,6 @@
 package com.onebook.frontapi.feign.order;
 
+import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
 import com.onebook.frontapi.dto.order.OrderRegisterDto;
 import com.onebook.frontapi.dto.order.OrderRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -26,6 +27,6 @@ public interface OrderClient {
 
     // 주문 상태에 따른 주문 리스트 불러오기
     @GetMapping("/task/admin/orders")
-    List<OrderRequestDto> findOrderByStatus(@RequestParam("status") String status);
+    List<OrderByStatusResponseDto> findOrderByStatus(@RequestParam("status") String status);
 
 }

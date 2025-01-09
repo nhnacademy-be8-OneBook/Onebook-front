@@ -2,6 +2,7 @@ package com.onebook.frontapi.controller.order;
 
 import com.onebook.frontapi.dto.delivery.DeliveryRequestDto;
 import com.onebook.frontapi.dto.order.OrderAddressResponseDto;
+import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
 import com.onebook.frontapi.dto.order.OrderRegisterResponseDto;
 import com.onebook.frontapi.dto.order.OrderRequestDto;
 import com.onebook.frontapi.service.member.MemberService;
@@ -90,9 +91,9 @@ public class OrderController {
         return "order/orderSuccess"; // 주문 성공 페이지 반환
     }
 
-    @GetMapping("/admin/order/status")
+    @GetMapping("/admin/orders")
     public String orderStatus(Model model, @RequestParam String status) {
-        List<OrderRequestDto> ordersByStatus = orderService.getOrdersByStatus(status);
+        List<OrderByStatusResponseDto> ordersByStatus = orderService.getOrdersByStatus(status);
         model.addAttribute("ordersByStatus", ordersByStatus);
         return "admin/orderStatus";
     }
