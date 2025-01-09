@@ -24,9 +24,7 @@ public class FeignUserDetailsService implements UserDetailsService {
 
     private final MemberFeignClient memberFeignClient;
 
-    /**
-     * 로그인시 동작.
-     */
+    // 로그인 때 동작.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {

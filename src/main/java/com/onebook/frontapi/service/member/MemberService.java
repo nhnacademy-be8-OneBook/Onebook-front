@@ -3,14 +3,14 @@ package com.onebook.frontapi.service.member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onebook.frontapi.adaptor.member.MemberAdaptor;
-import com.onebook.frontapi.dto.member.ErrorResponse;
-import com.onebook.frontapi.dto.member.MemberRegisterRequestDto;
-import com.onebook.frontapi.dto.member.MemberResponseDto;
-import com.onebook.frontapi.dto.member.MemberViewDto;
+import com.onebook.frontapi.dto.grade.GradeResponseDto;
+import com.onebook.frontapi.dto.grade.GradeViewDto;
+import com.onebook.frontapi.dto.member.*;
 import com.onebook.frontapi.feign.member.MemberClient;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -38,8 +38,61 @@ public class MemberService {
      * 회원 조회
      */
     public MemberViewDto getMember() {
-        MemberResponseDto memberResponseDto = memberClient.getRequest();
-        return MemberViewDto.from(memberResponseDto);
+        try {
+            MemberResponseDto memberResponseDto = memberClient.getRequest();
+            return MemberViewDto.from(memberResponseDto);
+        }catch(FeignException e) {{
+            throw new RuntimeException("task api 로부터 member 조회 실패.");
+        }}
+    }
+
+    /**
+     * 회원정보 수정
+     */
+    public MemberViewDto modifyMember(MemberModifyRequestDto memberModifyRequestDto) {
+            MemberResponseDto memberResponseDto = memberClient.modifyRequest(memberModifyRequestDto);
+            return MemberViewDto.from(memberResponseDto);
+    }
+
+    /**
+     * 회원 등급 조회
+     */
+    public GradeViewDto getMemberGrade() {
+        GradeResponseDto gradeResponseDto = memberClient.getMemberGradeRequest();
+        GradeViewDto gradeViewDto = new GradeViewDto(
+                gradeResponseDto.name(),
+                gradeResponseDto.accumulationRate(),
+                gradeResponseDto.description()
+                );
+        return gradeViewDto;
+    }
+
+    /**
+     * 회원 여부 조회
+     */
+    public boolean checkMembership(MembershipCheckRequestDto membershipCheckRequestDto) {
+        MembershipCheckResponseDto membershipCheckResponseDto = memberClient.checkMembershipRequest(membershipCheckRequestDto);
+        if(Objects.isNull(membershipCheckResponseDto)) {
+            throw new IllegalArgumentException("MembershipCheckResponseDto 가 null 입니다.");
+        }
+
+        if(membershipCheckResponseDto.isMember()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 회원 탈퇴
+     */
+    public boolean deleteMember() {
+        ResponseEntity<Void> result = memberClient.deleteRequest();
+        if(result.getStatusCode().is2xxSuccessful()) {
+            return true;
+        }
+
+        return false;
     }
 
 }

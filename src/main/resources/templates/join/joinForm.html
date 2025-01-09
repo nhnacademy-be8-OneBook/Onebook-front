@@ -310,42 +310,48 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>이름(실명)<span>*</span></label>
-                                    <input type="text" id="name" name="name" placeholder="" required="required">
+                                    <input type="text" id="name" name="name" placeholder="" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>아이디<span>*</span></label>
-                                    <input type="text" name="loginId" placeholder="" required="required">
+                                    <input type="text" name="loginId" placeholder="" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>비밀번호<span>*</span></label>
                                     <input type="password" id="password" name="password" placeholder=""
-                                           required="required">
+                                           required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>비밀번호 재확인<span>*</span></label>
-                                    <input type="password" id="confirmPassword" placeholder="Re-enter password"
-                                           required="required">
+                                    <input type="password" id="confirmPassword" placeholder="위와 동일한 비밀번호를 입력하세요."
+                                           required>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>생년월일 8자리<span>*</span></label>
-                                    <input type="date" name="dateOfBirth" placeholder="" required="required">
+                                    <input type="date" name="dateOfBirth" placeholder="" required>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>성별<span>*</span></label>
-                                    <div>
-                                        <label><input type="radio" name="gender" value="M">남자</label>
-                                        <label><input type="radio" name="gender" value="F">여자</label>
+                                    <br/>
+                                    <div class="btn-group w-100 btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn btn-outline-primary w-50 m=0 " style="background-color: #F6F7FB; text-align: center;">
+                                            <input type="radio" name="gender" id="M" autocomplete="off" value="M" required> 남자
+                                        </label>
+                                        <label class="btn btn-outline-primary w-50 m=0" style="background-color: #F6F7FB; text-align: center;">
+                                            <input type="radio" name="gender" id="F" autocomplete="off" value="F" required> 여자
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -353,45 +359,47 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>이메일<span>*</span></label>
-                                    <input type="email" name="email" placeholder="" required="required">
+                                    <input type="email" name="email" placeholder="" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>휴대 전화번호<span>*</span></label>
+                                    <input type="text" name="phoneNumber" placeholder="" required>
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-8 form-group">
-                                        <input type="text" name="phoneNumber" placeholder="" required="required">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button id="sendAuthCode" class="btn" disabled>본인인증</button>
-                                    </div>
+<!--                            두레이 인증 빼버림-->
+<!--                            <div class="col-12">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-8 form-group">-->
+<!--                                        <input type="text" name="phoneNumber" placeholder="" required="required">-->
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-4">-->
+<!--                                        <button id="sendAuthCode" class="btn" disabled>본인인증</button>-->
+<!--                                    </div>-->
 
-                                    <!-- 인증번호 전송 후 입력 필드 및 확인 버튼 -->
-                                    <div id="authSection" style="display: none;">
-                                        <input type="text" id="code" placeholder="인증번호 입력">
-                                        <button id="verifyAuthCode" type="button">인증번호 확인</button>
-                                        <p id="resultMessage"></p>
-                                        <p id="timer"></p> <!-- 타이머를 표시할 영역 -->
-                                    </div>
-                                </div>
-                            </div>
+<!--                                    &lt;!&ndash; 인증번호 전송 후 입력 필드 및 확인 버튼 &ndash;&gt;-->
+<!--                                    <div id="authSection" style="display: none;">-->
+<!--                                        <input type="text" id="code" placeholder="인증번호 입력">-->
+<!--                                        <button id="verifyAuthCode" type="button">인증번호 확인</button>-->
+<!--                                        <p id="resultMessage"></p>-->
+<!--                                        <p id="timer"></p> &lt;!&ndash; 타이머를 표시할 영역 &ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="col-12">
                                 <div class="form-group login-btn">
-                                    <button class="btn btn-block" type="submit">회원가입</button>
+                                    <button name="submitButton" class="btn btn-block" type="submit" disabled>회원가입</button>
                                 </div>
                             </div>
                         </div>
                     </form>
                     <!--/ End Form -->
 <!--                    joo -->
-                    <script src="/js/registerDoorayAuthentication.js"></script>
-                    <script src="/js/registerInputValidation.js"></script>
+                    <script src="/js/member/registerDoorayAuthentication.js"></script>
+                    <script src="/js/member/registerInputValidation.js"></script>
 
                 </div>
             </div>

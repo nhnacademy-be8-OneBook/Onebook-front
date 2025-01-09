@@ -3,6 +3,7 @@ package com.onebook.frontapi.auth.config;
 import com.onebook.frontapi.auth.filter.JwtAuthFilter;
 import com.onebook.frontapi.auth.handler.AuthSuccessHandler;
 import com.onebook.frontapi.auth.handler.CustomAccessDeniedHandler;
+import com.onebook.frontapi.auth.handler.CustomAuthenticationEntryPoint;
 import com.onebook.frontapi.feign.auth.AuthFeignClient;
 import com.onebook.frontapi.feign.member.MemberClient;
 import com.onebook.frontapi.service.member.MemberService;
@@ -34,6 +35,7 @@ public class SecurityConfig {
 
     private final AuthFeignClient authFeignClient;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final MemberClient memberClient;
 
     @Bean
@@ -54,7 +56,7 @@ public class SecurityConfig {
                         .permitAll() // 로그인 페이지 접근 허용
         );
 
-        http.addFilterAt(new JwtAuthFilter(authFeignClient), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthFilter(authFeignClient), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(authRequest -> {
             authRequest.requestMatchers("/", "/login", "/public/**",
@@ -67,12 +69,14 @@ public class SecurityConfig {
         // logout 시 쿠키 삭제하기
         http.logout(logout -> {
             logout.logoutUrl("/logout").
-                    deleteCookies("Authorization");
+                    deleteCookies("Authorization")
+                    .logoutSuccessUrl("/"); // 로그아웃 성공 핸들러 추가
         });
 
         http.exceptionHandling(exceptionHandling ->
                 exceptionHandling
                         .accessDeniedHandler(customAccessDeniedHandler)
+//                        .authenticationEntryPoint(customAuthenticationEntryPoint)
         );
 
         return http.build();

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -33,13 +34,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         // 쿠키가 없으면 여기서 걸려서 홈페이지에 쿠키 없이 접근하면 login 페이지로 이동함.
         // -> 해결: 쿠키가 없으면 JWT 필터 태우지 않고, 그냥 넘김.
-        if(Objects.isNull(cookies)) {
+        if(Objects.isNull(cookies) || Arrays.stream(cookies).noneMatch(e -> e.getName().equals("Authorization"))) {
             filterChain.doFilter(request, response);
+
             return;
         }
 
         for(Cookie c : cookies) {
+
             if(c.getName().equals("Authorization")) {
+
                MemberInfoResponse memberInfoResponse = authFeignClient.getInfoByAuthorization("Bearer " + c.getValue());
 
                Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -55,6 +59,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
 
-
     }
+
+//    public boolean isAuthorization(Cookie[] cookies) {
+//        for(Cookie c : cookies) {
+//            if(c.getName().equals("Authorization")) {
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
+
 }
