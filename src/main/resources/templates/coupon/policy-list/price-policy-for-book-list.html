@@ -301,12 +301,12 @@
 						<div class="shop-sidebar">
 								<!-- Single Widget -->
 								<div class="single-widget category">
-									<h3 class="title">정책</h3>
-									<ul class="category-list">
-										<li><a href="#">정률정책 - 책</a></li>
-										<li><a href="#">정률정책 - 카테고리</a></li>
-										<li><a href="#">정액정책 - 책</a></li>
-										<li><a href="#">정액정책 - 카테고리</a></li>
+									<h3 class="title">Categories</h3>
+									<ul class="categor-list">
+										<li><a href="/coupon-policies/rate/book">정률정책 - 책</a></li>
+										<li><a href="/coupon-policies/rate/category">정률정책 - 카테고리</a></li>
+										<li><a href="/coupon-policies/price/book">정액정책 - 책</a></li>
+										<li><a href="/coupon-policies/price/category">정액정책 - 카테고리</a></li>
 									</ul>
 								</div>
 								<!--/ End Single Widget -->
@@ -345,7 +345,7 @@
 											<img src="https://via.placeholder.com/75x75" alt="#">
 										</div>
 										<div class="content">
-											<h5><a href="#">Girls Dress</a></h5>
+											<h5><a href="#" >Girls Dress</a></h5>
 											<p class="price">$99.50</p>
 											<ul class="reviews">
 												<li class="yellow"><i class="ti-star"></i></li>
@@ -442,216 +442,45 @@
 							</div>
 						</div>
 						<div class="row">
+<!--							<div th:each="policy : ${policyList}">-->
 								<!-- Start Single List -->
-								<div class="col-12">
-									<div class="row">
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<div class="single-product">
-												<div class="product-img">
-													<a href="product-details.html">
-														<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-														<img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">
-													</a>
-													<div class="button-head">
-														<div class="product-action">
-															<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-															<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-															<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-														</div>
-														<div class="product-action-2">
-															<a title="Add to cart" href="#">Add to cart</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-8 col-md-6 col-12">
+								<div class="col-12" th:each="policy : ${policyList}">
+<!--									<div class="row">-->
+
+<!--										<div class="col-12">-->
 											<div class="list-content">
 												<div class="product-content">
 													<div class="product-price">
-														<span>$29.00</span>
+														<span th:text="${policy.policyStatusName}"></span>
 													</div>
-													<h3 class="title"><a href="product-details.html">Women hot collection</a></h3>
-													<div class="review-inner">
-														<div class="ratings">
-															<ul class="rating">
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star-half-o"></i></li>
-																<li class="total">(4.5)</li>
-															</ul>
-														</div>
-													</div>
+													<h3 class="title"><a href="product-details.html" th:text="${policy.name}">Women hot collection</a></h3>
+													<hr>
 												</div>
-												<p class="des">nteger enim purus, posuere at ultricies eu, placerat a felis. Suspendisse aliquet urna pretium eros convallis interdum.  Suspendisse aliquet urna pretium eros convallis interdum. Quisque in arcu id dui vulputate mollis eget non arcu. Aenean et nulla purus. Mauris vel tellus non nunc mattis lobortis We are creative company here are many variation generators on the Internet tend to chunks as necessary interdum</p>
-												<a href="#" class="btn">But Now!</a>
+												<li class="des" th:text="|정책 설명: |+${policy.getDescription()}"></li>
+												<li class="des" th:text="|유효기간: |+${policy.getExpirationPeriodStart()}"></li>
+												<li class="des" th:text="|만료기간: |+${policy.getExpirationPeriodEnd()}"></li>
+												<li class="des" th:text="|할인 금액: |+${policy.getDiscountPrice()}"></li>
+												<li class="des" th:text="|최소 주문 금액: |+ ${policy.getMinimumOrderAmount()}"></li>
+												<li class="des" th:text="|책 이름: |+ ${policy.getBookName()}"></li>
+												<li class="des" th:text="|책 ISBN13: |+${policy.getBookIsbn13()}"></li>
+												<a href="#" class="btn mr-2">정책 수정</a>
+												<a href="#" class="btn">정책 삭제</a>
 											</div>
-										</div>
-									</div>
-								</div>
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
 								<!-- End Single List -->
-								<!-- Start Single List -->
-								<div class="col-12">
-									<div class="row">
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<div class="single-product">
-												<div class="product-img">
-													<a href="product-details.html">
-														<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-														<img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">
-													</a>
-													<div class="button-head">
-														<div class="product-action">
-															<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-															<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-															<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-														</div>
-														<div class="product-action-2">
-															<a title="Add to cart" href="#">Add to cart</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-8 col-md-6 col-12">
-											<div class="list-content">
-												<div class="product-content">
-													<div class="product-price">
-														<span>$29.00</span>
-													</div>
-													<h3 class="title"><a href="product-details.html">Women hot collection</a></h3>
-													<div class="review-inner">
-														<div class="ratings">
-															<ul class="rating">
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star-half-o"></i></li>
-																<li class="total">(4.5)</li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<p class="des">nteger enim purus, posuere at ultricies eu, placerat a felis. Suspendisse aliquet urna pretium eros convallis interdum.  Suspendisse aliquet urna pretium eros convallis interdum. Quisque in arcu id dui vulputate mollis eget non arcu. Aenean et nulla purus. Mauris vel tellus non nunc mattis lobortis We are creative company here are many variation generators on the Internet tend to chunks as necessary interdum</p>
-												<a href="#" class="btn">But Now!</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End Single List -->
-								<!-- Start Single List -->
-								<div class="col-12">
-									<div class="row">
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<div class="single-product">
-												<div class="product-img">
-													<a href="product-details.html">
-														<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-														<img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">
-														<span class="price-dec">30% Off</span>
-													</a>
-													<div class="button-head">
-														<div class="product-action">
-															<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-															<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-															<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-														</div>
-														<div class="product-action-2">
-															<a title="Add to cart" href="#">Add to cart</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-8 col-md-6 col-12">
-											<div class="list-content">
-												<div class="product-content">
-													<div class="product-price">
-														<span>$29.00</span>
-													</div>
-													<h3 class="title"><a href="product-details.html">Women hot collection</a></h3>
-													<div class="review-inner">
-														<div class="ratings">
-															<ul class="rating">
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star-half-o"></i></li>
-																<li class="total">(4.5)</li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<p class="des">nteger enim purus, posuere at ultricies eu, placerat a felis. Suspendisse aliquet urna pretium eros convallis interdum.  Suspendisse aliquet urna pretium eros convallis interdum. Quisque in arcu id dui vulputate mollis eget non arcu. Aenean et nulla purus. Mauris vel tellus non nunc mattis lobortis We are creative company here are many variation generators on the Internet tend to chunks as necessary interdum</p>
-												<a href="#" class="btn">But Now!</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End Single List -->
-								<!-- Start Single List -->
-								<div class="col-12">
-									<div class="row">
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<div class="single-product">
-												<div class="product-img">
-													<a href="product-details.html">
-														<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-														<img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">
-														<span class="out-of-stock">Hot</span>
-													</a>
-													<div class="button-head">
-														<div class="product-action">
-															<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-															<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-															<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-														</div>
-														<div class="product-action-2">
-															<a title="Add to cart" href="#">Add to cart</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-8 col-md-6 col-12">
-											<div class="list-content">
-												<div class="product-content">
-													<div class="product-price">
-														<span>$29.00</span>
-													</div>
-													<h3 class="title"><a href="product-details.html">Women hot collection</a></h3>
-													<div class="review-inner">
-														<div class="ratings">
-															<ul class="rating">
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star"></i></li>
-																<li><i class="fa fa-star-half-o"></i></li>
-																<li class="total">(4.5)</li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<p class="des">nteger enim purus, posuere at ultricies eu, placerat a felis. Suspendisse aliquet urna pretium eros convallis interdum.  Suspendisse aliquet urna pretium eros convallis interdum. Quisque in arcu id dui vulputate mollis eget non arcu. Aenean et nulla purus. Mauris vel tellus non nunc mattis lobortis We are creative company here are many variation generators on the Internet tend to chunks as necessary interdum</p>
-												<a href="#" class="btn">But Now!</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End Single List -->
+							</div>
 								<div class="col-12">
 									<!-- Pagination -->
 									<div class="pagination">
 										<ul class="pagination-list">
 											<li><a href="#"><i class="ti-arrow-left"></i></a></li>
-											<li class="active"><a href="#">1</a></li>
-											<li><a href="#">2</a></li>
-											<li><a href="#">3</a></li>
+<!--											<li class="active"><a href="#">1</a></li>-->
+											<li th:each=" index : ${#numbers.sequence(1,totalPages)}">
+											<a th:href="|/coupon-policies/rate/book?page=${-1+index}|" th:text="${index}"></a>
+											</li>
+<!--											<li><a href="#">3</a></li>-->
 											<li><a href="#"><i class="ti-arrow-right"></i></a></li>
 										</ul>
 									</div>
