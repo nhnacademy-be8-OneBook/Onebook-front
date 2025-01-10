@@ -29,8 +29,7 @@ public class DoorayMessageService {
     /**
      * 두레이로 인증번호(6자리) 보내기.
      */
-    public AuthResponseDto requestDoorayMessage(HttpServletRequest request, HttpServletResponse response) {
-
+    public AuthResponseDto requestDoorayMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             // Dooray Message 인증용 세션, 쿠키 발급.
             HttpSession session = request.getSession(true);
@@ -49,7 +48,7 @@ public class DoorayMessageService {
             // 두레이 메신저로 인증 code 전송.
             doorayMessageAdaptor.send(code);
 
-            return new AuthResponseDto(true, "인증번호 발급 성공");
+            return new AuthResponseDto(true, "인증번호가 전송되었습니다");
         }catch(Exception e) {
             return new AuthResponseDto(false, "인증번호 발급 실패");
         }

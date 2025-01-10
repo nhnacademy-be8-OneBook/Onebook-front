@@ -36,7 +36,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // -> 해결: 쿠키가 없으면 JWT 필터 태우지 않고, 그냥 넘김.
         if(Objects.isNull(cookies) || Arrays.stream(cookies).noneMatch(e -> e.getName().equals("Authorization"))) {
             filterChain.doFilter(request, response);
-
             return;
         }
 
