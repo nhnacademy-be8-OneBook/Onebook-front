@@ -74,14 +74,6 @@ public class HomeController {
                     productDTOList.add(productDTO);
             }
 
-            List<CategoryDTO> categoryDTOList = categoryService.getTopCategories();
-
-            model.addAttribute("topCategories", categoryDTOList);
-
-
-
-        log.info("BookListSize: {}", bookList.size());
-        log.info("ImageListSize: {}", imageList.size());
         model.addAttribute("imageList", imageList);
         model.addAttribute("bookList", bookList);
         model.addAttribute("categoryId", categoryId);
