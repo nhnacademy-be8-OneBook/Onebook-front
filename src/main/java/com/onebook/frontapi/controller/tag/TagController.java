@@ -52,6 +52,17 @@ public class TagController {
         return "/tag/tagList";
     }
 
+    @GetMapping("/tagList")
+    public String getTags(@RequestParam(defaultValue = "0") int page,
+                           Model model) {
+
+        Page<TagResponse> tags = tagService.allTags(PageRequest.of(page, 10));
+
+        model.addAttribute("tags", tags);
+
+        return "/tag/tagList_book";
+    }
+
 
     @PutMapping("/update")
     public String updateTag(@RequestParam(value = "tagId") long tagId,
