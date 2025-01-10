@@ -4,7 +4,6 @@ import com.onebook.frontapi.dto.delivery.DeliveryRequestDto;
 import com.onebook.frontapi.dto.order.OrderAddressResponseDto;
 import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
 import com.onebook.frontapi.dto.order.OrderRegisterResponseDto;
-import com.onebook.frontapi.dto.order.OrderRequestDto;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.order.OrderAddressService;
 import com.onebook.frontapi.service.order.OrderService;
@@ -35,7 +34,7 @@ public class OrderController {
     private final OrderAddressService orderAddressService;
     private final OrderStatusService orderStatusService;
 
-//    /*
+    //    /*
     @GetMapping("/order/register")
     public String orderRegister(Model model) {
         // 사용자의 전화번호
@@ -50,7 +49,7 @@ public class OrderController {
         List<Map<String, String>> reservationDates = new ArrayList<>(4);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM월 dd일");
         for (int i = 1; i < 4; i++) {
-            LocalDate day = LocalDate.now().plusDays(i+1);
+            LocalDate day = LocalDate.now().plusDays(i + 1);
 
             reservationDates.add(Map.of(
                     "orderNum", String.valueOf(i),
@@ -69,7 +68,7 @@ public class OrderController {
 //    */
 
     @PostMapping("/order/register")
-    public String submitOrder(@ModelAttribute OrderRegisterResponseDto orderRegisterResponseDto,  @ModelAttribute DeliveryRequestDto deliveryRequestDto, RedirectAttributes redirectAttributes) {
+    public String submitOrder(@ModelAttribute OrderRegisterResponseDto orderRegisterResponseDto, @ModelAttribute DeliveryRequestDto deliveryRequestDto, RedirectAttributes redirectAttributes) {
         // 받은 객체로 로직 수행
         System.out.println("포장지: " + orderRegisterResponseDto.getPackagingName() + " (" + orderRegisterResponseDto.getPackagingPrice() + ")");
         System.out.println("주문인: " + orderRegisterResponseDto.getOrdererName() + ", " + orderRegisterResponseDto.getOrdererPhone());
@@ -79,11 +78,10 @@ public class OrderController {
         redirectAttributes.addFlashAttribute("orderSuccess", true);
         redirectAttributes.addFlashAttribute("orderDetails", orderRegisterResponseDto);
 
-        orderService.createOrder(orderRegisterResponseDto);
-        System.out.println(deliveryRequestDto);
+        Long createOrderId = orderService.createOrder(orderRegisterResponseDto);
 
-//        return "redirect:/order/success"; // 등록 성공 페이지로 이동
-        return "redirect:/front/payments/checkout-page?orderId=664403193597707249";
+        //        return "redirect:/order/success"; // 등록 성공 페이지로 이동
+        return "redirect:/front/payments/checkout-page?orderId=" + createOrderId;
     }
 
     @GetMapping("/order/success")

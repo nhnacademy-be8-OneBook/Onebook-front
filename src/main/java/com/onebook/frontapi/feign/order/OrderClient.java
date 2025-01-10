@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderClient {
     // 주문 생성
     @PostMapping("/task/order")
-    void createOrder(@RequestBody OrderRegisterDto orderRegisterDto);
+    Long createOrder(@RequestBody OrderRegisterDto orderRegisterDto);
 
     // 사용자의 모든 주문 불러오기
     @GetMapping("/task/orders")
