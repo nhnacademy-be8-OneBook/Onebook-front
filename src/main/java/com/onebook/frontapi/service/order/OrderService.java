@@ -13,12 +13,10 @@ import java.util.List;
 public class OrderService {
     private final OrderClient orderClient;
 
-    public void createOrder(OrderRegisterResponseDto orderRegisterResponseDto) {
-        // TODO 배송비 입력
+    public Long createOrder(OrderRegisterResponseDto orderRegisterResponseDto) {
+        // TODO 배송비 입력? 백에서 해야되는거 아닌가?
         int deliveryPrice = 3000;
         int totalPrice = 15000;
-
-        System.out.println("진입!!!!!!!");
 
         OrderRegisterDto orderRegisterDto = new OrderRegisterDto(
                 orderRegisterResponseDto.getOrdererName(),
@@ -27,7 +25,7 @@ public class OrderService {
                 deliveryPrice,
                 totalPrice);
 
-        orderClient.createOrder(orderRegisterDto);
+        return orderClient.createOrder(orderRegisterDto);
     }
 
     public List<OrderResponseDto> getAllOrders() {
