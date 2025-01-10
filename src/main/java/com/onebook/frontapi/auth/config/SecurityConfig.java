@@ -1,6 +1,7 @@
 package com.onebook.frontapi.auth.config;
 
 import com.onebook.frontapi.auth.filter.JwtAuthFilter;
+import com.onebook.frontapi.auth.handler.AuthFailureHandler;
 import com.onebook.frontapi.auth.handler.AuthSuccessHandler;
 import com.onebook.frontapi.auth.handler.CustomAccessDeniedHandler;
 import com.onebook.frontapi.auth.handler.CustomAuthenticationEntryPoint;
@@ -53,18 +54,19 @@ public class SecurityConfig {
                         .passwordParameter("password") // 비밀번호 파라미터 이름
                         .loginProcessingUrl("/login/process") // 로그인 처리 URL
                         .successHandler(new AuthSuccessHandler(authFeignClient, memberClient))// jwt token 추가하기
+                        .failureHandler(new AuthFailureHandler())
                         .permitAll() // 로그인 페이지 접근 허용
         );
-
-        http.addFilterBefore(new JwtAuthFilter(authFeignClient), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(authRequest -> {
             authRequest.requestMatchers("/", "/login", "/public/**",
                             "/css/**", "/js/**", "/images/**", "/join", "/test/**",
-                            "/style.css").permitAll()
+                            "/style.css", "/dormant-account/**", "/dooray-message-authentication").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN") // 로그인할 때 Authentication을 생성하는데 이때 ROLE을 넣어줬음. 그래서 이렇게 사용 가능.
                     .anyRequest().authenticated();
         });
+
+        http.addFilterBefore(new JwtAuthFilter(authFeignClient), UsernamePasswordAuthenticationFilter.class);
 
         // logout 시 쿠키 삭제하기
         http.logout(logout -> {

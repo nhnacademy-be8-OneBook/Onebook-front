@@ -51,5 +51,9 @@ public interface MemberClient {
     @DeleteMapping("/task/members")
     ResponseEntity<Void> deleteRequest();
 
+    // 회원 상태 'ACTIVE'로 변경
+    @GetMapping("/task/members/status/{loginId}")
+    ResponseEntity<Void> modifyStatusToActive(@PathVariable("loginId") String loginId);
+
 }
 

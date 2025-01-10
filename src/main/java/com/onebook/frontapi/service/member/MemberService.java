@@ -99,4 +99,16 @@ public class MemberService {
         return false;
     }
 
+    /**
+     * 회원 상태 'ACTIVE'로 변경
+     */
+    public boolean modifyStatusToActive(String loginId) {
+        ResponseEntity<Void> result = memberClient.modifyStatusToActive(loginId);
+        if(result.getStatusCode().is2xxSuccessful()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

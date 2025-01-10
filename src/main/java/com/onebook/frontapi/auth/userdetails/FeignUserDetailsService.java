@@ -1,5 +1,6 @@
 package com.onebook.frontapi.auth.userdetails;
 
+import com.onebook.frontapi.auth.handler.MemberStatusValidator;
 import com.onebook.frontapi.dto.member.MemberLoginRequestDto;
 import com.onebook.frontapi.dto.member.MemberLoginResponseDto;
 import com.onebook.frontapi.feign.member.MemberFeignClient;
@@ -23,6 +24,7 @@ import java.util.Objects;
 public class FeignUserDetailsService implements UserDetailsService {
 
     private final MemberFeignClient memberFeignClient;
+    private final MemberStatusValidator memberStatusValidator;
 
     // 로그인 때 동작.
     @Override
@@ -32,7 +34,10 @@ public class FeignUserDetailsService implements UserDetailsService {
 
             MemberLoginResponseDto memberLoginResponseDto = memberLoginResponseDtoResponseEntity.getBody();
 
-            log.info("loginId{}, password{}, role{}", memberLoginResponseDto.loginId(), memberLoginResponseDto.password(), memberLoginResponseDto.role());
+            log.info("loginId: {}, password: {}, role: {}, status: {}", memberLoginResponseDto.loginId(), memberLoginResponseDto.password(), memberLoginResponseDto.role(), memberLoginResponseDto.status());
+
+            // 멤버 상태 검증 후 그에 따른 적절한 예외처리.
+            memberStatusValidator.validateMemberStatus(memberLoginResponseDto.status());
 
             return new User(memberLoginResponseDto.loginId(), memberLoginResponseDto.password(), List.of(new SimpleGrantedAuthority("ROLE_" + memberLoginResponseDto.role())));
 
