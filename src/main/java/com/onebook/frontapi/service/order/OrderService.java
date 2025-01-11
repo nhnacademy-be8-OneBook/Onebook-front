@@ -18,14 +18,14 @@ public class OrderService {
         int deliveryPrice = 3000;
         int totalPrice = 15000;
 
-        OrderRegisterDto orderRegisterDto = new OrderRegisterDto(
+        OrderRegisterRequest orderRegisterRequest = new OrderRegisterRequest(
                 orderRegisterResponseDto.getOrdererName(),
                 orderRegisterResponseDto.getOrdererPhone(),
                 LocalDateTime.now(),
                 deliveryPrice,
                 totalPrice);
 
-        return orderClient.createOrder(orderRegisterDto);
+        return orderClient.createOrder(orderRegisterRequest);
     }
 
     public List<OrderResponseDto> getAllOrders() {
