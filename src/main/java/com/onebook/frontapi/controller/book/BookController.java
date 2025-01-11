@@ -4,11 +4,13 @@ import com.onebook.frontapi.dto.author.AuthorDTO;
 import com.onebook.frontapi.dto.book.BookAuthorDTO;
 import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.book.BookSaveDTO;
+import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.dto.publisher.PublisherDTO;
 import com.onebook.frontapi.dto.tag.TagResponse;
 import com.onebook.frontapi.service.author.AuthorService;
 import com.onebook.frontapi.service.book.BookAuthorService;
 import com.onebook.frontapi.service.book.BookService;
+import com.onebook.frontapi.service.image.ImageService;
 import com.onebook.frontapi.service.publisher.PublisherService;
 import com.onebook.frontapi.service.tag.TagService;
 import jakarta.validation.Valid;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,6 +37,7 @@ public class BookController {
     private final AuthorService authorService;
     private final PublisherService publisherService;
     private final TagService tagService;
+    private final ImageService imageService;
 
     @GetMapping("/newbooks")
     public String newBooks(Model model, Pageable pageable) {
@@ -47,7 +51,7 @@ public class BookController {
 
     @GetMapping("/bookDetail")
     public String bookDetail(@RequestParam("bookId") long bookId,
-                             @RequestParam("url") String url,
+                             @RequestParam(value = "url", required = false) String url,
                              Model model) {
         BookDTO book = bookService.getBook(bookId);
         BookAuthorDTO bookAuthor = bookAuthorService.getBookAuthor(bookId);
@@ -56,8 +60,14 @@ public class BookController {
 
         log.info("bookId: {}", book.getBookId());
         log.info("bookTitle: {}", book.getTitle());
+        if(Objects.isNull(url) || url.isEmpty()) {
+            ImageDTO image = imageService.getImage(bookId);
+            model.addAttribute("url", image.getUrl());
+        }else{
+            model.addAttribute("url", url);
+
+        }
         model.addAttribute("book", book);
-        model.addAttribute("url", url);
         model.addAttribute("author", author);
 
         return "book/bookDetail";
