@@ -1,5 +1,6 @@
 package com.onebook.frontapi.service.coupon;
 
+import com.onebook.frontapi.dto.coupon.request.coupon.CreateCouponRequest;
 import com.onebook.frontapi.dto.coupon.response.coupon.CouponResponse;
 import com.onebook.frontapi.feign.coupon.CouponClient;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,4 +28,22 @@ public class CouponService {
     public CouponResponse deleteCoupon(String couponNumber){
         return couponClient.deleteCoupon(couponNumber).getBody();
     }
+
+    public List<CouponResponse> createRateCouponForBook(CreateCouponRequest createCouponRequest){
+        return couponClient.createRateCouponForCategory(createCouponRequest).getBody();
+    }
+
+    public List<CouponResponse> createRateCouponForCategory(CreateCouponRequest createCouponRequest){
+        return couponClient.createRateCouponForCategory(createCouponRequest).getBody();
+    }
+
+    public List<CouponResponse> createPriceCouponForBook(CreateCouponRequest createCouponRequest){
+        return couponClient.createPriceCouponForCategory(createCouponRequest).getBody();
+    }
+
+    public List<CouponResponse> createPriceCouponForCategory(CreateCouponRequest createCouponRequest){
+        return couponClient.createPriceCouponForCategory(createCouponRequest).getBody();
+    }
+
+
 }

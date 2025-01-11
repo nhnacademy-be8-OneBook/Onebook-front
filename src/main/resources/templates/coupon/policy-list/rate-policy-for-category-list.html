@@ -466,16 +466,30 @@
 												<li class="des" th:text="|최소 주문 금액: |+ ${policy.getMinimumOrderAmount()}"></li>
 												<li class="des" th:text="|할인율: |+${policy.getDiscountRate()}"></li>
 												<li class="des" th:text="|카테고리 이름: |+ ${policy.getCategoryName()}"></li>
+												<div>
 												<span th:if="${policy.getPolicyStatusName().equals('미사용')}">
-												<form method="post" th:action="'/coupon-policies/rate/category/'+${policy.getId()}">
-													<a th:href="'/coupon-policies/rate/category/modify/' + ${policy.getId()}" class="btn mr-2">정책 수정</a>
+												<form method="post" th:action="'/coupon-policies/rate/book/'+${policy.getId()}">
+													<a th:href="'/coupon-policies/rate/book/modify/' + ${policy.getId()}" class="btn mr-2">정책 수정</a>
 													<input type="hidden" name="_method" value="DELETE">
 													<button type="submit" class="btn">정책 삭제</button>
+													<span th:if="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
+															<button class="btn float-right bg-danger">만료된 정책</button>
+													</span>
+													<span th:unless="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
+															<a th:href="'/coupon/rate-for-category/'+${policy.getId()} + '/create'" class="btn float-right bg-success">쿠폰 생성</a>
+													</span>
 												</form>
 												</span>
-												<span th:if="${policy.getPolicyStatusName().equals('사용됨')}">
+													<span th:if="${policy.getPolicyStatusName().equals('사용됨')}">
 													<button type="submit" class="btn">정책 삭제</button>
-												</span>
+														<span th:if="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
+															<button class="btn float-right bg-danger">만료된 정책</button>
+														</span>
+														<span th:unless="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
+															<a th:href="'/coupon/rate-for-category/'+${policy.getId()} +'/create'" class="btn float-right bg-success">쿠폰 생성</a>
+														</span>
+													</span>
+												</div>
 											</div>
 <!--										</div>-->
 <!--									</div>-->
