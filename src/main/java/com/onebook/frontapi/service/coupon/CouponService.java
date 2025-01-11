@@ -21,4 +21,8 @@ public class CouponService {
         Pageable pageable = PageRequest.of(pageNo,PAGE_SIZE, Sort.by("creationTime").descending());
         return couponClient.getAllCoupons(pageable).getBody();
     }
+
+    public CouponResponse deleteCoupon(String couponNumber){
+        return couponClient.deleteCoupon(couponNumber).getBody();
+    }
 }
