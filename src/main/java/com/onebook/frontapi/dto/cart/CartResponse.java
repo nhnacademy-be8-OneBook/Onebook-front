@@ -2,6 +2,7 @@ package com.onebook.frontapi.dto.cart;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public record CartResponse(
         String cartId,
@@ -10,6 +11,9 @@ public record CartResponse(
 ) {
     // CartFeignResponse -> CartResponse
     public static CartResponse from(CartFeignResponse cartFeignResponse) {
+        if(Objects.isNull(cartFeignResponse)) {
+            return null;
+        }
         return new CartResponse(
                 cartFeignResponse.cartId(),
                 cartFeignResponse.memberId(),
