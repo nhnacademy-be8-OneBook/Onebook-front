@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Register</title>
+</head>
+<body>
+<h1>Order Register</h1>
+<form action="/order/registers" method="post">
+  <!-- 첫 번째 상품 -->
+  <div>
+    <label for="productId0">Product ID:</label>
+    <input type="number" id="productId0" name="orderProducts[0].productId" value="1" required>
+  </div>
+  <div>
+    <label for="quantity0">Quantity:</label>
+    <input type="number" id="quantity0" name="orderProducts[0].quantity" value="2" required>
+  </div>
+
+  <!-- 두 번째 상품 예제 (필요 시 추가) -->
+  <div>
+    <label for="productId1">Product ID:</label>
+    <input type="number" id="productId1" name="orderProducts[1].productId" placeholder="상품 ID">
+  </div>
+  <div>
+    <label for="quantity1">Quantity:</label>
+    <input type="number" id="quantity1" name="orderProducts[1].quantity" placeholder="수량">
+  </div>
+
+  <!-- 제출 버튼 -->
+  <button type="submit">Submit Order</button>
+</form>
+</body>
+</html>

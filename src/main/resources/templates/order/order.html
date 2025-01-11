@@ -75,6 +75,8 @@
     <!-- End Breadcrumbs -->
 <!--<form action="/order/register" method="post">-->
     <!-- 쇼핑 카트 시작 -->
+    <form action="/order/register" method="post">
+
     <div class="shopping-cart section">
         <div class="container">
             <div class="row">
@@ -119,8 +121,8 @@
                                         </button>
                                     </div>
 <!--                                           th:name="'items[' + ${iterStat.index} + '].quantity'"-->
+<!--                                           th:id="'items' + ${iterStat.index} + 'quantity'"-->
                                     <input type="text" class="input-number"
-                                           th:id="'items' + ${iterStat.index} + 'quantity'"
                                            th:data-book-id="${entry.key.bookId}"
                                            th:data-price="${entry.key.price}"
                                            data-min="1"
@@ -133,14 +135,6 @@
                                         </button>
                                     </div>
                                 </div>
-<!--                                <input type="hidden"-->
-<!--                                       th:id="'items' + ${iterStat.index} + 'bookId'"-->
-<!--                                       th:name="'items[' + ${iterStat.index} + '].bookId'"-->
-<!--                                       th:value="${entry.key.bookId}">-->
-<!--                                <input type="hidden"-->
-<!--                                       th:id="'items' + ${iterStat.index} + 'title'"-->
-<!--                                       th:name="'items[' + ${iterStat.index} + '].title'"-->
-<!--                                       th:value="${entry.key.title}">-->
                             </td>
                             <td class="total-amount">
                             <span th:id="'total-' + ${entry.key.bookId}"
@@ -148,23 +142,15 @@
                                 총 가격
                             </span>
                             </td>
-<!--                            <td>-->
-<!--                                <input type="text" th:name="'items[' + ${iterStat.index} + '].bookId'" th:value="${entry.key.bookId}">-->
-<!--                                <input type="text" th:name="'items[' + ${iterStat.index} + '].title'" th:value="${entry.key.title}">-->
-<!--                                <span th:text="'현재 인덱스: ' + ${iterStat.index}"></span>-->
-<!--                                <span th:text="'items[' + ${iterStat.index} + '].bookId'"></span>-->
-<!--                            </td>-->
-                            <td>
-                                <input type="text"
-                                       th:name="'orderRequest.items[' + ${iterStat.index} + '].bookId'"
-                                       th:value="${entry.key.bookId}">
-                                <input type="text"
-                                       th:name="'orderRequest.items[' + ${iterStat.index} + '].quantity'"
-                                       th:value="${entry.value}">
-                                <input type="text"
-                                       th:name="'orderRequest.items[' + ${iterStat.index} + '].price'"
-                                       th:value="${entry.key.price}">
-                            </td>
+                            <input type="hidden"
+                                   th:name="'items[' + ${iterStat.index} + '].bookId'"
+                                   th:value="${entry.key.bookId}">
+                            <input type="hidden"
+                                   th:name="'items[' + ${iterStat.index} + '].quantity'"
+                                   th:value="${entry.value}">
+                            <input type="hidden"
+                                   th:name="'items[' + ${iterStat.index} + '].price'"
+                                   th:value="${entry.key.price}">
                         </tr>
                         </tbody>
                     </table>
@@ -172,12 +158,12 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="test[0].id" value=10>
     <!--  쇼핑 카트 끝  -->
 
     <!-- 배송지 입력 Form 시작 -->
     <div class="delivery-form">
         <div class="container">
-            <form action="/order/register" method="post">
                 <!-- 주문인 정보 -->
                 <h2>주문인 정보</h2>
                 <table class="table">
@@ -296,9 +282,9 @@
                 <div class="submit-area">
                     <button type="submit" class="btn-submit">주문하기</button>
                 </div>
-            </form>
         </div>
     </div>
+</form>
     <!-- 배송지 입력 Form 끝 -->
 <!--</form>-->
 

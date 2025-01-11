@@ -3,14 +3,12 @@ package com.onebook.frontapi.controller.order;
 import com.onebook.frontapi.domain.order.OrderProduct;
 import com.onebook.frontapi.domain.order.OrderProducts;
 import com.onebook.frontapi.dto.book.BookDTO;
-import com.onebook.frontapi.dto.delivery.DeliveryRequest;
 import com.onebook.frontapi.dto.order.*;
 import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.order.OrderAddressService;
 import com.onebook.frontapi.service.order.OrderService;
 import com.onebook.frontapi.service.order.OrderStatusService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -79,29 +77,17 @@ public class OrderController {
     }
 
     @PostMapping("/order/register")
-    public String submitOrder(@ModelAttribute OrderRequest orderRequest, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        // 전체 요청 파라미터 출력
-        request.getParameterMap().forEach((key, value) -> {
-            log.info("Parameter - {} : {}", key, Arrays.toString(value));
-        });
+    public String submitOrder(@ModelAttribute OrderRequest orderRequest, RedirectAttributes redirectAttributes) {
+        // TODO orderDetails 추가하기
 
-        // OrderRequest 객체 상태 출력
-        log.info("OrderRequest items: {}", orderRequest.getItems());
-        if (orderRequest.getItems() != null) {
-            orderRequest.getItems().forEach(item -> {
-                log.info("Book item - id: {}, quantity: {}, title: {}",
-                        item.getBookId(), item.getQuantity(), item.getPrice());
-            });
-        }
-        //        // 데이터를 리다이렉트할 페이지로 전달
+        // 데이터를 리다이렉트할 페이지로 전달
 //        redirectAttributes.addFlashAttribute("orderSuccess", true);
 //        redirectAttributes.addFlashAttribute("orderDetails", orderRegisterResponseDto);
 
 //        Long createOrderId = orderService.createOrder(orderRegisterResponseDto);
 
         //        return "redirect:/order/success"; // 등록 성공 페이지로 이동
-//        return "redirect:/front/payments/checkout-page?orderId=" + createOrderId;
-        return "redirect:/order/order-test";
+        return "redirect:/front/payments/checkout-page?orderId="; // + createOrderId;
     }
 
     @GetMapping("/order/success")
