@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("resultMessage").textContent = data.message;
                     document.getElementById("sendAuthCode").disabled = true; // 본인 인증 버튼 비활성화
                     document.getElementById("sendAuthCode").style.display = "none"; // 본인 인증 버튼 숨기기
-                    document.getElementById("authSection").style.display = "block"; // 인증번호 입력란 표시
 
                     // 인증번호 전송이 성공한 후에 타이머 시작
                     document.getElementById("authSection").style.display = "block"; // 인증번호 입력란 표시
