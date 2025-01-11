@@ -133,7 +133,7 @@
                                             <li class="active"><a href="/">Home</a></li>
                                             <li th:each="category : ${topCategories}" th:if="${category.status == false}" class="dropdown">
                                                 <!-- 상위 카테고리 클릭 시 categoryId를 URL에 포함시켜 전달 -->
-                                                <a th:href="@{/?categoryId={categoryId}(categoryId=${category.categoryId})}"
+                                                <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${category.categoryId})}"
                                                    th:text="${category.name}">
                                                 </a>
 
@@ -141,7 +141,7 @@
                                                 <ul th:if="${category.subCategories != null}" class="dropdown-menu">
                                                     <li th:each="subCategory : ${category.subCategories}" th:if="${subCategory.status == false}">
                                                         <!-- 서브카테고리 클릭 시 subCategory의 categoryId를 URL에 포함시켜 전달 -->
-                                                        <a th:href="@{/?categoryId={categoryId}(categoryId=${subCategory.categoryId})}"
+                                                        <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${subCategory.categoryId})}"
                                                            th:text="${subCategory.name}">
                                                         </a>
                                                     </li>
