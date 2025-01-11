@@ -1,7 +1,6 @@
 package com.onebook.frontapi.feign.member;
 
-import com.onebook.frontapi.dto.member.MemberLoginRequestDto;
-import com.onebook.frontapi.dto.member.MemberLoginResponseDto;
+import com.onebook.frontapi.dto.member.MemberLoginFeignResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -15,5 +14,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Component
 public interface MemberFeignClient {
     @GetMapping("/task/auth/members/{loginId}")
-    public ResponseEntity<MemberLoginResponseDto> loadByMemberId(@PathVariable(name="loginId")String loginId);
+    public ResponseEntity<MemberLoginFeignResponse> loadByMemberId(@PathVariable(name="loginId")String loginId);
 }

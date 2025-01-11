@@ -1,9 +1,9 @@
 package com.onebook.frontapi.controller.my.member;
 
-import com.onebook.frontapi.dto.grade.GradeViewDto;
-import com.onebook.frontapi.dto.member.MemberModifyRequestDto;
-import com.onebook.frontapi.dto.member.MemberViewDto;
-import com.onebook.frontapi.dto.member.MembershipCheckRequestDto;
+import com.onebook.frontapi.dto.grade.GradeResponse;
+import com.onebook.frontapi.dto.member.MemberModifyRequest;
+import com.onebook.frontapi.dto.member.MemberResponse;
+import com.onebook.frontapi.dto.member.MembershipCheckRequest;
 import com.onebook.frontapi.service.grade.GradeService;
 import com.onebook.frontapi.service.member.MemberService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class MemberController {
     // 회원정보 수정 폼
     @GetMapping("/member/modify")
     public String memberInfoModifyForm(Model model) {
-        MemberViewDto member = memberService.getMember();
+        MemberResponse member = memberService.getMember();
         model.addAttribute("member", member);
         return "my/member/modifyForm";
     }
@@ -38,8 +38,8 @@ public class MemberController {
 
     // 회원정보 수정: 회원 여부 조회.
     @PostMapping("/member/modify/membership")
-    public String modifyCheckMembership(@ModelAttribute MembershipCheckRequestDto membershipCheckRequestDto) {
-        boolean result = memberService.checkMembership(membershipCheckRequestDto);
+    public String modifyCheckMembership(@ModelAttribute MembershipCheckRequest membershipCheckRequest) {
+        boolean result = memberService.checkMembership(membershipCheckRequest);
 
         if(result) {
             return "redirect:/my/member/modify";
@@ -51,8 +51,8 @@ public class MemberController {
 
     // 회원정보 수정
     @PostMapping("/member/modify")
-    public String memberInfoModify(@ModelAttribute @Valid MemberModifyRequestDto memberModifyRequestDto) {
-        MemberViewDto member = memberService.modifyMember(memberModifyRequestDto);
+    public String memberInfoModify(@ModelAttribute @Valid MemberModifyRequest memberModifyRequest) {
+        MemberResponse member = memberService.modifyMember(memberModifyRequest);
         return "redirect:/my/home";
     }
 
@@ -64,8 +64,8 @@ public class MemberController {
      */
     @GetMapping("/member/grade")
     public String memberGradeInfo(Model model) {
-        GradeViewDto memberGrade = memberService.getMemberGrade();
-        List<GradeViewDto> gradeList = gradeService.getGrades();
+        GradeResponse memberGrade = memberService.getMemberGrade();
+        List<GradeResponse> gradeList = gradeService.getGrades();
         // TODO Joo - 최근 3개월 순수 구매 내역 조회.
         model.addAttribute("memberGrade", memberGrade);
         model.addAttribute("gradeList", gradeList);
@@ -74,8 +74,8 @@ public class MemberController {
 
     // 회원탈퇴 - 회원 여부 조회.
     @PostMapping("/member/leave/membership")
-    public String leaveCheckMembership(@ModelAttribute MembershipCheckRequestDto membershipCheckRequestDto) {
-        boolean result = memberService.checkMembership(membershipCheckRequestDto);
+    public String leaveCheckMembership(@ModelAttribute MembershipCheckRequest membershipCheckRequest) {
+        boolean result = memberService.checkMembership(membershipCheckRequest);
 
         if(result) {
             return "redirect:/my/member/leave-agreement";

@@ -1,6 +1,6 @@
 package com.onebook.frontapi.controller.my.home;
 
-import com.onebook.frontapi.dto.member.MemberViewDto;
+import com.onebook.frontapi.dto.member.MemberResponse;
 import com.onebook.frontapi.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,8 @@ public class MyHomeController {
 
     @GetMapping("/home")
     public String myHome(Model model) {
-        MemberViewDto memberViewDto = memberService.getMember();
-        model.addAttribute("member", memberViewDto);
+        MemberResponse memberResponse = memberService.getMember();
+        model.addAttribute("member", memberResponse);
         return "my/home/home";
     }
 
