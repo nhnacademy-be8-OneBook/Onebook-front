@@ -1,15 +1,13 @@
 package com.onebook.frontapi.controller.coupon;
 
+import com.onebook.frontapi.dto.coupon.request.coupon.CreateCouponRequest;
 import com.onebook.frontapi.dto.coupon.response.coupon.CouponResponse;
 import com.onebook.frontapi.service.coupon.CouponService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,10 +52,41 @@ public class CouponController {
         return "coupon/coupon/price-coupon-for-category-create-form";
     }
 
+    @PostMapping("/coupon/rate-for-book/create")
+    public String createRateCouponForBook(@ModelAttribute CreateCouponRequest createCouponRequest){
+        couponService.createRateCouponForBook(createCouponRequest);
+        return "redirect:/coupon";
+    }
+
+    @PostMapping("/coupon/rate-for-category/create")
+    public String createRateCouponForCategory(@ModelAttribute CreateCouponRequest createCouponRequest){
+        couponService.createRateCouponForCategory(createCouponRequest);
+        return "redirect:/coupon";
+
+    }
+
+    @PostMapping("/coupon/price-for-book/create")
+    public String createPriceCouponForBook(@ModelAttribute CreateCouponRequest createCouponRequest){
+        couponService.createPriceCouponForBook(createCouponRequest);
+        return "redirect:/coupon";
+
+    }
+
+
+    @PostMapping("/coupon/price-for-category/create")
+    public String createPriceCouponForCategory(@ModelAttribute CreateCouponRequest createCouponRequest){
+        couponService.createPriceCouponForCategory(createCouponRequest);
+        return "redirect:/coupon";
+    }
+
     @DeleteMapping("/coupon/{coupon-number}")
     public String deleteCoupon(@PathVariable(name = "coupon-number") String couponNumber){
 
         couponService.deleteCoupon(couponNumber);
         return "redirect:/coupon";
     }
+
+
+
+
 }
