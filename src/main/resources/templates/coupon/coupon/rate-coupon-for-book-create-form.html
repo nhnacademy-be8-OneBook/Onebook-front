@@ -313,49 +313,15 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>정책명<span>*</span></label>
-                                        <input name="name" type="text" placeholder="">
+                                        <label>발행할 개수<span>*</span></label>
+                                        <input name="count" type="number" placeholder="한번에 최대 500개까지 발행 가능합니다" min="1" max="500">
+                                        <input name="policyId" type="hidden" th:value="${policyId}">
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>정책설명<span>*</span></label>
-                                        <input name="description" type="text" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>유효기간<span>*</span></label>
-                                        <p>시작</p>
-                                        <input name="expirationPeriodStart" type="datetime-local">
-                                        <p>종료</p>
-                                        <input name="expirationPeriodEnd" type="datetime-local">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>최소주문금액<span>*</span></label>
-                                        <input name="minimumOrderAmount" type="text" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>할인금액<span>*</span></label>
-                                        <input name="discountPrice" type="text" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>적용 도서<span>*</span></label>
-                                        <input id="bookIsbn13" name="bookIsbn13" type="text" placeholder="지정할 도서의 ISBN13을 입력해주세요">
-                                    </div>
-                                </div>
-                                <div class="col-12">
                                 </div>
 
                                 <div class="col-12 pt-5 text-right">
                                     <div class="form-group button col-12">
-                                        <button type="submit" class="btn ">정책 등록</button>
+                                        <button type="submit" class="btn ">쿠폰 발행</button>
                                         <button type="submit" class="btn ">취소</button>
                                     </div>
                                 </div>
