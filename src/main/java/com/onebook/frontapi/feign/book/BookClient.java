@@ -34,6 +34,6 @@ public interface BookClient {
     Page<BookDTO> getAllBooks(Pageable pageable);
 
     @PutMapping("/task/book/{bookId}")
-    BookDTO updateBook(@PathVariable long bookId, @RequestBody BookUpdateDTO dto);
+    BookDTO updateBook(@PathVariable("bookId") long bookId, @RequestBody BookUpdateDTO dto);
 
 }

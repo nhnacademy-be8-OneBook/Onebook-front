@@ -6,6 +6,8 @@ import com.onebook.frontapi.dto.category.CreateCategoryDTO;
 import com.onebook.frontapi.feign.category.CategoryClient;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +42,9 @@ public class CategoryService {
 
     public void deleteCategoryById(Integer categoryId) {
         categoryClient.deleteCategoryById(categoryId);
+    }
+
+    public Page<CategoryDTO> getAllCategories(Pageable pageable) {
+        return categoryClient.listCategories(pageable);
     }
 }

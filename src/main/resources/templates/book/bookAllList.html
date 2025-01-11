@@ -81,7 +81,7 @@
             <tr th:each="book, iterStat : ${bookList.content}">
                 <td th:text="${iterStat.index + 1}"></td>
                 <td>
-                    <a th:href="@{/book/update(bookId=${book.bookId})}"
+                    <a th:href="@{/admin/book/update(bookId=${book.bookId})}"
                        th:text="${book.title}"></a>
                 </td>
                 <td th:text="${book.price != null ? #numbers.formatInteger(book.price, 0) : '0'}"></td>

@@ -16,4 +16,7 @@ public interface BookCategoryClient {
 
     @GetMapping("/task/book/category")
     Page<BookCategoryDTO> getAllBookCategories(@RequestParam int categoryId, Pageable pageable);
+
+    @GetMapping("/task/book/category/{bookId}")
+    BookCategoryDTO getBookCategory(@PathVariable Long bookId);
 }

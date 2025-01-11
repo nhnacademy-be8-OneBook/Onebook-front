@@ -17,4 +17,8 @@ public class BookCategoryService {
     public Page<BookCategoryDTO> getAllBookCategories(int categoryId, Pageable pageable) {
         return bookCategoryClient.getAllBookCategories(categoryId, pageable);
     }
+
+    public BookCategoryDTO getBookCategoryByBookId(long bookId) {
+        return bookCategoryClient.getBookCategory(bookId);
+    }
 }

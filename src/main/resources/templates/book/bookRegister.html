@@ -69,6 +69,26 @@
         <input type="text" id="title" name="title" class="form-control" maxlength="100" required placeholder="Enter book title">
       </div>
 
+      <!-- Category -->
+      <div class="form-group">
+        <label for="categoryName">Category</label>
+        <div class="input-group">
+          <input type="hidden" id="categoryId" name="categoryId">
+          <input type="text" id="categoryName" class="form-control" readonly placeholder="Select a Category">
+          <div class="input-group-append">
+            <!-- 선택 버튼 클릭 시 팝업 창 열기 -->
+            <button type="button" class="btn btn-secondary" onclick="openCategoryPopup()">Select Category</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function openCategoryPopup() {
+          // 팝업 창 열기
+          window.open('/admin/category-mini-list', 'Category Select', 'width=600,height=400');
+        }
+      </script>
+
       <!-- Author -->
       <div class="form-group">
         <label for="name">Author</label>
