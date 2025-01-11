@@ -1,6 +1,5 @@
 package com.onebook.frontapi.feign.coupon;
 
-import com.onebook.frontapi.dto.category.CategoryDTO;
 import com.onebook.frontapi.dto.coupon.request.couponPolicy.*;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForBookResponse;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForCategoryResponse;
@@ -9,11 +8,9 @@ import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForCatego
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @FeignClient(name = "CouponPolicyClient",  url = "${onebook.gatewayUrl}")
 public interface CouponPolicyClient {
