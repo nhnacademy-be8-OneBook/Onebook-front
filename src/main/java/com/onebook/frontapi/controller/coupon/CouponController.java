@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 public class CouponController {
@@ -27,6 +24,34 @@ public class CouponController {
         model.addAttribute("couponList",couponList);
 
         return "coupon/coupon/coupon-list";
+    }
+
+    @GetMapping("/coupon/rate-for-book/{policy-id}/create")
+    public String getRateCouponForBookCreatePage(@PathVariable(name = "policy-id") Long policyId, Model model){
+
+        model.addAttribute("policyId",policyId);
+        return "coupon/coupon/rate-coupon-for-book-create-form";
+    }
+
+    @GetMapping("/coupon/rate-for-category/{policy-id}/create")
+    public String getRateCouponForCategoryCreatePage(@PathVariable(name = "policy-id") Long policyId, Model model){
+
+        model.addAttribute("policyId",policyId);
+        return "coupon/coupon/rate-coupon-for-category-create-form";
+    }
+
+    @GetMapping("/coupon/price-for-book/{policy-id}/create")
+    public String getPriceCouponForBookCreatePage(@PathVariable(name = "policy-id") Long policyId, Model model){
+
+        model.addAttribute("policyId",policyId);
+        return "coupon/coupon/price-coupon-for-book-create-form";
+    }
+
+    @GetMapping("/coupon/price-for-category/{policy-id}/create")
+    public String getPriceCouponForCategoryCreatePage(@PathVariable(name = "policy-id") Long policyId, Model model){
+
+        model.addAttribute("policyId",policyId);
+        return "coupon/coupon/price-coupon-for-category-create-form";
     }
 
     @DeleteMapping("/coupon/{coupon-number}")
