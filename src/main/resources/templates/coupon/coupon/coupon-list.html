@@ -480,15 +480,14 @@
 
 												<div>
 												<span th:if="${!(coupon.getCouponStatus().equals('발급-삭제불가'))}">
-<!--												<form method="post" th:action="'/coupon-policies/rate/book/'+${policy.getId()}">-->
-<!--													<a th:href="'/coupon-policies/rate/book/modify/' + ${policy.getId()}" class="btn mr-2">정책 수정</a>-->
+												<form method="post" th:action="'/coupon/'+${coupon.getCouponNumber()}">
 													<input type="hidden" name="_method" value="DELETE">
-													<button type="submit" class="btn">쿠폰 삭제</button>
-<!--												</form>-->
+													<button type="submit" class="btn" >쿠폰 삭제</button>
+												</form>
 												</span>
 <!--&lt;!&ndash;													<span th:if="${policy.getPolicyStatusName().equals('사용됨')}">&ndash;&gt;-->
 <!--													<button type="submit" class="btn">쿠폰 발급</button>-->
-												</span>
+<!--												</span>-->
 												</div>
 
 											</div>
