@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,10 +135,30 @@ public class BookController {
         return "redirect:/";
     }
 
+    @GetMapping("/book-list")
+    public String bookList(@RequestParam(defaultValue = "0") int page,
+                           Model model) {
+        Page<BookDTO> bookList = bookService.getAllBooks(PageRequest.of(page, 20));
 
+        model.addAttribute("bookList", bookList);
+        return "book/bookAllList";
+    }
 
-//    @PostMapping("/register")
-//    public String register(BookSaveDTO dto, MultipartFile image, Model model) {
-//        BookDTO book = bookService.createBook(dto, image);
+    @GetMapping("/update")
+    public String updateBookForm(@RequestParam("bookId") long bookId,
+                                 Model model) {
+        BookDTO book = bookService.getBook(bookId);
+        ImageDTO image = imageService.getImage(bookId);
+        model.addAttribute("book", book);
+        model.addAttribute("image", image);
+        return "book/bookUpdateDelete";
+
+    }
+
+// 작업중임
+//    @PutMapping("/update")
+//    public String updateBook(@RequestParam("bookId") long bookId,
+//                             Model model) {
+//
 //    }
 }
