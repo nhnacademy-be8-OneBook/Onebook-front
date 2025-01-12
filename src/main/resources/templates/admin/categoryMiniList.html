@@ -64,7 +64,7 @@
         <ul class="pagination">
             <!-- 이전 페이지 버튼 -->
             <li th:if="${categoryList.hasPrevious()}" class="page-item">
-                <a class="page-link" th:href="@{/category-mini-list(page=${categoryList.number - 1})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/admin/category/category-mini-list(page=${categoryList.number - 1})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -72,13 +72,13 @@
             <!-- 페이지 번호 출력 -->
             <th:block th:each="pageNum : ${#numbers.sequence(0, categoryList.totalPages - 1)}">
                 <li th:classappend="${pageNum == categoryList.number} ? 'active' : ''" class="page-item">
-                    <a th:href="@{/admin/category-mini-list(page=${pageNum})}" class="page-link" th:text="${pageNum + 1}"></a>
+                    <a th:href="@{/admin/category/category-mini-list(page=${pageNum})}" class="page-link" th:text="${pageNum + 1}"></a>
                 </li>
             </th:block>
 
             <!-- 다음 페이지 버튼 -->
             <li th:if="${categoryList.hasNext()}" class="page-item">
-                <a class="page-link" th:href="@{/category-mini-list(page=${categoryList.number + 1})}" aria-label="Next">
+                <a class="page-link" th:href="@{/admin/category/category-mini-list(page=${categoryList.number + 1})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
