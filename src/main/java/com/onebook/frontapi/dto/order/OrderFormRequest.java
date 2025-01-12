@@ -10,8 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class OrderRequest {
+public class OrderFormRequest {
     private List<BookOrderRequest> items;
     private DeliveryRequest delivery;
-    private PackagingRequest packaging;
+    private int packagingId;
 }

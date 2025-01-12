@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BookOrderRequest {
-    int bookId;
+    long bookId;
     int quantity;
     int price;
 }
