@@ -35,4 +35,7 @@ public interface BookClient {
     @PutMapping("/task/book/{bookId}")
     BookDTO updateBook(@PathVariable("bookId") long bookId, @RequestBody BookUpdateDTO dto);
 
+    @DeleteMapping("/task/book/{bookId}")
+    void deleteBook(@PathVariable("bookId") long bookId);
+
 }
