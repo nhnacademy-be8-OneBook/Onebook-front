@@ -78,7 +78,7 @@
           <!-- 하위 카테고리들 -->
           <ul th:if="${category.subCategories != null}" class="list-group mt-3">
             <li th:each="subCategory : ${category.subCategories}" class="list-group-item">
-              <a th:href="@{/admin/category/category-list?categoryId={categoryId}(categoryId=${category.categoryId})}" class="pl-3">
+              <a th:href="@{/admin/category/category-list?categoryId={categoryId}(categoryId=${subCategory.categoryId})}" class="pl-3">
                 <i class="fa fa-caret-right" aria-hidden="true"></i> <span th:text="${subCategory.name}"></span>
               </a>
             </li>
