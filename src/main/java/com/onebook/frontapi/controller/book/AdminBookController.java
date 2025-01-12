@@ -145,5 +145,12 @@ public class AdminBookController {
         response.sendRedirect("/admin/book/list");
     }
 
+    @GetMapping("/delete")
+    public String deleteBook(@RequestParam("bookId") String bookId){
+        log.info("delete bookId: {}", bookId);
+        bookService.deleteBook(Long.parseLong(bookId));
+        return "redirect:/admin/book/list";
+    }
+
 
 }

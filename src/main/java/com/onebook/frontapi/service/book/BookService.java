@@ -39,4 +39,8 @@ public class BookService {
         return bookClient.updateBook(bookId, dto);
     }
 
+    public void deleteBook(Long bookId) {
+        bookClient.deleteBook(bookId);
+    }
+
  }
