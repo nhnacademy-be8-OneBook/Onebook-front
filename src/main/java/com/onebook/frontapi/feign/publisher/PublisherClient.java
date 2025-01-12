@@ -7,8 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-//@FeignClient(name = "task-api", url = "http://localhost:8510")
-@FeignClient(name = "publisherClient", url = "http://localhost:8510")
+@FeignClient(name = "publisherClient", url = "${onebook.gatewayUrl}")
 public interface PublisherClient {
 
 

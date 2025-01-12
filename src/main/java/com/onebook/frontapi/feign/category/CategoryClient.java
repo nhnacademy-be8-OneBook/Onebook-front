@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "categoryClient",  url = "http://localhost:8510")
+@FeignClient(name = "categoryClient",  url = "${onebook.gatewayUrl}")
 public interface CategoryClient {
     @PostMapping("/task/categories")
     CategoryDTO createCategory(@RequestBody CreateCategoryDTO categoryDTO);

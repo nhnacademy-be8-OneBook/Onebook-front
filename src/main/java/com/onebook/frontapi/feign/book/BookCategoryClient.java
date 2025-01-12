@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "bookCategoryClient", url = "http://localhost:8510")
+@FeignClient(name = "bookCategoryClient", url = "${onebook.gatewayUrl}")
 public interface BookCategoryClient {
 
     @GetMapping("/task/book/category")

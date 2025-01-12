@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "stockClient", url = "http://localhost:8510")
+@FeignClient(name = "stockClient", url = "${onebook.gatewayUrl}")
 public interface StockClient {
 
 

@@ -15,8 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-//@FeignClient(name = "task-api", url = "http://localhost:8510")
-@FeignClient(name = "bookClient", url = "http://localhost:8510", configuration = FeignConfig.class)
+@FeignClient(name = "bookClient", url = "${onebook.gatewayUrl}", configuration = FeignConfig.class)
 public interface BookClient {
 
     @GetMapping("/task/book/newbooks")
