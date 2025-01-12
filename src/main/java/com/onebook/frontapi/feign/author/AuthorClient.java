@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "authorClient", url = "http://localhost:8510")
+@FeignClient(name = "authorClient", url = "${onebook.gatewayUrl}")
 public interface AuthorClient {
 
     @GetMapping("/task/author/{authorId}")

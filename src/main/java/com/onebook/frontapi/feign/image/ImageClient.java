@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//@FeignClient(name = "task-api", url = "http://localhost:8510")
-@FeignClient(name = "imageClient", url = "http://localhost:8510")
+@FeignClient(name = "imageClient", url = "${onebook.gatewayUrl}")
 public interface ImageClient {
 
     @GetMapping("/task/image/{bookId}")

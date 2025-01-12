@@ -1,83 +1,51 @@
 package com.onebook.frontapi.controller.book;
 
 import com.onebook.frontapi.dto.author.AuthorDTO;
-import com.onebook.frontapi.dto.book.BookAuthorDTO;
-import com.onebook.frontapi.dto.book.BookCategoryDTO;
-import com.onebook.frontapi.dto.book.BookDTO;
-import com.onebook.frontapi.dto.book.BookSaveDTO;
+import com.onebook.frontapi.dto.book.*;
+import com.onebook.frontapi.dto.category.CategoryDTO;
 import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.dto.publisher.PublisherDTO;
+import com.onebook.frontapi.dto.stock.StockDTO;
+import com.onebook.frontapi.dto.tag.TagDTO;
 import com.onebook.frontapi.dto.tag.TagResponse;
 import com.onebook.frontapi.service.author.AuthorService;
 import com.onebook.frontapi.service.book.BookAuthorService;
 import com.onebook.frontapi.service.book.BookCategoryService;
 import com.onebook.frontapi.service.book.BookService;
+import com.onebook.frontapi.service.book.BookTagService;
 import com.onebook.frontapi.service.image.ImageService;
 import com.onebook.frontapi.service.publisher.PublisherService;
+import com.onebook.frontapi.service.stock.StockService;
 import com.onebook.frontapi.service.tag.TagService;
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import java.io.IOException;
 
 @Controller
+@RequestMapping("/admin/book")
 @RequiredArgsConstructor
-@RequestMapping("/book")
 @Slf4j
-public class BookController {
+public class AdminBookController {
     private final BookService bookService;
-    private final BookAuthorService bookAuthorService;
     private final AuthorService authorService;
-    private final BookCategoryService bookCategoryService;
     private final PublisherService publisherService;
     private final TagService tagService;
-    private final ImageService imageService;
-
-    @GetMapping("/newbooks")
-    public String newBooks(Model model, Pageable pageable) {
-        Page<BookDTO> bookDTOPage = bookService.newBooks(pageable);
-        log.info("page: {}", bookDTOPage);
-        model.addAttribute("bookList", bookDTOPage.getContent());
-
-        return "index";
-    }
+    private final BookCategoryService bookCategoryService;
+    private final BookAuthorService bookAuthorService;
+    private final BookTagService bookTagService;
+    private final StockService stockService;
 
 
-    @GetMapping("/bookDetail")
-    public String bookDetail(@RequestParam("bookId") long bookId,
-                             @RequestParam(value = "url", required = false) String url,
-                             Model model) {
-        BookDTO book = bookService.getBook(bookId);
-        BookAuthorDTO bookAuthor = bookAuthorService.getBookAuthor(bookId);
 
-        AuthorDTO author = authorService.getAuthor(bookAuthor.getAuthor().getAuthorId());
-
-        log.info("bookId: {}", book.getBookId());
-        log.info("bookTitle: {}", book.getTitle());
-        if(Objects.isNull(url) || url.isEmpty()) {
-            ImageDTO image = imageService.getImage(bookId);
-            model.addAttribute("url", image.getUrl());
-        }else{
-            model.addAttribute("url", url);
-
-        }
-        model.addAttribute("book", book);
-        model.addAttribute("author", author);
-
-        return "book/bookDetail";
-    }
-
-    @GetMapping
+    @GetMapping("/create")
     public String registerForm(@RequestParam(value = "categoryId", required = false) Integer categoryId,
                                Model model) {
         log.info("Form    categoryId: {}", categoryId);
@@ -135,10 +103,10 @@ public class BookController {
         dto.setCategoryId(Integer.parseInt(categoriesId));
         log.info("imageName: {}", image.getOriginalFilename());
         bookService.createBook(dto, image);
-        return "redirect:/";
+        return "redirect:/admin/";
     }
 
-    @GetMapping("/book-list")
+    @GetMapping("/list")
     public String bookList(@RequestParam(defaultValue = "0") int page,
                            Model model) {
         Page<BookDTO> bookList = bookService.getAllBooks(PageRequest.of(page, 20));
@@ -147,12 +115,35 @@ public class BookController {
         return "book/bookAllList";
     }
 
+    @GetMapping("/update")
+    public String updateBookForm(@RequestParam("bookId") long bookId,
+                                 Model model) {
+        BookDTO book = bookService.getBook(bookId);
+        BookAuthorDTO bookAuthor = bookAuthorService.getBookAuthor(bookId);
+        BookCategoryDTO bookCategory = bookCategoryService.getBookCategoryByBookId(bookId);
+        BookTagDTO bookTag = bookTagService.getBookTagByBookId(bookId);
+
+        CategoryDTO category = bookCategory.getCategory();
+        AuthorDTO author = bookAuthor.getAuthor();
+        TagDTO tag = bookTag.getTag();
+        StockDTO stock = stockService.getStock(bookId);
+
+        model.addAttribute("book", book);
+        model.addAttribute("category", category);
+        model.addAttribute("author", author);
+        model.addAttribute("stock", stock);
+        model.addAttribute("tag", tag);
+        return "book/bookUpdateDelete";
+    }
+
+    @PostMapping("/update")
+    public void updateBook(@RequestParam("bookId") String bookId,
+                             @ModelAttribute BookUpdateDTO dto,
+                             HttpServletResponse response) throws IOException {
+        bookService.updateBook(Long.parseLong(bookId), dto);
+//        return "redirect:/admin/";
+        response.sendRedirect("/admin/book/list");
+    }
 
 
-// 작업중임
-//    @PutMapping("/update")
-//    public String updateBook(@RequestParam("bookId") long bookId,
-//                             Model model) {
-//
-//    }
 }

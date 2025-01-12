@@ -59,10 +59,85 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div th:replace="~{fragments/header :: header}"></div>
+<h2>Book Registration</h2>
 
+<div th:replace="~{fragments/header :: header}"></div>
+<form id="updateBookForm" action="/admin/book/update", method="POST">
+    <input type="hidden" name="bookId" id="bookId" th:value="${book.bookId}">
 
+    <!-- Title -->
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" class="form-control" maxlength="100" required placeholder="Enter book title" th:value="${book.title}">
+    </div>
 
-    <div th:replace="~{fragments/footer :: footer}"></div>
+    <!-- Content -->
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea id="content" name="content" class="form-control" required placeholder="Enter book content" th:text="${book.content}"></textarea>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" class="form-control" required placeholder="Enter book description" th:text="${book.description}"></textarea>
+    </div>
+
+    <!-- Price -->
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" class="form-control" required placeholder="Enter price" min="0" th:value="${book.price}">
+    </div>
+
+    <!-- Sales Price -->
+    <div class="form-group">
+        <label for="salePrice">Sales Price</label>
+        <input type="number" id="salePrice" name="salePrice" class="form-control" required placeholder="Enter sales price" min="0" th:value="${book.salePrice}">
+    </div>
+
+    <!-- Stock -->
+    <div class="form-group">
+        <label for="stock">Stock</label>
+        <input type="number" id="stock" name="stock" class="form-control" required placeholder="Enter stock quantity" min="0" th:value="${stock.stock}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">수정하기</button>
+
+    <!-- Submit Button -->
+<!--    <button type="button" class="btn btn-primary" onclick="submitForm()">수정하기</button>-->
+</form>
+
+<!--<script>-->
+<!--    function submitForm() {-->
+<!--        // Form data to be sent as JSON-->
+<!--        const bookId = document.getElementById('bookId').value;-->
+<!--        const formData = {-->
+<!--            title: document.getElementById('title').value,-->
+<!--            content: document.getElementById('content').value,-->
+<!--            description: document.getElementById('description').value,-->
+<!--            price: document.getElementById('price').value,-->
+<!--            salePrice: document.getElementById('salePrice').value,-->
+<!--            stock: document.getElementById('stock').value-->
+<!--        };-->
+
+<!--        fetch(`/admin/book/update/${bookId}`, {-->
+<!--            method: 'POST',  // PUT method-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json'  // Send data as JSON-->
+<!--            },-->
+<!--            body: JSON.stringify(formData)  // Convert form data to JSON-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                console.log('Success:', data);-->
+<!--                // You can add some logic here to redirect or show a success message-->
+<!--            })-->
+<!--            .catch((error) => {-->
+<!--                console.error('Error:', error);-->
+<!--            });-->
+<!--    }-->
+<!--</script>-->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

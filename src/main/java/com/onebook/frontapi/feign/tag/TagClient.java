@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-//@FeignClient(name = "task-api", url = "http://localhost:8510")
-@FeignClient(name = "tagClient", url = "http://localhost:8510")
+@FeignClient(name = "tagClient", url = "${onebook.gatewayUrl}")
 public interface TagClient {
 
     @GetMapping("/task/tags/{tagId}")
