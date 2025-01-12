@@ -2,10 +2,11 @@ package com.onebook.frontapi.dto.packaging;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
-public class PackagingRequestDto {
+@Setter
+public class PackagingRequest {
     String name;
     int price;
 }

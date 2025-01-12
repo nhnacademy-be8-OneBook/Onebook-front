@@ -66,7 +66,7 @@
         <td>
             <!-- 데이터 속성을 사용하여 포장지 이름 전달 -->
             <button type="button" class="btn"
-                    th:attr="data-packaging-name=${packaging.name},data-packaging-price=${packaging.price}"
+                    th:attr="data-packaging-id=${packaging.id},data-packaging-name=${packaging.name},data-packaging-price=${packaging.price}"
                     onclick="handlePackagingSelection(this)">
                 선택
             </button>
@@ -77,10 +77,11 @@
 <script>
     function handlePackagingSelection(button) {
         // data-packaging-name과 data-packaging-price 속성 값 읽기
+        const packagingId = button.getAttribute('data-packaging-id');
         const packagingName = button.getAttribute('data-packaging-name');
         const packagingPrice = button.getAttribute('data-packaging-price');
         // 부모 창에 값 전달
-        window.opener.setPackaging(packagingName, packagingPrice);
+        window.opener.setPackaging(packagingId, packagingName, packagingPrice);
         // 팝업창 닫기
         window.close();
     }

@@ -1,7 +1,7 @@
 package com.onebook.frontapi.feign.order;
 
 import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
-import com.onebook.frontapi.dto.order.OrderRegisterDto;
+import com.onebook.frontapi.dto.order.OrderFormRequest;
 import com.onebook.frontapi.dto.order.OrderRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderClient {
     // 주문 생성
     @PostMapping("/task/order")
-    Long createOrder(@RequestBody OrderRegisterDto orderRegisterDto);
+    Long createOrder(@RequestBody OrderFormRequest orderFormRequest);
 
     // 사용자의 모든 주문 불러오기
     @GetMapping("/task/orders")

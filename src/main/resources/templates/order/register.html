@@ -61,93 +61,70 @@
         }
 
     </style>
-    <script>
-        // 팝업창 열기 함수
-        function openAddressPopup() {
-            window.open('/order/addresses', 'addressPopup', 'width=600,height=400');
-        }
-
-        // 팝업창에서 선택된 주소 데이터를 업데이트
-        function setAddress(recipientName, recipientPhoneNumber, recipientRequestedTerm, recipientAddress) {
-            console.log(recipientName, recipientPhoneNumber) //, recipientRoadNameAddress);
-            document.getElementById("recipientInputAddress").value = recipientAddress;
-            document.getElementById("recipientInputName").value = recipientName;
-            document.getElementById("recipientInputPhoneNumber").value = recipientPhoneNumber;
-            document.getElementById("recipientInputRequestedTerm").value = recipientRequestedTerm;
-
-            // document.getElementById("recipientInputRoadNameAddress").value = recipientRoadNameAddress;
-            // document.getElementById("recipientInputNotes").value = recipientNotes;
-            // document.getElementById("recipientInputDetailAddress").value = recipientDetailAddress;
-        }
-
-        // 포장지 팝업창 열기
-        function openPackagingPopup() {
-            window.open('/packagings', 'packagingPopup', 'width=600,height=400');
-        }
-
-        // 팝업창에서 선택된 포장지 데이터를 업데이트
-        function setPackaging(packagingName, packagingPrice) {
-            document.getElementById("packagingInputName").value = packagingName;
-            document.getElementById("packagingInputPrice").value = packagingPrice;
-        }
-
-        // 서버에 전송할 객체 만들어줌
-
-        // 선택한 날짜 정보를 저장할 객체
-        let selectedReservation = {};
-
-        function setReservationDate(element) {
-            // 기존 선택 제거
-            const allOptions = document.querySelectorAll("#reserveDatesArea a");
-            allOptions.forEach((opt) => opt.classList.remove("selected"));
-
-            // 현재 선택 항목 활성화
-            element.classList.add("selected");
-
-            // 선택한 데이터 추출
-            selectedReservation = {
-                orderNum: element.getAttribute("data-ordernum"),
-                completedDate: element.getAttribute("data-expectdeliverycompletedate"),
-                description: element.getAttribute("data-expectdeliverycompletedatedesc"),
-                isReserve: element.getAttribute("data-isreserve"),
-            };
-
-            // 저장된 데이터 확인 (디버깅용)
-            console.log("선택된 예약 정보:", selectedReservation);
-
-            // 필요 시 추가 로직 (예: 서버 전송)
-            // sendToServer(selectedReservation);
-            // 선택된 값을 숨겨진 input 태그에 설정
-            document.getElementById("deliveryCompletedDate").value = selectedReservation.completedDate;
-        }
-    </script>
 </head>
+<script>
+    // 팝업창 열기 함수
+    function openAddressPopup() {
+        window.open('/order/addresses', 'addressPopup', 'width=600,height=400');
+    }
+
+    // 팝업창에서 선택된 주소 데이터를 업데이트
+    function setAddress(recipientName, recipientPhoneNumber, recipientRequestedTerm, recipientAddress) {
+        console.log(recipientName, recipientPhoneNumber) //, recipientRoadNameAddress);
+        document.getElementById("recipientInputAddress").value = recipientAddress;
+        document.getElementById("recipientInputName").value = recipientName;
+        document.getElementById("recipientInputPhoneNumber").value = recipientPhoneNumber;
+        document.getElementById("recipientInputRequestedTerm").value = recipientRequestedTerm;
+
+        // document.getElementById("recipientInputRoadNameAddress").value = recipientRoadNameAddress;
+        // document.getElementById("recipientInputNotes").value = recipientNotes;
+        // document.getElementById("recipientInputDetailAddress").value = recipientDetailAddress;
+    }
+
+    // 포장지 팝업창 열기
+    function openPackagingPopup() {
+        window.open('/packagings', 'packagingPopup', 'width=600,height=400');
+    }
+
+    // 팝업창에서 선택된 포장지 데이터를 업데이트
+    function setPackaging(packagingId, packagingName, packagingPrice) {
+        document.getElementById("packagingInputId").value = packagingId;
+        document.getElementById("packagingInputName").value = packagingName;
+        document.getElementById("packagingInputPrice").value = packagingPrice;
+    }
+
+    // 서버에 전송할 객체 만들어줌
+
+    // 선택한 날짜 정보를 저장할 객체
+    let selectedReservation = {};
+
+    function setReservationDate(element) {
+        // 기존 선택 제거
+        const allOptions = document.querySelectorAll("#reserveDatesArea a");
+        allOptions.forEach((opt) => opt.classList.remove("selected"));
+
+        // 현재 선택 항목 활성화
+        element.classList.add("selected");
+
+        // 선택한 데이터 추출
+        selectedReservation = {
+            orderNum: element.getAttribute("data-ordernum"),
+            completedDate: element.getAttribute("data-expectdeliverycompletedate"),
+            description: element.getAttribute("data-expectdeliverycompletedatedesc"),
+            isReserve: element.getAttribute("data-isreserve"),
+        };
+
+        // 저장된 데이터 확인 (디버깅용)
+        console.log("선택된 예약 정보:", selectedReservation);
+
+        // 필요 시 추가 로직 (예: 서버 전송)
+        // sendToServer(selectedReservation);
+        // 선택된 값을 숨겨진 input 태그에 설정
+        document.getElementById("deliveryCompletedDate").value = selectedReservation.completedDate;
+    }
+</script>
 <body>
 <form action="/order/register" method="post">
-    <h1>주문 상품 정보</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>상품명</th>
-            <th>가격</th>
-            <th>포장지</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>상품명</td>
-            <td>가격</td>
-            <td>
-                <input type="text" id="packagingInputName" name="packagingName" value="포장지 없음" readonly>
-                /
-                <input type="text" id="packagingInputPrice" name="packagingPrice" value="0" readonly>
-                <!-- 포장지 선택 버튼 -->
-                <button type="button" class="btn" onclick="openPackagingPopup()">포장지 선택</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
     <h1>배송지 입력</h1>
     <h3>주문인</h3>
     <table>

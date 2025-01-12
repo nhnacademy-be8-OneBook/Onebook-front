@@ -1,30 +1,28 @@
 package com.onebook.frontapi.controller.order;
 
-import com.onebook.frontapi.dto.delivery.DeliveryRequestDto;
-import com.onebook.frontapi.dto.order.OrderAddressResponseDto;
-import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
-import com.onebook.frontapi.dto.order.OrderRegisterResponseDto;
+import com.onebook.frontapi.dto.order.BookListRequest;
+import com.onebook.frontapi.dto.book.BookDTO;
+import com.onebook.frontapi.dto.book.BookOrderRequest;
+import com.onebook.frontapi.dto.order.*;
+import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.order.OrderAddressService;
 import com.onebook.frontapi.service.order.OrderService;
 import com.onebook.frontapi.service.order.OrderStatusService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class OrderController {
@@ -33,16 +31,34 @@ public class OrderController {
     private final MemberService memberService;
     private final OrderAddressService orderAddressService;
     private final OrderStatusService orderStatusService;
+    private final BookService bookService;
 
-    //    /*
-    @GetMapping("/order/register")
-    public String orderRegister(Model model) {
+    @GetMapping("/order/order-test")
+    public String orderTest() {
+        return "order/order-test";
+    }
+
+    @PostMapping("/order/registers")
+    public String orderRegistesr(@ModelAttribute BookListRequest bookListRequest, Model model) {
+        // 책 리스트
+        Map<BookDTO, Integer> bookMap = new HashMap<>();
+        List<BookOrderRequest> bookOrderRequests = bookListRequest.getBookOrderRequests();
+        for (BookOrderRequest bookOrderRequest : bookOrderRequests) {
+            bookMap.put(bookService.getBook(bookOrderRequest.getBookId()), bookOrderRequest.getQuantity());
+        }
+        model.addAttribute("bookMap", bookMap);
+
         // 사용자의 전화번호
         String orderderPhoneNumber = memberService.getMember().phoneNumber();
         model.addAttribute("ordererPhoneNumber", orderderPhoneNumber);
 
+        // TODO 사용자의 기본 배송지
+        /*
         List<OrderAddressResponseDto> allOrderAddress = orderAddressService.getAllOrderAddress();
-        model.addAttribute("allOrderAddress", allOrderAddress);
+        if (allOrderAddress.getFirst().isDefaultLocation()) {
+            model.addAttribute("orderAddressDefaultLocation", allOrderAddress.getFirst());
+        }
+        */
 
         // 배송 선택 날짜
         // TODO utils에 넘기고싶음
@@ -54,33 +70,19 @@ public class OrderController {
             reservationDates.add(Map.of(
                     "orderNum", String.valueOf(i),
                     "completedDate", String.valueOf(day),
-                    "description", String.valueOf(day.format(formatter))
+                    "description", day.format(formatter)
             ));
         }
         model.addAttribute("reservationDates", reservationDates);
 
-        if (allOrderAddress.get(0).isDefaultLocation() == true) {
-            model.addAttribute("orderAddressDefaultLocation", allOrderAddress.get(0));
-        }
 
-        return "order/register";
+        return "order/order";
     }
-//    */
 
     @PostMapping("/order/register")
-    public String submitOrder(@ModelAttribute OrderRegisterResponseDto orderRegisterResponseDto, @ModelAttribute DeliveryRequestDto deliveryRequestDto, RedirectAttributes redirectAttributes) {
-        // 받은 객체로 로직 수행
-        System.out.println("포장지: " + orderRegisterResponseDto.getPackagingName() + " (" + orderRegisterResponseDto.getPackagingPrice() + ")");
-        System.out.println("주문인: " + orderRegisterResponseDto.getOrdererName() + ", " + orderRegisterResponseDto.getOrdererPhone());
-//        System.out.println("수령인: " + orderRegisterResponseDto.getRecipientName() + ", " + orderRegisterResponseDto.getReceiverPhone() + ", " + orderRegisterResponseDto.getReceiverAddress());
+    public String submitOrder(@ModelAttribute OrderFormRequest orderFormRequest) {
+        Long createOrderId = orderService.createOrder(orderFormRequest);
 
-        // 데이터를 리다이렉트할 페이지로 전달
-        redirectAttributes.addFlashAttribute("orderSuccess", true);
-        redirectAttributes.addFlashAttribute("orderDetails", orderRegisterResponseDto);
-
-        Long createOrderId = orderService.createOrder(orderRegisterResponseDto);
-
-        //        return "redirect:/order/success"; // 등록 성공 페이지로 이동
         return "redirect:/front/payments/checkout-page?orderId=" + createOrderId;
     }
 
@@ -95,7 +97,7 @@ public class OrderController {
     }
 
     @GetMapping("/admin/orders")
-    public String orderStatus(Model model, @RequestParam String status) {
+    public String orderStatus(@RequestParam String status, Model model) {
         model.addAttribute("status", status);
 
         List<String> orderStatusList = orderStatusService.getAllOrderStatuses();
