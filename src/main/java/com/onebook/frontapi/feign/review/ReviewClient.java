@@ -21,8 +21,8 @@ public interface ReviewClient {
      */
     @GetMapping("/task/books/{bookId}/reviews")
     ReviewPageResponseDto getReviews(@PathVariable Long bookId,
-                                     @RequestParam(value = "page", defaultValue = "0") int page,
-                                     @RequestParam(value = "size", defaultValue = "5") int size);
+                                     @RequestParam(value = "page") int page,
+                                     @RequestParam(value = "size") int size);
 
     /**
      * 특정 도서의 리뷰 평점 평균 (GET /task/books/{bookId}/reviews/average)

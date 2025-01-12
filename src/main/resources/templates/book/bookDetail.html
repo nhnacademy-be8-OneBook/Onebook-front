@@ -227,7 +227,7 @@
                                                         <li><p th:if="${author}">작가: <span th:text="${author.name}">작가명</span></p></li>
                                                         <li><p th:if="${book?.publisher}">출판사: <span th:text="${book.publisher?.name}">출판사명</span></p></li>
                                                         <li><p>출판일: <span th:text="${book?.pubdate != null ? #temporals.format(book.pubdate, 'yyyy-MM-dd') : '-'}">출판일</span></p></li>
-                                                        <li><p>판매량: <span th:text="${book?.amount ?: 0}">0</span></p>.</li>
+                                                        <li><p>판매량: <span th:text="${book?.amount ?: 0}">0</span></p></li>
                                                         <li><p>책 소개: <span th:text="${book?.description ?: '책 소개 내용이 없습니다.'}">책 소개 내용</span> </p></li>
                                                     </ul>
                                                 </div>
@@ -317,7 +317,7 @@
 <script src="/js/easing.js"></script>
 <script src="/js/active.js"></script>
 
-<script>
+<script th:inline="javascript">
 
     $(document).ready(function(){
         $('.btn-number').click(function(e){
@@ -341,8 +341,7 @@
         });
     });
 
-    // 임시로 bookId=1
-    const currentBookId = 1;
+    const currentBookId = [[${book.bookId}]];
     const reviewsPerPage = 5;
     let currentPage = 1;
     const previewLength = 100;

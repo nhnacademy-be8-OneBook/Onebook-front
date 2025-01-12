@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <!-- Meta Tag -->
     <meta charset="utf-8">
@@ -184,24 +184,21 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <!-- 구매한 도서 정보 (예시) -->
+                <!-- 구매한 도서 정보 -->
                 <div class="comment-review">
                     <div class="purchase-info">
-                        <img src="https://via.placeholder.com/100x150" alt="도서 이미지">
-                        <div class="book-name">구매한 도서의 이름(bookName)</div>
+                        <img th:src="${book.bookImageUrl != null ? book.bookImageUrl : '/images/no_image.png'}"
+                             alt="도서 이미지">
+                        <div class="book-name" th:text="${book.bookName}">구매한 도서</div>
                     </div>
                 </div>
 
                 <!-- 리뷰 작성 폼 -->
                 <form class="form" id="review-form">
                     <div class="row">
-                        <!-- (UI) BookID -->
-                        <div class="col-lg-12 col-12">
-                            <div class="form-group">
-                                <label for="book-id">Book ID<span>*</span></label>
-                                <input type="number" id="book-id" name="book_id" required="required" value="1">
-                            </div>
-                        </div>
+                        <!-- Book ID -->
+                        <input type="hidden" id="book-id" name="book_id" th:value="${book.bookId}" readonly="readonly" />
+
 
                         <!-- 리뷰 내용 -->
                         <div class="col-lg-12 col-12">
@@ -258,8 +255,6 @@
     </div>
 </section>
 
-
-
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-migrate-3.0.0.js"></script>
 <script src="/js/jquery-ui.min.js"></script>
@@ -284,7 +279,6 @@
     $(document).ready(function() {
         let selectedFiles = [];
 
-        // 이미지 파일 선택 시(최대 3장)
         $('.custom-file-label').on('click', function(e) {
             if(selectedFiles.length >= 3){
                 alert('리뷰 사진은 최대 3장까지 첨부할 수 있습니다.');
@@ -304,7 +298,6 @@
                     return;
                 }
                 selectedFiles.push(file);
-
                 let reader = new FileReader();
                 reader.onload = function(e) {
                     let imgContainer = $('<div>').addClass('image-container');
@@ -322,7 +315,6 @@
             $(this).val('');
         });
 
-        // 첨부 이미지 삭제
         $('#image-preview').on('click', '.delete-image', function() {
             let index = $(this).parent().index();
             $(this).parent().addClass('fade-out');
@@ -332,7 +324,6 @@
             }, 500);
         });
 
-        // 폼 전송
         $('#review-form').on('submit', function(e) {
             e.preventDefault();
 
@@ -358,7 +349,6 @@
                 return;
             }
 
-            // 이미지(Base64) 변환
             let promises = selectedFiles.map(file => {
                 return new Promise((resolve, reject) => {
                     let reader = new FileReader();
@@ -374,20 +364,18 @@
 
             Promise.all(promises)
                 .then(base64Images => {
-                    // ★ TaskAPI에서 @RequestHeader("X-MEMBER-ID") 사용 → Body에는 memberId 필요 없음
                     let requestBody = {
                         grade: parseInt(rating, 10),
                         description: message,
                         imageUrl: base64Images
                     };
 
-                    // POST /front/reviews/{bookId}
                     return fetch(`/front/reviews/${bookId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        credentials: 'include', // ★ JWT 쿠키 포함 전송
+                        credentials: 'include',
                         body: JSON.stringify(requestBody)
                     });
                 })
@@ -400,12 +388,10 @@
                 .then(data => {
                     console.log('리뷰 등록 성공:', data);
                     alert('리뷰가 성공적으로 제출되었습니다!');
-                    // 폼 리셋
                     $('#review-form')[0].reset();
                     $('#image-preview').empty();
                     selectedFiles = [];
-                    // 페이지 이동
-                    window.location.href = '/test/detail-book';
+                    window.location.href = '/my/home';
                 })
                 .catch(error => {
                     console.error(error);

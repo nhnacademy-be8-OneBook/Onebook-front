@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 작성 가능 도서 목록</title>
+</head>
+<body>
+<h1>아직 리뷰를 작성하지 않은 도서 목록</h1>
+
+<div th:if="${pendingBooks.isEmpty()}">
+    작성 가능한 리뷰가 없습니다.
+</div>
+
+<div th:unless="${pendingBooks.isEmpty()}">
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+        <tr>
+            <th>책 이미지</th>
+            <th>책 제목</th>
+            <th>구매일시</th>
+            <th>리뷰 작성하기</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${pendingBooks}">
+            <td>
+                <img th:src="${book.bookImageUrl != null ? book.bookImageUrl : '/images/no_image.png'}"
+                     alt="Book Image"
+                     style="width:80px; height:auto;">
+            </td>
+            <td th:text="${book.bookName}">책제목</td>
+            <td th:text="${#temporals.format(book.purchasedAt, 'yyyy-MM-dd HH:mm')}"></td>
+            <td>
+                <a th:href="@{/review (bookId=${book.bookId})}" class="btn btn-primary">
+                    리뷰 작성
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
