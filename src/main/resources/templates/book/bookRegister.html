@@ -62,7 +62,7 @@
     <h2>Book Registration</h2>
 
     <div th:replace="~{fragments/header :: header}"></div>
-    <form method="post" action="/book/create" enctype="multipart/form-data">
+    <form method="post" action="/admin/book/create" enctype="multipart/form-data">
       <!-- Title -->
       <div class="form-group">
         <label for="title">Title</label>
@@ -85,7 +85,7 @@
       <script>
         function openCategoryPopup() {
           // 팝업 창 열기
-          window.open('/admin/category-mini-list', 'Category Select', 'width=600,height=400');
+          window.open('/admin/category/category-mini-list', 'Category Select', 'width=600,height=400');
         }
       </script>
 
@@ -106,7 +106,7 @@
       <script>
         function openAuthorPopup() {
           // 팝업 창 열기
-          window.open('/authors', 'Author Select', 'width=600,height=400');
+          window.open('/admin/authors', 'Author Select', 'width=600,height=400');
         }
       </script>
 

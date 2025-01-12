@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/authors")
-public class AuthorController {
+@RequestMapping("/admin/authors")
+public class AdminAuthorController {
     private final AuthorService authorService;
 
     @GetMapping

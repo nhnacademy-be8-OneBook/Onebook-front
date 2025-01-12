@@ -103,7 +103,7 @@ public class AdminBookController {
         dto.setCategoryId(Integer.parseInt(categoriesId));
         log.info("imageName: {}", image.getOriginalFilename());
         bookService.createBook(dto, image);
-        return "redirect:/admin/";
+        return "redirect:/admin/book/list";
     }
 
     @GetMapping("/list")
