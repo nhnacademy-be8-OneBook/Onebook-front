@@ -1,6 +1,5 @@
 package com.onebook.frontapi.controller.order;
 
-import com.onebook.frontapi.domain.order.OrderProduct;
 import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.service.order.OrderService;
 import com.onebook.frontapi.service.order.OrderStatusService;
@@ -23,8 +22,6 @@ public class OrderHomeController {
     @GetMapping("/order/home")
     public String home(Model model) {
         Map<BookDTO, Integer> bookMap = new HashMap<>();
-//        bookMap.put(bookService.getBook(orderProduct.getProductId()), orderProduct.getQuantity());
-//        bookMap.put(bookService.getBook(orderProduct.getProductId()), orderProduct.getQuantity());
 
         model.addAttribute("bookMap", bookMap);
         model.addAttribute("orders", orderService.getAllOrders());

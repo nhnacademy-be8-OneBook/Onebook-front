@@ -1,8 +1,8 @@
 package com.onebook.frontapi.controller.order;
 
-import com.onebook.frontapi.domain.order.OrderProduct;
-import com.onebook.frontapi.domain.order.OrderProducts;
+import com.onebook.frontapi.dto.order.BookListRequest;
 import com.onebook.frontapi.dto.book.BookDTO;
+import com.onebook.frontapi.dto.book.BookOrderRequest;
 import com.onebook.frontapi.dto.order.*;
 import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.member.MemberService;
@@ -39,11 +39,12 @@ public class OrderController {
     }
 
     @PostMapping("/order/registers")
-    public String orderRegistesr(@ModelAttribute OrderProducts orderProducts, Model model) {
+    public String orderRegistesr(@ModelAttribute BookListRequest bookListRequest, Model model) {
         // 책 리스트
         Map<BookDTO, Integer> bookMap = new HashMap<>();
-        for (OrderProduct orderProduct : orderProducts.getOrderProducts()) {
-            bookMap.put(bookService.getBook(orderProduct.getProductId()), orderProduct.getQuantity());
+        List<BookOrderRequest> bookOrderRequests = bookListRequest.getBookOrderRequests();
+        for (BookOrderRequest bookOrderRequest : bookOrderRequests) {
+            bookMap.put(bookService.getBook(bookOrderRequest.getBookId()), bookOrderRequest.getQuantity());
         }
         model.addAttribute("bookMap", bookMap);
 
@@ -51,8 +52,13 @@ public class OrderController {
         String orderderPhoneNumber = memberService.getMember().phoneNumber();
         model.addAttribute("ordererPhoneNumber", orderderPhoneNumber);
 
+        // TODO 사용자의 기본 배송지
+        /*
         List<OrderAddressResponseDto> allOrderAddress = orderAddressService.getAllOrderAddress();
-        model.addAttribute("allOrderAddress", allOrderAddress);
+        if (allOrderAddress.getFirst().isDefaultLocation()) {
+            model.addAttribute("orderAddressDefaultLocation", allOrderAddress.getFirst());
+        }
+        */
 
         // 배송 선택 날짜
         // TODO utils에 넘기고싶음
@@ -69,25 +75,15 @@ public class OrderController {
         }
         model.addAttribute("reservationDates", reservationDates);
 
-        if (allOrderAddress.getFirst().isDefaultLocation()) {
-            model.addAttribute("orderAddressDefaultLocation", allOrderAddress.getFirst());
-        }
 
         return "order/order";
     }
 
     @PostMapping("/order/register")
-    public String submitOrder(@ModelAttribute OrderRequest orderRequest, RedirectAttributes redirectAttributes) {
-        // TODO orderDetails 추가하기
+    public String submitOrder(@ModelAttribute OrderFormRequest orderFormRequest) {
+        Long createOrderId = orderService.createOrder(orderFormRequest);
 
-        // 데이터를 리다이렉트할 페이지로 전달
-//        redirectAttributes.addFlashAttribute("orderSuccess", true);
-//        redirectAttributes.addFlashAttribute("orderDetails", orderRegisterResponseDto);
-
-//        Long createOrderId = orderService.createOrder(orderRegisterResponseDto);
-
-        //        return "redirect:/order/success"; // 등록 성공 페이지로 이동
-        return "redirect:/front/payments/checkout-page?orderId="; // + createOrderId;
+        return "redirect:/front/payments/checkout-page?orderId=" + createOrderId;
     }
 
     @GetMapping("/order/success")
@@ -101,7 +97,7 @@ public class OrderController {
     }
 
     @GetMapping("/admin/orders")
-    public String orderStatus(Model model, @RequestParam String status) {
+    public String orderStatus(@RequestParam String status, Model model) {
         model.addAttribute("status", status);
 
         List<String> orderStatusList = orderStatusService.getAllOrderStatuses();

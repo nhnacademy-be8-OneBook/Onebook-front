@@ -22,7 +22,8 @@ function openPackagingPopup() {
 }
 
 // 팝업창에서 선택된 포장지 데이터를 업데이트
-function setPackaging(packagingName, packagingPrice) {
+function setPackaging(packagingId, packagingName, packagingPrice) {
+    document.getElementById("packagingInputId").value = packagingId;
     document.getElementById("packagingInputName").value = packagingName;
     document.getElementById("packagingInputPrice").value = packagingPrice;
 }
