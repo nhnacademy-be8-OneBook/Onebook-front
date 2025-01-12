@@ -24,7 +24,6 @@ public class ReviewFrontController {
             @PathVariable Long bookId,
             @Validated @RequestBody ReviewRequestDto requestDto
     ) {
-        // 이제는 X-MEMBER-ID를 게이트웨이에서 넣어주므로, body에 memberId는 없음
         log.info("Creating review for bookId: {}", bookId);
         ReviewResponseDto response = reviewClient.registerReview(bookId, requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);

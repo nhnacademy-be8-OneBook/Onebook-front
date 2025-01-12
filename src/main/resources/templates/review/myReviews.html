@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>내가 작성한 리뷰 목록</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 20px; }
+
+        /* Grid 레이아웃 설정 */
+        .review-block {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto auto;
+            grid-gap: 10px;
+            border-bottom: 1px solid #000;
+            padding: 15px 0;
+        }
+        .review-header {
+            display: contents; /* Grid 아이템으로 직접 배치하기 위해 사용 */
+        }
+        .book-image {
+            grid-row: 1 / span 2;
+            grid-column: 1;
+            width: 80px;
+            height: auto;
+            margin-right: 15px;
+            align-self: start;
+        }
+        .book-title {
+            grid-row: 1;
+            grid-column: 2;
+            align-self: center;
+        }
+        .book-title a {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+        .meta-info {
+            grid-row: 2;
+            grid-column: 2;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+        .stars {
+            color: #FFD700;
+            margin-right: 10px;
+        }
+        .fixed-width {
+            display: inline-block;
+            width: 120px;
+            vertical-align: middle;
+        }
+        .timestamp {
+            margin-left: 10px;
+        }
+        .review-content {
+            grid-row: 3;
+            grid-column: 1 / span 2;
+            line-height: 1.5;
+            position: relative;
+        }
+        .toggle-more-btn {
+            background: #eee; border: none; color: #333;
+            padding: 3px 5px; border-radius: 3px; cursor: pointer;
+            font-size: 12px; margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>내가 작성한 리뷰 목록</h1>
+
+<div th:if="${#lists.isEmpty(myReviews)}">
+    <p>작성한 리뷰가 없습니다.</p>
+</div>
+
+<div th:unless="${#lists.isEmpty(myReviews)}">
+    <div th:each="review : ${myReviews}" class="review-block">
+        <!-- 도서 이미지 -->
+        <img th:src="${review.bookImageUrl != null ? review.bookImageUrl : '/images/no_image.png'}"
+             alt="Book Image" class="book-image" />
+
+        <!-- 도서 제목 -->
+        <div class="book-title">
+            <a th:href="@{/book/bookDetail(bookId=${review.bookId})}"
+               th:text="${review.bookName}">책 제목</a>
+        </div>
+
+        <!-- 평점과 작성일시 -->
+        <div class="meta-info">
+            <span class="stars fixed-width" th:if="${review.grade > 0}">
+                <span th:each="star : ${#numbers.sequence(1, review.grade)}">
+                    <i class="fa fa-star"></i>
+                </span>
+            </span>
+            <span class="fixed-width" th:if="${review.grade == 0}">평점 없음</span>
+            <span class="timestamp" th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+
+        <!-- 리뷰 내용 (100자 초과 시 더보기/접기 버튼 추가) -->
+        <div class="review-content" th:if="${review.description != null}">
+            <span class="short-text"
+                  th:text="${review.description.length() > 100 ? review.description.substring(0, 100) + '...' : review.description}">
+            </span>
+            <span class="full-text" style="display:none"
+                  th:text="${review.description}"></span>
+            <button class="toggle-more-btn" th:if="${review.description.length() > 100}">더보기</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.toggle-more-btn').forEach(function(button) {
+            button.addEventListener('click', function(){
+                let container = this.closest('.review-content');
+                let shortText = container.querySelector('.short-text');
+                let fullText = container.querySelector('.full-text');
+                if(this.textContent === '더보기') {
+                    shortText.style.display = 'none';
+                    fullText.style.display = 'inline';
+                    this.textContent = '접기';
+                } else {
+                    shortText.style.display = 'inline';
+                    fullText.style.display = 'none';
+                    this.textContent = '더보기';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

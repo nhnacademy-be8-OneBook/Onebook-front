@@ -6,7 +6,9 @@ import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.book.BookSaveDTO;
 import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.dto.publisher.PublisherDTO;
+import com.onebook.frontapi.dto.review.ReviewPageResponseDto;
 import com.onebook.frontapi.dto.tag.TagResponse;
+import com.onebook.frontapi.feign.review.ReviewClient;
 import com.onebook.frontapi.service.author.AuthorService;
 import com.onebook.frontapi.service.book.BookAuthorService;
 import com.onebook.frontapi.service.book.BookService;
@@ -40,6 +42,8 @@ public class BookController {
     private final TagService tagService;
     private final ImageService imageService;
 
+    private final ReviewClient reviewClient;
+
     @GetMapping("/newbooks")
     public String newBooks(Model model, Pageable pageable) {
         Page<BookDTO> bookDTOPage = bookService.newBooks(pageable);
@@ -49,30 +53,35 @@ public class BookController {
         return "index";
     }
 
-
     @GetMapping("/bookDetail")
     public String bookDetail(@RequestParam("bookId") long bookId,
                              @RequestParam(value = "url", required = false) String url,
                              Model model) {
+        // 기존 도서 및 저자 정보 로드
         BookDTO book = bookService.getBook(bookId);
         BookAuthorDTO bookAuthor = bookAuthorService.getBookAuthor(bookId);
-
         AuthorDTO author = authorService.getAuthor(bookAuthor.getAuthor().getAuthorId());
 
-        log.info("bookId: {}", book.getBookId());
-        log.info("bookTitle: {}", book.getTitle());
+        // 이미지 URL 처리
         if(Objects.isNull(url) || url.isEmpty()) {
             ImageDTO image = imageService.getImage(bookId);
             model.addAttribute("url", image.getUrl());
-        }else{
+        } else {
             model.addAttribute("url", url);
-
         }
+
         model.addAttribute("book", book);
         model.addAttribute("author", author);
 
+        // 리뷰 데이터 로드 - 첫 페이지, 페이지 사이즈 5
+        int initialPage = 0;
+        int pageSize = 5;
+        ReviewPageResponseDto reviewPage = reviewClient.getReviews(bookId, initialPage, pageSize);
+        model.addAttribute("reviewPage", reviewPage);
+
         return "book/bookDetail";
     }
+
 
     @GetMapping
     public String registerForm(@RequestParam(value = "categoryId", required = false) Integer categoryId,
