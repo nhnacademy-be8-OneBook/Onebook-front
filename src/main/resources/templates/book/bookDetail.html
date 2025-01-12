@@ -319,6 +319,15 @@
 
 <script th:inline="javascript">
 
+    function maskId(id) {
+        if (!id) return '';
+        if (id.length >= 5) {
+            return id.substring(0,2) + '**' + id.substring(id.length - 2);
+        } else {
+            return id + '**';
+        }
+    }
+
     $(document).ready(function(){
         $('.btn-number').click(function(e){
             e.preventDefault();
@@ -340,6 +349,7 @@
             }
         });
     });
+
 
     const currentBookId = [[${book.bookId}]];
     const reviewsPerPage = 5;
@@ -363,7 +373,7 @@
 
         // 1) 평균 평점 호출
         function loadAverageRating() {
-            fetch(`/front/reviews/${currentBookId}/average`, {
+            fetch(`/front/reviews/${currentBookId}/average`,  {
                 method: "GET",
                 credentials: "include"  // ★ JWT 쿠키 포함
             })
@@ -379,6 +389,7 @@
                     $('#avg-rating-container').empty().append('<p>No rating available.</p>');
                 });
         }
+
 
         function displayAverageRatingAndCount(avg) {
             let avgContainer = $('#avg-rating-container');
@@ -414,7 +425,7 @@
             let html = `
 				<div class="rating-main">
 					<ul class="rating">${starIcons}</ul>
-					<span style="margin-left:10px; font-size:14px; color:#333;">평균 평점: ${avgDisplay}</span>
+					<span style="margin-left:10px; font-size:14px; color:#F7941D;">${avgDisplay}</span>
 				</div>
 			`;
             avgContainer.append(html);
@@ -482,11 +493,12 @@
                     displayMessage = fullMessage.substring(0, previewLength) + '...';
                     toggleBtnHtml = `<button class="toggle-more-btn">더보기</button>`;
                 }
+                let maskedId = maskId(review.loginId);
 
                 let singleRating = `
 					<div class="single-rating">
 						<div class="rating-des">
-							<h6>ID: ${review.memberId}
+							<h6>ID: ${maskedId}
 								<span style="font-size:12px; color:#999; margin-left:10px;">${timeText}</span>
 							</h6>
 							<div class="ratings">

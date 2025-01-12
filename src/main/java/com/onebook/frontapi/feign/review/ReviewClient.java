@@ -38,6 +38,12 @@ public interface ReviewClient {
                                    @PathVariable("reviewId") Long reviewId,
                                    @RequestBody ReviewRequestDto reviewRequestDto);
 
+    /**
+    * 특정 도서의 작성된 리뷰 개수
+    **/
+    @GetMapping("task/books/{bookId}/reviews/count")
+    int getReviewCount(@PathVariable("bookId") Long bookId);
+
     // 리뷰 삭제 (DELETE) - 필요 시
     // @DeleteMapping("/task/books/{bookId}/reviews/{reviewId}")
     // ReviewResponseDto deleteReview(...);
