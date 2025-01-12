@@ -68,7 +68,7 @@
   <th:block th:each="tag : ${tags.content}">
     <li>
       <!-- 태그 이름을 클릭하면 해당 태그의 상세 페이지로 이동 -->
-      <a th:href="@{/tags/{tagId}(tagId=${tag.tagId})}" th:text="${tag.tagName}"></a>
+      <a th:href="@{/admin/tag/{tagId}(tagId=${tag.tagId})}" th:text="${tag.tagName}"></a>
     </li>
   </th:block>
 </ul>
@@ -79,7 +79,7 @@
     <ul class="pagination">
       <!-- 이전 페이지 버튼 -->
       <li th:if="${tags.hasPrevious()}" class="page-item">
-        <a class="page-link" th:href="@{/tags/list?page=${tags.number - 1}}" aria-label="Previous">
+        <a class="page-link" th:href="@{/admin/tag/list?page=${tags.number - 1}}" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
@@ -87,13 +87,13 @@
       <!-- 페이지 번호 출력 -->
       <th:block th:each="pageNum : ${#numbers.sequence(0, tags.totalPages - 1)}">
         <li class="page-item">
-          <a th:href="@{/tags/list(page=${pageNum})}" class="page-link" th:text="${pageNum + 1}"></a>
+          <a th:href="@{/admin/tag/list(page=${pageNum})}" class="page-link" th:text="${pageNum + 1}"></a>
         </li>
       </th:block>
 
       <!-- 다음 페이지 버튼 -->
       <li th:if="${tags.hasNext()}" class="page-item">
-        <a class="page-link" th:href="@{/tags/list?page=${tags.number + 1}}" aria-label="Next">
+        <a class="page-link" th:href="@{/admin/tag/list?page=${tags.number + 1}}" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
