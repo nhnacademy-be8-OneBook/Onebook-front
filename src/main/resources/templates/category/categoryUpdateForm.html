@@ -65,7 +65,7 @@
   <!-- 카테고리 수정/삭제 폼 -->
   <div class="container mt-5">
     <h2>카테고리 수정 및 삭제</h2>
-    <form action="/categories/update" method="POST">
+    <form action="/admin/category/update" method="POST">
       <input type="hidden" name="_method" value="PUT"> <!-- PUT 요청으로 변경 -->
       <!-- 숨겨진 필드로 categoryId 전달 -->
       <input type="hidden" name="categoryId" th:value="${categoryId}">
@@ -82,7 +82,7 @@
       </div>
     </form>
 
-    <form action="/categories/delete" method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+    <form action="/admin/category/delete" method="POST" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
       <input type="hidden" name="_method" value="DELETE">
       <input type="hidden" name="categoryId" th:value="${categoryId}">
       <button type="submit" class="btn btn-danger">카테고리 삭제</button>
