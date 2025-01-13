@@ -46,7 +46,7 @@ public class AdminTagController {
 
         model.addAttribute("tags", tags);
 
-        return "/tag/tagList";
+        return "tag/tagList";
     }
 
     @GetMapping("/tagList")
@@ -57,7 +57,7 @@ public class AdminTagController {
 
         model.addAttribute("tags", tags);
 
-        return "/tag/tagList_book";
+        return "tag/tagList_book";
     }
 
 
