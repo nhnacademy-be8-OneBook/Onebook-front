@@ -24,9 +24,9 @@
         <tbody>
         <tr th:each="book : ${pendingBooks}">
             <td>
-                <img th:src="${book.bookImageUrl != null ? book.bookImageUrl : '/images/no_image.png'}"
-                     alt="Book Image"
-                     style="width:80px; height:auto;">
+                <img th:src="${book.bookImageUrl != null ? ${#strings.replace(book.bookImageUrl, 'http://', 'https://')} : '/images/no_image.png'}"
+                     alt="Book Image" style="width:80px; height:auto;">
+
             </td>
             <td th:text="${book.bookName}">책제목</td>
             <td th:text="${#temporals.format(book.purchasedAt, 'yyyy-MM-dd HH:mm')}"></td>
