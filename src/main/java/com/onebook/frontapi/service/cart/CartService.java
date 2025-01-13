@@ -1,10 +1,12 @@
 package com.onebook.frontapi.service.cart;
 
-import com.onebook.frontapi.dto.cart.BookOrderRequest;
-import com.onebook.frontapi.dto.cart.CartItemResponse;
-import com.onebook.frontapi.dto.cart.CartResponse;
-import com.onebook.frontapi.dto.cart.CartFeignResponse;
+import com.onebook.frontapi.dto.book.BookDTO;
+import com.onebook.frontapi.dto.cart.*;
+import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.feign.cart.CartClient;
+import com.onebook.frontapi.service.book.BookService;
+import com.onebook.frontapi.service.image.ImageService;
+import feign.Feign;
 import feign.FeignException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,9 +24,12 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class CartService {
     private final CartClient cartClient;
-    private final RedisTemplate<String, Long> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
     public final static String CART_ID = "CART_ID";
     public final static String CART_PREFIX = "CART:";
+
+    private final BookService bookService;
+    private final ImageService imageService;
 
     public String getCartIdFromCookie (HttpServletRequest request, HttpServletResponse response) throws IOException {
         String result = null;
@@ -60,27 +65,54 @@ public class CartService {
     }
 
     // cartId로 redis에 저장된 cartItems 가져오기.
-    public List<CartItemResponse> getCartItemsFromRedisById(String cartId) {
-        Map<Object, Object> map = redisTemplate.opsForHash().entries(cartId);
+    public List<CartItemViewResponse> getCartItemsFromRedisById(String cartId) {
+        Map<Object, Object> map = redisTemplate.opsForHash().entries(CART_PREFIX+cartId);
         List<CartItemResponse> cartItemResponses = CartItemResponse.fromMapToList(map);
 
-        return cartItemResponses;
+        if(cartItemResponses.isEmpty()) {
+           return null;
+        }
+
+        List<CartItemViewResponse> result = new ArrayList<>();
+        // bookId -> book 가져와서 return.
+        for (int i = 0; i < cartItemResponses.size(); i++) {
+            try {
+                CartItemResponse cartItemResponse = cartItemResponses.get(i);
+
+                BookDTO book = bookService.getBook(cartItemResponse.bookId());
+                ImageDTO image = imageService.getImage(cartItemResponse.bookId());
+
+                CartItemViewResponse cartItemViewResponse = new CartItemViewResponse(
+                        book.getBookId(),
+                        book.getTitle(),
+                        book.getPrice(),
+                        book.getSalePrice(),
+                        image.getUrl(),
+                        cartItemResponse.quantity()
+                );
+
+                result.add(cartItemViewResponse);
+            }catch(FeignException e) {
+                // 도서를 불러오는 중 에러(FeignException) 발생하면 해당 도서는 불러오지 않는다.
+                continue;
+            }
+
+        }
+
+        return result;
     }
 
     // 장바구니에 물건 담기: redis에 cartItemResponse 저장.
     public boolean addCartItem(String cartId, BookOrderRequest bookOrderRequest) {
-        if(Boolean.TRUE.equals(redisTemplate.hasKey(CART_PREFIX + cartId))) {
-            redisTemplate.opsForHash().put(CART_PREFIX+cartId, bookOrderRequest.bookId(), bookOrderRequest.quantity());
-            redisTemplate.expire(CART_PREFIX + cartId, 30, TimeUnit.DAYS); // 유효기간 30일
-        } else {
-            redisTemplate.expire(CART_PREFIX + cartId, 30, TimeUnit.DAYS); // 유효기간 30일
-        }
+        // redis에 bookId가 존재하면 수량이 덮어씌워짐, 없으면 추가됨.
+        redisTemplate.opsForHash().put(CART_PREFIX+cartId, bookOrderRequest.bookId(), bookOrderRequest.quantity());
+        redisTemplate.expire(CART_PREFIX + cartId, 30, TimeUnit.DAYS); // 유효기간 30일
 
         return true;
     }
 
     // 장바구니에서 도서 삭제
-    public void removeCartItem(String cartId, List<Long> bookId) {
+    public void removeCartItem(String cartId, Long bookId) {
         redisTemplate.opsForHash().delete(CART_PREFIX + cartId, bookId);
     }
 
@@ -89,7 +121,7 @@ public class CartService {
         redisTemplate.opsForHash().put(CART_PREFIX + cartId, bookOrderRequest.bookId(), bookOrderRequest.quantity());
     }
 
-    // task(DB)에서 장바구니 가져오와서 redis에 저장. by cartId
+    // task(DB)에서 장바구니 가져와서 redis에 저장. by cartId
     public void saveCartFromDbToRedisByCartId(String cartId) {
         CartFeignResponse cartFeignResponse = cartClient.getRequestById(cartId);
         CartResponse cartResponse = CartResponse.from(cartFeignResponse);

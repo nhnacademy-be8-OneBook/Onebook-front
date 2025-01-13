@@ -1,7 +1,7 @@
 package com.onebook.frontapi.controller.cart;
 
 import com.onebook.frontapi.dto.cart.BookOrderRequest;
-import com.onebook.frontapi.dto.cart.CartItemResponse;
+import com.onebook.frontapi.dto.cart.CartItemViewResponse;
 import com.onebook.frontapi.service.cart.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,8 +28,8 @@ public class CartController {
                            Model model) throws IOException {
 
         String cartId = cartService.getCartIdFromCookie(request, response);
-        List<CartItemResponse> cartItemResponses =cartService.getCartItemsFromRedisById(cartId);
-        model.addAttribute("cartItems", cartItemResponses);
+        List<CartItemViewResponse> cartItemViews =cartService.getCartItemsFromRedisById(cartId);
+        model.addAttribute("cartItems", cartItemViews);
 
         return "cart/cartForm";
     }
@@ -50,7 +50,7 @@ public class CartController {
     @DeleteMapping
     public String deleteCartItem(HttpServletRequest request,
                                HttpServletResponse response,
-                               @RequestParam List<Long> bookId) throws IOException {
+                               @RequestParam Long bookId) throws IOException {
 
         String cartId = cartService.getCartIdFromCookie(request, response);
         cartService.removeCartItem(cartId, bookId);
@@ -69,9 +69,5 @@ public class CartController {
 
         return "redirect:/cart";
     }
-
-
-
-
 
 }

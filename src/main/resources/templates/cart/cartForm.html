@@ -290,9 +290,17 @@
 		</div>
 	</div>
 	<!-- End Breadcrumbs -->
-			
-	<!-- Shopping CartResponse -->
-	<div class="shopping-cartResponse section">
+
+		<!-- START 도서 등록 테스트용 -->
+		<form method="POST" action="/cart">
+			<input class="text" id="bookId" name="bookId" value="1">
+			<input class="text" id="quantity" name="quantity" value="2">
+			<button class="submit">도서 등록 테스트</button>
+		</form>
+		<!-- END 도서 등록 테스트용 -->
+
+		<!-- Shopping Cart -->
+	<div class="shopping-cart section">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -300,116 +308,92 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
-								<th>PRODUCT</th>
-								<th>NAME</th>
-								<th class="text-center">UNIT PRICE</th>
-								<th class="text-center">QUANTITY</th>
-								<th class="text-center">TOTAL</th> 
-								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+								<th style="padding-right: 0;">
+									<div class="checkbox" style="padding-top: 6px;">
+										<input name="selectAll" id="selectAll" type="checkbox" style="width:20px; height: 20px;">
+									</div>
+								</th>
+								<th colspan="2" style="padding-bottom: 15px;">상품</th>
+								<th class="text-center" style="padding-bottom: 15px;">가격</th>
+								<th class="text-center" style="padding-bottom: 15px;">수량</th>
+								<th class="text-center" style="padding-bottom: 15px;">총 금액</th>
+								<th class="text-center" style="padding-bottom: 15px;">삭제</th>
 							</tr>
 						</thead>
+
+<!--						장바구니 내용물-->
 						<tbody>
-							<tr>
-								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
-								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#">Women Dress</a></p>
-									<p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
-								</td>
-								<td class="price" data-title="Price"><span>$110.00 </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="1">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
+							<tr th:each="cartItem : ${cartItems}">
+								<!-- 개별 체크박스 -->
+								<td style="padding:0; align-content: center">
+									<div class="checkbox" style="padding-left: 21px">
+										<input type="checkbox" style="width:18px; height: 18px;">
 									</div>
-									<!--/ End Input Order -->
 								</td>
-								<td class="total-amount" data-title="Total"><span>$220.88</span></td>
-								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
-							</tr>
-							<tr>
-								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
+								<!-- 이미지 -->
+								<td class="image" data-title="No" style="text-align: center; padding-left:0; padding-right:0;">
+									<img th:src="${cartItem.image()}" th:style="'width: 100px; height: 100px;'" alt="이미지 준비중입니다.">
+								</td>
+								<!-- 제목 -->
 								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#">Women Dress</a></p>
-									<p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
+									<p class="product-name">
+										<a href="#" th:text="${cartItem.title()}" style="line-height: 100px;"></a>
+									</p>
 								</td>
-								<td class="price" data-title="Price"><span>$110.00 </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[2]">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[2]" class="input-number"  data-min="1" data-max="100" value="2">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[2]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
+								<!-- 가격 -->
+								<td style="text-align: center; padding-top: 30px">
+									<div>
+										<span>정가:</span>
+										<s th:text="${cartItem.price()}"></s>
+										<span>원</span>
 									</div>
-									<!--/ End Input Order -->
-								</td>
-								<td class="total-amount" data-title="Total"><span>$220.88</span></td>
-								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
-							</tr>
-							<tr>
-								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
-								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#">Women Dress</a></p>
-									<p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
-								</td>
-								<td class="price" data-title="Price"><span>$110.00 </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[3]">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[3]" class="input-number"  data-min="1" data-max="100" value="3">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[3]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
+									<div>
+										<span>판매가:</span>
+										<span th:text="${cartItem.salePrice()}" style="color:#ff3d00;"></span>
+										<span>원</span>
 									</div>
-									<!--/ End Input Order -->
 								</td>
-								<td class="total-amount" data-title="Total"><span>$220.88</span></td>
-								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
+								<!-- 수량 -->
+								<td class="qty" data-title="Qty" style="padding-left: 80px; padding-top: 50px;">
+									<form method="POST" action="/cart" data-title="Update">
+										<input type="hidden" name="_method" value="PUT">
+										<input type="hidden" name="bookId" th:value="${cartItem.bookId()}">
+										<!-- 수량 선택 -->
+										<select name="quantity" onchange="this.form.submit()">
+											<option th:each="i : ${#numbers.sequence(1, 10)}"
+													th:value="${i}"
+													th:text="${i}"
+													th:selected="${i == cartItem.quantity()}">
+											</option>
+										</select>
+									</form>
+								</td>
+								<!-- 총 금액 -->
+								<td class="total-amount" data-title="Total">
+									<span id="individual-total-amount" style="font-size: 17px" th:text="${cartItem.salePrice()*cartItem.quantity()} + ' 원'"></span>
+								</td>
+								<!-- 삭제 -->
+								<td class="action" data-title="Remove">
+									<form method="POST" th:action="'/cart'">
+										<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="bookId" th:value="${cartItem.bookId()}">
+										<button type="submit" class="btn">삭제</button>
+									</form>
+								</td>
 							</tr>
 						</tbody>
+						<!-- 장바구니 내용물 -->
 					</table>
 					<!--/ End Shopping Summery -->
 				</div>
 			</div>
+
 			<div class="row">
 				<div class="col-12">
 					<!-- Total Amount -->
 					<div class="total-amount">
 						<div class="row">
-							<div class="col-lg-8 col-md-5 col-12">
-								<div class="left">
-									<div class="coupon">
-										<form action="#" target="_blank">
-											<input name="Coupon" placeholder="Enter Your Coupon">
-											<button class="btn">Apply</button>
-										</form>
-									</div>
-									<div class="checkbox">
-										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10$)</label>
-									</div>
-								</div>
-							</div>
+							<!-- START 장바구니 상품 주문 금액 미리보기 -->
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
@@ -424,6 +408,7 @@
 									</div>
 								</div>
 							</div>
+							<!-- END 장바구니 상품 주문 금액 미리보기 -->
 						</div>
 					</div>
 					<!--/ End Total Amount -->
