@@ -1,6 +1,6 @@
 package com.onebook.frontapi.controller.join;
 
-import com.onebook.frontapi.dto.member.MemberRegisterRequestDto;
+import com.onebook.frontapi.dto.member.MemberRegisterRequest;
 import com.onebook.frontapi.service.member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class JoinController {
     }
 
     @PostMapping
-    public String memberJoin(@ModelAttribute @Valid MemberRegisterRequestDto memberRegisterRequestDto) {
-        if(memberService.joinMember(memberRegisterRequestDto)) {
+    public String memberJoin(@ModelAttribute @Valid MemberRegisterRequest memberRegisterRequest) {
+        if(memberService.joinMember(memberRegisterRequest)) {
             return "redirect:/login";
         }
         return "join/joinForm";

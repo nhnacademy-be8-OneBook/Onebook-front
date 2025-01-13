@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-public record MemberRegisterRequestDto(
+public record MemberRegisterRequest(
 
         @NotBlank(message="회원 이름은 필수 입력 항목입니다.")
         @Size(max=10, message = "회원 이름은 10자 이하로 입력 가능합니다.")

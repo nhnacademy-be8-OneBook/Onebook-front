@@ -1,6 +1,6 @@
 package com.onebook.frontapi.dto.member;
 
-public record MembershipCheckResponseDto(
+public record MembershipCheckFeignResponse(
         Boolean isMember
 ) {
 }

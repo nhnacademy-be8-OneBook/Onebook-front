@@ -1,6 +1,6 @@
 package com.onebook.frontapi.dto.member;
 
-public record MembershipCheckRequestDto(
+public record MembershipCheckRequest(
         String password
 ) {
 }

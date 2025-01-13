@@ -3,7 +3,7 @@ package com.onebook.frontapi.adaptor.member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onebook.frontapi.dto.member.ErrorResponse;
-import com.onebook.frontapi.dto.member.MemberRegisterRequestDto;
+import com.onebook.frontapi.dto.member.MemberRegisterRequest;
 import com.onebook.frontapi.feign.member.MemberClient;
 import feign.FeignException;
 import jakarta.validation.Valid;
@@ -21,10 +21,10 @@ public class MemberAdaptor {
 
     private final MemberClient memberClient;
 
-    public boolean join(@Valid MemberRegisterRequestDto memberRegisterRequestDto) {
+    public boolean join(@Valid MemberRegisterRequest memberRegisterRequest) {
 
         try {
-            memberClient.joinRequest(memberRegisterRequestDto);
+            memberClient.joinRequest(memberRegisterRequest);
 
         }catch(FeignException e) {
             String errorJson = e.contentUTF8();

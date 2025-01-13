@@ -1,6 +1,6 @@
 package com.onebook.frontapi.feign.member;
 
-import com.onebook.frontapi.dto.grade.GradeResponseDto;
+import com.onebook.frontapi.dto.grade.GradeFeignResponse;
 import com.onebook.frontapi.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -12,18 +12,18 @@ public interface MemberClient {
 
     /**
      * 회원 가입
-     * @param memberRegisterRequestDto
-     * @return MemberResponseDto
+     * @param memberRegisterRequest
+     * @return MemberFeignResponse
      */
     @PostMapping("/task/members")
-    MemberResponseDto joinRequest(@RequestBody MemberRegisterRequestDto memberRegisterRequestDto);
+    MemberFeignResponse joinRequest(@RequestBody MemberRegisterRequest memberRegisterRequest);
 
     /**
      * 멤버 조회
-     * @return MemberResponseDto
+     * @return MemberFeignResponse
      */
     @GetMapping("/task/members")
-    MemberResponseDto getRequest();
+    MemberFeignResponse getRequest();
 
     /**
      * 멤버 로그인 기록 업데이트 by loginId
@@ -33,19 +33,19 @@ public interface MemberClient {
 
     /**
      * 멤버 수정
-     * @param memberModifyRequestDto
-     * @return MemberResponseDto
+     * @param memberModifyRequest
+     * @return MemberFeignResponse
      */
     @PutMapping("/task/members")
-    MemberResponseDto modifyRequest(@RequestBody MemberModifyRequestDto memberModifyRequestDto);
+    MemberFeignResponse modifyRequest(@RequestBody MemberModifyRequest memberModifyRequest);
 
     // 회원 등급 조회.
     @GetMapping("/task/members/grade")
-    GradeResponseDto getMemberGradeRequest();
+    GradeFeignResponse getMemberGradeRequest();
 
     // 회원 여부 조회
     @PostMapping("/task/members/membership")
-    MembershipCheckResponseDto checkMembershipRequest(MembershipCheckRequestDto membershipCheckRequestDto);
+    MembershipCheckFeignResponse checkMembershipRequest(MembershipCheckRequest membershipCheckRequest);
 
     // 회원 탈퇴
     @DeleteMapping("/task/members")

@@ -1,7 +1,7 @@
 package com.onebook.frontapi.service.grade;
 
-import com.onebook.frontapi.dto.grade.GradeResponseDto;
-import com.onebook.frontapi.dto.grade.GradeViewDto;
+import com.onebook.frontapi.dto.grade.GradeFeignResponse;
+import com.onebook.frontapi.dto.grade.GradeResponse;
 import com.onebook.frontapi.feign.grade.GradeClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ public class GradeService {
     private final GradeClient gradeClient;
 
     // name 으로 등급 조회 (마이페이지 등급용)
-    public List<GradeViewDto> getGrades() {
-        List<GradeViewDto> result = new ArrayList<>();
+    public List<GradeResponse> getGrades() {
+        List<GradeResponse> result = new ArrayList<>();
 
-        List<GradeResponseDto> gradeResponseDtoList = gradeClient.getAllRequest();
-        for(GradeResponseDto grd : gradeResponseDtoList) {
-            GradeViewDto gvd = GradeViewDto.from(grd);
+        List<GradeFeignResponse> gradeFeignResponseList = gradeClient.getAllRequest();
+        for(GradeFeignResponse grd : gradeFeignResponseList) {
+            GradeResponse gvd = GradeResponse.from(grd);
             result.add(gvd);
         }
 
