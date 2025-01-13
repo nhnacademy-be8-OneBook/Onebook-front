@@ -172,35 +172,54 @@
                                 <p class="description" th:text="${book?.description ?: '책 소개 내용이 없습니다.'}">책 소개 내용</p>
                             </div>
                             <div class="product-buy">
-                                <div class="quantity">
-                                    <h6>구매 수량 :</h6>
-                                    <div class="input-group">
-                                        <div class="button minus">
-                                            <button type="button" class="btn btn-primary btn-number" data-type="minus">
-                                                <i class="ti-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
-                                        <div class="button plus">
-                                            <button type="button" class="btn btn-primary btn-number" data-type="plus">
-                                                <i class="ti-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="add-to-cart">
                                     <a href="#" class="btn">장바구니</a>
                                     <a href="#" class="btn min"><i class="ti-heart"></i></a>
 <!--                                    <a href="#" class="btn min"><i class="fa fa-compress"></i></a>-->
                                 </div>
 
-                                <!-- 주문하기 버튼 -->
-                                <div style="margin-top:15px;">
-                                    <button class="btn btn-primary" id="pay-button">주문하기</button>
-                                </div>
+                                <form
 
-                                <p class="cat">카테고리 :<a href="#">Clothing</a></p>
-                                <p class="재고량">재고 : 180 Products In Stock</p>
+                                <form action="/order/registers" method="post" id="order-form">
+
+                                    <div class="quantity">
+                                        <h6>구매 수량 :</h6>
+                                        <div class="input-group">
+                                            <div class="button minus">
+                                                <button type="button" class="btn btn-primary btn-number" data-type="minus">
+                                                    <i class="ti-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="text" name="bookOrderRequests[0].quantity" class="input-number" id="quantity-input" data-min="1" data-max="1000" value="1">
+                                            <div class="button plus">
+                                                <button type="button" class="btn btn-primary btn-number" data-type="plus">
+                                                    <i class="ti-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="bookOrderRequests[0].bookId" th:value="${book.bookId}">
+                                    <input type="hidden" name="bookOrderRequests[0].quantity" th:value="${stock.stock}">
+                                    <input type="hidden" name="bookOrderRequests[0].price" th:value="${book.salePrice}">
+
+                                    <div style="margin-top:15px;">
+                                        <button class="btn btn-primary" id="pay-button">주문하기</button>
+                                    </div>
+                                </form>
+
+
+
+                                <p class="cat">
+                                    카테고리 : <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${category.categoryId})}"
+                                              th:text="${category.name}">
+                                </a>
+                                </p>
+
+                                <p class="재고량">
+                                    재고 : <span th:text="${stock.stock}">0</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -349,16 +368,16 @@
 
     $(document).ready(function() {
 
-        // (★) 결제하기 버튼 클릭 → /front/payments/checkout-page?orderId=..
-        $("#pay-button").on("click", function(e){
-            e.preventDefault();
-
-            // 실제로는 서버에서 받은 orderId를 써야 함
-            // 여기서는 데모로 임시 orderId = 100
-            const orderId = "664400750282527613";
-            // 새 컨트롤러(CheckoutController) 경로로 이동
-            window.location.href = `/front/payments/checkout-page?orderId=${orderId}`;
-        });
+        // // (★) 결제하기 버튼 클릭 → /front/payments/checkout-page?orderId=..
+        // $("#pay-button").on("click", function(e){
+        //     e.preventDefault();
+        //
+        //     // 실제로는 서버에서 받은 orderId를 써야 함
+        //     // 여기서는 데모로 임시 orderId = 100
+        //     const orderId = "664400750282527613";
+        //     // 새 컨트롤러(CheckoutController) 경로로 이동
+        //     window.location.href = `/front/payments/checkout-page?orderId=${orderId}`;
+        // });
 
 
         // 1) 평균 평점 호출
