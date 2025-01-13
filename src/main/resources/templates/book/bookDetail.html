@@ -179,7 +179,6 @@
 <!--                                    <a href="#" class="btn min"><i class="fa fa-compress"></i></a>-->
                                 </div>
 
-                                <form
 
                                 <form action="/order/registers" method="post" id="order-form">
 
@@ -212,9 +211,10 @@
 
 
                                 <p class="cat">
-                                    카테고리 : <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${category.categoryId})}"
-                                              th:text="${category.name}">
-                                </a>
+                                    카테고리 :
+                                    <a th:href="@{/book-categories(categoryId=${category.categoryId})}"
+                                       th:text="${category.name}">
+                                    </a>
                                 </p>
 
                                 <p class="재고량">
