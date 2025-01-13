@@ -1,9 +1,13 @@
 package com.onebook.frontapi.controller.review;
 
+import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.review.BookReviewableResponseDto;
 import com.onebook.frontapi.dto.review.MyReviewResponseDto;
+import com.onebook.frontapi.dto.review.ReviewRequestDto;
+import com.onebook.frontapi.dto.review.ReviewResponseDto;
 import com.onebook.frontapi.feign.review.MyReviewClient;
 import com.onebook.frontapi.feign.review.PendingReviewClient;
+import com.onebook.frontapi.feign.review.ReviewClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +22,7 @@ public class ReviewController {
 
     private final PendingReviewClient pendingReviewClient;
     private final MyReviewClient myReviewClient;
+    private final ReviewClient reviewClient;
 
     /**
      * 리뷰 작성 폼 페이지
@@ -49,5 +54,20 @@ public class ReviewController {
         List<MyReviewResponseDto> myReviews = myReviewClient.getMyReviews();
         model.addAttribute("myReviews", myReviews);
         return "review/myReviews";
+    }
+
+    @GetMapping("/review/editForm")
+    public String editReviewForm(@RequestParam("reviewId") Long reviewId, Model model) {
+        // 리뷰 상세 정보
+        ReviewResponseDto review = reviewClient.getReview(reviewId);
+        ReviewRequestDto reviewRequestDto = new ReviewRequestDto();
+        reviewRequestDto.setGrade(review.getGrade());
+        reviewRequestDto.setDescription(review.getDescription());
+        reviewRequestDto.setImageUrl(review.getImageUrl());
+
+        model.addAttribute("reviewRequestDto", reviewRequestDto);
+        model.addAttribute("bookId", review.getBookId());
+        model.addAttribute("reviewId", reviewId);
+        return "review/reviewForm";
     }
 }
