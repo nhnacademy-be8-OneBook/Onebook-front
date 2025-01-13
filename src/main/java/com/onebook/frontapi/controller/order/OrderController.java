@@ -38,7 +38,7 @@ public class OrderController {
         return "order/order-test";
     }
 
-    @PostMapping("/order/registers")
+    @PostMapping("/order/register-form")
     public String orderRegistesr(@ModelAttribute BookListRequest bookListRequest, Model model) {
         // 책 리스트
         Map<BookDTO, Integer> bookMap = new HashMap<>();
@@ -64,7 +64,7 @@ public class OrderController {
         // TODO utils에 넘기고싶음
         List<Map<String, String>> reservationDates = new ArrayList<>(4);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM월 dd일");
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < 6; i++) {
             LocalDate day = LocalDate.now().plusDays(i + 1);
 
             reservationDates.add(Map.of(
@@ -84,16 +84,6 @@ public class OrderController {
         Long createOrderId = orderService.createOrder(orderFormRequest);
 
         return "redirect:/front/payments/checkout-page?orderId=" + createOrderId;
-    }
-
-    @GetMapping("/order/success")
-    public String showOrderSuccess(Model model) {
-        if (model.containsAttribute("orderSuccess")) {
-//             성공 메시지나 주문 정보 처리
-            OrderRegisterResponseDto orderDetails = (OrderRegisterResponseDto) model.getAttribute("orderDetails");
-            System.out.println("주문 성공! " + orderDetails);
-        }
-        return "order/orderSuccess"; // 주문 성공 페이지 반환
     }
 
     @GetMapping("/admin/orders")
