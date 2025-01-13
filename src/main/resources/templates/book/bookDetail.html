@@ -210,9 +210,10 @@
 
 
                                 <p class="cat">
-                                    카테고리 : <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${category.categoryId})}"
-                                              th:text="${category.name}">
-                                </a>
+                                    카테고리 :
+                                    <a th:href="@{/book-categories(categoryId=${category.categoryId})}"
+                                       th:text="${category.name}">
+                                    </a>
                                 </p>
 
                                 <p class="재고량">

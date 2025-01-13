@@ -43,4 +43,7 @@ public class BookService {
         bookClient.deleteBook(bookId);
     }
 
+    public void AladinBook(){
+        bookClient.aladinBook();
+    }
  }
