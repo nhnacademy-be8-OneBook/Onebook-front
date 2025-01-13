@@ -1,6 +1,6 @@
 package com.onebook.frontapi.point;
 
-import com.onebook.frontapi.controller.point.PointController;
+import com.onebook.frontapi.controller.my.point.PointController;
 import com.onebook.frontapi.dto.point.MemberPointResponse;
 import com.onebook.frontapi.service.point.PointService;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,9 +51,9 @@ public class PointControllerTest {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("user", "testUser");
 
-        mockMvc.perform(get("/point/myPoint").session(session))
+        mockMvc.perform(get("/my/point/mypoints").session(session))  // 실제 매핑된 경로로 수정
                 .andExpect(status().isOk())  // HTTP 200
-                .andExpect(view().name("mypage/mypagePoint"))  // view name 확인
+                .andExpect(view().name("my/point/mypoints"))  // 뷰 이름 확인
                 .andExpect(model().attribute("memberPointHistories", Collections.singletonList(response)));  // 모델에 데이터 확인
     }
 
@@ -64,9 +64,9 @@ public class PointControllerTest {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("user", "testUser");
 
-        mockMvc.perform(get("/point/myPoint").session(session))
+        mockMvc.perform(get("/my/point/mypoints").session(session))  // 실제 매핑된 경로로 수정
                 .andExpect(status().isOk())  // HTTP 200
-                .andExpect(view().name("mypage/mypagePoint"))
+                .andExpect(view().name("my/point/mypoints"))
                 .andExpect(model().attribute("memberPointHistories", Collections.emptyList()));  // 빈 리스트 확인
     }
 }
