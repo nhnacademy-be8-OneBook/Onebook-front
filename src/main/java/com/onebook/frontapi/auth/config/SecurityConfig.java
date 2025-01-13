@@ -63,7 +63,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authRequest -> {
             authRequest.requestMatchers("/", "/login", "/public/**",
                             "/css/**", "/js/**", "/images/**", "/join", "/test/**",
-                            "/style.css", "/dormant-account/**", "/dooray-message-authentication", "/cart").permitAll()
+                            "/style.css", "/dormant-account/**", "/dooray-message-authentication", "/cart", "/book/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN") // 로그인할 때 Authentication을 생성하는데 이때 ROLE을 넣어줬음. 그래서 이렇게 사용 가능.
                     .anyRequest().authenticated();
         });
