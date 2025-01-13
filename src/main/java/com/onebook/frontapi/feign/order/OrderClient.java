@@ -2,7 +2,7 @@ package com.onebook.frontapi.feign.order;
 
 import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
 import com.onebook.frontapi.dto.order.OrderFormRequest;
-import com.onebook.frontapi.dto.order.OrderRequestDto;
+import com.onebook.frontapi.dto.order.OrderFeignResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public interface OrderClient {
 
     // 사용자의 모든 주문 불러오기
     @GetMapping("/task/orders")
-    List<OrderRequestDto> findAllOrders();
+    List<OrderFeignResponse> findAllOrders();
 
     // 주문 상태에 따른 주문 리스트 불러오기
     @GetMapping("/task/admin/orders")
