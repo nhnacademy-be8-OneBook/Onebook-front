@@ -39,7 +39,7 @@ public class ReviewController {
             }
         }
         model.addAttribute("book", targetBook);
-        return "/review/reviewForm";
+        return "review/reviewForm";
     }
 
     @GetMapping("/review/pending")
