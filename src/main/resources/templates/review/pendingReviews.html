@@ -32,7 +32,7 @@
             <td th:text="${book.bookName}">책제목</td>
             <td th:text="${#temporals.format(book.purchasedAt, 'yyyy-MM-dd HH:mm')}"></td>
             <td>
-                <a th:href="@{/review (bookId=${book.bookId})}" class="btn btn-primary">
+                <a th:href="@{/review(bookId=${book.bookId})}" class="btn btn-primary">
                     리뷰 작성
                 </a>
             </td>
