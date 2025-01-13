@@ -1,11 +1,13 @@
 package com.onebook.frontapi.service.member;
 
-import com.onebook.frontapi.adaptor.member.MemberAdaptor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onebook.frontapi.dto.grade.GradeFeignResponse;
 import com.onebook.frontapi.dto.grade.GradeResponse;
 import com.onebook.frontapi.dto.member.*;
 import com.onebook.frontapi.feign.member.MemberClient;
 import feign.FeignException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +20,37 @@ import java.util.Objects;
 @Service
 public class MemberService {
 
-    // 회원가입 까지만 Adaptor 패턴 사용. 그 이후로 사용 X
-    private final MemberAdaptor memberAdaptor;
     private final MemberClient memberClient;
 
     /**
      * 회원 가입
      */
-    public boolean joinMember(MemberRegisterRequest memberRegisterRequest) {
-        if(memberAdaptor.join(memberRegisterRequest)) {
-            return true;
+    public boolean joinMember(@Valid MemberRegisterRequest memberRegisterRequest) {
+        try {
+
+            MemberFeignResponse memberFeignResponse = memberClient.joinRequest(memberRegisterRequest);
+
+        }catch(FeignException e) {
+            String errorJson = e.contentUTF8();
+
+            if (errorJson == null || errorJson.isEmpty()) {
+                log.error("FeignException: 회원가입에 대한 task의 응답이 비어있습니다.");
+                return false;
+            }
+
+            // JSON 파싱하여 ErrorResponse로 변환 (Jackson 예시)
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                ErrorResponse errorResponse = objectMapper.readValue(errorJson, ErrorResponse.class);
+                log.error("Error Title: {}", errorResponse.getTitle());
+                log.error("Error Status: {}", errorResponse.getStatus());
+                return false;
+            } catch (JsonProcessingException jsonException) {
+                log.error("Failed to parse error response: {}", jsonException.getMessage());
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     /**
