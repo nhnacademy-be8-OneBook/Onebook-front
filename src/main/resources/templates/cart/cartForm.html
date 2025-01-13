@@ -290,102 +290,108 @@
 		</div>
 	</div>
 	<!-- End Breadcrumbs -->
-
-		<!-- START 도서 등록 테스트용 -->
-		<form method="POST" action="/cart">
-			<input class="text" id="bookId" name="bookId" value="1">
-			<input class="text" id="quantity" name="quantity" value="2">
-			<button class="submit">도서 등록 테스트</button>
-		</form>
-		<!-- END 도서 등록 테스트용 -->
-
 		<!-- Shopping Cart -->
 	<div class="shopping-cart section">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
+					<div style="padding-bottom: 20px; padding-left: 10px;">
+						<h1>장바구니</h1>
+					</div>
 					<!-- Shopping Summery -->
-					<table class="table shopping-summery">
-						<thead>
-							<tr class="main-hading">
-								<th style="padding-right: 0;">
-									<div class="checkbox" style="padding-top: 6px;">
-										<input name="selectAll" id="selectAll" type="checkbox" style="width:20px; height: 20px;">
-									</div>
-								</th>
-								<th colspan="2" style="padding-bottom: 15px;">상품</th>
-								<th class="text-center" style="padding-bottom: 15px;">가격</th>
-								<th class="text-center" style="padding-bottom: 15px;">수량</th>
-								<th class="text-center" style="padding-bottom: 15px;">총 금액</th>
-								<th class="text-center" style="padding-bottom: 15px;">삭제</th>
-							</tr>
-						</thead>
+					<div>
+						<table class="table shopping-summery" style="table-layout: auto; width: auto;">
+							<thead>
+								<tr class="main-hading">
+									<th>
+										<div class="checkbox">
+											<input name="selectAll" id="selectAll" type="checkbox" style="width:20px; height: 20px;">
+										</div>
+									</th>
+									<th colspan="2" style="padding-bottom: 15px;">상품</th>
+									<th class="text-center" style="padding-bottom: 15px;">가격</th>
+									<th class="text-center" style="padding-bottom: 15px;">수량</th>
+									<th class="text-center" style="padding-bottom: 15px;">합계</th>
+									<th class="text-center" style="padding-bottom: 15px;">삭제</th>
+								</tr>
+							</thead>
 
-<!--						장바구니 내용물-->
-						<tbody>
-							<tr th:each="cartItem : ${cartItems}">
-								<!-- 개별 체크박스 -->
-								<td style="padding:0; align-content: center">
-									<div class="checkbox" style="padding-left: 21px">
-										<input type="checkbox" style="width:18px; height: 18px;">
-									</div>
-								</td>
-								<!-- 이미지 -->
-								<td class="image" data-title="No" style="text-align: center; padding-left:0; padding-right:0;">
-									<img th:src="${cartItem.image()}" th:style="'width: 100px; height: 100px;'" alt="이미지 준비중입니다.">
-								</td>
-								<!-- 제목 -->
-								<td class="product-des" data-title="Description">
-									<p class="product-name">
-										<a href="#" th:text="${cartItem.title()}" style="line-height: 100px;"></a>
-									</p>
-								</td>
-								<!-- 가격 -->
-								<td style="text-align: center; padding-top: 30px">
-									<div>
-										<span>정가:</span>
-										<s th:text="${cartItem.price()}"></s>
-										<span>원</span>
-									</div>
-									<div>
-										<span>판매가:</span>
-										<span th:text="${cartItem.salePrice()}" style="color:#ff3d00;"></span>
-										<span>원</span>
-									</div>
-								</td>
-								<!-- 수량 -->
-								<td class="qty" data-title="Qty" style="padding-left: 80px; padding-top: 50px;">
-									<form method="POST" action="/cart" data-title="Update">
-										<input type="hidden" name="_method" value="PUT">
-										<input type="hidden" name="bookId" th:value="${cartItem.bookId()}">
-										<!-- 수량 선택 -->
-										<select name="quantity" onchange="this.form.submit()">
-											<option th:each="i : ${#numbers.sequence(1, 10)}"
-													th:value="${i}"
-													th:text="${i}"
-													th:selected="${i == cartItem.quantity()}">
-											</option>
-										</select>
-									</form>
-								</td>
-								<!-- 총 금액 -->
-								<td class="total-amount" data-title="Total">
-									<span id="individual-total-amount" style="font-size: 17px" th:text="${cartItem.salePrice()*cartItem.quantity()} + ' 원'"></span>
-								</td>
-								<!-- 삭제 -->
-								<td class="action" data-title="Remove">
-									<form method="POST" th:action="'/cart'">
-										<input type="hidden" name="_method" value="DELETE">
-										<input type="hidden" name="bookId" th:value="${cartItem.bookId()}">
-										<button type="submit" class="btn">삭제</button>
-									</form>
-								</td>
-							</tr>
-						</tbody>
-						<!-- 장바구니 내용물 -->
-					</table>
+							<form id="orderForm" method="POST" action="/order/registers" style="display: none">
+								<div id="selectedItems"></div>
+							</form>
+
+	<!--						START 장바구니 내용물-->
+							<tbody>
+								<tr th:each="cartItem : ${cartItems}" class="cart_info_td">
+									<!-- 개별 체크박스 -->
+									<td style="align-content: center">
+										<div class="individual-checkbox">
+											<input type="checkbox" style="width:15px; height: 15px;" class="cart-item-checkbox">
+											<input type="hidden" class="individual-bookId" th:value="${cartItem.bookId()}">
+											<input type="hidden" class="individual-quantity" th:value="${cartItem.quantity()}">
+											<input type="hidden" class="individual-price" th:value="${cartItem.price()}">
+											<input type="hidden" class="individual-salePrice" th:value="${cartItem.salePrice()}">
+										</div>
+									</td>
+									<!-- 이미지 -->
+									<td class="image" data-title="No" style="text-align: center; min-width: 80px; padding-left: 0; padding-right:0;">
+										<img th:src="${cartItem.image()}" alt="이미지 준비중입니다.">
+									</td>
+									<!-- 제목 -->
+									<td class="product-des" data-title="Description">
+										<p class="product-name">
+											<a class="product-name" th:href="@{/book/bookDetail(bookId=${cartItem.bookId()})}" th:text="${cartItem.title()}"></a>
+										</p>
+									</td>
+									<!-- 가격 -->
+									<td style="text-align: center; padding-top: 30px; min-width: 160px">
+										<div>
+											<span>정가:</span>
+											<s th:text="${cartItem.price()}"></s>
+											<span>원</span>
+										</div>
+										<div>
+											<span>판매가:</span>
+											<span th:text="${cartItem.salePrice()}" style="color:#ff3d00;"></span>
+											<span>원</span>
+										</div>
+									</td>
+									<!-- 수량 -->
+									<td class="qty" data-title="Qty" style="padding-left: 50px; padding-top: 50px;">
+										<form method="POST" action="/cart" data-title="Update">
+											<input type="hidden" name="_method" value="PUT">
+											<input type="hidden" name="bookId" th:value="${cartItem.bookId()}">
+											<!-- 수량 선택 -->
+											<select name="quantity" onchange="this.form.submit()">
+												<option th:each="i : ${#numbers.sequence(1, 10)}"
+														th:value="${i}"
+														th:text="${i}"
+														th:selected="${i == cartItem.quantity()}">
+												</option>
+											</select>
+										</form>
+									</td>
+									<!-- 총 금액 -->
+									<td class="total-amount" data-title="Total" style="min-width:150px;">
+										<span id="individual-total-amount" th:text="${cartItem.salePrice()*cartItem.quantity()} + '원'"></span>
+									</td>
+									<!-- 삭제 -->
+									<td class="action" data-title="Remove" style="min-width:160px">
+										<form method="POST" th:action="'/cart'">
+											<input type="hidden" name="_method" value="DELETE">
+											<input type="hidden" name="bookId" th:value="${cartItem.bookId()}">
+											<button type="submit" class="btn">삭제</button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+							<!-- END 장바구니 내용물 -->
+
+						</table>
+					</div>
 					<!--/ End Shopping Summery -->
 				</div>
+
 			</div>
 
 			<div class="row">
@@ -393,22 +399,32 @@
 					<!-- Total Amount -->
 					<div class="total-amount">
 						<div class="row">
-							<!-- START 장바구니 상품 주문 금액 미리보기 -->
+							<div class="col-lg-8 col-md-5 col-12">
+								<div class="left">
+									<p style="text-align: center; padding-top: 100px">광고 문의: rlawngur145@naver.com</p>
+								</div>
+							</div>
+							<!-- START 장바구니 주문 금액 보기 -->
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li>Cart Subtotal<span>$330.00</span></li>
-										<li>Shipping<span>Free</span></li>
-										<li>You Save<span>$20.00</span></li>
-										<li class="last">You Pay<span>$310.00</span></li>
+										<li>총 상품 금액<span id="total-price">0</span></li>
+										<li>배송비<span id="shipping-fee">0</span></li>
+										<li>상품 할인<span id="total-discount">0</span></li>
+										<li class="last">결제 예상 금액<span id="total-amount">0</span></li>
 									</ul>
 									<div class="button5">
-										<a href="#" class="btn">Checkout</a>
-										<a href="#" class="btn">Continue shopping</a>
+										<form id="toOrder" method="POST" action="/order/registers">
+											<button type="submit" id="orderButton" class="btn btn-primary">주문하기</button>
+										</form>
 									</div>
 								</div>
 							</div>
-							<!-- END 장바구니 상품 주문 금액 미리보기 -->
+							<!-- END 장바구니 주문 금액 보기 -->
+
+							<!-- 총 상품 금액 계산하는 js 파일 -->
+							<script src="/js/cart/cartFormCalculator.js"></script>
+							<script src="/js/cart/cartFormToOrder.js"></script>
 						</div>
 					</div>
 					<!--/ End Total Amount -->
