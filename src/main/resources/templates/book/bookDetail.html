@@ -172,30 +172,34 @@
                                 <p class="description" th:text="${book?.description ?: '책 소개 내용이 없습니다.'}">책 소개 내용</p>
                             </div>
                             <div class="product-buy">
-                                <div class="quantity">
-                                    <h6>구매 수량 :</h6>
-                                    <div class="input-group">
-                                        <div class="button minus">
-                                            <button type="button" class="btn btn-primary btn-number" data-type="minus">
-                                                <i class="ti-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1">
-                                        <div class="button plus">
-                                            <button type="button" class="btn btn-primary btn-number" data-type="plus">
-                                                <i class="ti-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="add-to-cart">
                                     <a href="#" class="btn">장바구니</a>
                                     <a href="#" class="btn min"><i class="ti-heart"></i></a>
 <!--                                    <a href="#" class="btn min"><i class="fa fa-compress"></i></a>-->
                                 </div>
 
-                                <!-- 주문하기 버튼 -->
+                                <form
+
                                 <form action="/order/registers" method="post" id="order-form">
+
+                                    <div class="quantity">
+                                        <h6>구매 수량 :</h6>
+                                        <div class="input-group">
+                                            <div class="button minus">
+                                                <button type="button" class="btn btn-primary btn-number" data-type="minus">
+                                                    <i class="ti-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="text" name="bookOrderRequests[0].quantity" class="input-number" id="quantity-input" data-min="1" data-max="1000" value="1">
+                                            <div class="button plus">
+                                                <button type="button" class="btn btn-primary btn-number" data-type="plus">
+                                                    <i class="ti-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <input type="hidden" name="bookOrderRequests[0].bookId" th:value="${book.bookId}">
                                     <input type="hidden" name="bookOrderRequests[0].quantity" th:value="${stock.stock}">
                                     <input type="hidden" name="bookOrderRequests[0].price" th:value="${book.salePrice}">
@@ -204,6 +208,8 @@
                                         <button class="btn btn-primary" id="pay-button">주문하기</button>
                                     </div>
                                 </form>
+
+
 
                                 <p class="cat">
                                     카테고리 : <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${category.categoryId})}"
