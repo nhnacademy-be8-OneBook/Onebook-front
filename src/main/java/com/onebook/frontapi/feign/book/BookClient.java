@@ -38,4 +38,8 @@ public interface BookClient {
     @DeleteMapping("/task/book/{bookId}")
     void deleteBook(@PathVariable("bookId") long bookId);
 
+    //알라딘
+    @PostMapping("/task/book/aladin")
+    String aladinBook();
+
 }
