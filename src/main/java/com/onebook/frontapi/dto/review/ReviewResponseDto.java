@@ -17,4 +17,5 @@ public class ReviewResponseDto {
     private String memberId;
     private long bookId;
     private List<String> imageUrl;
+    private String loginId;
 }
