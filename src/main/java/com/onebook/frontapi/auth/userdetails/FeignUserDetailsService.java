@@ -35,7 +35,7 @@ public class FeignUserDetailsService implements UserDetailsService {
             log.info("loginId: {}, password: {}, role: {}, status: {}", memberLoginFeignResponse.loginId(), memberLoginFeignResponse.password(), memberLoginFeignResponse.role(), memberLoginFeignResponse.status());
 
             // 멤버 상태 검증 후 그에 따른 적절한 예외처리.
-            memberStatusValidator.validateMemberStatus(memberLoginFeignResponse.status());
+            memberStatusValidator.validateMemberStatus(username, memberLoginFeignResponse.status());
 
             return new User(memberLoginFeignResponse.loginId(), memberLoginFeignResponse.password(), List.of(new SimpleGrantedAuthority("ROLE_" + memberLoginFeignResponse.role())));
 
