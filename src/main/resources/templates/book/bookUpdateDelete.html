@@ -59,7 +59,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<h2>Book Registration</h2>
+<h2>도서 수정/삭제</h2>
 
 <div th:replace="~{fragments/header :: header}"></div>
 <form id="updateBookForm" action="/admin/book/update", method="POST">
@@ -67,37 +67,37 @@
 
     <!-- Title -->
     <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">제목</label>
         <input type="text" id="title" name="title" class="form-control" maxlength="100" required placeholder="Enter book title" th:value="${book.title}">
     </div>
 
     <!-- Content -->
     <div class="form-group">
-        <label for="content">Content</label>
+        <label for="content">목차</label>
         <textarea id="content" name="content" class="form-control" required placeholder="Enter book content" th:text="${book.content}"></textarea>
     </div>
 
     <!-- Description -->
     <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">설명</label>
         <textarea id="description" name="description" class="form-control" required placeholder="Enter book description" th:text="${book.description}"></textarea>
     </div>
 
     <!-- Price -->
     <div class="form-group">
-        <label for="price">Price</label>
+        <label for="price">정가</label>
         <input type="number" id="price" name="price" class="form-control" required placeholder="Enter price" min="0" th:value="${book.price}">
     </div>
 
     <!-- Sales Price -->
     <div class="form-group">
-        <label for="salePrice">Sales Price</label>
+        <label for="salePrice">할인가</label>
         <input type="number" id="salePrice" name="salePrice" class="form-control" required placeholder="Enter sales price" min="0" th:value="${book.salePrice}">
     </div>
 
     <!-- Stock -->
     <div class="form-group">
-        <label for="stock">Stock</label>
+        <label for="stock">재고</label>
         <input type="number" id="stock" name="stock" class="form-control" required placeholder="Enter stock quantity" min="0" th:value="${stock.stock}">
     </div>
 
