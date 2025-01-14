@@ -86,6 +86,7 @@
                         <h3 class="title">쇼핑 정보</h3>
                         <ul class="categor-list">
                             <li><a href="/my/orders">주문 목록/배송 조회</a></li>
+                            <li><a href="/my/orders/waiting">결제 대기</a></li>
                             <li><a href="#">취소/반품/교환 내역</a></li>
                             <li><a href="#">찜한 상품</a></li>
                         </ul>
@@ -159,12 +160,13 @@
 
                 <div class="order-card" th:each="order : ${orderList}">
                     <div class="order-header">
-                        <h4 class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}"></h4>
+<!--                        <h4 class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}"></h4>-->
+                        <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')} + ' ' + ${order.orderStatusName}"></span>
                         <a class="order-details-link" href="#" th:href="@{/my/order-detail/{orderId}(orderId=${order.orderId})}">주문 상세</a>
                     </div>
                     <div class="order-body">
 <!--                        <img class="order-image" th:src="@{/images/order.jpg}" alt="상품 이미지">-->
-                        <p class="orderer" th:text="${order.orderStatusName}">
+<!--                        <p class="orderer" th:text="${order.orderStatusName}">-->
                         <p class="order-image" th:text="상품이미지">
                         <div class="order-info">
                             <h3 class="order-name" th:text="${order.orderName}"></h3>
