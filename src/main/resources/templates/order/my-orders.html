@@ -160,7 +160,7 @@
                 <div class="order-card" th:each="order : ${orderList}">
                     <div class="order-header">
                         <h4 class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}"></h4>
-                        <a class="order-details-link" href="#" th:href="@{/order/detail(orderId=${order.orderId})}">주문 상세</a>
+                        <a class="order-details-link" href="#" th:href="@{/my/order-detail/{orderId}(orderId=${order.orderId})}">주문 상세</a>
                     </div>
                     <div class="order-body">
 <!--                        <img class="order-image" th:src="@{/images/order.jpg}" alt="상품 이미지">-->
