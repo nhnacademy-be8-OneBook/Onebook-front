@@ -28,11 +28,11 @@ public class CouponBoxService {
 
     private final Integer PAGE_SIZE = 10;
 
-    public Page<IssuedCouponResponse> getIssuedCouponsByMemberId(int pageNo, Long memberId){
+    public Page<IssuedCouponResponse> getIssuedCouponsByMemberId(int pageNo){
 
         Pageable pageable = PageRequest.of(pageNo, PAGE_SIZE, Sort.by("issue_date_time").descending());
 
-        Page<IssuedCouponFeignResponse> page = couponBoxClient.getIssuedCouponsByMemberId(pageable,memberId).getBody();
+        Page<IssuedCouponFeignResponse> page = couponBoxClient.getIssuedCouponsByMemberId(pageable).getBody();
 
         List<IssuedCouponResponse> issuedCouponResponseList = new ArrayList<>();
 //        Page<IssuedCouponResponse> response = new PageImpl(page.getContent());

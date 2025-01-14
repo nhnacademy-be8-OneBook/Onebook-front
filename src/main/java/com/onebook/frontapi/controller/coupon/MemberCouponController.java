@@ -16,12 +16,11 @@ public class MemberCouponController {
 
     private final CouponBoxService couponBoxService;
 
-    @GetMapping("/coupon/{member-id}")
+    @GetMapping("/coupon/coupon-box")
     public String getMyCouponBox(Model model,
-                                 @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo,
-                                 @PathVariable(name = "member-id") Long memberId ){
+                                 @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo){
 
-        Page<IssuedCouponResponse> issuedCouponResponses = couponBoxService.getIssuedCouponsByMemberId(pageNo,memberId);
+        Page<IssuedCouponResponse> issuedCouponResponses = couponBoxService.getIssuedCouponsByMemberId(pageNo);
         model.addAttribute("issuedCouponResponses",issuedCouponResponses);
 
         return "coupon/coupon/my-coupon-list";
