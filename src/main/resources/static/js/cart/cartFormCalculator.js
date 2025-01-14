@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // 배송비 계산 (3만원 이상이면 무료, 미만이면 3000원)
-        deliveryPrice = totalSalePrice >= 30000 ? 0 : 3000;
+        deliveryPrice = totalSalePrice === 0 ? 0 : (totalPrice) >= 30000 ? 0 : 3000;
 
         // 최종 결제 금액 (판매 금액 + 배송비)
         finalTotalPrice = totalSalePrice + deliveryPrice;

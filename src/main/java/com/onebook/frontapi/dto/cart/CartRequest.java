@@ -1,6 +1,6 @@
 package com.onebook.frontapi.dto.cart;
 
-public record BookOrderRequest(
+public record CartRequest(
         Long bookId,
         int quantity
 ) {
