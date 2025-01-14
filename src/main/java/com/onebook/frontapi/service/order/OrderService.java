@@ -28,4 +28,15 @@ public class OrderService {
         orderClient.updateOrderStatus(orderIds, status);
     }
 
+    public OrderDetailResponse getOrderDetail(Long orderId) {
+        OrderDetailFeignResponse orderDetail = orderClient.findOrderDetail(orderId);
+
+        OrderDetailResponse orderDetailResponse = new OrderDetailResponse(
+            orderDetail.getItems(),
+            OrderResponse.fromFeign(orderDetail.getOrderResponse())
+        );
+
+        return orderDetailResponse;
+    }
+
 }

@@ -189,7 +189,7 @@
                                                     <i class="ti-minus"></i>
                                                 </button>
                                             </div>
-                                            <input type="text" name="bookOrderRequests[0].quantity" class="input-number" id="quantity-input" data-min="1" data-max="1000" value="1">
+                                            <input type="text" name="bookOrderRequests[0].quantity" class="input-number" id="quantity-input" data-min="1" th:data-max="${stock.stock}" value="1">
                                             <div class="button plus">
                                                 <button type="button" class="btn btn-primary btn-number" data-type="plus">
                                                     <i class="ti-plus"></i>
@@ -363,7 +363,7 @@
             var type = $(this).attr('data-type');
             var input = $(this).closest('.input-group').find('.input-number');
             var minValue = parseInt(input.attr('data-min')) || 1;
-            var maxValue = 100;
+            var maxValue = 1000000;
             var currentVal = parseInt(input.val());
 
             if (!isNaN(currentVal)) {

@@ -1,6 +1,7 @@
 package com.onebook.frontapi.feign.order;
 
 import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
+import com.onebook.frontapi.dto.order.OrderDetailFeignResponse;
 import com.onebook.frontapi.dto.order.OrderFormRequest;
 import com.onebook.frontapi.dto.order.OrderFeignResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -26,4 +27,7 @@ public interface OrderClient {
     @PutMapping("/task/admin/orders")
     void updateOrderStatus(@RequestBody List<Long> orderIds, @RequestParam String status);
 
+    // 주문 상세 정보 확인하기
+    @GetMapping("/task/order-detail/{orderId}")
+    OrderDetailFeignResponse findOrderDetail(@PathVariable("orderId") Long orderId);
 }
