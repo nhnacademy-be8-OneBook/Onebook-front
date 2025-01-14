@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class PointPolicyRequest {
+public class CreatePointPolicyRequest {
     private String pointPolicyName;
-    private Integer pointPolicyRate;
+    private int pointPolicyRate;
     private Integer pointPolicyConditionAmount;
     private Integer pointPolicyApplyAmount;
     private String pointPolicyCondition;
