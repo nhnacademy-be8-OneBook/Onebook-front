@@ -19,8 +19,9 @@
                         <ul class="list-main">
 <!--                            <li><i class="ti-location-pin"></i> Store location</li>-->
 <!--                            <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>-->
-                            <li><i class="ti-user"></i> <a th:href="@{/my/home}">My account</a></li>
-                            <li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
+                            <li><i class="ti-user"></i> <a href="/my/home">My account</a></li>
+                            <li><i class="ti-power-off"></i><a href="/login">Login</a></li>
+                            <li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>
                         </ul>
                     </div>
                     <!-- End Top Right -->
@@ -78,7 +79,7 @@
                             <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                         </div>
                         <div class="sinlge-bar">
-                            <a th:href="@{/my/home}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            <a id="home" th:href="@{/my/home}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                         </div>
                         <div class="sinlge-bar shopping">
                             <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>

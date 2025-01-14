@@ -152,7 +152,7 @@ $('.input-number').change(function() {
     if(valueCurrent <= maxValue) {
         $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
     } else {
-        alert('Sorry, the maximum value was reached');
+        alert('죄송합니다. 재고가 부족합니다.');
         $(this).val($(this).data('oldValue'));
     }
     
