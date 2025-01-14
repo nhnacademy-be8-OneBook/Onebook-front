@@ -3,10 +3,11 @@ package com.onebook.frontapi.service.cart;
 import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.cart.*;
 import com.onebook.frontapi.dto.image.ImageDTO;
+import com.onebook.frontapi.dto.stock.StockDTO;
 import com.onebook.frontapi.feign.cart.CartClient;
 import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.image.ImageService;
-import feign.Feign;
+import com.onebook.frontapi.service.stock.StockService;
 import feign.FeignException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class CartService {
 
     private final BookService bookService;
     private final ImageService imageService;
+    private final StockService stockService;
 
     public String getCartIdFromCookie (HttpServletRequest request, HttpServletResponse response) throws IOException {
         String result = null;
@@ -79,8 +81,9 @@ public class CartService {
             try {
                 CartItemResponse cartItemResponse = cartItemResponses.get(i);
 
-                BookDTO book = bookService.getBook(cartItemResponse.bookId());
-                ImageDTO image = imageService.getImage(cartItemResponse.bookId());
+                BookDTO book = bookService.getBook(cartItemResponse.bookId()); // book
+                ImageDTO image = imageService.getImage(cartItemResponse.bookId()); // image
+                StockDTO stock = stockService.getStock(cartItemResponse.bookId()); // book_stock
 
                 CartItemViewResponse cartItemViewResponse = new CartItemViewResponse(
                         book.getBookId(),
@@ -88,7 +91,8 @@ public class CartService {
                         book.getPrice(),
                         book.getSalePrice(),
                         image.getUrl(),
-                        cartItemResponse.quantity()
+                        cartItemResponse.quantity(),
+                        stock.getStock()
                 );
 
                 result.add(cartItemViewResponse);
@@ -103,22 +107,27 @@ public class CartService {
     }
 
     // 장바구니에 물건 담기: redis에 cartItemResponse 저장.
-    public boolean addCartItem(String cartId, BookOrderRequest bookOrderRequest) {
+    public boolean addCartItem(String cartId, CartRequest cartRequest) {
         // redis에 bookId가 존재하면 수량이 덮어씌워짐, 없으면 추가됨.
-        redisTemplate.opsForHash().put(CART_PREFIX+cartId, bookOrderRequest.bookId(), bookOrderRequest.quantity());
+        redisTemplate.opsForHash().put(CART_PREFIX+cartId, cartRequest.bookId(), cartRequest.quantity());
         redisTemplate.expire(CART_PREFIX + cartId, 30, TimeUnit.DAYS); // 유효기간 30일
 
         return true;
     }
 
-    // 장바구니에서 도서 삭제
+    // 장바구니에서 특정 도서 삭제
     public void removeCartItem(String cartId, Long bookId) {
         redisTemplate.opsForHash().delete(CART_PREFIX + cartId, bookId);
     }
 
     // 장바구니에서 도서 수량 변경
-    public void modifyCartItem(String cartId, BookOrderRequest bookOrderRequest) {
-        redisTemplate.opsForHash().put(CART_PREFIX + cartId, bookOrderRequest.bookId(), bookOrderRequest.quantity());
+    public void modifyCartItem(String cartId, CartRequest cartRequest) {
+        redisTemplate.opsForHash().put(CART_PREFIX+cartId, cartRequest.bookId(), cartRequest.quantity());
+    }
+
+    // 장바구니 비우기 (redis에 key는 남아있음)
+    public void clearCart(String cartId) {
+        redisTemplate.opsForHash().delete(CART_PREFIX+cartId);
     }
 
     // task(DB)에서 장바구니 가져와서 redis에 저장. by cartId

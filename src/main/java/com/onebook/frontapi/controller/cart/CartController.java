@@ -1,6 +1,6 @@
 package com.onebook.frontapi.controller.cart;
 
-import com.onebook.frontapi.dto.cart.BookOrderRequest;
+import com.onebook.frontapi.dto.cart.CartRequest;
 import com.onebook.frontapi.dto.cart.CartItemViewResponse;
 import com.onebook.frontapi.service.cart.CartService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,10 +38,10 @@ public class CartController {
     @PostMapping
     public ResponseEntity<Boolean> addItemToCart(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        @ModelAttribute BookOrderRequest bookOrderRequest) throws IOException {
+                                        @ModelAttribute CartRequest cartRequest) throws IOException {
 
         String cartId = cartService.getCartIdFromCookie(request, response);
-        boolean result = cartService.addCartItem(cartId, bookOrderRequest);
+        boolean result = cartService.addCartItem(cartId, cartRequest);
 
         return ResponseEntity.ok(result);
     }
@@ -62,10 +62,10 @@ public class CartController {
     @PutMapping
     public String updateCartItem(HttpServletRequest request,
                                  HttpServletResponse response,
-                                 @ModelAttribute BookOrderRequest bookOrderRequest) throws IOException {
+                                 @ModelAttribute CartRequest cartRequest) throws IOException {
 
         String cartId = cartService.getCartIdFromCookie(request, response);
-        cartService.modifyCartItem(cartId, bookOrderRequest);
+        cartService.modifyCartItem(cartId, cartRequest);
 
         return "redirect:/cart";
     }

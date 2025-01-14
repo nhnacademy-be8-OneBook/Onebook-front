@@ -357,13 +357,13 @@
 										</div>
 									</td>
 									<!-- 수량 -->
-									<td class="qty" data-title="Qty" style="padding-left: 50px; padding-top: 50px;">
+									<td class="qty" data-title="Qty" style="padding-left: 50px; padding-top: 30px;">
 										<form method="POST" action="/cart" data-title="Update">
 											<input type="hidden" name="_method" value="PUT">
 											<input type="hidden" name="bookId" th:value="${cartItem.bookId()}">
 											<!-- 수량 선택 -->
-											<select name="quantity" onchange="this.form.submit()">
-												<option th:each="i : ${#numbers.sequence(1, 10)}"
+											<select size="1" name="quantity" onchange="this.form.submit()" style="max-height: 150px; overflow-y: auto;">
+												<option th:each="i : ${#numbers.sequence(1, cartItem.stock())}"
 														th:value="${i}"
 														th:text="${i}"
 														th:selected="${i == cartItem.quantity()}">

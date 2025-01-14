@@ -8,6 +8,7 @@ public record CartItemViewResponse(
         int price,
         int salePrice,
         String image,
-        int quantity
+        int quantity,
+        int stock
 ) {
 }
