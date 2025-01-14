@@ -361,7 +361,7 @@
 										<tr>
 											<td style="border: none; padding: 0">등급<strong class="h5" style="margin-left: 10px" th:text="${member.grade()}"></strong></td>
 											<td style="border: none; padding: 0;">구매금액<strong class="h5" style="margin-left: 10px">100</strong><span> 원</span></td>
-											<td style="border: none; padding: 0;">구매횟수<strong class="h5" style="margin-left: 10px">1</strong><span> 건</span></td>
+											<td style="border: none; padding: 0;">구매횟수<strong class="h5" style="margin-left: 10px" th:text="${myOrderStatus.purchaseConfirmation()}"></strong><span> 건</span></td>
 											<td style="border: none; padding: 0; text-align: center">
 												<a href="/my/member/grade" class="btn btn-outline-dark btn-sm mb-2" style="color:#ffffff">등급혜택 안내</a>
 <!--													<button class="btn btn-outline-dark btn-sm mb-2">등급혜택 안내</button>-->
@@ -373,7 +373,6 @@
 											<td style="border: none; padding: 0;">찜<strong class="h5" style="margin-left: 10px">1</strong><span> 건</span></td>
 											<td style="border: none; padding: 0; text-align: center">
 												<a href="/my/member/modify" class="btn btn-outline-dark btn-sm mb-2" style="color:#ffffff">회원정보 수정</a>
-<!--												<button class="btn btn-outline-dark btn-sm">회원정보 수정</button>-->
 											</td>
 										</tr>
 										</tbody>
@@ -390,12 +389,12 @@
 <!--						Start 나의 주문 현황 content-->
 						<div class="col-12" style="display: flex; justify-content: space-between; padding:0;">
 							<div>
-								<h3 class="d-inline">나의 주문현황 </h3>
-								<span class="d-inline" style="color:#bbbbbd;">최근 6개월 기준</span>
+								<h3 class="d-inline">나의 주문 내역</h3>
+								<span class="d-inline" style="color:#bbbbbd;"> 모든 주문 내역을 한눈에!</span>
 							</div>
 						</div>
 						<div class="col-12" style="display: flex; justify-content: flex-end; padding: 0;">
-							<span class="d-inline">더보기</span>
+							<a href="/my/orders">더보기</a>
 						</div>
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
@@ -403,23 +402,18 @@
 								<table style="border-collapse: collapse">
 									<tbody>
 									<tr style="text-align: center;">
-										<td>미입금</td>
-										<td>출고 대기</td>
+										<td>결제 대기</td>
+										<td>배송전</td>
 										<td>배송중</td>
 										<td>배송완료</td>
 										<td>취소/교환/반품</td>
 									</tr>
 									<tr style="text-align: center;">
-										<td>0건</td>
-										<td>0건</td>
-										<td>0건</td>
-										<td>0건</td>
-										<td>0건</td>
-<!--										<td><strong class="h6" style="margin-left: 10px" th:text="미입금 타임리프로 넣기"></strong> 건</td>-->
-<!--										<td><strong class="h5" style="margin-left: 10px" th:text="출고 대기 타임리프로 넣기"></strong>건</td>-->
-<!--										<td><strong class="h5" style="margin-left: 10px" th:text="배송중 타임리프로 넣기"></strong>건</td>-->
-<!--										<td><strong class="h5" style="margin-left: 10px" th:text="배송완료 타임리프로 넣기"></strong>건</td>-->
-<!--										<td><strong class="h5" style="margin-left: 10px" th:text="취소/교환/반품 타임리프로 넣기"></strong>건</td>-->
+										<td><strong th:text="${myOrderStatus.pendingPayment()}">건</strong></td>
+										<td><strong th:text="${myOrderStatus.beforeDelivery()}">건</strong></td>
+										<td><strong th:text="${myOrderStatus.shipping()}">건</strong></td>
+										<td><strong th:text="${myOrderStatus.deliveryComplete()}">건</strong></td>
+										<td><strong th:text="${myOrderStatus.cancellationExchangeRefund()}">건</strong></td>
 									</tr>
 									</tbody>
 								</table>
@@ -438,7 +432,7 @@
 							</div>
 						</div>
 						<div class="col-12" style="display: flex; justify-content: flex-end; padding: 0;">
-							<span class="d-inline">더보기</span>
+							<a href="#">더보기</a>
 						</div>
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
