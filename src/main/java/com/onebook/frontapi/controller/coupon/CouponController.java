@@ -72,7 +72,6 @@ public class CouponController {
 
     }
 
-
     @PostMapping("/coupon/price-for-category/create")
     public String createPriceCouponForCategory(@ModelAttribute CreateCouponRequest createCouponRequest){
         couponService.createPriceCouponForCategory(createCouponRequest);
