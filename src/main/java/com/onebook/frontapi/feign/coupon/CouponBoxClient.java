@@ -15,6 +15,6 @@ public interface CouponBoxClient {
     @PostMapping("/task/coupon/issue/welcome/{login-id}")
     ResponseEntity<IssuedCouponFeignResponse> issueWelcomeCouponToMember(@PathVariable(name = "login-id") String loginId);
 
-    @GetMapping("/task/coupon/coupon-box/{member-id}")
-    ResponseEntity<Page<IssuedCouponFeignResponse>> getIssuedCouponsByMemberId(Pageable pageable, @PathVariable(name = "member-id")Long memberId);
+    @GetMapping("/task/coupon/coupon-box")
+    ResponseEntity<Page<IssuedCouponFeignResponse>> getIssuedCouponsByMemberId(Pageable pageable);
 }
