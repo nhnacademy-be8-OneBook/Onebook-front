@@ -174,7 +174,16 @@
                             <div class="product-buy">
 
                                 <div class="add-to-cart">
-                                    <a href="#" class="btn">장바구니</a>
+
+                                    <!-- 김주혁 추가 start -->
+                                    <form action="/cart" method="POST" id="add-to-cart-form">
+                                        <input type="hidden" name="bookId" th:value="${book.bookId}">
+                                        <input type="hidden" name="quantity" id="hidden-quantity" value="1">
+                                        <button type="submit" class="btn">장바구니</button>
+                                    </form>
+                                    <!-- 김주혁 추가 end -->
+
+<!--                                    <a href="#" class="btn">장바구니</a>-->
                                     <a href="#" class="btn min"><i class="ti-heart"></i></a>
 <!--                                    <a href="#" class="btn min"><i class="fa fa-compress"></i></a>-->
                                 </div>
@@ -377,7 +386,41 @@
                 input.val(minValue);
             }
         });
+
+        // 김주혁 - 추가 start: 첫 번째 quantity 값 변경 시 두 번째 폼에 동기화
+        $('#quantity-input').on('change', function() {
+            var quantity = $(this).val();
+            $('#hidden-quantity').val(quantity);
+        });
+        // 김주혁 - 추가 end
+
     });
+
+    // 김주혁 - 추가 start: 장바구니 제출 return 값을 true/false로 받아서 그에 맞는 응답 처리.
+    $(document).ready(function () {
+        $('#add-to-cart-form').on('submit', function (e) {
+            e.preventDefault(); // 기본 폼 제출 방지
+
+            const form = $(this);
+            const url = form.attr('action'); // "/cart"
+            const data = form.serialize(); // 폼 데이터를 URL 인코딩된 문자열로 변환
+
+            $.post(url, data, function (response) {
+                // 서버에서 성공 여부를 true/false로 받는 경우 처리
+                if (response === true) { // 성공
+                    if (confirm('장바구니로 이동하시겠습니까?')) {
+                        window.location.href = '/cart'; // 장바구니 페이지로 이동
+                    }
+                } else { // 실패
+                    alert('장바구니 추가에 실패했습니다. 다시 시도해주세요.');
+                }
+            }).fail(function () {
+                // 요청 실패 처리
+                alert('서버 요청에 실패했습니다. 네트워크 상태를 확인해주세요.');
+            });
+        });
+    });
+    // 김주혁 - 추가 end: 장바구니 제출 return 값을 true/false로 받아서 그에 맞는 응답 처리.
 
 
     const currentBookId = [[${book.bookId}]];
