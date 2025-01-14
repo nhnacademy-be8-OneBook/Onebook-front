@@ -7,4 +7,3 @@ public interface PointService {
     // 포인트 내역 가져오기
     Page<PointLogResponse> getMemberPointHistories();
 }
-
