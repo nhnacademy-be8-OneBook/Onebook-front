@@ -27,7 +27,7 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
 
             Cookie cookie = new Cookie(DORMANT_AUTH, session.getId());
             cookie.setHttpOnly(true);
-            cookie.setMaxAge(60*60); // 휴면 인증용 쿠키 1시간.
+            cookie.setMaxAge(5*60); // 휴면 인증용 쿠키 5분.
             cookie.setPath("/");
             response.addCookie(cookie);
 

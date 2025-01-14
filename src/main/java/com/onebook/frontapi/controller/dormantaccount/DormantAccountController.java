@@ -64,6 +64,7 @@ public class DormantAccountController {
             if(c.getName().equals(DORMANT_AUTH)) {
                 HttpSession session = request.getSession(false);
                 loginId = session.getAttribute("loginId").toString();
+                c.setMaxAge(0);
             }
         }
 
