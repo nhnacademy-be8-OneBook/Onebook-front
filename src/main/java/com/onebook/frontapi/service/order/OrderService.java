@@ -3,6 +3,8 @@ package com.onebook.frontapi.service.order;
 import com.onebook.frontapi.dto.order.*;
 import com.onebook.frontapi.feign.order.OrderClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public class OrderService {
         return orderClient.createOrder(orderFormRequest);
     }
 
-    public List<OrderResponse> getAllOrders() {
-        return orderClient.findAllOrders().stream().map(OrderResponse::fromFeign).toList();
+    public Page<OrderResponse> getAllOrders(Pageable pageable) {
+        return orderClient.findAllOrders(pageable).map(OrderResponse::fromFeign);
     }
 
     public List<OrderByStatusResponseDto> getOrdersByStatus(String status) {

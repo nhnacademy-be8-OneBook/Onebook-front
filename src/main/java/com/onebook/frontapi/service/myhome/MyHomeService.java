@@ -3,6 +3,7 @@ package com.onebook.frontapi.service.myhome;
 import com.onebook.frontapi.dto.myhome.MyOrderStatusResponse;
 import com.onebook.frontapi.dto.order.OrderResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class MyHomeService {
-    public MyOrderStatusResponse getMyOrderStatus(List<OrderResponse> orderResponses) {
+    public MyOrderStatusResponse getMyOrderStatus(Page<OrderResponse> orderResponses) {
         // 상태별 카운트를 저장하는 맵.
         Map<String, Integer> statusCountMap = new HashMap<>();
 

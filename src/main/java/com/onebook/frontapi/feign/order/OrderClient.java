@@ -5,6 +5,8 @@ import com.onebook.frontapi.dto.order.OrderDetailFeignResponse;
 import com.onebook.frontapi.dto.order.OrderFormRequest;
 import com.onebook.frontapi.dto.order.OrderFeignResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public interface OrderClient {
 
     // 사용자의 모든 주문 불러오기
     @GetMapping("/task/orders")
-    List<OrderFeignResponse> findAllOrders();
+    Page<OrderFeignResponse> findAllOrders(Pageable pageable);
 
     // 주문 상태에 따른 주문 리스트 불러오기
     @GetMapping("/task/admin/orders")
