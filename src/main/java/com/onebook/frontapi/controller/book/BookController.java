@@ -8,6 +8,7 @@ import com.onebook.frontapi.dto.book.BookSaveDTO;
 import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.dto.publisher.PublisherDTO;
 import com.onebook.frontapi.dto.review.ReviewPageResponseDto;
+import com.onebook.frontapi.dto.stock.StockDTO;
 import com.onebook.frontapi.dto.tag.TagResponse;
 import com.onebook.frontapi.feign.review.ReviewClient;
 import com.onebook.frontapi.service.author.AuthorService;
@@ -16,6 +17,7 @@ import com.onebook.frontapi.service.book.BookCategoryService;
 import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.image.ImageService;
 import com.onebook.frontapi.service.publisher.PublisherService;
+import com.onebook.frontapi.service.stock.StockService;
 import com.onebook.frontapi.service.tag.TagService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +46,7 @@ public class BookController {
     private final PublisherService publisherService;
     private final TagService tagService;
     private final ImageService imageService;
+    private final StockService stockService;
 
     private final ReviewClient reviewClient;
 
@@ -63,7 +66,9 @@ public class BookController {
         // 기존 도서 및 저자 정보 로드
         BookDTO book = bookService.getBook(bookId);
         BookAuthorDTO bookAuthor = bookAuthorService.getBookAuthor(bookId);
+        BookCategoryDTO category = bookCategoryService.getBookCategoryByBookId(bookId);
         AuthorDTO author = authorService.getAuthor(bookAuthor.getAuthor().getAuthorId());
+        StockDTO stock = stockService.getStock(bookId);
 
         // 이미지 URL 처리
         if(Objects.isNull(url) || url.isEmpty()) {
@@ -73,8 +78,10 @@ public class BookController {
             model.addAttribute("url", url);
         }
 
+        model.addAttribute("category", category.getCategory());
         model.addAttribute("book", book);
         model.addAttribute("author", author);
+        model.addAttribute("stock", stock);
 
         // 리뷰 데이터 로드 - 첫 페이지, 페이지 사이즈 5
         int initialPage = 0;

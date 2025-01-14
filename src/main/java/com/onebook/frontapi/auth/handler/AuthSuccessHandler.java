@@ -5,6 +5,7 @@ import com.onebook.frontapi.dto.auth.JwtLoginIdRequest;
 import com.onebook.frontapi.dto.auth.TokenResponse;
 import com.onebook.frontapi.feign.auth.AuthFeignClient;
 import com.onebook.frontapi.feign.member.MemberClient;
+import com.onebook.frontapi.service.cart.CartService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     private final AuthFeignClient authFeignClient;
 
     private final MemberClient memberClient;
+    private final CartService cartService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -62,6 +64,11 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
          * 멤버 로그인 기록 업데이트 by loginId
          */
         memberClient.updateLoginHistoryRequest(username);
+
+        /**
+         * 회원 장바구니 가져와서 redis 에 저장하고 쿠키 유효 기간 업데이트.
+         */
+        cartService.saveCartFromDbToRedisByLoginId(username, request, response);
 
 
 //        response.addHeader("Authorization", jwtToken.getBody().getTokenType() + " " + jwtToken.getBody().getAccessToken());

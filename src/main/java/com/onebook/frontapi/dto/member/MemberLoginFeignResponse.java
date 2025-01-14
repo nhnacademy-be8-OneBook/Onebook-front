@@ -1,6 +1,6 @@
 package com.onebook.frontapi.dto.member;
 
-public record MemberLoginResponseDto(
+public record MemberLoginFeignResponse(
         String loginId,
         String password,
         String role,

@@ -1,10 +1,8 @@
 package com.onebook.frontapi.service.member;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onebook.frontapi.adaptor.member.MemberAdaptor;
-import com.onebook.frontapi.dto.grade.GradeResponseDto;
-import com.onebook.frontapi.dto.grade.GradeViewDto;
+import com.onebook.frontapi.dto.grade.GradeFeignResponse;
+import com.onebook.frontapi.dto.grade.GradeResponse;
 import com.onebook.frontapi.dto.member.*;
 import com.onebook.frontapi.feign.member.MemberClient;
 import feign.FeignException;
@@ -27,8 +25,8 @@ public class MemberService {
     /**
      * 회원 가입
      */
-    public boolean joinMember(MemberRegisterRequestDto memberRegisterRequestDto) {
-        if(memberAdaptor.join(memberRegisterRequestDto)) {
+    public boolean joinMember(MemberRegisterRequest memberRegisterRequest) {
+        if(memberAdaptor.join(memberRegisterRequest)) {
             return true;
         }
         return false;
@@ -37,10 +35,10 @@ public class MemberService {
     /**
      * 회원 조회
      */
-    public MemberViewDto getMember() {
+    public MemberResponse getMember() {
         try {
-            MemberResponseDto memberResponseDto = memberClient.getRequest();
-            return MemberViewDto.from(memberResponseDto);
+            MemberFeignResponse memberFeignResponse = memberClient.getRequest();
+            return MemberResponse.from(memberFeignResponse);
         }catch(FeignException e) {{
             throw new RuntimeException("task api 로부터 회원 조회 실패.");
         }}
@@ -49,23 +47,23 @@ public class MemberService {
     /**
      * 회원정보 수정
      */
-    public MemberViewDto modifyMember(MemberModifyRequestDto memberModifyRequestDto) {
-            MemberResponseDto memberResponseDto = memberClient.modifyRequest(memberModifyRequestDto);
-            return MemberViewDto.from(memberResponseDto);
+    public MemberResponse modifyMember(MemberModifyRequest memberModifyRequest) {
+            MemberFeignResponse memberFeignResponse = memberClient.modifyRequest(memberModifyRequest);
+            return MemberResponse.from(memberFeignResponse);
     }
 
     /**
      * 회원 등급 조회
      */
-    public GradeViewDto getMemberGrade() {
+    public GradeResponse getMemberGrade() {
         try {
-            GradeResponseDto gradeResponseDto = memberClient.getMemberGradeRequest();
-            GradeViewDto gradeViewDto = new GradeViewDto(
-                    gradeResponseDto.name(),
-                    gradeResponseDto.accumulationRate(),
-                    gradeResponseDto.description()
+            GradeFeignResponse gradeFeignResponse = memberClient.getMemberGradeRequest();
+            GradeResponse gradeResponse = new GradeResponse(
+                    gradeFeignResponse.name(),
+                    gradeFeignResponse.accumulationRate(),
+                    gradeFeignResponse.description()
             );
-            return gradeViewDto;
+            return gradeResponse;
         }catch(FeignException e) {
             throw new RuntimeException("task api 로부터 회원 등급 조회 실패");
         }
@@ -74,13 +72,13 @@ public class MemberService {
     /**
      * 회원 여부 조회
      */
-    public boolean checkMembership(MembershipCheckRequestDto membershipCheckRequestDto) {
-        MembershipCheckResponseDto membershipCheckResponseDto = memberClient.checkMembershipRequest(membershipCheckRequestDto);
-        if(Objects.isNull(membershipCheckResponseDto)) {
-            throw new IllegalArgumentException("MembershipCheckResponseDto 가 null 입니다.");
+    public boolean checkMembership(MembershipCheckRequest membershipCheckRequest) {
+        MembershipCheckFeignResponse membershipCheckFeignResponse = memberClient.checkMembershipRequest(membershipCheckRequest);
+        if(Objects.isNull(membershipCheckFeignResponse)) {
+            throw new IllegalArgumentException("MembershipCheckFeignResponse 가 null 입니다.");
         }
 
-        if(membershipCheckResponseDto.isMember()) {
+        if(membershipCheckFeignResponse.isMember()) {
             return true;
         }
 

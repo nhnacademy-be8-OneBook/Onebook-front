@@ -3,7 +3,10 @@ package com.onebook.frontapi.adaptor.member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onebook.frontapi.dto.member.ErrorResponse;
-import com.onebook.frontapi.dto.member.MemberRegisterRequestDto;
+import com.onebook.frontapi.dto.member.MemberFeignResponse;
+import com.onebook.frontapi.dto.member.MemberRegisterRequest;
+import com.onebook.frontapi.dto.member.MemberResponse;
+import com.onebook.frontapi.feign.coupon.CouponBoxClient;
 import com.onebook.frontapi.feign.member.MemberClient;
 import feign.FeignException;
 import jakarta.validation.Valid;
@@ -20,11 +23,15 @@ public class MemberAdaptor {
      */
 
     private final MemberClient memberClient;
+    private final CouponBoxClient couponBoxClient;
 
-    public boolean join(@Valid MemberRegisterRequestDto memberRegisterRequestDto) {
+    public boolean join(@Valid MemberRegisterRequest memberRegisterRequest) {
 
         try {
-            memberClient.joinRequest(memberRegisterRequestDto);
+           MemberFeignResponse memberFeignResponse =  memberClient.joinRequest(memberRegisterRequest);
+
+           couponBoxClient.issueWelcomeCouponToMember(memberFeignResponse.loginId());
+           log.info("----- 웰 컴 쿠 폰 발 급 됨 -----");
 
         }catch(FeignException e) {
             String errorJson = e.contentUTF8();

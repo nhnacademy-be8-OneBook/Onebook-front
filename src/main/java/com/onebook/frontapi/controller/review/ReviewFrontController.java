@@ -51,5 +51,16 @@ public class ReviewFrontController {
         return ResponseEntity.ok(updated);
     }
 
+    @GetMapping("/{bookId}/average")
+    public ResponseEntity<Double> getReviewAverage(@PathVariable Long bookId) {
+        Double averageGrade = reviewClient.getReviewGradeAverage(bookId);
+        return ResponseEntity.ok(averageGrade);
+    }
+
+    @GetMapping("/{bookId}/count")
+    public ResponseEntity<Integer> getReviewCount(@PathVariable Long bookId) {
+        int reviewCount = reviewClient.getReviewCount(bookId);
+        return ResponseEntity.ok(reviewCount);
+    }
     // 리뷰 삭제 (필요 시 추가)
 }

@@ -152,5 +152,11 @@ public class AdminBookController {
         return "redirect:/admin/book/list";
     }
 
+    @GetMapping("/aladin")
+    public String saveAladinBook(){
+        bookService.AladinBook();
+        return "redirect:/admin/";
+    }
+
 
 }

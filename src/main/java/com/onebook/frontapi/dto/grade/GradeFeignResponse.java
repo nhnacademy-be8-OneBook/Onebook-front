@@ -1,6 +1,6 @@
 package com.onebook.frontapi.dto.grade;
 
-public record GradeResponseDto(
+public record GradeFeignResponse(
 
         /**
          * id

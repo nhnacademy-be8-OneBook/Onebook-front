@@ -3,7 +3,7 @@ package com.onebook.frontapi.dto.member;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record MemberResponseDto(
+public record MemberFeignResponse(
 //        Integer gradeId, // 1: REGULAR, 2: ROYAL, 3: GOLD, 4: PLATINUM
 //        Integer roleId, // 1: MEMBER, 2: ADMIN
         String grade,

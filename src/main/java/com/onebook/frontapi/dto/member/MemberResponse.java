@@ -2,9 +2,8 @@ package com.onebook.frontapi.dto.member;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-public record MemberViewDto(
+public record MemberResponse(
         String grade,
         String name,
         String loginId,
@@ -17,19 +16,19 @@ public record MemberViewDto(
         LocalDateTime lastLoginAt
 )
 {
-    public static MemberViewDto from(MemberResponseDto memberResponseDto) {
-        return new MemberViewDto(
-//                convertGradeToString(memberResponseDto.gradeId()),
-                memberResponseDto.grade(),
-                maskName(memberResponseDto.name()),
-                memberResponseDto.loginId(),
-                memberResponseDto.dateOfBirth(),
-                memberResponseDto.gender(),
-                maskEmail(memberResponseDto.email()),
-                maskPhoneNumber(memberResponseDto.phoneNumber()),
-                memberResponseDto.status(),
-                memberResponseDto.createdAt(),
-                memberResponseDto.lastLoginAt()
+    public static MemberResponse from(MemberFeignResponse memberFeignResponse) {
+        return new MemberResponse(
+//                convertGradeToString(memberFeignResponse.gradeId()),
+                memberFeignResponse.grade(),
+                maskName(memberFeignResponse.name()),
+                memberFeignResponse.loginId(),
+                memberFeignResponse.dateOfBirth(),
+                memberFeignResponse.gender(),
+                maskEmail(memberFeignResponse.email()),
+                maskPhoneNumber(memberFeignResponse.phoneNumber()),
+                memberFeignResponse.status(),
+                memberFeignResponse.createdAt(),
+                memberFeignResponse.lastLoginAt()
         );
     }
 

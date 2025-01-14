@@ -1,8 +1,7 @@
 package com.onebook.frontapi.auth.userdetails;
 
 import com.onebook.frontapi.auth.handler.MemberStatusValidator;
-import com.onebook.frontapi.dto.member.MemberLoginRequestDto;
-import com.onebook.frontapi.dto.member.MemberLoginResponseDto;
+import com.onebook.frontapi.dto.member.MemberLoginFeignResponse;
 import com.onebook.frontapi.feign.member.MemberFeignClient;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -30,16 +28,16 @@ public class FeignUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            ResponseEntity<MemberLoginResponseDto> memberLoginResponseDtoResponseEntity = memberFeignClient.loadByMemberId(username);
+            ResponseEntity<MemberLoginFeignResponse> memberLoginResponseDtoResponseEntity = memberFeignClient.loadByMemberId(username);
 
-            MemberLoginResponseDto memberLoginResponseDto = memberLoginResponseDtoResponseEntity.getBody();
+            MemberLoginFeignResponse memberLoginFeignResponse = memberLoginResponseDtoResponseEntity.getBody();
 
-            log.info("loginId: {}, password: {}, role: {}, status: {}", memberLoginResponseDto.loginId(), memberLoginResponseDto.password(), memberLoginResponseDto.role(), memberLoginResponseDto.status());
+            log.info("loginId: {}, password: {}, role: {}, status: {}", memberLoginFeignResponse.loginId(), memberLoginFeignResponse.password(), memberLoginFeignResponse.role(), memberLoginFeignResponse.status());
 
             // 멤버 상태 검증 후 그에 따른 적절한 예외처리.
-            memberStatusValidator.validateMemberStatus(memberLoginResponseDto.status());
+            memberStatusValidator.validateMemberStatus(memberLoginFeignResponse.status());
 
-            return new User(memberLoginResponseDto.loginId(), memberLoginResponseDto.password(), List.of(new SimpleGrantedAuthority("ROLE_" + memberLoginResponseDto.role())));
+            return new User(memberLoginFeignResponse.loginId(), memberLoginFeignResponse.password(), List.of(new SimpleGrantedAuthority("ROLE_" + memberLoginFeignResponse.role())));
 
         }catch(FeignException e) {
             throw new IllegalArgumentException("존재하지 않는 로그인 ID 입니다.");
