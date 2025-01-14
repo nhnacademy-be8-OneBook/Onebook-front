@@ -60,6 +60,8 @@
 
     <link rel="stylesheet" href="#" id="colors">
 
+    <link rel="stylesheet" href="/css/order/order-my-style.css">
+
 </head>
 <body class="js">
 
@@ -380,28 +382,32 @@
                 <hr style="border: 0; height: 7px; background-color: #e1e2e6;">
                 <br/>
 
-                <!--						Start 주문/배송 현황 content-->
+                <!--	Start 주문/배송 현황 content  -->
 
-                <div th:each="order : ${orderList}">
-                    <div class="col-12" style="display: flex; padding:0;">
-                        <div>
-                            <h4 class="d-inline" th:text="${#temporals.format(order.dateTime, 'yyyy-MM-dd')}"></h4>
+                <div class="order-card" th:each="order : ${orderList}">
+                    <div class="order-header">
+                        <h4 class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}"></h4>
+                        <a class="order-details-link" href="#" th:href="@{/order/detail(orderId=${order.orderId})}">주문 상세</a>
+                    </div>
+                    <div class="order-body">
+<!--                        <img class="order-image" th:src="@{/images/order.jpg}" alt="상품 이미지">-->
+                        <p class="orderer" th:text="${order.orderStatusName}">
+                        <p class="order-image" th:text="상품이미지">
+                        <div class="order-info">
+                            <h3 class="order-name" th:text="${order.orderName}"></h3>
+                            <p class="orderer" th:text="${order.orderer}"></p>
+                            <p class="order-total-price" th:text="${order.totalPrice}"></p>
                         </div>
                     </div>
-                    <div class="col-12" style="display: flex; justify-content: flex-end; padding: 0;">
-                        <tr>
-                            <td th:text="${order.orderer}"></td>
-                            <td th:text="${order.deliveryPrice}"></td>
-                            <td th:text="${order.totalPrice}"></td>
-                            <td th:text="${order.orderStatusName}"></td>
-                        </tr>
-                    </div>
-                    <div>
-                        <hr style="border: 0; height: 1px; background-color: #e1e2e6;">
+                    <div class="order-footer">
+                        <button class="order-action" type="button">반품 상세</button>
+                        <button class="order-action" type="button">재구매</button>
+                        <button class="order-action" type="button">회수 배송 조회</button>
                     </div>
                 </div>
 
-                <!--						Done 주문/배송 현황 content-->
+
+                <!--	Done 주문/배송 현황 content  -->
 
             </div>
         </div>
