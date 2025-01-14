@@ -45,5 +45,29 @@ public class CouponService {
         return couponClient.createPriceCouponForCategory(createCouponRequest).getBody();
     }
 
+    public Page<CouponResponse> getRateCouponsForBookByPolicyId(Long policyId, int pageNo){
+
+        Pageable pageable = PageRequest.of(pageNo,PAGE_SIZE, Sort.by("creationTime").descending());
+        return couponClient.getRateCouponsForBookByPolicyId(policyId,pageable).getBody();
+    }
+
+    public Page<CouponResponse> getRateCouponsForCategoryByPolicyId(Long policyId, int pageNo){
+
+        Pageable pageable = PageRequest.of(pageNo,PAGE_SIZE, Sort.by("creationTime").descending());
+        return couponClient.getRateCouponsForCategoryByPolicyId(policyId,pageable).getBody();
+    }
+
+    public Page<CouponResponse> getPriceCouponsForBookByPolicyId(Long policyId, int pageNo){
+
+        Pageable pageable = PageRequest.of(pageNo,PAGE_SIZE, Sort.by("creationTime").descending());
+        return couponClient.getPriceCouponsForBookByPolicyId(policyId,pageable).getBody();
+    }
+
+    public Page<CouponResponse> getPriceCouponsForCategoryByPolicyId(Long policyId, int pageNo){
+
+        Pageable pageable = PageRequest.of(pageNo,PAGE_SIZE, Sort.by("creationTime").descending());
+        return couponClient.getPriceCouponsForCategoryByPolicyId(policyId,pageable).getBody();
+    }
+
 
 }

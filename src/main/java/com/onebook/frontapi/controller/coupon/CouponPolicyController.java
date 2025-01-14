@@ -2,10 +2,7 @@ package com.onebook.frontapi.controller.coupon;
 
 import com.onebook.frontapi.dto.category.CategoryDTO;
 import com.onebook.frontapi.dto.coupon.request.couponPolicy.*;
-import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForBookResponse;
-import com.onebook.frontapi.dto.coupon.response.couponPolicy.PricePolicyForCategoryResponse;
-import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForBookResponse;
-import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForCategoryResponse;
+import com.onebook.frontapi.dto.coupon.response.couponPolicy.*;
 import com.onebook.frontapi.service.coupon.CouponPolicyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -115,7 +112,7 @@ public class CouponPolicyController {
     @GetMapping("/coupon-policies/rate/book")
     public String getRatePoliciesForBook
     (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model model){
-        Page<RatePolicyForBookResponse> policyList = couponPolicyService.getRatePoliciesForBook(pageNo);
+        Page<RatePolicyForBookAndCouponCountResponse> policyList = couponPolicyService.getRatePoliciesForBook(pageNo);
 
         model.addAttribute("policyList",policyList.getContent());
         model.addAttribute("totalPages",policyList.getTotalPages());
@@ -126,7 +123,7 @@ public class CouponPolicyController {
     @GetMapping("/coupon-policies/rate/category")
     public String getRatePoliciesForCategory
     (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model model){
-        Page<RatePolicyForCategoryResponse> policyList = couponPolicyService.getRatePoliciesForCategory(pageNo);
+        Page<RatePolicyForCategoryAndCouponCountResponse> policyList = couponPolicyService.getRatePoliciesForCategory(pageNo);
 
         model.addAttribute("policyList",policyList.getContent());
         model.addAttribute("totalPages",policyList.getTotalPages());
@@ -137,7 +134,7 @@ public class CouponPolicyController {
     @GetMapping("/coupon-policies/price/book")
     public String getPricePoliciesForBook
     (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model model){
-        Page<PricePolicyForBookResponse> policyList = couponPolicyService.getPricePoliciesForBook(pageNo);
+        Page<PricePolicyForBookAndCouponCountResponse> policyList = couponPolicyService.getPricePoliciesForBook(pageNo);
 
         model.addAttribute("policyList",policyList.getContent());
         model.addAttribute("totalPages",policyList.getTotalPages());
@@ -148,7 +145,7 @@ public class CouponPolicyController {
     @GetMapping("/coupon-policies/price/category")
     public String getPricePoliciesForCategory
     (@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model model){
-        Page<PricePolicyForCategoryResponse> policyList = couponPolicyService.getPricePoliciesForCategory(pageNo);
+        Page<PricePolicyForCategoryAndCouponCountResponse> policyList = couponPolicyService.getPricePoliciesForCategory(pageNo);
 
         model.addAttribute("policyList",policyList.getContent());
         model.addAttribute("totalPages",policyList.getTotalPages());

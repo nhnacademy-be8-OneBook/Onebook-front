@@ -455,6 +455,8 @@
 												<div class="product-content">
 													<div class="product-price">
 														<span th:text="${policy.policyStatusName}"></span>
+														<span th:text="'잔여쿠폰: ' + ${policy.getCouponCount()}"></span>
+
 													</div>
 													<h3 class="title"><a href="product-details.html" th:text="${policy.name}">Women hot collection</a></h3>
 													<hr>
@@ -472,20 +474,24 @@
 													<input type="hidden" name="_method" value="DELETE">
 													<button type="submit" class="btn">정책 삭제</button>
 													<span th:if="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
-															<button class="btn float-right bg-danger">만료된 정책</button>
+															<button class="btn float-right border-0">만료된 정책</button>
 													</span>
 													<span th:unless="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
 															<a th:href="'/coupon/price-for-category/'+${policy.getId()}+'/create'" class="btn float-right bg-success">쿠폰 생성</a>
+														<a th:href="'/coupon/price-for-category/'+${policy.getId()} + '/create'" class="btn float-right">쿠폰 발급</a>
+
 													</span>
 												</form>
 												</span>
 													<span th:if="${policy.getPolicyStatusName().equals('사용됨')}">
 													<button type="submit" class="btn">정책 삭제</button>
 														<span th:if="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
-															<button class="btn float-right bg-danger">만료된 정책</button>
+															<button class="btn float-right border-0">만료된 정책</button>
 														</span>
 														<span th:unless="${policy.getExpirationPeriodEnd().isBefore(T(java.time.LocalDateTime).now())}">
 															<a th:href="'/coupon/price-for-category/'+${policy.getId()}+'/create'" class="btn float-right bg-success">쿠폰 생성</a>
+															<a th:href="'/coupon/price-for-category/'+${policy.getId()} + '/create'" class="btn float-right">쿠폰 발급</a>
+
 														</span>
 													</span>
 												</div>
