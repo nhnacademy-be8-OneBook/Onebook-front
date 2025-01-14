@@ -59,19 +59,19 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <h2>Book Registration</h2>
+    <h2>도서 등록</h2>
 
     <div th:replace="~{fragments/header :: header}"></div>
     <form method="post" action="/admin/book/create" enctype="multipart/form-data">
       <!-- Title -->
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">제목</label>
         <input type="text" id="title" name="title" class="form-control" maxlength="100" required placeholder="Enter book title">
       </div>
 
       <!-- Category -->
       <div class="form-group">
-        <label for="categoryName">Category</label>
+        <label for="categoryName">카테고리</label>
         <div class="input-group">
           <input type="hidden" id="categoryId" name="categoryId">
           <input type="text" id="categoryName" class="form-control" readonly placeholder="Select a Category">
@@ -91,7 +91,7 @@
 
       <!-- Author -->
       <div class="form-group">
-        <label for="name">Author</label>
+        <label for="name">작가</label>
         <div class="input-group">
           <input type="hidden" id="authorId" name="authorId">
           <!-- 표시용 이름 필드 -->
@@ -112,19 +112,19 @@
 
       <!-- Content -->
       <div class="form-group">
-        <label for="content">Content</label>
+        <label for="content">목차</label>
         <textarea id="content" name="content" class="form-control" required placeholder="Enter book content"></textarea>
       </div>
 
       <!-- Pubdate -->
       <div class="form-group">
-        <label for="pubdate">Publication Date</label>
+        <label for="pubdate">출판일</label>
         <input type="date" id="pubdate" name="pubdate" class="form-control" required placeholder="Enter publication date">
       </div>
 
       <!-- Description -->
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">설명</label>
         <textarea id="description" name="description" class="form-control" required placeholder="Enter book description"></textarea>
       </div>
 
@@ -136,20 +136,20 @@
 
       <!-- Price -->
       <div class="form-group">
-        <label for="price">Price</label>
+        <label for="price">정가</label>
         <input type="number" id="price" name="price" class="form-control" required placeholder="Enter price" min="0">
       </div>
 
       <!-- Price Sales -->
       <div class="form-group">
-        <label for="priceSales">Sales Price</label>
+        <label for="priceSales">할인가</label>
         <input type="number" id="priceSales" name="priceSales" class="form-control" required placeholder="Enter sales price" min="0">
       </div>
 
 
       <!-- Stock -->
       <div class="form-group">
-        <label for="stock">Stock</label>
+        <label for="stock">재고</label>
         <input type="number" id="stock" name="stock" class="form-control" required placeholder="Enter stock quantity" min="0">
       </div>
 
@@ -162,7 +162,7 @@
 
       <!-- Publisher -->
       <div class="form-group">
-        <label for="publisherName">Publisher</label>
+        <label for="publisherName">출판사</label>
         <div class="input-group">
           <input type="hidden" id="publisherId" name="publisherId">
           <!-- 표시용 이름 필드 -->
@@ -184,7 +184,7 @@
 
       <!-- Tag -->
       <div class="form-group">
-        <label for="tagName">Tag</label>
+        <label for="tagName">태그</label>
         <div class="input-group">
           <input type="hidden" id="tagId" name="tagId">
           <!-- 표시용 이름 필드 -->
@@ -205,7 +205,7 @@
 
       <!-- Image Upload -->
       <div class="form-group">
-        <label for="image">Book Image</label>
+        <label for="image">이미지</label>
         <input type="file" id="image" name="image" class="form-control" accept="image/*">
       </div>
 
