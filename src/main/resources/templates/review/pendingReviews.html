@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>리뷰 작성 가능 도서 목록</title>
+    <style>
+        .fixed-size-img {
+            width: 80px;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
 <h1>아직 리뷰를 작성하지 않은 도서 목록</h1>
@@ -25,9 +31,10 @@
         <tr th:each="book : ${pendingBooks}">
             <td>
                 <img th:src="${book.bookImageUrl != null
-               ? #strings.replace(book.bookImageUrl, 'http://', 'https://')
-               : '/images/no_image.png'}" alt="책 이미지">
-
+                   ? #strings.replace(book.bookImageUrl, 'http://', 'https://')
+                   : '/images/no_image.png'}"
+                     alt="책 이미지"
+                     class="fixed-size-img">
             </td>
             <td th:text="${book.bookName}">책제목</td>
             <td th:text="${#temporals.format(book.purchasedAt, 'yyyy-MM-dd HH:mm')}"></td>
