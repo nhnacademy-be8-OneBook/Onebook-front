@@ -16,6 +16,9 @@ public interface CouponClient {
     @GetMapping("task/coupon")
     ResponseEntity<Page<CouponResponse>> getAllCoupons(Pageable pageable);
 
+    @GetMapping("/task/coupon/{coupon-number}")
+    ResponseEntity<CouponResponse> getCouponByCouponNumber(@PathVariable(name = "coupon-number") String couponNumber);
+
     @DeleteMapping("task/coupon/{coupon-number}")
     ResponseEntity<CouponResponse> deleteCoupon(@PathVariable(name = "coupon-number") String couponNumber);
 
