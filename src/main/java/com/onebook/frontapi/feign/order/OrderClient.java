@@ -21,6 +21,10 @@ public interface OrderClient {
     @GetMapping("/task/orders")
     Page<OrderFeignResponse> findAllOrders(Pageable pageable);
 
+    // 사용자의 모든 주문 불러오기
+    @GetMapping("/task/orders/waiting")
+    Page<OrderFeignResponse> findWaitingOrders(Pageable pageable);
+
     // 주문 상태에 따른 주문 리스트 불러오기
     @GetMapping("/task/admin/orders")
     List<OrderByStatusResponseDto> findOrderByStatus(@RequestParam("status") String status);

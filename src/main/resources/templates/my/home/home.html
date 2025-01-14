@@ -310,6 +310,7 @@
 								<h3 class="title">쇼핑 정보</h3>
 								<ul class="categor-list">
 									<li><a href="/my/orders">주문 목록/배송 조회</a></li>
+									<li><a href="/my/orders/waiting">결제 대기</a></li>
 									<li><a href="#">취소/반품/교환 내역</a></li>
 									<li><a href="#">찜한 상품</a></li>
 								</ul>
@@ -409,7 +410,7 @@
 										<td>취소/교환/반품</td>
 									</tr>
 									<tr style="text-align: center;">
-										<td><strong th:text="${myOrderStatus.pendingPayment()}">건</strong></td>
+										<td><a href="/my/orders/waiting"><strong th:text="${myOrderStatus.pendingPayment()}">건</strong></a></td>
 										<td><strong th:text="${myOrderStatus.beforeDelivery()}">건</strong></td>
 										<td><strong th:text="${myOrderStatus.shipping()}">건</strong></td>
 										<td><strong th:text="${myOrderStatus.deliveryComplete()}">건</strong></td>

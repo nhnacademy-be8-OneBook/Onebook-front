@@ -22,6 +22,10 @@ public class OrderService {
         return orderClient.findAllOrders(pageable).map(OrderResponse::fromFeign);
     }
 
+    public Page<OrderResponse> getWaitingOrders(Pageable pageable) {
+        return orderClient.findWaitingOrders(pageable).map(OrderResponse::fromFeign);
+    }
+
     public List<OrderByStatusResponseDto> getOrdersByStatus(String status) {
         return orderClient.findOrderByStatus(status);
     }
