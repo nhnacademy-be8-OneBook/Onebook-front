@@ -1,6 +1,6 @@
 package com.onebook.frontapi.dto.dooraymessage;
 
-public record AuthResponseDto(
+public record AuthResponse(
         boolean success,
         String message
 ) { }

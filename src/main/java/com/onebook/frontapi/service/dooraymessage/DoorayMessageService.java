@@ -2,7 +2,7 @@ package com.onebook.frontapi.service.dooraymessage;
 
 import com.onebook.frontapi.adaptor.dooraymessage.DoorayMessageAdaptor;
 
-import com.onebook.frontapi.dto.dooraymessage.AuthResponseDto;
+import com.onebook.frontapi.dto.dooraymessage.AuthResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public class DoorayMessageService {
     /**
      * 두레이로 인증번호(6자리) 보내기.
      */
-    public AuthResponseDto requestDoorayMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public AuthResponse requestDoorayMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             // Dooray Message 인증용 세션, 쿠키 발급.
             HttpSession session = request.getSession(true);
@@ -48,16 +48,16 @@ public class DoorayMessageService {
             // 두레이 메신저로 인증 code 전송.
             doorayMessageAdaptor.send(code);
 
-            return new AuthResponseDto(true, "인증번호가 전송되었습니다");
+            return new AuthResponse(true, "인증번호가 전송되었습니다");
         }catch(Exception e) {
-            return new AuthResponseDto(false, "인증번호 발급 실패");
+            return new AuthResponse(false, "인증번호 발급 실패");
         }
     }
 
     /**
      * 인증번호 검증.
      */
-    public AuthResponseDto validateAuthCode(HttpServletRequest request, String code) throws Exception {
+    public AuthResponse validateAuthCode(HttpServletRequest request, String code) throws Exception {
 
         String sessionId = null;
         Cookie[] cookies = request.getCookies();
@@ -74,10 +74,10 @@ public class DoorayMessageService {
         String authCode = String.valueOf(redisTemplate.opsForValue().get(DOORAY_AUTH+sessionId));
 
         if(code.equals(authCode)) {
-            return new AuthResponseDto(true, "인증 성공");
+            return new AuthResponse(true, "인증 성공");
         }
 
-        return new AuthResponseDto(false, "인증 실패");
+        return new AuthResponse(false, "인증 실패");
 
     }
 

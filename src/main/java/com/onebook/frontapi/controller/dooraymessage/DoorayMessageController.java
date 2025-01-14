@@ -1,7 +1,7 @@
 package com.onebook.frontapi.controller.dooraymessage;
 
-import com.onebook.frontapi.dto.dooraymessage.AuthRequestDto;
-import com.onebook.frontapi.dto.dooraymessage.AuthResponseDto;
+import com.onebook.frontapi.dto.dooraymessage.AuthRequest;
+import com.onebook.frontapi.dto.dooraymessage.AuthResponse;
 import com.onebook.frontapi.service.dooraymessage.DoorayMessageService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ public class DoorayMessageController {
     private final DoorayMessageService doorayMessageService;
 
     @GetMapping
-    public ResponseEntity<AuthResponseDto> sendAuthenticationMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResponseEntity<AuthResponse> sendAuthenticationMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Dooray 인증을 시도한 흔적(쿠키)가 있으면 쿠키가 사라질때까지 두레이 인증 서비스 이용 불가능
         Cookie[] cookies = request.getCookies();
         for(Cookie c : cookies) {
@@ -27,13 +27,13 @@ public class DoorayMessageController {
             }
         }
 
-        AuthResponseDto result =  doorayMessageService.requestDoorayMessage(request, response);
+        AuthResponse result =  doorayMessageService.requestDoorayMessage(request, response);
         return ResponseEntity.ok().body(result);
     }
 
     @PostMapping
-    public ResponseEntity<AuthResponseDto> validateAuthenticationMessage(@RequestBody AuthRequestDto code, HttpServletRequest request) throws Exception {
-        AuthResponseDto result =  doorayMessageService.validateAuthCode(request, code.authCode());
+    public ResponseEntity<AuthResponse> validateAuthenticationMessage(@RequestBody AuthRequest code, HttpServletRequest request) throws Exception {
+        AuthResponse result =  doorayMessageService.validateAuthCode(request, code.authCode());
         return ResponseEntity.ok().body(result);
     }
 

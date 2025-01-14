@@ -1,5 +1,5 @@
 package com.onebook.frontapi.dto.dooraymessage;
 
-public record AuthRequestDto(
+public record AuthRequest(
         String authCode
 ) { }
