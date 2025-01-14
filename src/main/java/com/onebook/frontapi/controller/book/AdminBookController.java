@@ -40,7 +40,6 @@ public class AdminBookController {
     private final TagService tagService;
     private final BookCategoryService bookCategoryService;
     private final BookAuthorService bookAuthorService;
-    private final BookTagService bookTagService;
     private final StockService stockService;
 
 
@@ -121,18 +120,17 @@ public class AdminBookController {
         BookDTO book = bookService.getBook(bookId);
         BookAuthorDTO bookAuthor = bookAuthorService.getBookAuthor(bookId);
         BookCategoryDTO bookCategory = bookCategoryService.getBookCategoryByBookId(bookId);
-        BookTagDTO bookTag = bookTagService.getBookTagByBookId(bookId);
+
+
 
         CategoryDTO category = bookCategory.getCategory();
         AuthorDTO author = bookAuthor.getAuthor();
-        TagDTO tag = bookTag.getTag();
         StockDTO stock = stockService.getStock(bookId);
 
         model.addAttribute("book", book);
         model.addAttribute("category", category);
         model.addAttribute("author", author);
         model.addAttribute("stock", stock);
-        model.addAttribute("tag", tag);
         return "book/bookUpdateDelete";
     }
 
