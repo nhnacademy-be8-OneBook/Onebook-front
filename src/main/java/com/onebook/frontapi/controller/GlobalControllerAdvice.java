@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalControllerAdvice {
 
     private final CategoryService categoryService;

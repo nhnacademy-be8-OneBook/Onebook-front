@@ -15,7 +15,7 @@ public class AdminController {
 
     private final MemberService memberService;
 
-    @GetMapping("/")
+    @GetMapping()
     public String index(Model model) {
         MemberResponse memberResponse = memberService.getMember();
         model.addAttribute("member", memberResponse);
