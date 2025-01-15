@@ -15,44 +15,44 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "CouponPolicyClient",  url = "${onebook.gatewayUrl}")
 public interface CouponPolicyClient {
 
-    @PostMapping("task/policies/rate/book")
+    @PostMapping("/task/policies/rate/book")
     ResponseEntity<RatePolicyForBookResponse> addRatePolicyForBook
             (@RequestBody AddRatePolicyForBookRequest addRatePolicyForBookRequest);
 
-    @PostMapping("task/policies/rate/category")
+    @PostMapping("/task/policies/rate/category")
     ResponseEntity<RatePolicyForCategoryResponse> addRatePolicyForCategory
             (@RequestBody AddRatePolicyForCategoryRequest addRatePolicyForCategoryRequest);
 
-    @PostMapping("task/policies/price/book")
+    @PostMapping("/task/policies/price/book")
     ResponseEntity<PricePolicyForBookResponse> addPricePolicyForBook
             (@RequestBody AddPricePolicyForBookRequest addPricePolicyForBookRequest);
 
-    @PostMapping("task/policies/price/category")
+    @PostMapping("/task/policies/price/category")
     ResponseEntity<PricePolicyForCategoryResponse> addPricePolicyForCategory
             (@RequestBody AddPricePolicyForCategoryRequest addPricePolicyForCategoryRequest);
 
-    @GetMapping("task/policies/rate/book")
+    @GetMapping("/task/policies/rate/book")
     ResponseEntity<Page<RatePolicyForBookResponse>> getRatePoliciesForBook(Pageable pageable);
 
-    @GetMapping("task/policies/rate/category")
+    @GetMapping("/task/policies/rate/category")
     ResponseEntity<Page<RatePolicyForCategoryResponse>> getRatePoliciesForCategory(Pageable pageable);
 
-    @GetMapping("task/policies/price/book")
+    @GetMapping("/task/policies/price/book")
     ResponseEntity<Page<PricePolicyForBookResponse>> getPricePoliciesForBook(Pageable pageable);
 
-    @GetMapping("task/policies/price/category")
+    @GetMapping("/task/policies/price/category")
     ResponseEntity<Page<PricePolicyForCategoryResponse>> getPricePoliciesForCategory(Pageable pageable);
 
-    @GetMapping("task/policies/rate/book/{id}")
+    @GetMapping("/task/policies/rate/book/{id}")
     ResponseEntity<RatePolicyForBookResponse> getRatePolicyForBook(@PathVariable Long id);
 
-    @GetMapping("task/policies/rate/category/{id}")
+    @GetMapping("/task/policies/rate/category/{id}")
     ResponseEntity<RatePolicyForCategoryResponse> getRatePolicyForCategory(@PathVariable Long id);
 
-    @GetMapping("task/policies/price/book/{id}")
+    @GetMapping("/task/policies/price/book/{id}")
     ResponseEntity<PricePolicyForBookResponse> getPricePolicyForBook(@PathVariable Long id);
 
-    @GetMapping("task/policies/price/category/{id}")
+    @GetMapping("/task/policies/price/category/{id}")
     ResponseEntity<PricePolicyForCategoryResponse> getPricePolicyForCategory(@PathVariable Long id);
 
     @PutMapping("/task/policies/rate/book")
