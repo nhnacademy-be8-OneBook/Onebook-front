@@ -38,7 +38,7 @@ public class CouponService {
     }
 
     public List<CouponResponse> createPriceCouponForBook(CreateCouponRequest createCouponRequest){
-        return couponClient.createPriceCouponForCategory(createCouponRequest).getBody();
+        return couponClient.createPriceCouponForBook(createCouponRequest).getBody();
     }
 
     public List<CouponResponse> createPriceCouponForCategory(CreateCouponRequest createCouponRequest){

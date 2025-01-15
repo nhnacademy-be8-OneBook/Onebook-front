@@ -129,11 +129,11 @@ public class CouponPolicyService {
 
             Long count;
 
-            if(couponService.getPriceCouponsForCategoryByPolicyId(pricePolicyForBookResponse.getId(),0) == null ){
+            if(couponService.getPriceCouponsForBookByPolicyId(pricePolicyForBookResponse.getId(),0) == null ){
                 count = 0l;
             }
             else{
-                count = couponService.getPriceCouponsForCategoryByPolicyId(pricePolicyForBookResponse.getId(),0)
+                count = couponService.getPriceCouponsForBookByPolicyId(pricePolicyForBookResponse.getId(),0)
                         .getTotalElements();
             }
 

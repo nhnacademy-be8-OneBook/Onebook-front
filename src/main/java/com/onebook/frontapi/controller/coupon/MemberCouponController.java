@@ -26,4 +26,10 @@ public class MemberCouponController {
         return "coupon/coupon/my-coupon-list";
     }
 
+    @GetMapping("/coupon/coupon-holder")
+    public String getCouponHolder(){
+
+        return "coupon/coupon/coupon-holder";
+    }
+
 }
