@@ -1,5 +1,6 @@
 package com.onebook.frontapi.service.coupon;
 
+import com.onebook.frontapi.dto.coupon.request.coupon.FindCouponsByPolicyIdRequest;
 import com.onebook.frontapi.dto.coupon.request.coupon.IssueCouponToMemberRequest;
 import com.onebook.frontapi.dto.coupon.response.coupon.CouponResponse;
 import com.onebook.frontapi.dto.coupon.response.coupon.IssuedCouponFeignResponse;
@@ -10,14 +11,12 @@ import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForBookRe
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.RatePolicyForCategoryResponse;
 import com.onebook.frontapi.feign.coupon.CouponBoxClient;
 import com.onebook.frontapi.feign.coupon.CouponClient;
-import com.onebook.frontapi.feign.coupon.CouponPolicyClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -138,14 +137,38 @@ public class CouponBoxService {
 
     }
 
-    public IssuedCouponResponse issueCouponToMember(){
+    public IssuedCouponResponse issueCoupon(FindCouponsByPolicyIdRequest findCouponsByPolicyIdRequest){
 
         // 쿠폰 번호가 필요함 (정책id로 해당하는 쿠폰들 쫙 받아온다음에, 그중에 하나 랜덤으로 사용자에게 발급)
+        String couponNumber;
 
+        if(findCouponsByPolicyIdRequest.getCouponType().equals("정률정책/책")){
+            List<CouponResponse> rateCouponsForBook = couponService.getRateCouponsForBookByPolicyId(findCouponsByPolicyIdRequest.getPolicyId());
+            Collections.shuffle(rateCouponsForBook);
+            couponNumber = rateCouponsForBook.getFirst().getCouponNumber();
+
+        }
+        else if(findCouponsByPolicyIdRequest.getCouponType().equals("정률정책/카테고리")){
+            List<CouponResponse> rateCouponsForCategory = couponService.getRateCouponsForCategoryByPolicyId(findCouponsByPolicyIdRequest.getPolicyId());
+            Collections.shuffle(rateCouponsForCategory);
+            couponNumber = rateCouponsForCategory.getFirst().getCouponNumber();
+        }
+        else if(findCouponsByPolicyIdRequest.getCouponType().equals("정액정책/책")){
+            List<CouponResponse> priceCouponsForBook = couponService.getPriceCouponsForBookByPolicyId(findCouponsByPolicyIdRequest.getPolicyId());
+            Collections.shuffle(priceCouponsForBook);
+            couponNumber = priceCouponsForBook.getFirst().getCouponNumber();
+
+        }else if(findCouponsByPolicyIdRequest.getCouponType().equals("정액정책/카테고리")){
+            List<CouponResponse> priceCouponsForCategory = couponService.getPriceCouponsForCategoryByPolicyId(findCouponsByPolicyIdRequest.getPolicyId());
+            Collections.shuffle(priceCouponsForCategory);
+            couponNumber = priceCouponsForCategory.getFirst().getCouponNumber();
+        }
+        else{
+            throw new RuntimeException("해당하는 타입의 쿠폰은 존재하지 않습니다");
+        }
         // 정률정책이면, 정액정책이면...
 
-        String couponNumber;
-        IssueCouponToMemberRequest issueCouponToMemberRequest = new IssueCouponToMemberRequest("{couponNumber}");
+        IssueCouponToMemberRequest issueCouponToMemberRequest = new IssueCouponToMemberRequest(couponNumber);
 
         return couponBoxClient.issueCouponToMember(issueCouponToMemberRequest).getBody();
     }
