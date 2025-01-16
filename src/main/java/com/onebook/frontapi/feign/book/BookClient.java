@@ -45,6 +45,9 @@ public interface BookClient {
     @GetMapping("/task/book/newbooks/top4")
     List<BookDTO> getTop4Books();
 
+    @GetMapping("/task/book/bestsellers/top4")
+    List<BookDTO> getBestSellersTop4();
+
     @GetMapping("/task/book/bestsellers")
     Page<BookDTO> getBestSellers(Pageable pageable);
 

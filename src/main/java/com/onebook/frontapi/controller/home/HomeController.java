@@ -73,10 +73,41 @@ public class HomeController {
                     productDTOList.add(productDTO);
             }
 
+        List<BookDTO> bestsellers = bookService.bestSellersTop4();
+        List<ImageDTO> images = new ArrayList<>();
+        List<Long> bookIds = new ArrayList<>();
+        for(BookDTO bookDTO : bestsellers) {
+            bookIds.add(bookDTO.getBookId());
+        }
+        for(long bookId : bookIds) {
+            images.add(imageService.getImage(bookId));
+        }
+
+
+        List<ProductDTO> productDTOs = new ArrayList<>();
+
+        for(int i = 0; i < bestsellers.size(); i++){
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setBookId(bestsellers.get(i).getBookId());
+            productDTO.setContent(bestsellers.get(i).getContent());
+            productDTO.setTitle(bestsellers.get(i).getTitle());
+            productDTO.setSalePrice(bestsellers.get(i).getSalePrice());
+            productDTO.setPrice(bestsellers.get(i).getPrice());
+            productDTO.setAmount(bestsellers.get(i).getAmount());
+            productDTO.setDescription(bestsellers.get(i).getDescription());
+            productDTO.setPubdate(bestsellers.get(i).getPubdate());
+            productDTO.setIsbn13(bestsellers.get(i).getIsbn13());
+            productDTO.setPublisher(bestsellers.get(i).getPublisher());
+            productDTO.setViews(bestsellers.get(i).getViews());
+            productDTO.setUrl(images.get(i).getUrl());
+            productDTOs.add(productDTO);
+        }
+
         model.addAttribute("imageList", imageList);
         model.addAttribute("bookList", bookList);
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("productList", productDTOList);
+        model.addAttribute("bestsellers", productDTOs);
 
 
         return "index4";
