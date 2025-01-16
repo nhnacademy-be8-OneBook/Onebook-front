@@ -1,0 +1,6 @@
+server:
+  port: 8110
+#  port: 8111
+
+onebook:
+  gatewayUrl: http://localhost:8210
