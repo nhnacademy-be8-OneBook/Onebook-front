@@ -22,6 +22,8 @@ public class AddressController {
     @GetMapping("/addresses/register")
     public String getAddressRegisterForm(){
 
+        addressService.checkAddressLimit();
+
         return "address/address-register-form";
     }
 

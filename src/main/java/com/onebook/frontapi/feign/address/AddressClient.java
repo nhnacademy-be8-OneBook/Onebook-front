@@ -32,4 +32,7 @@ public interface AddressClient {
     ResponseEntity<MemberAddressResponse> deleteMemberAddress
             (@RequestBody DeleteMemberAddressRequest deleteMemberAddressRequest);
 
+    @GetMapping("/task/addresses/count")
+    ResponseEntity<Long> getAddressesCount();
+
 }
