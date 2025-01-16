@@ -323,7 +323,12 @@
 									</span>
 
 									<p></p>
-									<a href="#" class="title">쿠폰 수령하기</a>
+<!--									<a href="javascript:gotoList()"  class="title">쿠폰 수령하기</a>-->
+									<form method="post" action="/coupon/coupon-holder/issue">
+										<input type="hidden" name="policyId" th:value="${usingPolicy.getId()}">
+										<input type="hidden" name="couponType" th:value="${usingPolicy.getType()}">
+										<button type="submit" class="btn">쿠폰 수령하기</button>
+									</form>
 									<a href="#" class="more-btn" th:text="'잔여수량: ' + ${usingPolicy.getCouponCount()}"></a>
 								</div>
 							</div>
@@ -443,6 +448,24 @@
 		</div>
 	</footer>
 	<!-- /End Footer Area -->
+
+	<script>
+		//페이지이동함수
+		function gotoList(){
+			let pageMoveForm = document.createElement('form');
+
+            let obj = document.createElement('input');
+                obj.setAttribute('type', 'hidden');
+               obj.setAttribute('name', 'userid');
+               obj.setAttribute('value', userid);
+             pageMoveForm.appendChild(obj);
+
+			pageMoveForm.setAttribute('method', 'post');
+			pageMoveForm.setAttribute('action', '/coupon/coupon-holder/issue');
+			document.body.appendChild(pageMoveForm);
+			pageMoveForm.submit();
+		}
+	</script>
 	
 	<!-- Jquery -->
     <script src="/js/jquery.min.js"></script>

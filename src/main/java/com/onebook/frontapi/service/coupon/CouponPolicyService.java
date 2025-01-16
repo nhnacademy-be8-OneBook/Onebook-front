@@ -72,12 +72,11 @@ public class CouponPolicyService {
 
             Long count;
 
-            if(couponService.getRateCouponsForBookByPolicyId(ratePolicyForBookResponse.getId(),0) == null ){
+            if(couponService.getRateCouponsForBookByPolicyId(ratePolicyForBookResponse.getId()) == null ){
                 count = 0l;
             }
             else{
-                count = couponService.getRateCouponsForBookByPolicyId(ratePolicyForBookResponse.getId(),0)
-                        .getTotalElements();
+                count = (long) couponService.getRateCouponsForBookByPolicyId(ratePolicyForBookResponse.getId()).size();
             }
 
             RatePolicyForBookAndCouponCountResponse ratePolicyForBookAndCouponCountResponse =
@@ -101,12 +100,12 @@ public class CouponPolicyService {
 
             Long count;
 
-            if(couponService.getRateCouponsForCategoryByPolicyId(ratePolicyForCategoryResponse.getId(),0) == null ){
+            if(couponService.getRateCouponsForCategoryByPolicyId(ratePolicyForCategoryResponse.getId()) == null ){
                 count = 0l;
             }
             else{
-                count = couponService.getRateCouponsForCategoryByPolicyId(ratePolicyForCategoryResponse.getId(),0)
-                        .getTotalElements();
+                count = (long) couponService.getRateCouponsForCategoryByPolicyId(ratePolicyForCategoryResponse.getId())
+                        .size();
             }
 
             RatePolicyForCategoryAndCouponCountResponse ratePolicyForCategoryAndCouponCountResponse =
@@ -129,12 +128,12 @@ public class CouponPolicyService {
 
             Long count;
 
-            if(couponService.getPriceCouponsForBookByPolicyId(pricePolicyForBookResponse.getId(),0) == null ){
+            if(couponService.getPriceCouponsForBookByPolicyId(pricePolicyForBookResponse.getId()) == null ){
                 count = 0l;
             }
             else{
-                count = couponService.getPriceCouponsForBookByPolicyId(pricePolicyForBookResponse.getId(),0)
-                        .getTotalElements();
+                count = (long) couponService.getPriceCouponsForBookByPolicyId(pricePolicyForBookResponse.getId())
+                        .size();
             }
 
             PricePolicyForBookAndCouponCountResponse pricePolicyForBookAndCouponCountResponse =
@@ -156,12 +155,12 @@ public class CouponPolicyService {
 
             Long count;
 
-            if(couponService.getPriceCouponsForCategoryByPolicyId(pricePolicyForCategoryResponse.getId(),0) == null ){
+            if(couponService.getPriceCouponsForCategoryByPolicyId(pricePolicyForCategoryResponse.getId()) == null ){
                 count = 0l;
             }
             else{
-                count = couponService.getPriceCouponsForCategoryByPolicyId(pricePolicyForCategoryResponse.getId(),0)
-                    .getTotalElements();
+                count = (long) couponService.getPriceCouponsForCategoryByPolicyId(pricePolicyForCategoryResponse.getId())
+                    .size();
             }
 
             PricePolicyForCategoryAndCouponCountResponse pricePolicyForCategoryAndCouponCountResponse =

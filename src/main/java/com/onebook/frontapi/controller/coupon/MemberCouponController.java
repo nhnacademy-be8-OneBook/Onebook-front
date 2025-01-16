@@ -1,9 +1,8 @@
 package com.onebook.frontapi.controller.coupon;
 
-import com.onebook.frontapi.dto.coupon.request.coupon.IssueCouponToMemberRequest;
+import com.onebook.frontapi.dto.coupon.request.coupon.FindCouponsByPolicyIdRequest;
 import com.onebook.frontapi.dto.coupon.response.coupon.IssuedCouponResponse;
 import com.onebook.frontapi.dto.coupon.response.couponPolicy.UsingPolicyResponse;
-import com.onebook.frontapi.feign.coupon.CouponPolicyClient;
 import com.onebook.frontapi.service.coupon.CouponBoxService;
 import com.onebook.frontapi.service.coupon.CouponPolicyService;
 import lombok.RequiredArgsConstructor;
@@ -42,11 +41,13 @@ public class MemberCouponController {
     }
 
     @PostMapping("/coupon/coupon-holder/issue")
-    public String getCoupon(){
+    public String issueRateCouponForCategory(@ModelAttribute FindCouponsByPolicyIdRequest findCouponsByPolicyIdRequest){
 
-        couponBoxService.issueCouponToMember();
+        couponBoxService.issueCoupon(findCouponsByPolicyIdRequest);
 
         return "redirect:/coupon/coupon-holder";
     }
+
+
 
 }

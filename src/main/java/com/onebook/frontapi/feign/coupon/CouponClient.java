@@ -35,14 +35,14 @@ public interface CouponClient {
     ResponseEntity<List<CouponResponse>> createPriceCouponForCategory(@RequestBody CreateCouponRequest createCouponRequest);
 
     @GetMapping("/task/coupon/rate/book/{policy-id}")
-    ResponseEntity<Page<CouponResponse>> getRateCouponsForBookByPolicyId(@PathVariable(name = "policy-id") Long policyId ,Pageable pageable);
+    ResponseEntity<List<CouponResponse>> getRateCouponsForBookByPolicyId(@PathVariable(name = "policy-id") Long policyId);
 
     @GetMapping("/task/coupon/rate/category/{policy-id}")
-    ResponseEntity<Page<CouponResponse>> getRateCouponsForCategoryByPolicyId(@PathVariable(name = "policy-id") Long policyId ,Pageable pageable);
+    ResponseEntity<List<CouponResponse>> getRateCouponsForCategoryByPolicyId(@PathVariable(name = "policy-id") Long policyId);
 
     @GetMapping("/task/coupon/price/book/{policy-id}")
-    ResponseEntity<Page<CouponResponse>> getPriceCouponsForBookByPolicyId (@PathVariable(name = "policy-id") Long policyId ,Pageable pageable);
+    ResponseEntity<List<CouponResponse>> getPriceCouponsForBookByPolicyId (@PathVariable(name = "policy-id") Long policyId);
 
     @GetMapping("/task/coupon/price/category/{policy-id}")
-    ResponseEntity<Page<CouponResponse>> getPriceCouponsForCategoryByPolicyId (@PathVariable(name = "policy-id") Long policyId ,Pageable pageable);
+    ResponseEntity<List<CouponResponse>> getPriceCouponsForCategoryByPolicyId (@PathVariable(name = "policy-id") Long policyId);
 }
