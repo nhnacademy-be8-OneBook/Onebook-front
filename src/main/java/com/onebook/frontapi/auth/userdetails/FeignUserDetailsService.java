@@ -40,7 +40,7 @@ public class FeignUserDetailsService implements UserDetailsService {
             return new User(memberLoginFeignResponse.loginId(), memberLoginFeignResponse.password(), List.of(new SimpleGrantedAuthority("ROLE_" + memberLoginFeignResponse.role())));
 
         }catch(FeignException e) {
-            throw new IllegalArgumentException("존재하지 않는 로그인 ID 입니다.");
+            throw new IllegalArgumentException("로그인에 실패하였습니다.");
         }
     }
 }

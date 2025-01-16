@@ -19,10 +19,6 @@ public class AddressService {
 
     public MemberAddressResponse addMemberAddress(AddMemberAddressRequest addMemberAddressRequest) {
 
-        Long addressesCount = addressClient.getAddressesCount().getBody();
-        if(addressesCount.compareTo(10L) > 0){
-            throw new MemberAddressLimitExceededException("배송지는 최대 10개까지 등록 가능합니다.");
-        }
         return addressClient.addMemberAddress(addMemberAddressRequest).getBody();
     }
 
@@ -43,4 +39,10 @@ public class AddressService {
     }
 
 
+    public void checkAddressLimit() {
+        Long addressesCount = addressClient.getAddressesCount().getBody();
+        if(addressesCount.compareTo(10L) > 0){
+            throw new MemberAddressLimitExceededException("배송지는 최대 10개까지 등록 가능합니다.");
+        }
+    }
 }
