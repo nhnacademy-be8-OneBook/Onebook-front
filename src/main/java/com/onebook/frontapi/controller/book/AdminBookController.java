@@ -111,7 +111,7 @@ public class AdminBookController {
         Page<BookDTO> bookList = bookService.getAllBooks(PageRequest.of(page, 20));
 
         model.addAttribute("bookList", bookList);
-        return "book/bookAllList";
+        return "admin/bookAllList";
     }
 
     @GetMapping("/update")

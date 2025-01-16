@@ -57,6 +57,37 @@
 
     <link rel="stylesheet" href="#" id="colors">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center; /* 가로로 가운데 정렬 */
+            align-items: center;    /* 세로로 가운데 정렬 */
+            gap: 5px;               /* 각 버튼 간격 */
+            list-style: none;       /* 기본 리스트 스타일 제거 */
+            padding: 0;             /* 패딩 제거 */
+            margin: 0;              /* 마진 제거 */
+        }
+
+        .page-item {
+            display: inline;        /* 인라인 스타일 */
+        }
+
+        .page-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .page-link:hover {
+            background-color: #f8f9fa;
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
@@ -102,7 +133,7 @@
                 <ul class="pagination">
                     <!-- 이전 페이지 버튼 -->
                     <li th:if="${bookList.hasPrevious()}" class="page-item">
-                        <a class="page-link" th:href="@{/book/book-listpage=${bookList.number - 1}}" aria-label="Previous">
+                        <a class="page-link" th:href="@{/book/book-list(page=${bookList.number - 1}, sort=${sort})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -110,7 +141,7 @@
                     <!-- 페이지 번호 출력 -->
                     <th:block th:each="pageNum : ${#numbers.sequence(0, bookList.totalPages - 1)}">
                         <li class="page-item">
-                            <a th:href="@{/book/book-list(page=${pageNum})}"
+                            <a th:href="@{/book/book-list(page=${pageNum}, sort=${sort})}"
                                class="page-link"
                                th:text="${pageNum + 1}">
                             </a>
@@ -119,14 +150,13 @@
 
                     <!-- 다음 페이지 버튼 -->
                     <li th:if="${bookList.hasNext()}" class="page-item">
-                        <a class="page-link" th:href="@{/book-list?page=${bookList.number + 1}}" aria-label="Next">
+                        <a class="page-link" th:href="@{/book/book-list(page=${bookList.number + 1}, sort=${sort})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
         </div>
-    </div>
 
 
 

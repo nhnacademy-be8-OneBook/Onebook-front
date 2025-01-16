@@ -19,7 +19,7 @@ import java.util.List;
 public interface BookClient {
 
     @GetMapping("/task/book/newbooks")
-    Page<BookDTO> getNewBooks(@RequestParam("page") int page);
+    Page<BookDTO> getNewBooks(Pageable pageable);
 
     @GetMapping("/task/book/{bookId}")
     BookDTO getBookById(@PathVariable("bookId") Long bookId);
@@ -41,5 +41,11 @@ public interface BookClient {
     //알라딘
     @PostMapping("/task/book/aladin")
     String aladinBook();
+
+    @GetMapping("/task/book/newbooks/top4")
+    List<BookDTO> getTop4Books();
+
+    @GetMapping("/task/book/bestsellers")
+    Page<BookDTO> getBestSellers(Pageable pageable);
 
 }

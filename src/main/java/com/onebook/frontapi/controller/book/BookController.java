@@ -154,14 +154,23 @@ public class BookController {
 //        return "redirect:/";
 //    }
 
-//    @GetMapping("/book-list")
-//    public String bookList(@RequestParam(defaultValue = "0") int page,
-//                           Model model) {
-//        Page<BookDTO> bookList = bookService.getAllBooks(PageRequest.of(page, 20));
-//
-//        model.addAttribute("bookList", bookList);
-//        return "book/bookAllList";
-//    }
+    @GetMapping("/book-list")
+    public String bookList(@RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "title") String sort,
+                           Model model) {
+        Page<BookDTO> bookList = null;
+        if(sort.equals("popular")) {
+            bookList = bookService.getBestSellerBooks(PageRequest.of(page, 20));
+        }else if(sort.equals("newest")){
+            bookList = bookService.newBooks(PageRequest.of(page, 20));
+        }else{
+            bookList = bookService.getAllBooks(PageRequest.of(page, 20));
+        }
+
+        model.addAttribute("sort", sort);
+        model.addAttribute("bookList", bookList);
+        return "book/AllBookList";
+    }
 
 
 

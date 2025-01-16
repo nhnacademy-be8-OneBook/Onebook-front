@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class BookService {
@@ -18,7 +20,7 @@ public class BookService {
 
     //getList
     public Page<BookDTO> newBooks(Pageable pageable) {
-        return bookClient.getNewBooks(pageable.getPageNumber());
+        return bookClient.getNewBooks(pageable);
     }
 
     //getBook
@@ -45,5 +47,13 @@ public class BookService {
 
     public void AladinBook(){
         bookClient.aladinBook();
+    }
+
+    public List<BookDTO> newBooksTop4(){
+        return bookClient.getTop4Books();
+    }
+
+    public Page<BookDTO> getBestSellerBooks(Pageable pageable) {
+        return bookClient.getBestSellers(pageable);
     }
  }
