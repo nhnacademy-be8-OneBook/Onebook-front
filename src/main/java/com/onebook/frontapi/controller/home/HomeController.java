@@ -40,8 +40,7 @@ public class HomeController {
                        Model model, Pageable pageable) {
         log.info("BookClient: {}", bookService);
 
-        Page<BookDTO> bookDTOPage = bookService.newBooks(pageable);
-        List<BookDTO> bookList = bookDTOPage.getContent();
+        List<BookDTO> bookList = bookService.newBooksTop4();
         List<ImageDTO> imageList = new ArrayList<>();
         List<Long> bookIdList = new ArrayList<>();
         for(BookDTO bookDTO : bookList) {
