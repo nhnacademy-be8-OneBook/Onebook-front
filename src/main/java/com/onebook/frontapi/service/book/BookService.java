@@ -53,6 +53,8 @@ public class BookService {
         return bookClient.getTop4Books();
     }
 
+    public List<BookDTO> bestSellersTop4(){ return bookClient.getBestSellersTop4();}
+
     public Page<BookDTO> getBestSellerBooks(Pageable pageable) {
         return bookClient.getBestSellers(pageable);
     }

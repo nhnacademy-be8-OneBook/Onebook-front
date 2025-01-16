@@ -180,7 +180,7 @@
 													</div>
 												</div>
 												<div class="product-content">
-													<h3><a href="product-details.html" th:text="${product.title}"></a></h3>
+													<h3><a th:href="@{/book/bookDetail(bookId=${product.bookId}, url=${product.url})}" th:text="${product.title}"></a></h3>
 													<div class="product-price">
 														<span th:text="${product.salePrice}"></span>
 													</div>
@@ -220,11 +220,11 @@
 						<div class="tab-pane fade show active" id="man" role="tabpanel">
 							<div class="tab-single">
 								<div class="row">
-									<div th:if="${#lists.isEmpty(productList)}" style="text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; height: 100vh;">
+									<div th:if="${#lists.isEmpty(bestsellers)}" style="text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; height: 100vh;">
 										<p>아직 등록된 상품이 없습니다.</p>
 									</div>
-									<div th:unless="${#lists.isEmpty(productList)}"></div>
-									<div th:each="product : ${productList}" class="col-xl-3 col-lg-4 col-md-4 col-12">
+									<div th:unless="${#lists.isEmpty(bestsellers)}"></div>
+									<div th:each="product : ${bestsellers}" class="col-xl-3 col-lg-4 col-md-4 col-12">
 										<div class="single-product">
 											<div class="product-img">
 												<a th:href="@{/book/bookDetail(bookId=${product.bookId}, url=${product.url})}">
@@ -242,7 +242,7 @@
 												</div>
 											</div>
 											<div class="product-content">
-												<h3><a href="product-details.html" th:text="${product.title}"></a></h3>
+												<h3><a th:href="@{/book/bookDetail(bookId=${product.bookId}, url=${product.url})}" th:text="${product.title}"></a></h3>
 												<div class="product-price">
 													<span th:text="${product.salePrice}"></span>
 												</div>
