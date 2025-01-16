@@ -68,6 +68,7 @@ public class PaymentFrontController {
                  dto.getPaymentKey(), dto.getOrderId(), dto.getAmount());
 
         TossConfirmResponseDto result = paymentClient.confirmTossPayment(dto);
+        // TODO 멤버 등급 업데이트 서비스 추가
         return ResponseEntity.ok(result);
     }
 }
