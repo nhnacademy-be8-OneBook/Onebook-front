@@ -103,4 +103,4 @@ jobs:
 
       # sonarQube 실행
       - name: Run SonarQube
-        run: mvn clean verify sonar:sonar -Dsonar.projectKey=onebook-task-api -Dsonar.projectName='onebook-task-api' -Dsonar.host.url=${{secrets.SONAR_HOST}} -Dsonar.login=${{secrets.SONAR_FRONT_TOKEN}}
+        run: mvn clean verify sonar:sonar -Dsonar.projectKey=onebook-front-api -Dsonar.projectName='onebook-front-api' -Dsonar.host.url=${{secrets.SONAR_HOST}} -Dsonar.login=${{secrets.SONAR_FRONT_TOKEN}}
