@@ -64,6 +64,14 @@
             <!--            <version>4.2.0</version>-->
         </dependency>
 
+        <!--        START : Data접속 암호화를 위한 dependency-->
+        <!--        ssl인증 통신을 위함-->
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+        <!--        DONE : Data접속 암호화를 위한 dependency-->
 
         <!-- security -->
         <dependency>
