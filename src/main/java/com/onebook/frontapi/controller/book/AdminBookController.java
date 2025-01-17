@@ -153,7 +153,7 @@ public class AdminBookController {
     @GetMapping("/aladin")
     public String saveAladinBook(){
         bookService.AladinBook();
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 
 
