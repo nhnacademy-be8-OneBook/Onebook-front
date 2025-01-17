@@ -1,12 +1,10 @@
 package com.onebook.frontapi.feign.order;
 
-import com.onebook.frontapi.dto.order.OrderByStatusResponseDto;
-import com.onebook.frontapi.dto.order.OrderDetailFeignResponse;
-import com.onebook.frontapi.dto.order.OrderFormRequest;
-import com.onebook.frontapi.dto.order.OrderFeignResponse;
+import com.onebook.frontapi.dto.order.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +14,10 @@ public interface OrderClient {
     // 주문 생성
     @PostMapping("/task/order")
     Long createOrder(@RequestBody OrderFormRequest orderFormRequest);
+
+    // 주문 찾기
+    @GetMapping("/task/orders/{order-id}")
+    ResponseEntity<OrderMemberFeignResponse> findOrder(@PathVariable("order-id") Long orderId);
 
     // 사용자의 모든 주문 불러오기
     @GetMapping("/task/orders")
