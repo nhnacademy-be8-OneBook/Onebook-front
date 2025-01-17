@@ -55,5 +55,11 @@ public interface MemberClient {
     @GetMapping("/task/members/status/{loginId}")
     ResponseEntity<Void> modifyStatusToActive(@PathVariable("loginId") String loginId);
 
+    /**
+     * 회원 순수 구매 금액 조회 (+등급 업데이트)
+     */
+    @GetMapping("/task/members/payments/net-amount")
+    ResponseEntity<Integer> getMemberNetPaymentAmount();
+
 }
 

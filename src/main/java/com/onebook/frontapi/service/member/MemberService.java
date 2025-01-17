@@ -109,4 +109,15 @@ public class MemberService {
         return false;
     }
 
+    /**
+     * 회원 순수 금액 조회 (+등급 업데이트)
+     */
+    public Integer getMemberNetPaymentAmount() {
+        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmount();
+        if(Objects.isNull(result)) {
+            return 0;
+        }
+        return result.getBody();
+    }
+
 }
