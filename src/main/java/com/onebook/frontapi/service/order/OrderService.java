@@ -18,6 +18,15 @@ public class OrderService {
         return orderClient.createOrder(orderFormRequest);
     }
 
+    public OrderMemberResponse getOrder(Long orderId) {
+        OrderMemberFeignResponse body = orderClient.findOrder(orderId).getBody();
+        // TODO 에러처리
+        if (body == null) {
+            throw new RuntimeException();
+        }
+        return OrderMemberResponse.fromFeign(body);
+    }
+
     public Page<OrderResponse> getAllOrders(Pageable pageable) {
         return orderClient.findAllOrders(pageable).map(OrderResponse::fromFeign);
     }
