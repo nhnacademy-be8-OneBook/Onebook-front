@@ -38,7 +38,6 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         String username = principal.getUsername();
         log.info("username : {}", username);
 
-        // TODO - jwt
         // 여기서 FeignClient로 Auth 서버에 보냄
         JwtLoginIdRequest jwtLoginIdRequest = new JwtLoginIdRequest();
         jwtLoginIdRequest.setId(username);
