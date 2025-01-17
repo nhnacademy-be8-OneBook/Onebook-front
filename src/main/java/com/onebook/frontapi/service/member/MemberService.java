@@ -112,8 +112,8 @@ public class MemberService {
     /**
      * 회원 순수 금액 조회 (+등급 업데이트)
      */
-    public Integer getMemberNetPaymentAmount() {
-        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmount();
+    public Integer getMemberNetPaymentAmount(Long memberId) {
+        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmount(memberId);
         if(Objects.isNull(result)) {
             return 0;
         }
