@@ -42,36 +42,27 @@
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
-                    <div class="search-top">
-                        <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-                        <!-- Search Form -->
-                        <div class="search-top">
-                            <form class="search-form">
-                                <input type="text" placeholder="Search here..." name="search">
-                                <button value="search" type="submit"><i class="ti-search"></i></button>
-                            </form>
-                        </div>
-                        <!--/ End Search Form -->
-                    </div>
+
                     <!--/ End Search Form -->
                     <div class="mobile-nav"></div>
                 </div>
-                <div class="col-lg-8 col-md-7 col-12">
-                    <div class="search-bar-top">
-                        <div class="search-bar">
-                            <select name="option">
-                                <option value="all" selected>통합검색</option>
-                                <option value="publisher">출판사</option>
-                                <option value="author">작가</option>
-                                <option value="tag">태그</option>
-                            </select>
-                            <form>
+                <form action="/book/search" method="GET">
+                    <div class="col-lg-8 col-md-7 col-12">
+                        <div class="search-bar-top">
+                            <div class="search-bar">
+                                <select name="searchTarget">
+                                    <option value="all" selected>통합검색</option>
+                                    <option value="publisher">출판사</option>
+                                    <option value="author">작가</option>
+                                    <option value="tag">태그</option>
+                                </select>q
                                 <input name="search" placeholder="Search Products Here....." type="search">
-                                <button class="btnn"><i class="ti-search"></i></button>
-                            </form>
+                                <button class="btnn" type="submit"><i class="ti-search"></i></button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
+
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
