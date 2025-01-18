@@ -15,18 +15,13 @@ public interface OrderClient {
     @PostMapping("/task/order")
     Long createOrder(@RequestBody OrderFormRequest orderFormRequest);
 
-    // 주문 찾기
+    // 주문ID를 이용한 주문 찾기
     @GetMapping("/task/orders/{order-id}")
-    ResponseEntity<OrderMemberFeignResponse> findOrder(@PathVariable("order-id") Long orderId);
+    ResponseEntity<OrderMemberFeignResponse> findOrderByOrderId(@PathVariable("order-id") Long orderId);
 
-    // 사용자의 모든 주문 불러오기
+    // 사용자ID를 이용한 주문 찾기
     @GetMapping("/task/orders")
-    Page<OrderFeignResponse> findAllOrders(Pageable pageable);
-
-    // 사용자의 모든 주문 불러오기
-    @GetMapping("/task/orders/waiting")
-    Page<OrderFeignResponse> findWaitingOrders(Pageable pageable);
-
+    ResponseEntity<Page<OrderFeignResponse>> findOrders(@RequestParam(name = "order-status", required = false) String orderStatus, Pageable pageable);
     // 주문 상태에 따른 주문 리스트 불러오기
     @GetMapping("/task/admin/orders")
     List<OrderByStatusResponseDto> findOrderByStatus(@RequestParam("status") String status);
