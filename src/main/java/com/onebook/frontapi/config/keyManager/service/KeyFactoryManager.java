@@ -1,7 +1,7 @@
 package com.onebook.frontapi.config.keyManager.service;
 
 import com.onebook.frontapi.config.keyManager.dto.KeyResponseDto;
-import com.onebook.frontapi.config.keyManager.exception.exception.KeyManagerException;
+import com.onebook.frontapi.config.keyManager.exception.KeyManagerException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
