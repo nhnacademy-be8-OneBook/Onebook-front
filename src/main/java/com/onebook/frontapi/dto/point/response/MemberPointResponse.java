@@ -1,4 +1,4 @@
-package com.onebook.frontapi.dto.point;
+package com.onebook.frontapi.dto.point.response;
 
 import com.onebook.frontapi.enums.PointHistoryType;
 import java.time.LocalDateTime;
