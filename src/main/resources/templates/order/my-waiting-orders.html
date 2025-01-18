@@ -48,17 +48,15 @@
 <link rel="stylesheet" href="#" id="colors">
 <link rel="stylesheet" href="/css/order/order-my-style.css">
 
+
 <script>
     function confirmOrderCancel(orderId) {
-        // 사용자에게 확인 창 표시
         const userConfirmed = confirm("주문을 취소하시겠습니까?");
         if (userConfirmed) {
-            // 확인을 누른 경우 orderId를 포함하여 GET 요청 전송
             const form = document.getElementById('cancelForm');
-            document.getElementById('orderId').value = orderId; // orderId 설정
-            form.submit(); // 폼 제출
+            form.action = `/my/order/return/${orderId}`;  // URL 동적 설정
+            form.submit();
         }
-        // 취소를 누른 경우 아무 작업도 하지 않음
     }
 </script>
 
@@ -189,14 +187,15 @@
                             <p class="order-total-price" th:text="${order.totalPrice}"></p>
                         </div>
                     </div>
-<!--                    <form th:action="@{/front/payments/checkout-page?orderId={orderId}(orderId=${order.orderId})}" method="get">-->
-                    <form action="/front/payments/checkout-page" method="get">
-                        <input type="hidden" name="orderId" th:value="${order.orderId}" />
-                        <div class="order-footer">
+                    <div class="order-footer">
+                        <form action="/front/payments/checkout-page" method="get">
+                            <input type="hidden" name="orderId" th:value="${order.orderId}"/>
                             <button class="order-action" type="submit">재결제</button>
-                        </div>
-                    </form>
-
+                        </form>
+                        <form id="cancelForm" method="get">
+                            <button class="order-action" type="button" th:onclick="'confirmOrderCancel(\'' + ${order.orderId} + '\')'">주문취소</button>
+                        </form>
+                    </div>
                 </div>
 
                 <!--	Done 주문/배송 현황 content  -->

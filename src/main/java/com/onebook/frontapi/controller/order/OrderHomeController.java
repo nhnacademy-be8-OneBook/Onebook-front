@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -44,7 +44,6 @@ public class OrderHomeController {
         return null;
     }
 
-
     @GetMapping("/my/order-detail/{orderId}")
     public String myOrderDetail(@PathVariable("orderId") long orderId, Model model) {
         OrderDetailResponse orderDetail = orderService.getOrderDetail(orderId);
@@ -52,5 +51,16 @@ public class OrderHomeController {
         model.addAttribute("orderDetail", orderDetail);
 
         return "order/order-detail";
+    }
+
+    // 반품
+    @GetMapping("/my/order/return/{order-id}")
+    public String myOrderReturn(@PathVariable(name = "order-id") Long orderId) {
+        List<Long> orderIds = new ArrayList<>();
+        orderIds.add(orderId);
+        String postStatus = "주문취소";
+
+        orderService.updateOrderStatus(orderIds, postStatus);
+        return "redirect:/my/orders";
     }
 }

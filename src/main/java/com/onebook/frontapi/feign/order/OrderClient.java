@@ -27,7 +27,7 @@ public interface OrderClient {
     List<OrderByStatusResponseDto> findOrderByStatus(@RequestParam("status") String status);
 
     // 주문 상태 변경하기
-    @PutMapping("/task/admin/orders")
+    @PutMapping("/task/orders")
     void updateOrderStatus(@RequestBody List<Long> orderIds, @RequestParam String status);
 
     // 주문 상세 정보 확인하기
