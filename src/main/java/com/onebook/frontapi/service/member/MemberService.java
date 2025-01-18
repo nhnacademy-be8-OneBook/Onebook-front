@@ -112,8 +112,19 @@ public class MemberService {
     /**
      * 회원 순수 금액 조회 (+등급 업데이트)
      */
-    public Integer getMemberNetPaymentAmount(Long memberId) {
-        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmount(memberId);
+    public Integer getMemberNetPaymentAmount() {
+        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmount();
+        if(Objects.isNull(result)) {
+            return 0;
+        }
+        return result.getBody();
+    }
+
+    /**
+     * 관리자용 - 회원 순수 금액 조회(+등급 업데이트)
+     */
+    public Integer getMemberNetPaymentAmountForAdmin(Long memberId) {
+        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmountForAdmin(memberId);
         if(Objects.isNull(result)) {
             return 0;
         }

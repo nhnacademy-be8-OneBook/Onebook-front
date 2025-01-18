@@ -21,7 +21,7 @@ public class OrderResponse {
         return new OrderResponse(
                 feignResponse.getOrderId(),
                 feignResponse.getOrderName(),
-                feignResponse.getOrderer(),
+                feignResponse.getOrdererName(),
                 feignResponse.getDateTime(),
                 feignResponse.getTotalPrice(),
                 feignResponse.getOrderStatusName()

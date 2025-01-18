@@ -13,7 +13,6 @@ public class BookAuthorService {
     private final BookAuthorClient bookAuthorClient;
 
     public BookAuthorDTO getBookAuthor(Long bookId) {
-        log.info("bookId: {}", bookId);
         return bookAuthorClient.getBookAuthor(bookId);
     }
 }

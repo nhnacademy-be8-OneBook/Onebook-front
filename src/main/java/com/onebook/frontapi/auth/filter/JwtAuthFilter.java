@@ -30,11 +30,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     // JWT 기반 인증: Authorization 쿠키에 있는 jwt 토큰 가져다가 검증함.
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        log.info("JWT 인증 필터 실행");
         Cookie[] cookies = request.getCookies();
 
         // 쿠키가 없으면 여기서 걸려서 홈페이지에 쿠키 없이 접근하면 login 페이지로 이동함.
         // -> 해결: 쿠키가 없으면 JWT 필터 태우지 않고, 그냥 넘김.
-        if(Objects.isNull(cookies) || Arrays.stream(cookies).noneMatch(e -> e.getName().equals("Authorization"))) {
+        if(Objects.isNull(cookies) || Arrays.stream(cookies).noneMatch(e -> e.getName().equals("Authorization")) || isStaticResource(request)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -42,7 +43,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         for(Cookie c : cookies) {
 
             if(c.getName().equals("Authorization")) {
-
+                log.info("JWT 토큰을 auth로 보내서 토큰 안에 있는 정보 가져옴");
                MemberInfoResponse memberInfoResponse = authFeignClient.getInfoByAuthorization("Bearer " + c.getValue());
 
                Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -60,14 +61,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     }
 
-//    public boolean isAuthorization(Cookie[] cookies) {
-//        for(Cookie c : cookies) {
-//            if(c.getName().equals("Authorization")) {
-//                return false;
-//            }
-//        }
-//
-//        return true;
-//    }
+    // 정적 리소스 경로인지 확인하는 메서드
+    private boolean isStaticResource(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.startsWith("/css/") || path.startsWith("/js/") || path.startsWith("/images/") || path.startsWith("/public/") || path.equals("/style.css");
+    }
 
 }
