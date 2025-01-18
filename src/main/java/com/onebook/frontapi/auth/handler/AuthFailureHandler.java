@@ -1,5 +1,6 @@
 package com.onebook.frontapi.auth.handler;
 
+import com.onebook.frontapi.auth.exception.AccessNotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

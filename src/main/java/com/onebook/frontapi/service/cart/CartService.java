@@ -33,6 +33,7 @@ public class CartService {
     private final ImageService imageService;
     private final StockService stockService;
 
+    // CART_ID 쿠키에서 cartId 가져오기.
     public String getCartIdFromCookie (HttpServletRequest request, HttpServletResponse response) throws IOException {
         String result = null;
 

@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         log.info("JWT 인증 필터 실행");
         Cookie[] cookies = request.getCookies();
 
-        // 쿠키가 없으면 여기서 걸려서 홈페이지에 쿠키 없이 접근하면 login 페이지로 이동함.
+        // 쿠키가 없으면 여기서 걸려서 홈페이지에 쿠키 없이 접근하면 login 페이지로 이동함. 정적 리소스도 다음 필터로 넘김.
         // -> 해결: 쿠키가 없으면 JWT 필터 태우지 않고, 그냥 넘김.
         if(Objects.isNull(cookies) || Arrays.stream(cookies).noneMatch(e -> e.getName().equals("Authorization")) || isStaticResource(request)) {
             filterChain.doFilter(request, response);
@@ -41,7 +41,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         for(Cookie c : cookies) {
-
             if(c.getName().equals("Authorization")) {
                 log.info("JWT 토큰을 auth로 보내서 토큰 안에 있는 정보 가져옴");
                MemberInfoResponse memberInfoResponse = authFeignClient.getInfoByAuthorization("Bearer " + c.getValue());
@@ -53,7 +52,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                );
 
                SecurityContextHolder.getContext().setAuthentication(authentication);
-
             }
         }
 

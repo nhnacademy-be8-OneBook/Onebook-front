@@ -1,8 +1,8 @@
-package com.onebook.frontapi.config;
+package com.onebook.frontapi.config.redis;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.onebook.frontapi.config.keyManager.dto.KeyResponseDto;
-import com.onebook.frontapi.config.keyManager.exception.exception.KeyManagerException;
+import com.onebook.frontapi.config.keyManager.exception.KeyManagerException;
 import com.onebook.frontapi.config.keyManager.service.KeyFactoryManager;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -87,7 +87,7 @@ public class RedisConfig {
         return createConnectionFactory(cart_db);
     }
 
-    // default: 두레이 인증, 등등...
+    // default - 201: 두레이 인증, 등등...
     @Bean
     public RedisTemplate<String, Object> authRedisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
@@ -102,7 +102,7 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    // 장바구니용
+    // 장바구니용 - 202
     @Bean
     public RedisTemplate<Object, Object> cartRedisTemplate() {
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();

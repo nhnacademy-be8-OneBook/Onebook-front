@@ -61,7 +61,8 @@ public class SecurityConfig {
         );
 
         http.authorizeHttpRequests(authRequest -> {
-            authRequest.requestMatchers("/", "/login", "/public/**",
+            authRequest
+                    .requestMatchers("/", "/login", "/public/**",
                             "/css/**", "/js/**", "/images/**", "/join", "/test/**",
                             "/style.css", "/dormant-account/**", "/dooray-message-authentication",
                             "/cart", "/book/**").permitAll()
