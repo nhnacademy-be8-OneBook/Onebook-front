@@ -57,6 +57,7 @@
             padding-bottom: 30px;
         }
         .btn-primary {
+            white-space: nowrap;
             background-color: #f8f9fa;
             color: #000000;
             border-color: #000000;
@@ -76,16 +77,6 @@
 </head>
 <body class="js">
 
-<!-- Preloader -->
-<div class="preloader">
-    <div class="preloader-inner">
-        <div class="preloader-icon">
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div>
-<!-- End Preloader -->
 <div th:replace="~{fragments/header :: header}"></div>
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
@@ -186,9 +177,7 @@
                                     <td th:text="${book.bookName}">책제목</td>
                                     <td th:text="${#temporals.format(book.purchasedAt, 'yyyy-MM-dd HH:mm')}"></td>
                                     <td>
-                                        <a th:href="@{/review(bookId=${book.bookId})}" class="btn btn-primary">
-                                            리뷰 작성
-                                        </a>
+                                        <a th:href="@{/review(bookId=${book.bookId})}" class="btn btn-primary">리뷰 작성</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -309,6 +298,7 @@
 <!-- Slicknav JS -->
 <script src="/js/slicknav.min.js"></script>
 <!-- Owl Carousel JS -->
+<script src="/js/owl-carousel.js"></script>
 <script src="/js/owl-carousel.js"></script>
 <!-- Magnific Popup JS -->
 <script src="/js/magnific-popup.js"></script>

@@ -23,8 +23,9 @@ public class LogCrashAppender extends AppenderBase<ILoggingEvent> {
     // 중복 방지를 위한 최근 로그 저장소
     // 지나친 도배 방지 위해..
     private final ConcurrentHashMap<String, Long> recentLogs = new ConcurrentHashMap<>();
-    // 1초동안은 같은 에러메세지로 도배하지 않도록..
-    private static final long DUPLICATE_TIME_WINDOW_MS = TimeUnit.SECONDS.toMillis(1);
+    // 2초동안은 같은 에러메세지로 도배하지 않도록..
+    // 근데 효과가 있나 싶음
+    private static final long DUPLICATE_TIME_WINDOW_MS = TimeUnit.SECONDS.toMillis(2);
 
     private String url;
 
