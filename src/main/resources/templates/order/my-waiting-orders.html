@@ -189,16 +189,14 @@
                             <p class="order-total-price" th:text="${order.totalPrice}"></p>
                         </div>
                     </div>
-                    <div class="order-footer">
-                        <form action="/front/payments/checkout-page" method="get">
-                            <input type="hidden" name="orderId" th:value="${order.orderId}"/>
+<!--                    <form th:action="@{/front/payments/checkout-page?orderId={orderId}(orderId=${order.orderId})}" method="get">-->
+                    <form action="/front/payments/checkout-page" method="get">
+                        <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                        <div class="order-footer">
                             <button class="order-action" type="submit">재결제</button>
-                        </form>
-                        <form id="cancelForm" method="get" action="/my/orders">
-                            <input type="hidden" name="orderId" id="orderId" />
-                            <button class="order-action" onclick="confirmOrderCancel('${order.orderId}')">주문취소</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
+
                 </div>
 
                 <!--	Done 주문/배송 현황 content  -->
