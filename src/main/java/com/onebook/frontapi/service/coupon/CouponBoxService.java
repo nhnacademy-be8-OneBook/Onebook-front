@@ -38,94 +38,11 @@ public class CouponBoxService {
         Page<IssuedCouponFeignResponse> page = couponBoxClient.getIssuedCouponsByMemberId(pageable).getBody();
 
         List<IssuedCouponResponse> issuedCouponResponseList = new ArrayList<>();
-//        Page<IssuedCouponResponse> response = new PageImpl(page.getContent());
 
         for(IssuedCouponFeignResponse issuedCouponFeignResponse :  page.getContent()){
 
-            IssuedCouponResponse issuedCouponResponse = new IssuedCouponResponse();
-
-            issuedCouponResponse.setCouponNumber(issuedCouponFeignResponse.getCouponNumber());
-            issuedCouponResponse.setIssuedCouponId(issuedCouponFeignResponse.getIssuedCouponId());
-            issuedCouponResponse.setMemberId(issuedCouponFeignResponse.getMemberId());
-            issuedCouponResponse.setIssueDateTime(issuedCouponFeignResponse.getIssueDateTime());
-            issuedCouponResponse.setUseDateTime(issuedCouponFeignResponse.getUseDateTime());
-
-            // issued 쿠폰의 쿠폰번호로 - > 쿠폰 찾아옴
-            CouponResponse couponResponse = couponClient.getCouponByCouponNumber(issuedCouponFeignResponse.getCouponNumber()).getBody();
-
-            // 쿠폰의 정책 id로 -> 정책을 찾아옴
-            if(Objects.nonNull(couponResponse.getPricePolicyForBookId())){
-
-                PricePolicyForBookResponse pricePolicyForBookResponse =
-                        couponPolicyService.getPricePolicyForBook(couponResponse.getPricePolicyForBookId());
-
-                issuedCouponResponse.setMinimumOrderAmount(pricePolicyForBookResponse.getMinimumOrderAmount());
-                issuedCouponResponse.setDiscountPrice(pricePolicyForBookResponse.getDiscountPrice());
-                issuedCouponResponse.setExpirationPeriodStart(pricePolicyForBookResponse.getExpirationPeriodStart());
-                issuedCouponResponse.setExpirationPeriodEnd(pricePolicyForBookResponse.getExpirationPeriodEnd());
-                issuedCouponResponse.setName(pricePolicyForBookResponse.getName());
-                issuedCouponResponse.setDescription(pricePolicyForBookResponse.getDescription());
-                issuedCouponResponse.setBookName(pricePolicyForBookResponse.getBookName());
-                issuedCouponResponse.setBookIsbn13(pricePolicyForBookResponse.getBookIsbn13());
-
-                issuedCouponResponse.setCouponType("pricePolicyForBook");
-
-            }
-
-            if(Objects.nonNull(couponResponse.getPricePolicyForCategoryId())){
-
-                PricePolicyForCategoryResponse pricePolicyForCategoryResponse =
-                        couponPolicyService.getPricePolicyForCategory(couponResponse.getPricePolicyForCategoryId());
-
-                issuedCouponResponse.setMinimumOrderAmount(pricePolicyForCategoryResponse.getMinimumOrderAmount());
-                issuedCouponResponse.setDiscountPrice(pricePolicyForCategoryResponse.getDiscountPrice());
-                issuedCouponResponse.setExpirationPeriodStart(pricePolicyForCategoryResponse.getExpirationPeriodStart());
-                issuedCouponResponse.setExpirationPeriodEnd(pricePolicyForCategoryResponse.getExpirationPeriodEnd());
-                issuedCouponResponse.setName(pricePolicyForCategoryResponse.getName());
-                issuedCouponResponse.setDescription(pricePolicyForCategoryResponse.getDescription());
-                issuedCouponResponse.setCategoryName(pricePolicyForCategoryResponse.getCategoryName());
-
-                issuedCouponResponse.setCouponType("pricePolicyForCategory");
-
-            }
-
-            if(Objects.nonNull(couponResponse.getRatePolicyForBookId())){
-
-                RatePolicyForBookResponse ratePolicyForBookResponse =
-                        couponPolicyService.getRatePolicyForBook(couponResponse.getRatePolicyForBookId());
-
-                issuedCouponResponse.setMinimumOrderAmount(ratePolicyForBookResponse.getMinimumOrderAmount());
-                issuedCouponResponse.setDiscountRate(ratePolicyForBookResponse.getDiscountRate());
-                issuedCouponResponse.setMaximumDiscountPrice(ratePolicyForBookResponse.getMaximumDiscountPrice());
-                issuedCouponResponse.setExpirationPeriodStart(ratePolicyForBookResponse.getExpirationPeriodStart());
-                issuedCouponResponse.setExpirationPeriodEnd(ratePolicyForBookResponse.getExpirationPeriodEnd());
-                issuedCouponResponse.setName(ratePolicyForBookResponse.getName());
-                issuedCouponResponse.setDescription(ratePolicyForBookResponse.getDescription());
-                issuedCouponResponse.setBookName(ratePolicyForBookResponse.getBookName());
-                issuedCouponResponse.setBookIsbn13(ratePolicyForBookResponse.getBookIsbn13());
-
-                issuedCouponResponse.setCouponType("ratePolicyForBook");
-
-            }
-
-            if(Objects.nonNull(couponResponse.getRatePolicyForCategoryId())){
-
-                RatePolicyForCategoryResponse ratePolicyForCategoryResponse =
-                        couponPolicyService.getRatePolicyForCategory(couponResponse.getRatePolicyForCategoryId());
-
-                issuedCouponResponse.setMinimumOrderAmount(ratePolicyForCategoryResponse.getMinimumOrderAmount());
-                issuedCouponResponse.setDiscountRate(ratePolicyForCategoryResponse.getDiscountRate());
-                issuedCouponResponse.setMaximumDiscountPrice(ratePolicyForCategoryResponse.getMaximumDiscountPrice());
-                issuedCouponResponse.setExpirationPeriodStart(ratePolicyForCategoryResponse.getExpirationPeriodStart());
-                issuedCouponResponse.setExpirationPeriodEnd(ratePolicyForCategoryResponse.getExpirationPeriodEnd());
-                issuedCouponResponse.setName(ratePolicyForCategoryResponse.getName());
-                issuedCouponResponse.setDescription(ratePolicyForCategoryResponse.getDescription());
-                issuedCouponResponse.setCategoryName(ratePolicyForCategoryResponse.getCategoryName());
-
-                issuedCouponResponse.setCouponType("ratePolicyForCategory");
-
-            }
-
+            // 단순 IssuedCouponResponse들을 정책 정보까지 담은 정보로 변환해줌
+            IssuedCouponResponse issuedCouponResponse = makeIssuedCouponResponseContainingPolicyInfo(issuedCouponFeignResponse);
             issuedCouponResponseList.add(issuedCouponResponse);
         }
 
@@ -134,8 +51,8 @@ public class CouponBoxService {
                 new PageImpl<>(issuedCouponResponseList,pageable,page.getTotalPages());
 
             return issuedCouponResponsePage;
-
     }
+
 
     public IssuedCouponResponse issueCoupon(FindCouponsByPolicyIdRequest findCouponsByPolicyIdRequest){
 
@@ -171,6 +88,116 @@ public class CouponBoxService {
         IssueCouponToMemberRequest issueCouponToMemberRequest = new IssueCouponToMemberRequest(couponNumber);
 
         return couponBoxClient.issueCouponToMember(issueCouponToMemberRequest).getBody();
+    }
+
+    //TODO 구매할때 쿠폰적용하려고 쓰는 기능!! (해당 책에 적용가능 and 사용자가 가지고 있는 and 사용 가능한 쿠폰목록 가지고옴)
+    public List<IssuedCouponResponse> getIssuedCouponsValidForBookByMemberId(Long bookId){
+
+        List<IssuedCouponFeignResponse> issuedCouponResponseList =
+                couponBoxClient.getIssuedCouponsValidForBookByMemberId(bookId).getBody();
+
+        if(issuedCouponResponseList == null || issuedCouponResponseList.isEmpty()){
+            // 조건에 맞는 사용자의 쿠폰이 없다면 빈 arrayList 리턴
+            return new ArrayList<>();
+        }
+        else{
+         return issuedCouponResponseList.stream().map(this::makeIssuedCouponResponseContainingPolicyInfo).toList();
+        }
+    }
+
+
+
+    public CouponResponse getCouponByCouponNumber(String couponNumber){
+        return couponClient.getCouponByCouponNumber(couponNumber).getBody();
+    }
+
+    private IssuedCouponResponse makeIssuedCouponResponseContainingPolicyInfo(IssuedCouponFeignResponse issuedCouponFeignResponse){
+
+
+        IssuedCouponResponse issuedCouponResponse = new IssuedCouponResponse();
+
+        issuedCouponResponse.setCouponNumber(issuedCouponFeignResponse.getCouponNumber());
+        issuedCouponResponse.setIssuedCouponId(issuedCouponFeignResponse.getIssuedCouponId());
+        issuedCouponResponse.setMemberId(issuedCouponFeignResponse.getMemberId());
+        issuedCouponResponse.setIssueDateTime(issuedCouponFeignResponse.getIssueDateTime());
+        issuedCouponResponse.setUseDateTime(issuedCouponFeignResponse.getUseDateTime());
+
+        CouponResponse couponResponse = getCouponByCouponNumber(issuedCouponFeignResponse.getCouponNumber());
+
+        // 쿠폰의 정책 id로 -> 정책을 찾아옴
+        if(Objects.nonNull(couponResponse.getPricePolicyForBookId())){
+
+            PricePolicyForBookResponse pricePolicyForBookResponse =
+                    couponPolicyService.getPricePolicyForBook(couponResponse.getPricePolicyForBookId());
+
+            issuedCouponResponse.setMinimumOrderAmount(pricePolicyForBookResponse.getMinimumOrderAmount());
+            issuedCouponResponse.setDiscountPrice(pricePolicyForBookResponse.getDiscountPrice());
+            issuedCouponResponse.setExpirationPeriodStart(pricePolicyForBookResponse.getExpirationPeriodStart());
+            issuedCouponResponse.setExpirationPeriodEnd(pricePolicyForBookResponse.getExpirationPeriodEnd());
+            issuedCouponResponse.setName(pricePolicyForBookResponse.getName());
+            issuedCouponResponse.setDescription(pricePolicyForBookResponse.getDescription());
+            issuedCouponResponse.setBookName(pricePolicyForBookResponse.getBookName());
+            issuedCouponResponse.setBookIsbn13(pricePolicyForBookResponse.getBookIsbn13());
+
+            issuedCouponResponse.setCouponType("pricePolicyForBook");
+
+        }
+
+        if(Objects.nonNull(couponResponse.getPricePolicyForCategoryId())){
+
+            PricePolicyForCategoryResponse pricePolicyForCategoryResponse =
+                    couponPolicyService.getPricePolicyForCategory(couponResponse.getPricePolicyForCategoryId());
+
+            issuedCouponResponse.setMinimumOrderAmount(pricePolicyForCategoryResponse.getMinimumOrderAmount());
+            issuedCouponResponse.setDiscountPrice(pricePolicyForCategoryResponse.getDiscountPrice());
+            issuedCouponResponse.setExpirationPeriodStart(pricePolicyForCategoryResponse.getExpirationPeriodStart());
+            issuedCouponResponse.setExpirationPeriodEnd(pricePolicyForCategoryResponse.getExpirationPeriodEnd());
+            issuedCouponResponse.setName(pricePolicyForCategoryResponse.getName());
+            issuedCouponResponse.setDescription(pricePolicyForCategoryResponse.getDescription());
+            issuedCouponResponse.setCategoryName(pricePolicyForCategoryResponse.getCategoryName());
+
+            issuedCouponResponse.setCouponType("pricePolicyForCategory");
+
+        }
+
+        if(Objects.nonNull(couponResponse.getRatePolicyForBookId())){
+
+            RatePolicyForBookResponse ratePolicyForBookResponse =
+                    couponPolicyService.getRatePolicyForBook(couponResponse.getRatePolicyForBookId());
+
+            issuedCouponResponse.setMinimumOrderAmount(ratePolicyForBookResponse.getMinimumOrderAmount());
+            issuedCouponResponse.setDiscountRate(ratePolicyForBookResponse.getDiscountRate());
+            issuedCouponResponse.setMaximumDiscountPrice(ratePolicyForBookResponse.getMaximumDiscountPrice());
+            issuedCouponResponse.setExpirationPeriodStart(ratePolicyForBookResponse.getExpirationPeriodStart());
+            issuedCouponResponse.setExpirationPeriodEnd(ratePolicyForBookResponse.getExpirationPeriodEnd());
+            issuedCouponResponse.setName(ratePolicyForBookResponse.getName());
+            issuedCouponResponse.setDescription(ratePolicyForBookResponse.getDescription());
+            issuedCouponResponse.setBookName(ratePolicyForBookResponse.getBookName());
+            issuedCouponResponse.setBookIsbn13(ratePolicyForBookResponse.getBookIsbn13());
+
+            issuedCouponResponse.setCouponType("ratePolicyForBook");
+
+        }
+
+        if(Objects.nonNull(couponResponse.getRatePolicyForCategoryId())){
+
+            RatePolicyForCategoryResponse ratePolicyForCategoryResponse =
+                    couponPolicyService.getRatePolicyForCategory(couponResponse.getRatePolicyForCategoryId());
+
+            issuedCouponResponse.setMinimumOrderAmount(ratePolicyForCategoryResponse.getMinimumOrderAmount());
+            issuedCouponResponse.setDiscountRate(ratePolicyForCategoryResponse.getDiscountRate());
+            issuedCouponResponse.setMaximumDiscountPrice(ratePolicyForCategoryResponse.getMaximumDiscountPrice());
+            issuedCouponResponse.setExpirationPeriodStart(ratePolicyForCategoryResponse.getExpirationPeriodStart());
+            issuedCouponResponse.setExpirationPeriodEnd(ratePolicyForCategoryResponse.getExpirationPeriodEnd());
+            issuedCouponResponse.setName(ratePolicyForCategoryResponse.getName());
+            issuedCouponResponse.setDescription(ratePolicyForCategoryResponse.getDescription());
+            issuedCouponResponse.setCategoryName(ratePolicyForCategoryResponse.getCategoryName());
+
+            issuedCouponResponse.setCouponType("ratePolicyForCategory");
+
+        }
+
+        return issuedCouponResponse;
     }
 
 }

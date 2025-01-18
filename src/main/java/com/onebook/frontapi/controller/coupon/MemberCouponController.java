@@ -48,6 +48,15 @@ public class MemberCouponController {
         return "redirect:/coupon/coupon-holder";
     }
 
+    // TODO 기능 테스트용 , 추후 삭제예정 (변상우)
+    @GetMapping("/coupon/apply/test")
+    public String test1(Model model){
+
+        List<IssuedCouponResponse> list = couponBoxService.getIssuedCouponsValidForBookByMemberId(107L);
+        model.addAttribute("list",list);
+
+        return "coupon/test/test";
+    }
 
 
 }
