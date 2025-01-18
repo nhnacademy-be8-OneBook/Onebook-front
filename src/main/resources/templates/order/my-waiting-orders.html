@@ -48,8 +48,22 @@
 <link rel="stylesheet" href="#" id="colors">
 <link rel="stylesheet" href="/css/order/order-my-style.css">
 
-<div th:insert="fragments/header :: header"></div>
+<script>
+    function confirmOrderCancel(orderId) {
+        // 사용자에게 확인 창 표시
+        const userConfirmed = confirm("주문을 취소하시겠습니까?");
+        if (userConfirmed) {
+            // 확인을 누른 경우 orderId를 포함하여 GET 요청 전송
+            const form = document.getElementById('cancelForm');
+            document.getElementById('orderId').value = orderId; // orderId 설정
+            form.submit(); // 폼 제출
+        }
+        // 취소를 누른 경우 아무 작업도 하지 않음
+    }
+</script>
 
+
+<div th:insert="fragments/header :: header"></div>
 
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
@@ -158,7 +172,7 @@
 
                 <!--	Start 주문/배송 현황 content  -->
 
-                <div class="order-card" th:each="order : ${waitingOrders}">
+                <div class="order-card" th:each="order : ${orderList}">
                     <div class="order-header">
 <!--                        <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}   ${order.orderStatusName}"></span>-->
                         <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')} + ' ' + ${order.orderStatusName}"></span>
@@ -176,7 +190,14 @@
                         </div>
                     </div>
                     <div class="order-footer">
-                        <button class="order-action" type="button">재결제</button>
+                        <form action="/front/payments/checkout-page" method="get">
+                            <input type="hidden" name="orderId" th:value="${order.orderId}"/>
+                            <button class="order-action" type="submit">재결제</button>
+                        </form>
+                        <form id="cancelForm" method="get" action="/my/orders">
+                            <input type="hidden" name="orderId" id="orderId" />
+                            <button class="order-action" onclick="confirmOrderCancel('${order.orderId}')">주문취소</button>
+                        </form>
                     </div>
                 </div>
 

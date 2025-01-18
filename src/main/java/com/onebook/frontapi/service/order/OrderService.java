@@ -24,7 +24,7 @@ public class OrderService {
     }
 
     public OrderMemberResponse getOrder(Long orderId) {
-        OrderMemberFeignResponse body = orderClient.findOrder(orderId).getBody();
+        OrderMemberFeignResponse body = orderClient.findOrderByOrderId(orderId).getBody();
         // TODO 에러처리
         if (body == null) {
             throw new RuntimeException();
@@ -32,12 +32,9 @@ public class OrderService {
         return OrderMemberResponse.fromFeign(body);
     }
 
-    public Page<OrderResponse> getAllOrders(Pageable pageable) {
-        return orderClient.findAllOrders(pageable).map(OrderResponse::fromFeign);
-    }
-
-    public Page<OrderResponse> getWaitingOrders(Pageable pageable) {
-        return orderClient.findWaitingOrders(pageable).map(OrderResponse::fromFeign);
+    public Page<OrderResponse> getOrders(String orderStatus, Pageable pageable) {
+        Page<OrderFeignResponse> body = orderClient.findOrders(orderStatus, pageable).getBody();
+        return body.map(OrderResponse::fromFeign);
     }
 
     public List<OrderByStatusResponseDto> getOrdersByStatus(String status) {

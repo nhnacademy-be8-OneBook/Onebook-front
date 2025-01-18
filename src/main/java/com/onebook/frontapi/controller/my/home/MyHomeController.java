@@ -33,7 +33,7 @@ public class MyHomeController {
     @GetMapping("/home")
     public String myHome(Pageable pageable, Model model) {
         MemberResponse memberResponse = memberService.getMember();
-        Page<OrderResponse> orderResponses = orderService.getAllOrders(pageable);
+        Page<OrderResponse> orderResponses = orderService.getOrders(null, pageable);
         MyOrderStatusResponse myOrderStatusResponse = myHomeService.getMyOrderStatus(orderResponses);
         Integer memberNetPaymentAmount = memberService.getMemberNetPaymentAmount();
         Long totalCoupons = couponBoxService.getIssuedCouponsByMemberId(0).getTotalElements();
