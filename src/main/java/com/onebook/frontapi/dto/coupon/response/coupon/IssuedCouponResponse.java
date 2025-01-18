@@ -39,6 +39,4 @@ public class IssuedCouponResponse {
     private String bookIsbn13;
     private String categoryName;
 
-
-
 }

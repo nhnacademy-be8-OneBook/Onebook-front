@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @FeignClient(name = "CouponBoxClient",  url = "${onebook.gatewayUrl}")
 public interface CouponBoxClient {
 
@@ -20,4 +22,8 @@ public interface CouponBoxClient {
 
     @PostMapping("/task/coupon/issue")
     ResponseEntity<IssuedCouponResponse> issueCouponToMember(@RequestBody IssueCouponToMemberRequest issueCouponToMemberRequest);
+
+    //TODO 구매할때 쿠폰적용하려고 쓰는 기능!! (해당 책에 적용가능 and 사용자가 가지고 있는 and 사용 가능한 쿠폰목록 가지고옴)
+    @GetMapping("/task/coupon/apply/{book-id}")
+    ResponseEntity<List<IssuedCouponFeignResponse>> getIssuedCouponsValidForBookByMemberId(@PathVariable(name = "book-id") Long bookId);
 }
