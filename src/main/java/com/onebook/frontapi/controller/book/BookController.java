@@ -179,12 +179,8 @@ public class BookController {
                              @RequestParam(value = "search") String searchString,
                              @RequestParam(defaultValue = "0") Integer page,
                              Model model) {
-        Pageable pageable = null;
-        if(Objects.isNull(page)){
-            pageable = PageRequest.of(0, 10);
-        }{
-            pageable = PageRequest.of(page, 10);
-        }
+        Pageable pageable = PageRequest.of(page, 10);
+
         List<BookSearchAllResponse> bookList = bookService.searchBookAll(searchString);
 
 
