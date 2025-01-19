@@ -54,7 +54,7 @@
         const userConfirmed = confirm("주문을 취소하시겠습니까?");
         if (userConfirmed) {
             const form = document.getElementById('cancelForm');
-            form.action = `/my/order/return/${orderId}`;  // URL 동적 설정
+            form.action = `/my/order/cancel/${orderId}`;  // URL 동적 설정
             form.submit();
         }
     }

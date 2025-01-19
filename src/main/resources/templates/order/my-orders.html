@@ -175,9 +175,12 @@
                         </div>
                     </div>
                     <div class="order-footer">
-                        <button class="order-action" type="button">반품 상세</button>
-                        <button class="order-action" type="button">재구매</button>
-                        <button class="order-action" type="button">회수 배송 조회</button>
+                        <form th:action="@{/my/order/{order-id}delivery(order-id=${order.orderId})}" method="get">
+                            <button class="order-action" type="button">배송조회</button>
+                        </form>
+                        <form th:action="@{/my/order/return/{order-id}/step1(order-id=${order.orderId})}" method="get">
+                            <button class="order-action" type="submit">교환 & 반품신청</button>
+                        </form>
                     </div>
                 </div>
 

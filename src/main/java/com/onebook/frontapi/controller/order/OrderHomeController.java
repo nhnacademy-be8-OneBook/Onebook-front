@@ -54,7 +54,7 @@ public class OrderHomeController {
     }
 
     // 반품
-    @GetMapping("/my/order/return/{order-id}")
+    @GetMapping("/my/order/cancel/{order-id}")
     public String myOrderReturn(@PathVariable(name = "order-id") Long orderId) {
         List<Long> orderIds = new ArrayList<>();
         orderIds.add(orderId);
