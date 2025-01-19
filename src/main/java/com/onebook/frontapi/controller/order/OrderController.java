@@ -29,14 +29,8 @@ public class OrderController {
 
     private final OrderService orderService;
     private final MemberService memberService;
-    private final OrderAddressService orderAddressService;
     private final OrderStatusService orderStatusService;
     private final BookService bookService;
-
-    @GetMapping("/order/order-test")
-    public String orderTest() {
-        return "order/order-test";
-    }
 
     @PostMapping("/order/register-form")
     public String orderRegistesr(@ModelAttribute BookListRequest bookListRequest, Model model) {
@@ -108,4 +102,5 @@ public class OrderController {
 
         return "redirect:/admin/orders?status=" + encodedStatus;
     }
+
 }

@@ -1,6 +1,6 @@
 // 팝업창 열기 함수
 function openAddressPopup() {
-    window.open('/order/addresses', 'addressPopup', 'width=600,height=400');
+    window.open('/order/addresses', 'addressPopup', 'width=1400,height=800');
 }
 
 // 팝업창에서 선택된 주소 데이터를 업데이트
@@ -18,7 +18,7 @@ function setAddress(recipientName, recipientPhoneNumber, recipientRequestedTerm,
 
 // 포장지 팝업창 열기
 function openPackagingPopup() {
-    window.open('/packagings', 'packagingPopup', 'width=600,height=400');
+    window.open('/packagings', 'packagingPopup', 'width=800,height=500');
 }
 
 // 팝업창에서 선택된 포장지 데이터를 업데이트

@@ -66,4 +66,8 @@ public class OrderService {
         return orderDetailResponse;
     }
 
+    // 교환, 반품&환불 진행
+    public void createOrderSolution(Long orderId, OrderSolutionRequest orderSolutionRequest) {
+        orderClient.saveOrderSolution(orderId, orderSolutionRequest);
+    }
 }
