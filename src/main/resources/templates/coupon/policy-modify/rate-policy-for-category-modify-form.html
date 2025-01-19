@@ -287,22 +287,22 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>정책명<span>*</span></label>
-                                        <input name="name" type="text" th:value="${ratePolicyForCategory.getName()}">
+                                        <input name="name" type="text" th:value="${ratePolicyForCategory.getName()}" placeholder="정책이름을 입력하세요, 최대 100자까지 입력 가능합니다" maxlength="100" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>정책설명<span>*</span></label>
-                                        <input name="description" type="text" th:value="${ratePolicyForCategory.getDescription()}">
+                                        <input name="description" type="text" th:value="${ratePolicyForCategory.getDescription()}" placeholder="정책설명을 입력하세요, 최대 200자까지 입력 가능합니다" maxlength="200">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>유효기간<span>*</span></label>
                                         <p>시작</p>
-                                        <input name="expirationPeriodStart" type="datetime-local" th:value="${ratePolicyForCategory.getExpirationPeriodStart()}">
+                                        <input name="expirationPeriodStart" type="datetime-local" th:value="${ratePolicyForCategory.getExpirationPeriodStart()}" required>
                                         <p>종료</p>
-                                        <input name="expirationPeriodEnd" type="datetime-local" th:value="${ratePolicyForCategory.getExpirationPeriodEnd()}">
+                                        <input name="expirationPeriodEnd" type="datetime-local" th:value="${ratePolicyForCategory.getExpirationPeriodEnd()}" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -323,13 +323,13 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>최소주문금액<span>*</span></label>
-                                        <input name="minimumOrderAmount" type="text" th:value="${ratePolicyForCategory.getMinimumOrderAmount()}">
+                                        <input name="minimumOrderAmount" type="text" th:value="${ratePolicyForCategory.getMinimumOrderAmount()}" placeholder="최소주문금액을 입력하세요" min="0" max="999999" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>최대할인금액<span>*</span></label>
-                                        <input name="maximumDiscountPrice" type="text" th:value="${ratePolicyForCategory.getMaximumDiscountPrice()}">
+                                        <input name="maximumDiscountPrice" type="text" th:value="${ratePolicyForCategory.getMaximumDiscountPrice()}" placeholder="최대할인금액을 입력하세요" min="0" max="999999" required>
                                     </div>
                                 </div>
                                 <div class="col-12">

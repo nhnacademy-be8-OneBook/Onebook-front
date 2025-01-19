@@ -289,22 +289,22 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>정책명<span>*</span></label>
-                                        <input name="name" type="text" th:value="${ratePolicyForBook.getName()}">
+                                        <input name="name" type="text" th:value="${ratePolicyForBook.getName()}" placeholder="정책이름을 입력하세요, 최대 100자까지 입력 가능합니다" maxlength="100" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>정책설명<span>*</span></label>
-                                        <input name="description" type="text" th:value="${ratePolicyForBook.getDescription()}">
+                                        <input name="description" type="text" th:value="${ratePolicyForBook.getDescription()}"  placeholder="정책설명을 입력하세요, 최대 200자까지 입력 가능합니다" maxlength="200">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>유효기간<span>*</span></label>
                                         <p>시작</p>
-                                        <input name="expirationPeriodStart" type="datetime-local" th:value="${ratePolicyForBook.getExpirationPeriodStart()}">
+                                        <input name="expirationPeriodStart" type="datetime-local" th:value="${ratePolicyForBook.getExpirationPeriodStart()}" required>
                                         <p>종료</p>
-                                        <input name="expirationPeriodEnd" type="datetime-local" th:value="${ratePolicyForBook.getExpirationPeriodEnd()}">
+                                        <input name="expirationPeriodEnd" type="datetime-local" th:value="${ratePolicyForBook.getExpirationPeriodEnd()}" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -325,19 +325,19 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>최소주문금액<span>*</span></label>
-                                        <input name="minimumOrderAmount" type="text"  th:value="${ratePolicyForBook.getMinimumOrderAmount()}">
+                                        <input name="minimumOrderAmount" type="text"  th:value="${ratePolicyForBook.getMinimumOrderAmount()}"  min="0" max="999999" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>최대할인금액<span>*</span></label>
-                                        <input name="maximumDiscountPrice" type="text" th:value="${ratePolicyForBook.getMaximumDiscountPrice()}">
+                                        <input name="maximumDiscountPrice" type="text" th:value="${ratePolicyForBook.getMaximumDiscountPrice()}"  min="0" max="999999" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>적용 도서<span>*</span></label>
-                                        <input id="bookIsbn13" name="bookIsbn13" type="text" placeholder="지정할 도서의 ISBN13을 입력해주세요" th:value="${ratePolicyForBook.getBookIsbn13()}">
+                                        <input id="bookIsbn13" name="bookIsbn13" type="text" placeholder="지정할 도서의 ISBN13을 입력해주세요" th:value="${ratePolicyForBook.getBookIsbn13()}" minlength="13" maxlength="13" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
