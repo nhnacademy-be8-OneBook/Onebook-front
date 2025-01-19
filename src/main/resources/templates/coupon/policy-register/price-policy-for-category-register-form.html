@@ -284,34 +284,34 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>정책명<span>*</span></label>
-                                        <input name="name" type="text" placeholder="">
+                                        <input name="name"  type="text" placeholder="정책이름을 입력하세요, 최대 100자까지 입력 가능합니다" maxlength="100" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>정책설명<span>*</span></label>
-                                        <input name="description" type="text" placeholder="">
+                                        <input name="description" type="text" placeholder="정책설명을 입력하세요, 최대 200자까지 입력 가능합니다" maxlength="200">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>유효기간<span>*</span></label>
                                         <p>시작</p>
-                                        <input name="expirationPeriodStart" type="datetime-local">
+                                        <input name="expirationPeriodStart" type="datetime-local" required>
                                         <p>종료</p>
-                                        <input name="expirationPeriodEnd" type="datetime-local">
+                                        <input name="expirationPeriodEnd" type="datetime-local" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>최소주문금액<span>*</span></label>
-                                        <input name="minimumOrderAmount" type="text" placeholder="">
+                                        <input name="minimumOrderAmount" type="number" placeholder="최소주문금액을 입력하세요" min="0" max="999999" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>할인금액<span>*</span></label>
-                                        <input name="discountPrice" type="text" placeholder="">
+                                        <input name="discountPrice" type="number" placeholder="할인금액을 입력하세요" min="0" max="999999" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -325,7 +325,7 @@
                                                 </option>
                                             </div>
                                         </select>
-                                        <input type="hidden" name="categoryId">
+                                        <input type="hidden" name="categoryId" required>
                                     </div>
                                 </div>
 <!--                                <div class="col-12 pt-5 text-right">-->
