@@ -49,7 +49,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
                 .requestMatchers(
-                        "/css/**", "/js/**", "/images/**", "/public/**", "/style.css", "/fonts"
+                        "/css/**", "/js/**", "/images/**", "/public/**", "/fonts/**", "/style.css"
                 );
     }
 
