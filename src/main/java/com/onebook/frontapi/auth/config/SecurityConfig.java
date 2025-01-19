@@ -14,10 +14,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
@@ -42,6 +46,14 @@ public class SecurityConfig {
     private final CartService cartService;
 
     @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring()
+                .requestMatchers(
+                        "/css/**", "/js/**", "/images/**", "/public/**", "/fonts/**", "/style.css"
+                );
+    }
+
+    @Bean
     public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
 
@@ -61,9 +73,11 @@ public class SecurityConfig {
         );
 
         http.authorizeHttpRequests(authRequest -> {
-            authRequest.requestMatchers("/", "/login", "/public/**",
-                            "/css/**", "/js/**", "/images/**", "/join", "/test/**",
-                            "/style.css", "/dormant-account/**", "/dooray-message-authentication",
+            authRequest
+                    .requestMatchers(
+                            "/", "/login", "/public/**",
+                            "/join", "/test/**",
+                            "/dormant-account/**", "/dooray-message-authentication",
                             "/cart", "/book/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN") // 로그인할 때 Authentication을 생성하는데 이때 ROLE을 넣어줬음. 그래서 이렇게 사용 가능.
                     .anyRequest().authenticated();
@@ -91,7 +105,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); // BCrypt 암호화 사용
-
     }
 
 }

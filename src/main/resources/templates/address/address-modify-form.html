@@ -158,25 +158,26 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label>받는분 성함<span>*</span></label>
-									<input type="text" name="name"  th:value="${memberAddress.getName()}" required="required">
+									<input type="text" name="name"  th:value="${memberAddress.getName()}" placeholder="성함을 입력하세요, 최대 10자까지 입력 가능합니다." required="required" maxlength="10">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
 									<label>받는분 연락처<span>*</span></label>
-									<input type="text" name="phoneNumber"  th:value="${memberAddress.getPhoneNumber()}" required="required">
+									<input type="text" name="phoneNumber"  th:value="${memberAddress.getPhoneNumber()}" placeholder="전화번호를 입력하세요 '-' 없이 숫자만 입력하세요" required="required" maxlength="11" oninput="this.value =
+												   this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
 									<label>주소지 별칭</label>
-									<input type="text" name="alias"  th:value="${memberAddress.getAlias()}" required="required">
+									<input type="text" name="alias"  th:value="${memberAddress.getAlias()}" placeholder="주소지 별칭을 입력하세요, 최대 20자까지 입력 가능합니다." required="required" maxlength="20">
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
 									<label>요청사항</label>
-									<input type="text" name="requestedTerm" th:value="${memberAddress.getRequestedTerm()}" required="required">
+									<input type="text" name="requestedTerm" th:value="${memberAddress.getRequestedTerm()}" required="required" placeholder="요청사항을 입력하세요, 최대 100자까지 입력 가능합니다." maxlength="100">
 								</div>
 							</div>
 
@@ -190,8 +191,8 @@
 									<input type="text" id="roadNameAddress" name="roadNameAddress" placeholder="도로명주소" th:value="${memberAddress.getRoadNameAddress()}" readonly>
 									<input type="text" id="numberAddress" name="numberAddress" placeholder="지번주소" th:value="${memberAddress.getNumberAddress()}" readonly>
 									<span id="guide" style="color:#999;display:none"></span>
-									<input type="text" id="notes" name="notes" th:value="${memberAddress.getNotes()}" placeholder="참고항목">
-									<input type="text" id="detailAddress" name="detailAddress" th:value="${memberAddress.getDetailAddress()}" placeholder="상세주소">
+									<input type="text" id="notes" name="notes" th:value="${memberAddress.getNotes()}"  readonly>
+									<input type="text" id="detailAddress" name="detailAddress" th:value="${memberAddress.getDetailAddress()}" placeholder="상세주소를 입력하세요. 최대 100자까지 입력가능합니다." maxlength="100" required>
 									<div class="checkbox">
 										<label class="checkbox-inline" for="2"><input name="defaultLocation" id="2" type="checkbox">기본 배송지로 설정</label>
 									</div>

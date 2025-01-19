@@ -1,5 +1,6 @@
 package com.onebook.frontapi.auth.handler;
 
+import com.onebook.frontapi.auth.exception.AccessNotFoundException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 

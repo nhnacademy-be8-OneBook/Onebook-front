@@ -24,7 +24,7 @@ public class LoginController {
             }
         }
 
-        return "auth/login";
+        return "login/login";
     }
 
 }
