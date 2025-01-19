@@ -191,8 +191,8 @@
 									<input type="text" id="roadNameAddress" name="roadNameAddress" placeholder="도로명주소" th:value="${memberAddress.getRoadNameAddress()}" readonly>
 									<input type="text" id="numberAddress" name="numberAddress" placeholder="지번주소" th:value="${memberAddress.getNumberAddress()}" readonly>
 									<span id="guide" style="color:#999;display:none"></span>
-									<input type="text" id="notes" name="notes" th:value="${memberAddress.getNotes()}" placeholder="참고항목" readonly>
-									<input type="text" id="detailAddress" name="detailAddress" th:value="${memberAddress.getDetailAddress()}" placeholder="상세주소" maxlength="100">
+									<input type="text" id="notes" name="notes" th:value="${memberAddress.getNotes()}"  readonly>
+									<input type="text" id="detailAddress" name="detailAddress" th:value="${memberAddress.getDetailAddress()}" placeholder="상세주소를 입력하세요. 최대 100자까지 입력가능합니다." maxlength="100" required>
 									<div class="checkbox">
 										<label class="checkbox-inline" for="2"><input name="defaultLocation" id="2" type="checkbox">기본 배송지로 설정</label>
 									</div>
