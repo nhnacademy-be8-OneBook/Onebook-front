@@ -28,7 +28,7 @@ public class OrderReturnController {
     public String ReturnStepOne(@PathVariable("order-id") Long orderId, Model model) {
         model.addAttribute("orderId", orderId);
 
-        return "/order/exchange-return-step1";
+        return "order/exchange-return-step1";
     }
 
     @PostMapping("/{order-id}/step1")
@@ -51,7 +51,7 @@ public class OrderReturnController {
         model.addAttribute("orderItems", orderDetail.getItems());
         model.addAttribute("itemImages", imgList);
 
-        return "/order/exchange-return-step2";
+        return "order/exchange-return-step2";
     }
 
     @PostMapping("/{order-id}/step2")
@@ -80,7 +80,7 @@ public class OrderReturnController {
 
         model.addAttribute("orderId", orderId);
         model.addAttribute("solutionType", orderSolutionRequest.getSolutionType());
-        return "/order/exchange-return-step3";
+        return "order/exchange-return-step3";
     }
 
     @PostMapping("/{order-id}/submit")
