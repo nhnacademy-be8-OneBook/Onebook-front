@@ -1,9 +1,11 @@
 package com.onebook.frontapi.controller.order;
 
+import com.onebook.frontapi.dto.address.response.MemberAddressResponse;
 import com.onebook.frontapi.dto.order.BookListRequest;
 import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.book.BookOrderRequest;
 import com.onebook.frontapi.dto.order.*;
+import com.onebook.frontapi.service.address.AddressService;
 import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.order.OrderAddressService;
@@ -31,6 +33,7 @@ public class OrderController {
     private final MemberService memberService;
     private final OrderStatusService orderStatusService;
     private final BookService bookService;
+    private final AddressService addressService;
 
     @PostMapping("/order/register-form")
     public String orderRegistesr(@ModelAttribute BookListRequest bookListRequest, Model model) {
@@ -47,12 +50,12 @@ public class OrderController {
         model.addAttribute("ordererPhoneNumber", orderderPhoneNumber);
 
         // TODO 사용자의 기본 배송지
-        /*
-        List<OrderAddressResponseDto> allOrderAddress = orderAddressService.getAllOrderAddress();
-        if (allOrderAddress.getFirst().isDefaultLocation()) {
-            model.addAttribute("orderAddressDefaultLocation", allOrderAddress.getFirst());
+        List<MemberAddressResponse> address = addressService.getAllMemberAddressByMemberId();
+        for (MemberAddressResponse memberAddressResponse : address) {
+            if (memberAddressResponse.isDefaultLocation()) {
+                model.addAttribute("orderAddressDefaultLocation", memberAddressResponse);
+            }
         }
-        */
 
         // 배송 선택 날짜
         // TODO utils에 넘기고싶음
