@@ -104,6 +104,8 @@
 								<th class="text-center">우편번호</th>
 								<th class="text-center">수정</th>
 								<th class="text-center">삭제</th>
+								<th class="text-center">기본 배송지</th>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -113,6 +115,7 @@
 								</td>
 							</tr>
 							<tr th:each="address : ${memberAddresses}">
+								<span th:if="${address.isDefaultLocation()}">
 								<td class="product-des" data-title="Description">
 									<p class="text-center"><strong class="product-name" th:text="${address.alias}"><a href="#"></a></strong></p>
 									<p class="product-des text-center" th:text="${address.roadNameAddress}"></p>
@@ -136,6 +139,39 @@
 										<button class="btn btn-dark">삭제</button>
 									</form>
 								</td>
+
+																	<td>기본 배송지</td>
+								</span>
+								<span th:unless="${address.isDefaultLocation()}">
+										<td class="product-des" data-title="Description">
+									<p class="text-center"><strong class="product-name" th:text="${address.alias}"><a href="#"></a></strong></p>
+									<p class="product-des text-center" th:text="${address.roadNameAddress}"></p>
+									<p class="product-des text-center" th:text="${address.detailAddress}"></p>
+									<p class="product-des text-center" th:text="${address.notes}"></p>
+								</td>
+								<td class="price" data-title="Price"><p class="text-center" th:text="${address.name}"></p></td>
+								<td class="price" data-title="Price"><p class="text-center" th:text="${address.phoneNumber}"></p></td>
+								<td class="qty" data-title="Qty"><p class="text-center" th:text="${address.requestedTerm}"></p><!-- Input Order -->
+								<td class="qty" data-title="Qty"><p class="text-center" th:text="${address.zipCode}"></p><!-- Input Order -->
+								<td>
+									<form class="text-center" action="/addresses/modify" method="GET">
+										<input type="hidden" name="id" th:value="${address.getId()}"/>
+										<button class="btn btn-dark">수정</button>
+									</form>
+								</td>
+								<td>
+									<form class="text-center" action="/addresses/delete" method="POST">
+										<input type="hidden" name="_method" value="DELETE"/>
+										<input type="hidden" name="id" th:value="${address.getId()}"/>
+										<button class="btn btn-dark">삭제</button>
+									</form>
+								</td>
+								<td>
+									<form class="text-center" th:action="'/addresses/'+${address.getId()}+'/default'" method="POST">
+										<button class="btn btn-dark">설정</button>
+									</form>
+								</td>
+								</span>
 							</tr>
 
 						<div class="pb-2 text-right">
