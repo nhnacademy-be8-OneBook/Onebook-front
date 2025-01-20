@@ -4,11 +4,9 @@ import com.onebook.frontapi.dto.member.MemberResponse;
 import com.onebook.frontapi.dto.myhome.MyOrderStatusResponse;
 import com.onebook.frontapi.dto.order.OrderResponse;
 import com.onebook.frontapi.service.coupon.CouponBoxService;
-import com.onebook.frontapi.service.coupon.CouponService;
 import com.onebook.frontapi.service.member.MemberService;
 import com.onebook.frontapi.service.myhome.MyHomeService;
 import com.onebook.frontapi.service.order.OrderService;
-import com.onebook.frontapi.service.point.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -33,7 +28,7 @@ public class MyHomeController {
     @GetMapping("/home")
     public String myHome(Pageable pageable, Model model) {
         MemberResponse memberResponse = memberService.getMember();
-        Page<OrderResponse> orderResponses = orderService.getOrders(null, pageable);
+        Page<OrderResponse> orderResponses = orderService.getOrdersByStatus(null, pageable);
         MyOrderStatusResponse myOrderStatusResponse = myHomeService.getMyOrderStatus(orderResponses);
         Integer memberNetPaymentAmount = memberService.getMemberNetPaymentAmount();
         Long totalCoupons = couponBoxService.getIssuedCouponsByMemberId(0).getTotalElements();

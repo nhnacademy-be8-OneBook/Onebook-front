@@ -48,8 +48,7 @@
     <link rel="stylesheet" href="#" id="colors">
     <link rel="stylesheet" href="/css/order/order-my-style.css">
 
-    <div th:insert="fragments/header :: header"></div>
-
+<div th:insert="fragments/header :: header"></div>
 
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
@@ -68,6 +67,7 @@
 </div>
 <!-- End Breadcrumbs -->
 
+<body>
 <!--	마이페이지 사이드바 시작-->
 <!-- Product Style -->
 <section class="product-area shop-sidebar shop section">
@@ -157,7 +157,7 @@
 
                 <!--	Start 주문/배송 현황 content  -->
 
-                <div class="order-card" th:each="order : ${orderList}">
+                <div class="order-card" th:each="order, iterStat : ${orderList}">
                     <div class="order-header">
 <!--                        <h4 class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}"></h4>-->
                         <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')} + ' ' + ${order.orderStatusName}"></span>
@@ -177,114 +177,45 @@
                         <form th:action="@{/my/order/{order-id}delivery(order-id=${order.orderId})}" method="get">
                             <button class="order-action" type="button">배송조회</button>
                         </form>
-                        <form th:action="@{/my/order/return/{order-id}/step1(order-id=${order.orderId})}" method="get">
-                            <button class="order-action" type="submit">교환 & 반품신청</button>
+                        <form th:id="'returnForm' + ${iterStat.index}"
+                              th:action="@{/my/order/return/{order-id}/step1(order-id=${order.orderId})}"
+                              method="get">
+                            <input type="hidden" th:id="'orderStatusName' + ${iterStat.index}"
+                                   th:value="${order.orderStatusName}">
+                            <button th:id="'submitButton' + ${iterStat.index}"
+                                    class="order-action"
+                                    type="button">교환 & 반품신청</button>
                         </form>
                     </div>
                 </div>
-
-
                 <!--	Done 주문/배송 현황 content  -->
-
             </div>
         </div>
     </div>
 </section>
 
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        // 모든 버튼에 대해 이벤트 리스너 추가
+        document.querySelectorAll('[id^="submitButton"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                // 버튼의 id에서 인덱스 추출
+                const index = this.id.replace('submitButton', '');
+                const orderStatusName = document.getElementById('orderStatusName' + index).value;
 
+                console.log("현재 주문 상태:", orderStatusName);
 
-<!--&lt;!&ndash; Start Footer Area &ndash;&gt;-->
-<!--<footer class="footer">-->
-<!--    &lt;!&ndash; Footer Top &ndash;&gt;-->
-<!--    <div class="footer-top section">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-lg-5 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer about">-->
-<!--                        <div class="logo">-->
-<!--                            <a href="index.html"><img src="/images/logo2.png" alt="#"></a>-->
-<!--                        </div>-->
-<!--                        <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>-->
-<!--                        <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="col-lg-2 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer links">-->
-<!--                        <h4>Information</h4>-->
-<!--                        <ul>-->
-<!--                            <li><a href="#">About Us</a></li>-->
-<!--                            <li><a href="#">Faq</a></li>-->
-<!--                            <li><a href="#">Terms & Conditions</a></li>-->
-<!--                            <li><a href="#">Contact Us</a></li>-->
-<!--                            <li><a href="#">Help</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="col-lg-2 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer links">-->
-<!--                        <h4>Customer Service</h4>-->
-<!--                        <ul>-->
-<!--                            <li><a href="#">Payment Methods</a></li>-->
-<!--                            <li><a href="#">Money-back</a></li>-->
-<!--                            <li><a href="#">Returns</a></li>-->
-<!--                            <li><a href="#">Shipping</a></li>-->
-<!--                            <li><a href="#">Privacy Policy</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="col-lg-3 col-md-6 col-12">-->
-<!--                    &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                    <div class="single-footer social">-->
-<!--                        <h4>Get In Tuch</h4>-->
-<!--                        &lt;!&ndash; Single Widget &ndash;&gt;-->
-<!--                        <div class="contact">-->
-<!--                            <ul>-->
-<!--                                <li>NO. 342 - London Oxford Street.</li>-->
-<!--                                <li>012 United Kingdom.</li>-->
-<!--                                <li>info@eshop.com</li>-->
-<!--                                <li>+032 3456 7890</li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                        <ul>-->
-<!--                            <li><a href="#"><i class="ti-facebook"></i></a></li>-->
-<!--                            <li><a href="#"><i class="ti-twitter"></i></a></li>-->
-<!--                            <li><a href="#"><i class="ti-flickr"></i></a></li>-->
-<!--                            <li><a href="#"><i class="ti-instagram"></i></a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; End Footer Top &ndash;&gt;-->
-<!--    <div class="copyright">-->
-<!--        <div class="container">-->
-<!--            <div class="inner">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-lg-6 col-12">-->
-<!--                        <div class="left">-->
-<!--                            <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-6 col-12">-->
-<!--                        <div class="right">-->
-<!--                            <img src="/images/payments.png" alt="#">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</footer>-->
-<!--&lt;!&ndash; /End Footer Area &ndash;&gt;-->
+                if (orderStatusName === "반품" || orderStatusName === "교환" ||
+                    orderStatusName === "주문취소" || orderStatusName === "구매확정") {
+                    alert("이미 처리된 주문입니다. 교환 또는 반품 신청을 할 수 없습니다.");
+                } else {
+                    document.getElementById('returnForm' + index).submit();
+                }
+            });
+        });
+    });
+</script>
+
 
 <!-- Jquery -->
 <script src="/js/jquery.min.js"></script>

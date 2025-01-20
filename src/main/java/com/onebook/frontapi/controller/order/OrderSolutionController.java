@@ -1,10 +1,6 @@
 package com.onebook.frontapi.controller.order;
 
-import com.onebook.frontapi.dto.book.BookOrderRequest;
-import com.onebook.frontapi.dto.order.BookListRequest;
-import com.onebook.frontapi.dto.order.OrderDetailBookFeignResponse;
-import com.onebook.frontapi.dto.order.OrderDetailResponse;
-import com.onebook.frontapi.dto.order.OrderSolutionRequest;
+import com.onebook.frontapi.dto.order.*;
 import com.onebook.frontapi.service.image.ImageService;
 import com.onebook.frontapi.service.order.OrderService;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/my/order/return")
 @Controller
-public class OrderReturnController {
+public class OrderSolutionController {
 
     private final OrderService orderService;
     private final ImageService imageService;
@@ -34,7 +30,6 @@ public class OrderReturnController {
     @PostMapping("/{order-id}/step1")
     public String ReturnStepOne(@PathVariable("order-id") Long orderId, @RequestParam("solutionType") String solutionType,
                                 HttpSession session, Model model) {
-
         // session 저장
         session.setAttribute(orderId.toString(), solutionType);
 
