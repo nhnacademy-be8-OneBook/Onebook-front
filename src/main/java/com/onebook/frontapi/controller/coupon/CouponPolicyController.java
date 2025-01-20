@@ -15,33 +15,10 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/admin")
 public class CouponPolicyController {
 
     private final CouponPolicyService couponPolicyService;
-
-    @GetMapping("/coupon-policies/rate-policies-for-book/list")
-    public String getRatePolicyForBookList()
-    {
-        return "coupon/policy-list/rate-policy-for-book-list";
-    }
-
-    @GetMapping("/coupon-policies/rate-policy-for-category/list")
-    public String getRatePolicyForCategoryList()
-    {
-        return "coupon/policy-list/rate-policy-for-category-list";
-    }
-
-    @GetMapping("/coupon-policies/price-policy-for-book/list")
-    public String getPricePolicyForBookList()
-    {
-        return "coupon/policy-list/price-policy-for-book-list";
-    }
-
-    @GetMapping("/coupon-policies/price-policy-for-category/list")
-    public String getPricePolicyForCategoryList()
-    {
-        return "coupon/policy-list/price-policy-for-category-list";
-    }
 
     // 쿠폰 정책 등록
     // 정률정책forBook 등록 폼
@@ -79,7 +56,7 @@ public class CouponPolicyController {
     public String registerRatePolicyForBook(@ModelAttribute AddRatePolicyForBookRequest addRatePolicyForBookRequest){
 
         couponPolicyService.registerRatePolicyForBook(addRatePolicyForBookRequest);
-        return "redirect:/coupon-policies/rate/book";
+        return "redirect:/admin/coupon-policies/rate/book";
     }
 
     // 정률정책 for category 등록
@@ -87,7 +64,7 @@ public class CouponPolicyController {
     public String registerRatePolicyForCategory(@ModelAttribute AddRatePolicyForCategoryRequest addRatePolicyForCategoryRequest){
 
         couponPolicyService.registerRatePolicyForCategory(addRatePolicyForCategoryRequest);
-        return "redirect:/coupon-policies/rate/category";
+        return "redirect:/admin/coupon-policies/rate/category";
     }
 
     // 정액정책 for Book 등록
@@ -95,7 +72,7 @@ public class CouponPolicyController {
     public String registerPricePolicyForBook(@ModelAttribute AddPricePolicyForBookRequest addPricePolicyForBookRequest){
 
         couponPolicyService.registerPricePolicyForBook(addPricePolicyForBookRequest);
-        return "redirect:/coupon-policies/price/book";
+        return "redirect:/admin/coupon-policies/price/book";
     }
 
     // 정액정책 for Category 등록
@@ -103,7 +80,7 @@ public class CouponPolicyController {
     public String registerPricePolicyForCategory(@ModelAttribute AddPricePolicyForCategoryRequest addPricePolicyForCategoryRequest){
 
         couponPolicyService.registerPricePolicyForCategory(addPricePolicyForCategoryRequest);
-        return "redirect:/coupon-policies/price/category";
+        return "redirect:/admin/coupon-policies/price/category";
     }
 
     // 쿠폰 조회
@@ -198,28 +175,28 @@ public class CouponPolicyController {
     public String modifyRatePolicyForBook(@ModelAttribute UpdateRatePolicyForBookRequest updateRatePolicyForBookRequest){
 
         couponPolicyService.updateRatePolicyForBook(updateRatePolicyForBookRequest);
-        return "redirect:/coupon-policies/rate/book";
+        return "redirect:/admin/coupon-policies/rate/book";
     }
 
     @PutMapping("/coupon-policies/rate/category/modify")
     public String modifyRatePolicyForCategory(@ModelAttribute UpdateRatePolicyForCategoryRequest updateRatePolicyForCategoryRequest){
 
         couponPolicyService.updateRatePolicyForCategory(updateRatePolicyForCategoryRequest);
-        return "redirect:/coupon-policies/rate/category";
+        return "redirect:/admin/coupon-policies/rate/category";
     }
 
     @PutMapping("/coupon-policies/price/book/modify")
     public String modifyPricePolicyForBook(@ModelAttribute UpdatePricePolicyForBookRequest updatePricePolicyForBookRequest){
 
         couponPolicyService.updatePricePolicyForBook(updatePricePolicyForBookRequest);
-        return "redirect:/coupon-policies/price/book";
+        return "redirect:/admin/coupon-policies/price/book";
     }
 
     @PutMapping("/coupon-policies/price/category/modify")
     public String modifyPricePolicyForCategory(@ModelAttribute UpdatePricePolicyForCategoryRequest updatePricePolicyForCategoryRequest){
 
         couponPolicyService.updatePricePolicyForCategory(updatePricePolicyForCategoryRequest);
-        return "redirect:/coupon-policies/price/category";
+        return "redirect:/admin/coupon-policies/price/category";
     }
 
     // 삭제
