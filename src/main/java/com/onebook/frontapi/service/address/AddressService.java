@@ -38,11 +38,18 @@ public class AddressService {
         return addressClient.deleteMemberAddress(deleteMemberAddressRequest).getBody();
     }
 
-
     public void checkAddressLimit() {
         Long addressesCount = addressClient.getAddressesCount().getBody();
         if(addressesCount.compareTo(10L) > 0){
             throw new MemberAddressLimitExceededException("배송지는 최대 10개까지 등록 가능합니다.");
         }
     }
+
+    // TODO 기본배송지 설정
+    public MemberAddressResponse setDefaultAddress(Long memberAddressId){
+
+        return addressClient.setDefaultAddress(memberAddressId).getBody();
+    }
+
+    // TODO 기본배송지 불러오기
 }
