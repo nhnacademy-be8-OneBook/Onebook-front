@@ -191,6 +191,7 @@ public class BookController {
                 productSearchResponse.setTitle(bookSearchAllResponse.getTitle());
                 productSearchResponse.setPublisherName(bookSearchAllResponse.getPublisherName());
                 productSearchResponse.setPrice(bookSearchAllResponse.getPrice());
+                productSearchResponse.setDescription(bookSearchAllResponse.getDescription());
                 productSearchResponse.setSalePrice(bookSearchAllResponse.getSalePrice());
                 productSearchResponse.setAmount(bookSearchAllResponse.getAmount());
                 productSearchResponse.setPubdate(bookSearchAllResponse.getPubdate());
