@@ -40,7 +40,7 @@ public class AddressService {
 
     public void checkAddressLimit() {
         Long addressesCount = addressClient.getAddressesCount().getBody();
-        if(addressesCount.compareTo(10L) > 0){
+        if(addressesCount >= 10L){
             throw new MemberAddressLimitExceededException("배송지는 최대 10개까지 등록 가능합니다.");
         }
     }
