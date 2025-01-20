@@ -23,6 +23,7 @@ public class OrderService {
         return orderClient.createOrder(orderFormRequest);
     }
 
+    // TODO 존재가 이상함
     public OrderMemberResponse getOrder(Long orderId) {
         OrderMemberFeignResponse body = orderClient.findOrderByOrderId(orderId).getBody();
         // TODO 에러처리
@@ -32,15 +33,28 @@ public class OrderService {
         return OrderMemberResponse.fromFeign(body);
     }
 
-    public Page<OrderResponse> getOrders(String orderStatus, Pageable pageable) {
+    public OrderResponse getOrders(Long orderId) {
+        OrderMemberFeignResponse body = orderClient.findOrderByOrderId(orderId).getBody();
+        // TODO 에러처리
+        if (body == null) {
+            throw new RuntimeException();
+        }
+        return OrderResponse.fromFeign(body);
+    }
+
+    // 상태를 통해 주문목록 가져오기
+    public Page<OrderResponse> getOrdersByStatus(String orderStatus, Pageable pageable) {
         Page<OrderFeignResponse> body = orderClient.findOrders(orderStatus, pageable).getBody();
         return body.map(OrderResponse::fromFeign);
     }
 
+    // TODO 변경필수
+    // admin이 사용하는 상태를 통해 주문목록 가져오기
     public List<OrderByStatusResponseDto> getOrdersByStatus(String status) {
         return orderClient.findOrderByStatus(status);
     }
 
+    // 주문 상태 변경
     public void updateOrderStatus(List<Long> orderIds, String status) {
         orderClient.updateOrderStatus(orderIds, status);
         try {
@@ -55,6 +69,7 @@ public class OrderService {
         }
     }
 
+    // 주문디테일 가져오기
     public OrderDetailResponse getOrderDetail(Long orderId) {
         OrderDetailFeignResponse orderDetail = orderClient.findOrderDetail(orderId);
 
