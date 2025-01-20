@@ -149,7 +149,7 @@
                             <tbody>
                             <!-- pointLogs.content: List<PointLogResponse> -->
                             <tr th:each="log : ${pointLogs.content}">
-                                <td th:text="${#temporals.format(log.pointLogUpdatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td th:text="${#temporals.format(log.pointLogUpdatedAt, 'yyyy-MM-dd HH:mm')}"></td>
                                 <!-- 적립/사용 내역 컬럼: 금액이 +면 파랑, -면 빨강 -->
                                 <td th:text="${log.updatedType}"
                                     th:style="${log.amount > 0} ? 'color:blue;' : 'color:red;'">
