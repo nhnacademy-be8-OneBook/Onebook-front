@@ -28,6 +28,7 @@
             <div style="margin-top: 5px;">
                 <label for="usePointInput">사용할 포인트: </label>
                 <input type="number" id="usePointInput" value="0" min="0" />
+                <button type="button" id="use-all-button">전액 사용</button>
             </div>
         </div>
 
@@ -73,6 +74,7 @@
         const customerKey = checkoutInfo.memberId;
         const widgets = tossPayments.widgets({ customerKey });
 
+
         // 초기 금액 설정 및 위젯 렌더링
         await widgets.setAmount({ currency: "KRW", value: orderAmount });
         await widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" });
@@ -84,6 +86,7 @@
         const userPointEl = document.getElementById("user-point");
         const usePointInput = document.getElementById("usePointInput");
         const finalAmountDisplay = document.getElementById("final-amount-display");
+        const useAllButton = document.getElementById("use-all-button");
 
         userPointEl.textContent = maxPoint;
         finalAmountDisplay.textContent = orderAmount;  // 초기 결제금액 표시
@@ -171,6 +174,21 @@
             } catch (err) {
                 console.error("결제 요청 중 오류:", err);
             }
+        });
+
+        useAllButton.addEventListener("click", () => {
+            let toUse;
+            // 결제 금액이 보유 포인트보다 크면 전액 사용, 작으면 결제금액 사용
+            if(orderAmount < maxPoint) {
+                toUse = orderAmount;
+            } else {
+                toUse = maxPoint;
+            }
+            usePointInput.value = toUse;
+
+            // 수동으로 input 이벤트 트리거 (실시간 업데이트를 위해)
+            const event = new Event('input', { bubbles: true });
+            usePointInput.dispatchEvent(event);
         });
     }
 

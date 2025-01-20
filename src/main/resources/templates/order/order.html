@@ -108,8 +108,8 @@
                             </td>
                             <td class="price">
                             <span th:data-price="${entry.key.salePrice}"
-                                  th:text="${#numbers.formatDecimal(entry.key.salePrice, 1, 'COMMA', 2, 'POINT')}">
-                                책 가격
+                                  th:text="${T(java.lang.String).format('%,d', entry.key.salePrice)}">
+                                     책 가격
                             </span>
                             </td>
                             <td class="qty">
@@ -138,8 +138,8 @@
                             </td>
                             <td class="total-amount">
                             <span th:id="'total-' + ${entry.key.bookId}"
-                                  th:text="${#numbers.formatDecimal(entry.key.salePrice * entry.value, 1, 'COMMA', 2, 'POINT')}">
-                                총 가격
+                                  th:text="${T(java.lang.String).format('%,d', entry.key.salePrice * entry.value)}">
+                                    총 가격
                             </span>
                             </td>
                             <input type="hidden"
