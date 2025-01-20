@@ -156,10 +156,12 @@
                                 </td>
 
                                 <!-- 적립/사용 금액 컬럼: 금액이 +면 파랑, -면 빨강 -->
-                                <td th:text="${log.amount}"
+                                <td th:text="${T(java.lang.String).format('%,d', log.amount)}"
                                     th:style="${log.amount > 0} ? 'color:blue;' : 'color:red;'">
                                 </td>
-                                <td th:text="${log.currentPoint}"></td>
+
+                                <!-- 현재 포인트 컬럼 -->
+                                <td th:text="${T(java.lang.String).format('%,d', log.currentPoint)}"></td>
                             </tr>
                             </tbody>
                         </table>
