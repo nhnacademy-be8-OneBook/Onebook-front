@@ -175,8 +175,7 @@ public class BookController {
 
 
     @GetMapping("/search")
-    public String bookSearch(@RequestParam(defaultValue = "all") String searchTarget,
-                             @RequestParam(value = "search") String searchString,
+    public String bookSearch(@RequestParam(value = "search") String searchString,
                              @RequestParam(defaultValue = "0") Integer page,
                              Model model) {
         Pageable pageable = PageRequest.of(page, 10);
