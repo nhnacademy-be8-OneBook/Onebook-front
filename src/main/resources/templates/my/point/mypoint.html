@@ -150,22 +150,21 @@
                             <!-- pointLogs.content: List<PointLogResponse> -->
                             <tr th:each="log : ${pointLogs.content}">
                                 <td th:text="${#temporals.format(log.pointLogUpdatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                <!-- 적립/사용 내역 컬럼: 금액이 +면 빨간, -면 파란 -->
+                                <!-- 적립/사용 내역 컬럼: 금액이 +면 파랑, -면 빨강 -->
                                 <td th:text="${log.updatedType}"
-                                    th:style="${log.amount > 0} ? 'color:red;' : 'color:blue;'">
+                                    th:style="${log.amount > 0} ? 'color:blue;' : 'color:red;'">
                                 </td>
 
-                                <!-- 적립/사용 금액 컬럼: 금액이 +면 빨간, -면 파란 -->
+                                <!-- 적립/사용 금액 컬럼: 금액이 +면 파랑, -면 빨강 -->
                                 <td th:text="${log.amount}"
-                                    th:style="${log.amount > 0} ? 'color:red;' : 'color:blue;'">
+                                    th:style="${log.amount > 0} ? 'color:blue;' : 'color:red;'">
                                 </td>
                                 <td th:text="${log.currentPoint}"></td>
                             </tr>
                             </tbody>
                         </table>
 
-                        <!-- 페이지네이션 -->
-                        <div class="pagination mt-3">
+                        <div class="pagination mt-3" style="text-align:center;">
                             <!-- 이전 페이지 -->
                             <a th:if="${!pointLogs.first}"
                                th:href="@{/point/logs(page=${pointLogs.pageNumber - 1}, size=${pointLogs.size})}">
@@ -173,9 +172,9 @@
                             </a>
                             <span>
                                 현재 페이지
-                                <span th:text="${pointLogs.pageNumber + 1}">1</span>
-                                /
-                                <span th:text="${pointLogs.totalPages}">1</span>
+                            <span th:text="${pointLogs.pageNumber + 1}">1</span>
+                             /
+                            <span th:text="${pointLogs.totalPages}">1</span>
                             </span>
                             <!-- 다음 페이지 -->
                             <a th:if="${!pointLogs.last}"
@@ -183,6 +182,7 @@
                                 다음 &raquo;
                             </a>
                         </div>
+
                     </div>
                 </div>
             </div>
