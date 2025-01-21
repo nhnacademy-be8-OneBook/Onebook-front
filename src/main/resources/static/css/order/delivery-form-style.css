@@ -179,3 +179,13 @@
 .delivery-form .btn-packaging:hover {
     background: #e88616;
 }
+
+.btn-coupon {
+    padding: 8px 20px;
+    background: #F7941D;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
