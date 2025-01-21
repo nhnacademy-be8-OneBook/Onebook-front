@@ -9,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -19,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MemberAdminController {
     private final MemberService memberService;
 
+    /**
+     * 관리자 페이지 - 회원 관리
+     */
     @GetMapping
     public String memberListForm(
             @RequestParam(defaultValue = "0", name="page") int pageNo,
@@ -32,4 +33,5 @@ public class MemberAdminController {
         model.addAttribute("memberList", memberListForAdmin);
         return "admin/member/list";
     }
+
 }

@@ -1,9 +1,10 @@
 package com.onebook.frontapi.service.grade;
 
-import com.onebook.frontapi.dto.grade.GradeFeignResponse;
-import com.onebook.frontapi.dto.grade.GradeResponse;
+import com.onebook.frontapi.dto.grade.*;
 import com.onebook.frontapi.feign.grade.GradeClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,5 +27,34 @@ public class GradeService {
         }
 
         return result;
+    }
+
+    /**
+     * 관리자 - 등급 단일 조회
+     */
+    public GradeResponseForAdmin getGradeById(Integer gradeId) {
+        return gradeClient.getGradeById(gradeId);
+    }
+
+    /**
+     * 관리자 - 등급 전체 조회
+     */
+    public Page<GradeResponseForAdmin> getAllGradesForAdmin(Pageable pageable) {
+        Page<GradeFeignResponse> result = gradeClient.getAllForAdmin(pageable);
+        return result.map(GradeResponseForAdmin::from);
+    }
+
+    /**
+     * 관리자 - 등급 등록
+     */
+    public GradeResponseForAdmin registerGrade(GradeRegisterRequest gradeRegisterRequest) {
+        return gradeClient.registerGrade(gradeRegisterRequest);
+    }
+
+    /**
+     * 관리자 - 등급 수정
+     */
+    public GradeResponseForAdmin modifyGrade(Integer id, GradeModifyRequest gradeModifyRequest) {
+        return gradeClient.modifyGrade(id, gradeModifyRequest);
     }
 }
