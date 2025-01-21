@@ -174,25 +174,24 @@
 <!--						Start 회원등급 관리 content-->
 						<div class="col-12" style="text-align: center">
 							<div>
-								<h1>회원등급 관리</h1>
+								<h1>회원권한 관리</h1>
 							</div>
 						</div>
 						<div style="display: flex; justify-content: space-between; padding: 0;">
 							<div>
-								<form th:action="@{/admin/grades}" method="get">
+								<form th:action="@{/admin/roles}" method="get">
 									<label for="criteria" style="                      font-size: large">정렬 기준:</label>
 									<select id="criteria" name="criteria">
 										<option value="" disabled selected>선택</option>
 										<option value="id" name="id">ID</option>
 										<option value="name" name="name">이름</option>
-										<option value="accumulationRate" name="accumulationRate">적립률</option>
 										<option value="description" name="description">설명</option>
 									</select>
 									<button type="submit" class="btn-sm">적용</button>
 								</form>
 							</div>
 							<div>
-								<a href="/admin/grades/register" style="font-size: x-large">등록하기</a>
+								<a href="/admin/roles/register" style="font-size: x-large">등록하기</a>
 							</div>
 						</div>
 
@@ -203,25 +202,23 @@
 										<tr style="text-align: center;">
 											<th>ID</th>
 											<th>이름</th>
-											<th>적립률</th>
 											<th>설명</th>
 											<th>수정</th>
 											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr style="text-align: center;" th:each="grade : ${grades}" >
-											<td th:text="${grade.id}"></td>
-											<td th:text="${grade.name}"></td>
-											<td th:text="${grade.accumulationRate}"></td>
-											<td th:text="${grade.description}"></td>
+										<tr style="text-align: center;" th:each="role : ${roles}" >
+											<td th:text="${role.id}"></td>
+											<td th:text="${role.name}"></td>
+											<td th:text="${role.description}"></td>
 											<td>
-												<form th:action="@{/admin/grades/modify/{grade-id}(grade-id=${grade.id})}" method="get">
+												<form th:action="@{/admin/roles/modify/{role-id}(role-id=${role.id})}" method="get">
 													<button class="btn-outline-primary" type="submit">수정</button>
 												</form>
 											</td>
 											<td>
-												<form th:action="@{/admin/grades/remove/{grade-id}(grade-id=${grade.id})}" method="post">
+												<form th:action="@{/admin/roles/remove/{role-id}(role-id=${role.id})}" method="post">
 													<input type="hidden" name="_method" value="delete"/>
 													<button class="btn-outline-danger" type="submit">삭제</button>
 												</form>
@@ -237,19 +234,19 @@
 							<div class="pagination center">
 								<ul class="pagination-list">
 									<!-- 이전 페이지 -->
-									<li th:if="${grades.hasPrevious()}">
-										<a th:href="@{/admin/grades(page=${grades.getNumber() - 1}, pageSize=${grades.getSize()})}">
+									<li th:if="${roles.hasPrevious()}">
+										<a th:href="@{/admin/roles(page=${roles.getNumber() - 1}, pageSize=${roles.getSize()})}">
 											<i class="ti-arrow-left"></i>
 										</a>
 									</li>
 									<!-- 페이지 번호 -->
-									<li th:each="i : ${#numbers.sequence(0, grades.getTotalPages()-1)}"
-										th:class="${i == grades.getNumber()} ? 'active'">
-										<a th:href="@{/admin/grades(page=${i}, pageSize=${grades.getSize()})}" th:text="${i+1}"></a>
+									<li th:each="i : ${#numbers.sequence(0, roles.getTotalPages()-1)}"
+										th:class="${i == roles.getNumber()} ? 'active'">
+										<a th:href="@{/admin/roles(page=${i}, pageSize=${roles.getSize()})}" th:text="${i+1}"></a>
 									</li>
 									<!-- 다음 페이지 -->
-									<li th:if="${grades.hasNext()}">
-										<a th:href="@{/admin/grades(page=${grades.getNumber() + 1}, pageSize=${grades.getSize()})}">
+									<li th:if="${roles.hasNext()}">
+										<a th:href="@{/admin/grades(page=${roles.getNumber() + 1}, pageSize=${roles.getSize()})}">
 											<i class="ti-arrow-right"></i>
 										</a>
 									</li>

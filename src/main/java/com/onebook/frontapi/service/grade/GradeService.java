@@ -57,4 +57,11 @@ public class GradeService {
     public GradeResponseForAdmin modifyGrade(Integer id, GradeModifyRequest gradeModifyRequest) {
         return gradeClient.modifyGrade(id, gradeModifyRequest);
     }
+
+    /**
+     * 관리자 - 등급 삭제
+     */
+    public void removeGrade(Integer id) {
+        gradeClient.removeGrade(id);
+    }
 }

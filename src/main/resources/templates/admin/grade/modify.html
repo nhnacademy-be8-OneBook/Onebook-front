@@ -181,9 +181,8 @@
 										<h2>회원등급 수정</h2>
 										<p>등급 이름은 중복될 수 없습니다</p>
 										<!-- Form -->
-										<form id="gradeForm" class="form" method="post" action="/admin/grades/modify">
-											<input type="hidden" name="_method" value="put" />
-											<input type="hidden" name="gradeId" th:value="${grade.id()}"/>
+										<form method="post" th:action="@{/admin/grades/modify/{grade-id}(grade-id=${grade.id})}">
+											<input type="hidden" name="_method" value="put"/>
 										<div class="row">
 												<div class="col-12">
 													<div class="form-group">
