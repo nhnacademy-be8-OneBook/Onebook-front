@@ -230,7 +230,7 @@
 							</div>
 						</div>
 						<div class="col-12" style="display: flex; justify-content: flex-end; padding: 0;">
-							<a href="#">더보기</a>
+<!--							<a href="#">더보기</a>-->
 						</div>
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
@@ -246,7 +246,7 @@
 									</thead>
 									<tbody>
 									<tr style="text-align: center;" th:if="${likeBooks != null and not #lists.isEmpty(likeBooks)}" th:each="likeBook : ${likeBooks}" >
-										<td class="image" style="text-align: center; padding-bottom: 50px;">
+										<td class="image" style="text-align: center; padding-bottom: 30px; padding-top:30px;">
 											<img th:src="${likeBook.image().getUrl()}" width="100" height="100" alt="이미지 준비중입니다.">
 										</td>
 										<td>

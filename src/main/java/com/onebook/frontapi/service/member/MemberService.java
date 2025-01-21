@@ -9,6 +9,8 @@ import com.onebook.frontapi.feign.member.MemberClient;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -112,6 +114,14 @@ public class MemberService {
     }
 
     /**
+     * 멤버 좋아요 책 조회
+     */
+    public List<MemberLikeBooksResponse> getLikeBooks() {
+        ResponseEntity<List<MemberLikeBooksResponse>> result = memberClient.getLikeBooksForMember();
+        return result.getBody();
+    }
+
+    /**
      * 회원 순수 금액 조회 (+등급 업데이트)
      */
     public Integer getMemberNetPaymentAmount() {
@@ -134,11 +144,10 @@ public class MemberService {
     }
 
     /**
-     * 멤버 좋아요 책 조회
+     * 관리자용 - 회원 리스트 조회
      */
-    public List<MemberLikeBooksResponse> getLikeBooks() {
-        ResponseEntity<List<MemberLikeBooksResponse>> result = memberClient.getLikeBooksForMember();
-        return result.getBody();
+    public Page<MemberResponseForAdmin> getMemberListForAdmin(Pageable pageable) {
+        return memberClient.getMemberListForAdmin(pageable).getBody();
     }
 
 }
