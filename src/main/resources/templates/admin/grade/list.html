@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
 	<!-- Meta Tag -->
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Title Tag  -->
-    <title>1nebook - 회원관리</title>
+    <title>1nebook - 회원등급 관리</title>
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 	<!-- Web Font -->
@@ -87,9 +87,9 @@
 	<!--	마이페이지 사이드바 시작-->
 	<!-- Product Style -->
 	<section class="product-area shop-sidebar shop section">
-		<div class="flex-container">
+		<div class="container">
 			<div class="row">
-				<div class="col-lg-2 col-md-3 col-12" style="padding-left:50px;">
+				<div class="col-lg-3 col-md-4 col-12">
 					<div class="shop-sidebar">
 						<!-- Single Widget -->
 						<div class="single-widget category" style="border-radius: 10px">
@@ -154,8 +154,6 @@
 							<ul class="categor-list">
 								<li><a href="/admin/coupon-policies/rate/book">쿠폰 정책 관리</a></li>
 								<li><a href="/admin/coupon">쿠폰 관리</a></li>
-								<br/>
-							</ul>
 							</ul>
 							<br/>
 							<br/>
@@ -174,60 +172,61 @@
 
 <!--					마이 페이지 본문-->
 					<div class="col-lg-9 col-md-8 col-12">
-<!--						Start 최근 3개월 순수 주문금액 content-->
+<!--						Start 회원등급 관리 content-->
 						<div class="col-12" style="text-align: center">
 							<div>
-								<h1>회원 관리</h1>
+								<h1>회원등급 관리</h1>
 							</div>
 						</div>
-						<div class="col-12" style="display: flex; justify-content: flex-start; padding: 0;">
-							<form th:action="@{/admin/members}" method="get">
-								<label for="criteria" style="font-size: large">정렬 기준:</label>
-								<select id="criteria" name="criteria">
-									<option value="" disabled selected>선택</option>
-									<option value="name" name="name">이름</option>
-									<option value="dateOfBirth" name="dateOfBirth">생년월일</option>
-									<option value="createdAt" name="createdAt">생성일자</option>
-									<option value="lastLoginAt" name="lastLoginAt">로그인일시</option>
-								</select>
-								<button type="submit" class="btn-sm">적용</button>
-							</form>
+						<div style="display: flex; justify-content: space-between; padding: 0;">
+							<div>
+								<form th:action="@{/admin/grades}" method="get">
+									<label for="criteria" style="font-size: large">정렬 기준:</label>
+									<select id="criteria" name="criteria">
+										<option value="" disabled selected>선택</option>
+										<option value="id" name="id">ID</option>
+										<option value="name" name="name">이름</option>
+										<option value="accumulationRate" name="accumulationRate">적립률</option>
+										<option value="description" name="description">설명</option>
+									</select>
+									<button type="submit" class="btn-sm">적용</button>
+								</form>
+							</div>
+							<div>
+								<a href="/admin/grades/register" style="font-size: x-large">등록하기</a>
+							</div>
 						</div>
 
-						<div class="col-12" style="padding: 0; border-radius: 10px">
-							<div>
-								<table class="table table-bordered color1">
+						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
+							<div style="padding: 20px">
+								<table class="table table-bordered color1" >
 									<thead>
-									<tr style="text-align: center;">
-										<th>ID</th>
-										<th>역할</th>
-										<th>이름</th>
-										<th>로그인 아이디</th>
-										<th>생년월일</th>
-										<th>성별</th>
-										<th>이메일</th>
-										<th>핸드폰 번호</th>
-										<th>상태</th>
-										<th>등급</th>
-										<th>생성일</th>
-										<th>로그인 일시</th>
-									</tr>
+										<tr style="text-align: center;">
+											<th>ID</th>
+											<th>이름</th>
+											<th>적립률</th>
+											<th>설명</th>
+											<th>수정</th>
+											<th>삭제</th>
+										</tr>
 									</thead>
 									<tbody>
-									<tr style="text-align: center;" th:each="member : ${memberList}" >
-										<td th:text="${member.id()}"></td>
-										<td th:text="${member.role()}"></td>
-										<td th:text="${member.name()}"></td>
-										<td th:text="${member.loginId()}"></td>
-										<td th:text="${member.dateOfBirth()}"></td>
-										<td th:text="${member.gender()}"></td>
-										<td th:text="${member.email()}"></td>
-										<td th:text="${member.phoneNumber()}"></td>
-										<td th:text="${member.status()}"></td>
-										<td th:text="${member.grade()}"></td>
-										<td th:text="${member.createdAt()}"></td>
-										<td th:text="${member.lastLoginAt()}"></td>
-									</tr>
+										<tr style="text-align: center;" th:each="grade : ${grades}" >
+											<td th:text="${grade.id}"></td>
+											<td th:text="${grade.name}"></td>
+											<td th:text="${grade.accumulationRate}"></td>
+											<td th:text="${grade.description}"></td>
+											<td>
+												<form th:action="@{/admin/grades/modify/{grade-id}(grade-id=${grade.id})}" method="get">
+													<button class="btn-outline-primary" type="submit">수정</button>
+												</form>
+											</td>
+											<td>
+												<form th:action="@{/admin/grades/{grade-id}(grade-id=${grade.id})}" method="post">
+													<button class="btn-outline-danger" type="submit">삭제</button>
+												</form>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -238,19 +237,19 @@
 							<div class="pagination center">
 								<ul class="pagination-list">
 									<!-- 이전 페이지 -->
-									<li th:if="${memberList.hasPrevious()}">
-										<a th:href="@{/admin/members(page=${memberList.getNumber() - 1}, pageSize=${memberList.getSize()})}">
+									<li th:if="${grades.hasPrevious()}">
+										<a th:href="@{/admin/grades(page=${grades.getNumber() - 1}, pageSize=${grades.getSize()})}">
 											<i class="ti-arrow-left"></i>
 										</a>
 									</li>
 									<!-- 페이지 번호 -->
-									<li th:each="i : ${#numbers.sequence(0, memberList.getTotalPages()-1)}"
-										th:class="${i == memberList.getNumber()} ? 'active'">
-										<a th:href="@{/admin/members(page=${i}, pageSize=${memberList.getSize()})}" th:text="${i+1}"></a>
+									<li th:each="i : ${#numbers.sequence(0, grades.getTotalPages()-1)}"
+										th:class="${i == grades.getNumber()} ? 'active'">
+										<a th:href="@{/admin/grades(page=${i}, pageSize=${grades.getSize()})}" th:text="${i+1}"></a>
 									</li>
 									<!-- 다음 페이지 -->
-									<li th:if="${memberList.hasNext()}">
-										<a th:href="@{/admin/members(page=${memberList.getNumber() + 1}, pageSize=${memberList.getSize()})}">
+									<li th:if="${grades.hasNext()}">
+										<a th:href="@{/admin/grades(page=${grades.getNumber() + 1}, pageSize=${grades.getSize()})}">
 											<i class="ti-arrow-right"></i>
 										</a>
 									</li>
@@ -259,13 +258,11 @@
 							<!--/ End Pagination -->
 						</div>
 <!--					END	최근 3개월 순수 주문금액 content-->
-
-						<!-- END 회원 등급 설명 content-->
-
 					</div>
 				</div>
 			</div>
 	</section>
+
 
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	
