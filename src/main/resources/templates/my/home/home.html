@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Title Tag  -->
-    <title>1nebook</title>
+    <title>1nebook - 마이페이지</title>
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 	<!-- Web Font -->
@@ -249,9 +249,12 @@
 										<td class="image" style="text-align: center; padding-bottom: 50px;">
 											<img th:src="${likeBook.image().getUrl()}" width="100" height="100" alt="이미지 준비중입니다.">
 										</td>
-										<td th:text="${likeBook.book().getTitle()}"></td>
-										<td th:text="${likeBook.book().getPrice()}"></td>
-										<td th:text="${likeBook.book().getSalePrice()}"></td>
+										<td>
+											<a th:href ="@{/book/bookDetail(bookId=${likeBook.book().getBookId()})}"
+											   th:text="${likeBook.book().getTitle()}"></a>
+										</td>
+										<td th:text="${T(java.lang.String).format('%,d', likeBook.book().getPrice())}"></td>
+										<td th:text="${T(java.lang.String).format('%,d', likeBook.book().getSalePrice())}"></td>
 									</tr>
 									</tbody>
 								</table>
