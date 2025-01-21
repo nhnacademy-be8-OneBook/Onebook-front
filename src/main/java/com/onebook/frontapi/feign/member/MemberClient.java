@@ -1,10 +1,13 @@
 package com.onebook.frontapi.feign.member;
 
+import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.grade.GradeFeignResponse;
 import com.onebook.frontapi.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 //@FeignClient(name = "memberClient", url="localhost:8210/task/members")
 @FeignClient(name = "memberClient", url="${onebook.gatewayUrl}")
@@ -67,6 +70,10 @@ public interface MemberClient {
      */
     @GetMapping("/task/admin/members/{member-id}/payments/net-amount")
     ResponseEntity<Integer> getMemberNetPaymentAmountForAdmin(@PathVariable("member-id") Long memberId);
+
+    // 멤버 좋아요 책 가져오기
+    @GetMapping("/task/members/likes/books")
+    ResponseEntity<List<MemberLikeBooksResponse>> getLikeBooksForMember();
 
 }
 

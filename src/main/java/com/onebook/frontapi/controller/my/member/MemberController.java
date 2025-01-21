@@ -66,7 +66,9 @@ public class MemberController {
     public String memberGradeInfo(Model model) {
         GradeResponse memberGrade = memberService.getMemberGrade();
         List<GradeResponse> gradeList = gradeService.getGrades();
+        Integer memberNetPaymentAmount = memberService.getMemberNetPaymentAmount();
         // TODO Joo - 최근 3개월 순수 구매 내역 조회.
+        model.addAttribute("memberNetPaymentAmount", memberNetPaymentAmount);
         model.addAttribute("memberGrade", memberGrade);
         model.addAttribute("gradeList", gradeList);
         return "my/member/grade";

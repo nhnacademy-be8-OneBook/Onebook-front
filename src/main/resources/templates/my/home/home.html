@@ -168,7 +168,7 @@
 										<tr>
 											<td style="border: none; padding: 0;">포인트<strong class="h5" style="margin-left: 10px" th:text="${T(java.lang.String).format('%,d', currentPoint)}"></strong><span> 원</span></td>
 											<td style="border: none; padding: 0;">쿠폰<strong class="h5" style="margin-left: 10px" th:text="${totalCoupons}"></strong><span> 개</span></td>
-											<td style="border: none; padding: 0;">찜<strong class="h5" style="margin-left: 10px">0</strong><span> 개</span></td>
+											<td style="border: none; padding: 0;">찜<strong class="h5" style="margin-left: 10px" th:text="${likeBooks.size()}"></strong><span> 개</span></td>
 											<td style="border: none; padding: 0; text-align: center">
 												<a href="/my/member/modify" class="btn btn-outline-dark btn-sm mb-2" style="color:#ffffff">회원정보 수정</a>
 											</td>
@@ -234,15 +234,24 @@
 						</div>
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
-							<div style="padding-left:45px; padding-top:50px; padding-bottom:30px;">
-								<table style="border-collapse: collapse">
-									<tbody>
+							<div style="padding-left:20px; padding-top:30px; padding-right: 20px;">
+								<table>
+									<thead>
 									<tr style="text-align: center;">
-										<td>도서 이미지</td>
-										<td>도서 이름</td>
-										<td>작가</td>
-										<td>출판사</td>
-										<td>금액</td>
+										<th>이미지</th>
+										<th>이름</th>
+										<th>정가</th>
+										<th>할인가</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr style="text-align: center;" th:if="${likeBooks != null and not #lists.isEmpty(likeBooks)}" th:each="likeBook : ${likeBooks}" >
+										<td class="image" style="text-align: center; padding-bottom: 50px;">
+											<img th:src="${likeBook.image().getUrl()}" width="100" height="100" alt="이미지 준비중입니다.">
+										</td>
+										<td th:text="${likeBook.book().getTitle()}"></td>
+										<td th:text="${likeBook.book().getPrice()}"></td>
+										<td th:text="${likeBook.book().getSalePrice()}"></td>
 									</tr>
 									</tbody>
 								</table>
