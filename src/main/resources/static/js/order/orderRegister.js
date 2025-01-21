@@ -1,39 +1,42 @@
-// function openCouponPopup(bookId) {
-//     const url = `/order/coupon?book-id=${bookId}`; // bookId를 쿼리 파라미터로 추가
-//
-//     window.open(url, 'CouponPopup', options);
-// }
-
+// orderRegister.js
 function openCouponPopup(bookId) {
+    const button = document.querySelector(`button[onclick*="${bookId}"]`);
+    if (button.getAttribute('data-has-coupon') === 'true') {
+        if (!confirm('이미 적용된 쿠폰이 있습니다. 다시 선택하시겠습니까?')) {
+            return;
+        }
+    }
     const popup = window.open('/order/coupon?book-id=' + bookId, '쿠폰 선택', 'width=600,height=400');
 }
 
-// 팝업에서 선택된 쿠폰 정보를 처리하는 함수
 function applyCoupon(couponNumber, couponName, discountPrice, bookId) {
-    // 해당 책의 총 가격 요소 찾기
     const totalElement = document.getElementById('total-' + bookId);
+    const button = document.querySelector(`button[onclick*="${bookId}"]`);
+
     if (!totalElement) {
         alert('총 가격 요소를 찾을 수 없습니다.');
         return;
     }
 
-    // 현재 표시된 가격 가져오기 (쉼표와 소수점 이하 제거하고 숫자로 변환)
-    const currentPrice = parseFloat(totalElement.textContent.replace(/,/g, ''));
+    // 원래 가격을 가져옴 (쿠폰 적용 전 가격)
+    const originalTotal = parseFloat(totalElement.getAttribute('data-original-total'));
 
-    // 할인된 가격 계산
-    const discountedPrice = currentPrice - discountPrice;
+    // 할인된 가격 계산 (항상 원래 가격에서 계산)
+    const discountedPrice = originalTotal - discountPrice;
 
-    // 음수 체크
     if (discountedPrice < 0) {
         alert('할인 금액이 총 가격보다 큽니다.');
         return;
     }
 
-    // 할인된 가격을 Thymeleaf 형식과 동일하게 표시 (#numbers.formatDecimal과 동일한 형식)
+    // 쿠폰 적용 상태 업데이트
+    button.setAttribute('data-has-coupon', 'true');
+
+    // 가격 업데이트
     totalElement.textContent = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(discountedPrice);
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(discountedPrice) + " 원";
 
     alert('쿠폰이 적용되었습니다.\n할인 금액: ' + new Intl.NumberFormat('en-US').format(discountPrice) + '원');
 }

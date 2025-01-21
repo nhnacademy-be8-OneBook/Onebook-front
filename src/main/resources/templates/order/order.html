@@ -104,7 +104,7 @@
                             </td>
                             <td class="price">
                                 <span th:data-price="${entry.key.salePrice}"
-                                      th:text="${#numbers.formatDecimal(entry.key.salePrice, 1, 'COMMA', 2, 'POINT')}">
+                                      th:text="${#numbers.formatDecimal(entry.key.salePrice, 1, 'COMMA', 0, 'POINT')} + ' 원'">
                                     책 가격
                                 </span>
                             </td>
@@ -112,18 +112,19 @@
                                 <span th:text="${entry.value}"></span>
                             </td>
                             <td>
-                                <button
-                                        type="button"
-                                        class="btn-packaging"
+                                <button type="button"
+                                        class="btn-coupon"
+                                        th:data-has-coupon="false"
                                         th:onclick="'openCouponPopup(' + ${entry.key.bookId} + ')'">
                                     쿠폰 선택
                                 </button>
                             </td>
                             <td class="total-amount">
-                            <span th:id="'total-' + ${entry.key.bookId}"
-                                  th:text="${#numbers.formatDecimal(entry.key.salePrice * entry.value, 1, 'COMMA', 2, 'POINT')}">
-                                총 가격
-                            </span>
+                                <span th:id="'total-' + ${entry.key.bookId}"
+                                      th:data-original-total="${entry.key.salePrice * entry.value}"
+                                      th:text="${#numbers.formatDecimal(entry.key.salePrice * entry.value, 1, 'COMMA', 0, 'POINT')} + ' 원'">
+                                    총 가격
+                                </span>
                             </td>
                             <input type="hidden"
                                    th:name="'items[' + ${iterStat.index} + '].bookId'"
