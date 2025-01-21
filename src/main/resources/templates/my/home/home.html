@@ -152,7 +152,13 @@
 										<tbody>
 										<tr>
 											<td style="border: none; padding: 0">등급<strong class="h5" style="margin-left: 10px" th:text="${member.grade()}"></strong></td>
-											<td style="border: none; padding: 0;">구매금액<strong class="h5" style="margin-left: 10px" th:text="${memberNetPaymentAmount}"></strong><span> 원</span></td>
+											<td style="border: none; padding: 0;">
+												구매금액
+												<strong class="h5" style="margin-left: 10px"
+														th:text="${T(java.lang.String).format('%,d', memberNetPaymentAmount)}">
+												</strong>
+												<span> 원</span>
+											</td>
 											<td style="border: none; padding: 0;">구매횟수<strong class="h5" style="margin-left: 10px" th:text="${myOrderStatus.purchaseConfirmation()}"></strong><span> 건</span></td>
 											<td style="border: none; padding: 0; text-align: center">
 												<a href="/my/member/grade" class="btn btn-outline-dark btn-sm mb-2" style="color:#ffffff">등급혜택 안내</a>
@@ -160,7 +166,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="border: none; padding: 0;">포인트<strong class="h5" style="margin-left: 10px">1,000</strong><span> 원</span></td>
+											<td style="border: none; padding: 0;">포인트<strong class="h5" style="margin-left: 10px" th:text="${T(java.lang.String).format('%,d', currentPoint)}"></strong><span> 원</span></td>
 											<td style="border: none; padding: 0;">쿠폰<strong class="h5" style="margin-left: 10px" th:text="${totalCoupons}"></strong><span> 개</span></td>
 											<td style="border: none; padding: 0;">찜<strong class="h5" style="margin-left: 10px">0</strong><span> 개</span></td>
 											<td style="border: none; padding: 0; text-align: center">

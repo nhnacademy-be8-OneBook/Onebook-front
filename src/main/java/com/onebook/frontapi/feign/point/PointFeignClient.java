@@ -8,6 +8,7 @@ import com.onebook.frontapi.dto.point.response.PointLogResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,4 +42,7 @@ public interface PointFeignClient {
             @RequestParam("page") int page,
             @RequestParam("size") int size
     );
+
+    @GetMapping("/task/member/current-point")
+    int getMemberPoint();
 }

@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalPrice = price * quantity;
         const totalElement = document.getElementById(`total-${bookId}`);
         totalElement.textContent = totalPrice.toLocaleString("en", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
         });
     };
 
@@ -120,12 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         document.getElementById("cart-total").textContent = cartTotal.toLocaleString("en", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
         });
         document.getElementById("final-total").textContent = cartTotal.toLocaleString("en", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
         });
     };
 

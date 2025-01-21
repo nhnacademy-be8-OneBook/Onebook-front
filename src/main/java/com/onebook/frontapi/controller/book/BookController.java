@@ -6,12 +6,14 @@ import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.dto.publisher.PublisherDTO;
 import com.onebook.frontapi.dto.review.ReviewPageResponseDto;
 import com.onebook.frontapi.dto.stock.StockDTO;
+import com.onebook.frontapi.dto.tag.TagDTO;
 import com.onebook.frontapi.dto.tag.TagResponse;
 import com.onebook.frontapi.feign.review.ReviewClient;
 import com.onebook.frontapi.service.author.AuthorService;
 import com.onebook.frontapi.service.book.BookAuthorService;
 import com.onebook.frontapi.service.book.BookCategoryService;
 import com.onebook.frontapi.service.book.BookService;
+import com.onebook.frontapi.service.book.BookTagService;
 import com.onebook.frontapi.service.image.ImageService;
 import com.onebook.frontapi.service.publisher.PublisherService;
 import com.onebook.frontapi.service.stock.StockService;
@@ -29,6 +31,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.html.HTML;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +47,7 @@ public class BookController {
     private final BookAuthorService bookAuthorService;
     private final AuthorService authorService;
     private final BookCategoryService bookCategoryService;
-    private final PublisherService publisherService;
-    private final TagService tagService;
+    private final BookTagService bookTagService;
     private final ImageService imageService;
     private final StockService stockService;
 
@@ -191,6 +193,7 @@ public class BookController {
                 productSearchResponse.setTitle(bookSearchAllResponse.getTitle());
                 productSearchResponse.setPublisherName(bookSearchAllResponse.getPublisherName());
                 productSearchResponse.setPrice(bookSearchAllResponse.getPrice());
+                productSearchResponse.setDescription(bookSearchAllResponse.getDescription());
                 productSearchResponse.setSalePrice(bookSearchAllResponse.getSalePrice());
                 productSearchResponse.setAmount(bookSearchAllResponse.getAmount());
                 productSearchResponse.setPubdate(bookSearchAllResponse.getPubdate());
@@ -213,5 +216,29 @@ public class BookController {
 
         return "book/bookSearch";
 
+    }
+
+    @GetMapping("/recommend")
+    public String bookRecommend(Model model) {
+        List<BookRecommendDto> bookList = bookService.recommendBooks();
+        List<String> tagNameList = new ArrayList<>();
+        List<String> imageUrlList = new ArrayList<>();
+
+        for(BookRecommendDto bookRecommendDto : bookList) {
+            long bookId = bookRecommendDto.getBookId();
+            imageUrlList.add(imageService.getImage(bookId).getUrl());
+            if(Objects.isNull(bookTagService.getBookTagByBookId(bookId))) {
+                tagNameList.add("");
+            }else{
+                TagDTO tag = bookTagService.getBookTagByBookId(bookRecommendDto.getBookId()).getTag();
+                tagNameList.add(tag.getName());
+            }
+        }
+
+        model.addAttribute("urlList", imageUrlList);
+        model.addAttribute("tagList", tagNameList);
+        model.addAttribute("bookList", bookList);
+
+        return "book/bookRecommend";
     }
 }
