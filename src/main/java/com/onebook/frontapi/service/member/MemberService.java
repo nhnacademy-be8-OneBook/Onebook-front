@@ -1,6 +1,7 @@
 package com.onebook.frontapi.service.member;
 
 import com.onebook.frontapi.adaptor.member.MemberAdaptor;
+import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.grade.GradeFeignResponse;
 import com.onebook.frontapi.dto.grade.GradeResponse;
 import com.onebook.frontapi.dto.member.*;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -128,6 +130,14 @@ public class MemberService {
         if(Objects.isNull(result)) {
             return 0;
         }
+        return result.getBody();
+    }
+
+    /**
+     * 멤버 좋아요 책 조회
+     */
+    public List<MemberLikeBooksResponse> getLikeBooks() {
+        ResponseEntity<List<MemberLikeBooksResponse>> result = memberClient.getLikeBooksForMember();
         return result.getBody();
     }
 

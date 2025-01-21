@@ -1,5 +1,7 @@
 package com.onebook.frontapi.controller.my.home;
 
+import com.onebook.frontapi.dto.book.BookDTO;
+import com.onebook.frontapi.dto.member.MemberLikeBooksResponse;
 import com.onebook.frontapi.dto.member.MemberResponse;
 import com.onebook.frontapi.dto.myhome.MyOrderStatusResponse;
 import com.onebook.frontapi.dto.order.OrderResponse;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -36,12 +40,14 @@ public class MyHomeController {
         Integer memberNetPaymentAmount = memberService.getMemberNetPaymentAmount();
         Long totalCoupons = couponBoxService.getIssuedCouponsByMemberId(0).getTotalElements();
         int currentPoint = pointService.getMemberPoint();
+        List<MemberLikeBooksResponse> likeBooks = memberService.getLikeBooks();
 
         model.addAttribute("member", memberResponse);
         model.addAttribute("myOrderStatus", myOrderStatusResponse);
         model.addAttribute("memberNetPaymentAmount", memberNetPaymentAmount);
         model.addAttribute("totalCoupons", totalCoupons);
         model.addAttribute("currentPoint", currentPoint);
+        model.addAttribute("likeBooks", likeBooks);
         return "my/home/home";
     }
 

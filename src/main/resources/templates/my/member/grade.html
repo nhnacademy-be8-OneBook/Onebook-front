@@ -151,7 +151,7 @@
 										<tbody>
 										<tr>
 											<td style="border: none; padding: 0">내 등급 적립률: <strong class="h5" style="margin-left: 10px" th:text="${memberGrade.accumulationRate()}"></strong><span> %</span></td>
-											<td style="border: none; padding: 0;">최근 3개월 순수 주문금액 총액: <strong class="h5" style="margin-left: 10px">100</strong><span> 원</span></td>
+											<td style="border: none; padding: 0;">최근 3개월 순수 주문금액 총액: <strong class="h5" style="margin-left: 10px" th:text="${memberNetPaymentAmount}"></strong><span> 원</span></td>
 										</tr>
 										</tbody>
 									</table>
@@ -176,7 +176,7 @@
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
 							<div style="padding:20px">
-								<p style="text-align: center">순수구매 총액 =<span style="color:#FF1D38"> 50000</span>원</p>
+								<p style="text-align: center">순수구매 총액 =<span style="color:#FF1D38" th:text="${memberNetPaymentAmount}"></span>원</p>
 								<br/>
 								<table class="table table-bordered color1" >
 									<thead>
@@ -189,11 +189,11 @@
 									</tr>
 									</thead>
 									<tbody>
-									<tr style="text-align: center;" th:each="grade : ${gradeList}" >
-										<td th:text="${grade.name()}"></td>
-										<td th:text="${grade.description()}"></td>
-										<td>결제 시 순수금액의 <span style="color:#FF1D38" th:text="${grade.accumulationRate()}"></span><span style="color:#FF1D38">%</span>% 포인트 적립</td>
-									</tr>
+<!--									<tr style="text-align: center;" th:each="grade : ${gradeList}" >-->
+<!--										<td th:text="${grade.name()}"></td>-->
+<!--										<td th:text="${grade.description()}"></td>-->
+<!--										<td>결제 시 순수금액의 <span style="color:#FF1D38" th:text="${grade.accumulationRate()}"></span><span style="color:#FF1D38">%</span>% 포인트 적립</td>-->
+<!--									</tr>-->
 									</tbody>
 								</table>
 							</div>
