@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="zxx" xmlns="http://www.w3.org/1999/html" >
 <head>
 	<!-- Meta Tag -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name='copyright' content=''>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +22,7 @@
 	<!-- Font Awesome -->
     <link rel="stylesheet" href="/css/font-awesome.css">
 	<!-- Fancybox -->
-	<link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+<!--	<link rel="stylesheet" href="/css/jquery.fancybox.min.css">-->
 	<!-- Themify Icons -->
     <link rel="stylesheet" href="/css/themify-icons.css">
 	<!-- Jquery Ui -->
@@ -65,7 +64,7 @@
 	
 
 
-	<div th:replace="~{fragments/header :: header}"></div>
+	<div th:insert="~{fragments/header :: header}"></div>
 		
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs">
@@ -74,8 +73,8 @@
 					<div class="col-12">
 						<div class="bread-inner">
 							<ul class="bread-list">
-								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="blog-single.html">Shop Grid</a></li>
+<!--								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>-->
+<!--								<li class="active"><a href="blog-single.html">Shop Grid</a></li>-->
 							</ul>
 						</div>
 					</div>
@@ -181,7 +180,7 @@
 						<div style="display: flex; justify-content: space-between; padding: 0;">
 							<div>
 								<form th:action="@{/admin/grades}" method="get">
-									<label for="criteria" style="font-size: large">정렬 기준:</label>
+									<label for="criteria" style="                      font-size: large">정렬 기준:</label>
 									<select id="criteria" name="criteria">
 										<option value="" disabled selected>선택</option>
 										<option value="id" name="id">ID</option>
@@ -199,7 +198,7 @@
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
 							<div style="padding: 20px">
-								<table class="table table-bordered color1" >
+								<table class="table table-bordered" >
 									<thead>
 										<tr style="text-align: center;">
 											<th>ID</th>
@@ -222,7 +221,8 @@
 												</form>
 											</td>
 											<td>
-												<form th:action="@{/admin/grades/{grade-id}(grade-id=${grade.id})}" method="post">
+												<form th:action="@{/admin/grades/remove/{grade-id}(grade-id=${grade.id})}" method="post">
+													<input type="hidden" name="_method" value="delete"/>
 													<button class="btn-outline-danger" type="submit">삭제</button>
 												</form>
 											</td>
@@ -291,7 +291,7 @@
 	<!-- Nice Select JS -->
 	<script src="/js/nicesellect.js"></script>
 	<!-- Ytplayer JS -->
-	<script src="/js/ytplayer.min.js"></script>
+<!--	<script src="/js/ytplayer.min.js"></script>-->
 	<!-- Flex Slider JS -->
 	<script src="/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->

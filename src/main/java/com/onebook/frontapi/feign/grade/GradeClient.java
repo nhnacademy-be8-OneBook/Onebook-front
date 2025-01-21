@@ -7,6 +7,7 @@ import com.onebook.frontapi.dto.grade.GradeResponseForAdmin;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,4 +43,7 @@ public interface GradeClient {
      */
     @PutMapping("/task/admin/grades/{id}")
     GradeResponseForAdmin modifyGrade(@PathVariable Integer id, @RequestBody GradeModifyRequest gradeModifyRequest);
+
+    @DeleteMapping("/task/admin/grades/{id}")
+    void removeGrade(@PathVariable Integer id);
 }

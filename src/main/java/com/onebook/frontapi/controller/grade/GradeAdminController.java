@@ -75,4 +75,13 @@ public class GradeAdminController {
         return "redirect:/admin/grades";
     }
 
+    /**
+     * 관리자 페이지 - 등급 삭제
+     */
+    @DeleteMapping("/remove/{grade-id}")
+    public String memberGradeRemove(@PathVariable("grade-id") Integer gradeId) {
+        gradeService.removeGrade(gradeId);
+        return "redirect:/admin/grades";
+    }
+
 }
