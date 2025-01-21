@@ -15,6 +15,7 @@ import com.onebook.frontapi.service.book.BookCategoryService;
 import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.book.BookTagService;
 import com.onebook.frontapi.service.image.ImageService;
+import com.onebook.frontapi.service.like.LikeService;
 import com.onebook.frontapi.service.publisher.PublisherService;
 import com.onebook.frontapi.service.stock.StockService;
 import com.onebook.frontapi.service.tag.TagService;
