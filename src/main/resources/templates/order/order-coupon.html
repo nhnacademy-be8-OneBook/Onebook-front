@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>쿠폰 목록</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>적용 가능한 쿠폰 목록</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>쿠폰 이름</th>
+        <th>할인 금액</th>
+        <th>만료일</th>
+        <th>선택</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="coupon : ${coupons}">
+        <input type="hidden" th:value="${coupon.couponNumber}">
+        <td th:text="${coupon.couponName}">쿠폰 이름</td>
+        <td th:text="${coupon.discountPrice}">0</td>
+        <td th:text="${#temporals.format(coupon.expirationDate, 'yyyy-MM-dd')}">만료일</td>
+        <td>
+            <button type="button" th:onclick="selectCoupon([[${coupon.couponNumber}]], [[${coupon.couponName}]], [[${coupon.discountPrice}]])">
+                선택
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function selectCoupon(couponNumber, couponName, discountPrice) {
+        // URL에서 book-id 파라미터 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookId = urlParams.get('book-id');
+
+        // 부모 창의 함수 호출 (bookId 추가)
+        if (window.opener) {
+            window.opener.applyCoupon(couponNumber, couponName, discountPrice, bookId);
+            window.close(); // 팝업 닫기
+        } else {
+            alert('부모 창이 없습니다.');
+        }
+    }
+</script>
+</body>
+</html>
