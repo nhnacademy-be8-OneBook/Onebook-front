@@ -24,7 +24,7 @@ import java.util.Objects;
 @Configuration
 public class RedisConfig2 {
 
-    @Value("${nhnKey.host")
+    @Value("${nhnKey.host}")
     private String host;
 
     @Value("${nhnKey.port}")
