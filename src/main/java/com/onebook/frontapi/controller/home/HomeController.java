@@ -110,7 +110,7 @@ public class HomeController {
         model.addAttribute("bestsellers", productDTOs);
 
 
-        return "index4";
+        return "index/index";
     }
 
 }

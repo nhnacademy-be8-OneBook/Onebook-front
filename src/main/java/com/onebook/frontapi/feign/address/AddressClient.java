@@ -35,4 +35,9 @@ public interface AddressClient {
     @GetMapping("/task/addresses/count")
     ResponseEntity<Long> getAddressesCount();
 
+    // TODO 기본배송지 설정
+    @PostMapping("/task/addresses/{address-id}/default")
+    ResponseEntity<MemberAddressResponse> setDefaultAddress(@PathVariable(name = "address-id") Long memberAddressId);
+
+
 }

@@ -71,4 +71,12 @@ public class AddressController {
         addressService.deleteMemberAddress(deleteMemberAddressRequest);
         return "redirect:/addresses";
     }
+
+    // 기본 배송지 설정 기능
+    @PostMapping("/addresses/{address-id}/default")
+    public String setDefaultAddress(@PathVariable(name = "address-id") Long memberAddressId){
+
+        addressService.setDefaultAddress(memberAddressId);
+        return "redirect:/addresses";
+    }
 }

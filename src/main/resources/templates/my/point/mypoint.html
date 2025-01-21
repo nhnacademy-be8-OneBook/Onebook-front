@@ -123,7 +123,7 @@
                     <div class="content-container">
                         <h4>나의 포인트 내역</h4>
                         <p class="text-info">
-                            포인트 적립은 순수 금액과 회원 등급을 기준으로 지급됩니다.
+                            도서 구매 적립금은 순수 금액과 회원 등급을 기준으로 지급됩니다.
                         </p>
                         <div class="col-12" style="display: flex; justify-content: flex-end; padding: 0;">
                             <span class="d-inline" style="color:#bbbbbd;">* 순수금액 = 주문금액 - (쿠폰 + 배송비 + 취소 금액 + 포장비)</span>
@@ -149,17 +149,19 @@
                             <tbody>
                             <!-- pointLogs.content: List<PointLogResponse> -->
                             <tr th:each="log : ${pointLogs.content}">
-                                <td th:text="${#temporals.format(log.pointLogUpdatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td th:text="${#temporals.format(log.pointLogUpdatedAt, 'yyyy-MM-dd HH:mm')}"></td>
                                 <!-- 적립/사용 내역 컬럼: 금액이 +면 파랑, -면 빨강 -->
                                 <td th:text="${log.updatedType}"
                                     th:style="${log.amount > 0} ? 'color:blue;' : 'color:red;'">
                                 </td>
 
                                 <!-- 적립/사용 금액 컬럼: 금액이 +면 파랑, -면 빨강 -->
-                                <td th:text="${log.amount}"
+                                <td th:text="${T(java.lang.String).format('%,d', log.amount)}"
                                     th:style="${log.amount > 0} ? 'color:blue;' : 'color:red;'">
                                 </td>
-                                <td th:text="${log.currentPoint}"></td>
+
+                                <!-- 현재 포인트 컬럼 -->
+                                <td th:text="${T(java.lang.String).format('%,d', log.currentPoint)}"></td>
                             </tr>
                             </tbody>
                         </table>
