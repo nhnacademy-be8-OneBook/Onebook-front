@@ -4,6 +4,7 @@ import com.onebook.frontapi.dto.grade.GradeModifyRequest;
 import com.onebook.frontapi.dto.grade.GradeRegisterRequest;
 import com.onebook.frontapi.dto.grade.GradeResponseForAdmin;
 import com.onebook.frontapi.service.grade.GradeService;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,12 +29,11 @@ public class GradeAdminController {
             @RequestParam(defaultValue = "10", name="pageSize") int pageSize,
             @RequestParam(defaultValue = "id", name="criteria") String criteria,
             Model model) {
+            Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(criteria).ascending());
+            Page<GradeResponseForAdmin> allGradesForAdmin = gradeService.getAllGradesForAdmin(pageable);
 
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(criteria).ascending());
-        Page<GradeResponseForAdmin> allGradesForAdmin = gradeService.getAllGradesForAdmin(pageable);
-
-        model.addAttribute("grades", allGradesForAdmin);
-        return "admin/grade/list";
+            model.addAttribute("grades", allGradesForAdmin);
+            return "admin/grade/list";
     }
 
     /**
@@ -49,8 +49,12 @@ public class GradeAdminController {
      */
     @PostMapping("/register")
     public String memberGradeRegister(GradeRegisterRequest gradeRegisterRequest) {
-        gradeService.registerGrade(gradeRegisterRequest);
-        return "redirect:/admin/grades";
+        try {
+            gradeService.registerGrade(gradeRegisterRequest);
+            return "redirect:/admin/grades";
+        }catch(FeignException e) {
+            return "redirect:/admin/grades";
+        }
     }
 
     /**
@@ -59,10 +63,13 @@ public class GradeAdminController {
     @GetMapping("/modify/{grade-id}")
     public String memberGradeModifyForm(@PathVariable("grade-id") Integer gradeId,
                                         Model model) {
+        try{
         GradeResponseForAdmin grade = gradeService.getGradeById(gradeId);
-
         model.addAttribute("grade", grade);
         return "admin/grade/modify";
+        }catch(FeignException e) {
+            return "redirect:/admin/grades";
+        }
     }
 
     /**
@@ -71,8 +78,12 @@ public class GradeAdminController {
     @PutMapping("/modify/{grade-id}")
     public String memberGradeModify(@PathVariable("grade-id") Integer gradeId,
                                     @ModelAttribute GradeModifyRequest gradeModifyRequest) {
-        gradeService.modifyGrade(gradeId, gradeModifyRequest);
-        return "redirect:/admin/grades";
+        try {
+            gradeService.modifyGrade(gradeId, gradeModifyRequest);
+            return "redirect:/admin/grades";
+        }catch(FeignException e) {
+            return "redirect:/admin/grades";
+        }
     }
 
     /**
@@ -80,8 +91,12 @@ public class GradeAdminController {
      */
     @DeleteMapping("/remove/{grade-id}")
     public String memberGradeRemove(@PathVariable("grade-id") Integer gradeId) {
-        gradeService.removeGrade(gradeId);
-        return "redirect:/admin/grades";
+        try {
+            gradeService.removeGrade(gradeId);
+            return "redirect:/admin/grades";
+        }catch(FeignException e) {
+            return "redirect:/admin/grades";
+        }
     }
 
 }
