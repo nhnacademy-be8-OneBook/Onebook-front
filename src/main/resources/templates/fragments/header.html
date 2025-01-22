@@ -17,8 +17,8 @@
                     <!-- Top Right -->
                     <div class="right-content">
                         <ul class="list-main">
-<!--                            <li><i class="ti-location-pin"></i> Store location</li>-->
-<!--                            <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>-->
+                            <!--                            <li><i class="ti-location-pin"></i> Store location</li>-->
+                            <!--                            <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>-->
                             <span th:if="${role} == 'ROLE_ADMIN'">
                             <li><i class="ti-user"></i> <a href="/admin">Admin Page</a></li>
                             <li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>
@@ -74,14 +74,14 @@
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
-<!--                        <div class="sinlge-bar">-->
-<!--                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>-->
-<!--                        </div>-->
-                             <div class="sinlge-bar">
+                        <!--                        <div class="sinlge-bar">-->
+                        <!--                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>-->
+                        <!--                        </div>-->
+                        <div class="sinlge-bar" th:if="${role} == 'ROLE_MEMBER'">
                             <a id="home" th:href="@{/my/home}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                         </div>
                         <!-- Joo - 장바구니 아이콘에 href랑 cart-count 추가 -->
-                        <div class="sinlge-bar shopping">
+                        <div class="sinlge-bar shopping" th:if="${role} != 'ROLE_ADMIN'">
                             <a href="/cart" class="single-icon" th:if="${cartCount == 0}">
                                 <i class="ti-bag"></i>
                             </a>
@@ -89,33 +89,33 @@
                                 <i class="ti-bag"></i> <span class="total-count" th:text="${cartCount}"></span>
                             </a>
                             <!-- 장바구니 view -->
-<!--                            <div class="shopping-item">-->
-<!--                                <div class="dropdown-cart-header">-->
-<!--                                    <span>2 Items</span>-->
-<!--                                    <a href="/cart">View Cart</a>-->
-<!--                                </div>-->
-<!--                                <ul class="shopping-list">-->
-<!--                                    <li>-->
-<!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
-<!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
-<!--                                        <h4><a href="#">Woman Ring</a></h4>-->
-<!--                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
-<!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
-<!--                                        <h4><a href="#">Woman Necklace</a></h4>-->
-<!--                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                                <div class="bottom">-->
-<!--                                    <div class="total">-->
-<!--                                        <span>Total</span>-->
-<!--                                        <span class="total-amount">$134.00</span>-->
-<!--                                    </div>-->
-<!--                                    <a href="checkout.html" class="btn animate">Checkout</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <!--                            <div class="shopping-item">-->
+                            <!--                                <div class="dropdown-cart-header">-->
+                            <!--                                    <span>2 Items</span>-->
+                            <!--                                    <a href="/cart">View Cart</a>-->
+                            <!--                                </div>-->
+                            <!--                                <ul class="shopping-list">-->
+                            <!--                                    <li>-->
+                            <!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
+                            <!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
+                            <!--                                        <h4><a href="#">Woman Ring</a></h4>-->
+                            <!--                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>-->
+                            <!--                                    </li>-->
+                            <!--                                    <li>-->
+                            <!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
+                            <!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
+                            <!--                                        <h4><a href="#">Woman Necklace</a></h4>-->
+                            <!--                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>-->
+                            <!--                                    </li>-->
+                            <!--                                </ul>-->
+                            <!--                                <div class="bottom">-->
+                            <!--                                    <div class="total">-->
+                            <!--                                        <span>Total</span>-->
+                            <!--                                        <span class="total-amount">$134.00</span>-->
+                            <!--                                    </div>-->
+                            <!--                                    <a href="checkout.html" class="btn animate">Checkout</a>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                             <!--/ End Shopping Item -->
                         </div>
                     </div>
@@ -153,31 +153,31 @@
                                                     </li>
                                                 </ul>
                                             </li>
-<!--                                            &lt;!&ndash; 카테고리 등록 버튼 &ndash;&gt;-->
-<!--                                            <li>-->
-<!--                                                <a th:href="@{/categories/create(categoryId=${categoryId})}" class="btn btn-primary">카테고리 등록</a>-->
-<!--                                            </li>-->
+                                            <!--                                            &lt;!&ndash; 카테고리 등록 버튼 &ndash;&gt;-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/categories/create(categoryId=${categoryId})}" class="btn btn-primary">카테고리 등록</a>-->
+                                            <!--                                            </li>-->
 
-<!--                                            <li>-->
-<!--                                                <a th:href="@{/categories/updateForm(categoryId=${categoryId})}" class="btn btn-primary">카테고리 수정/삭제</a>-->
-<!--                                            </li>-->
-<!--                                            &lt;!&ndash; 태그 등록 버튼 &ndash;&gt;-->
-<!--                                            <li>-->
-<!--                                                <a th:href="@{/tags}" class="btn btn-primary">태그 등록</a>-->
-<!--                                            </li>-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/categories/updateForm(categoryId=${categoryId})}" class="btn btn-primary">카테고리 수정/삭제</a>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            &lt;!&ndash; 태그 등록 버튼 &ndash;&gt;-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/tags}" class="btn btn-primary">태그 등록</a>-->
+                                            <!--                                            </li>-->
 
-<!--                                            <li>-->
-<!--                                                <a th:href="@{/tags/list}" class="btn btn-primary">태그 수정/삭제</a>-->
-<!--                                            </li>-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/tags/list}" class="btn btn-primary">태그 수정/삭제</a>-->
+                                            <!--                                            </li>-->
 
-<!--                                            &lt;!&ndash; 책 등록 버튼 &ndash;&gt;-->
-<!--                                            <li>-->
-<!--                                                <a th:href="@{/book(categoryId=${categoryId})}" class="btn btn-primary">책 등록</a>-->
-<!--                                            </li>-->
+                                            <!--                                            &lt;!&ndash; 책 등록 버튼 &ndash;&gt;-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/book(categoryId=${categoryId})}" class="btn btn-primary">책 등록</a>-->
+                                            <!--                                            </li>-->
 
-<!--                                            <li>-->
-<!--                                                <a th:href="@{/book/book-list}" class="btn btn-primary">책 수정/삭제</a>-->
-<!--                                            </li>-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/book/book-list}" class="btn btn-primary">책 수정/삭제</a>-->
+                                            <!--                                            </li>-->
                                         </ul>
 
                                     </div>
