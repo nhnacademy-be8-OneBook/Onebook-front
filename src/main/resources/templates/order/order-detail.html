@@ -13,7 +13,7 @@
 
         .btn-back {
             text-decoration: none; /* 기본 링크 밑줄 제거 */
-            background-color: #007bff; /* 버튼 배경색 (파란색) */
+            background-color: #F7941D; /* 버튼 배경색 (파란색) */
             color: #fff; /* 텍스트 색상 (흰색) */
             padding: 10px 20px; /* 버튼 패딩 */
             border-radius: 5px; /* 모서리 둥글게 */
@@ -23,7 +23,7 @@
         }
 
         .btn-back:hover {
-            background-color: #0056b3; /* 호버 시 어두운 파란색 */
+            background-color: #F7941D; /* 호버 시 어두운 파란색 */
             color: #fff; /* 텍스트 색상 유지 */
         }
 
@@ -73,9 +73,10 @@
 
         <!-- 주문 상세 정보 -->
         <h1 th:text="'주문 번호: ' + ${orderDetail.orderResponse.orderId}"></h1>
+        <p th:text="'구매 일시: ' + ${#temporals.format(orderDetail.orderResponse.dateTime, 'yyyy-MM-dd HH:mm')}"></p>
+        <br>
         <p th:text="'구매자: ' + ${orderDetail.orderResponse.orderer}"></p>
         <p th:text="'총 가격(포장지 포함): ' + ${orderDetail.orderResponse.totalPrice} + '원'"></p>
-        <p th:text="'구매 일시: ' + ${#temporals.format(orderDetail.orderResponse.dateTime, 'yyyy-MM-dd HH:mm')}"></p>
 
         <br>
         <br>
