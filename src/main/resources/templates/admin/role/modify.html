@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns="http://www.w3.org/1999/html" >
+<html lang="zxx">
 <head>
 	<!-- Meta Tag -->
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name='copyright' content=''>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Title Tag  -->
-    <title>1nebook - 회원등급 관리</title>
+    <title>1nebook - 회원권한 수정</title>
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 	<!-- Web Font -->
@@ -22,7 +23,7 @@
 	<!-- Font Awesome -->
     <link rel="stylesheet" href="/css/font-awesome.css">
 	<!-- Fancybox -->
-<!--	<link rel="stylesheet" href="/css/jquery.fancybox.min.css">-->
+	<link rel="stylesheet" href="/css/jquery.fancybox.min.css">
 	<!-- Themify Icons -->
     <link rel="stylesheet" href="/css/themify-icons.css">
 	<!-- Jquery Ui -->
@@ -64,7 +65,7 @@
 	
 
 
-	<div th:insert="~{fragments/header :: header}"></div>
+	<div th:replace="~{fragments/header :: header}"></div>
 		
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs">
@@ -73,8 +74,8 @@
 					<div class="col-12">
 						<div class="bread-inner">
 							<ul class="bread-list">
-<!--								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>-->
-<!--								<li class="active"><a href="blog-single.html">Shop Grid</a></li>-->
+								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="blog-single.html">Shop Grid</a></li>
 							</ul>
 						</div>
 					</div>
@@ -153,6 +154,8 @@
 							<ul class="categor-list">
 								<li><a href="/admin/coupon-policies/rate/book">쿠폰 정책 관리</a></li>
 								<li><a href="/admin/coupon">쿠폰 관리</a></li>
+								<br/>
+							</ul>
 							</ul>
 							<br/>
 							<br/>
@@ -169,100 +172,50 @@
 				</div>
 				<!--	마이페이지 사이드바 종료-->
 
-<!--					마이 페이지 본문-->
-					<div class="col-lg-9 col-md-8 col-12">
-<!--						Start 회원등급 관리 content-->
-						<div class="col-12" style="text-align: center">
-							<div>
-								<h1>회원등급 관리</h1>
-							</div>
-						</div>
-						<div style="display: flex; justify-content: space-between; padding: 0;">
-							<div>
-								<form th:action="@{/admin/grades}" method="get">
-									<label for="criteria" style="                      font-size: large">정렬 기준:</label>
-									<select id="criteria" name="criteria">
-										<option value="" disabled selected>선택</option>
-										<option value="id" name="id">ID</option>
-										<option value="name" name="name">이름</option>
-										<option value="accumulationRate" name="accumulationRate">적립률</option>
-										<option value="description" name="description">설명</option>
-									</select>
-									<button type="submit" class="btn-sm">적용</button>
-								</form>
-							</div>
-							<div>
-								<a href="/admin/grades/register" style="font-size: x-large">등록하기</a>
-							</div>
-						</div>
+<!--					회원 등급 변경 본문-->
+					<div class="col-lg-6 col-md-8 col-12">
+						<section class="shop login section" style="padding: 0">
+							<div class="container">
+								<div class="row">
+									<div class="login-form">
+										<h2>회원권한 수정</h2>
+										<p>권한 이름은 중복될 수 없습니다</p>
+										<!-- Form -->
+										<form method="post" th:action="@{/admin/roles/modify/{role-id}(role-id=${role.id})}">
+											<input type="hidden" name="_method" value="put"/>
+										<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<label>이름<span>*</span></label>
+														<input type="text" id="name" name="name" placeholder="권한 이름은 10자 이하로 입력하세요." th:value="${role.name()}" required>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="form-group">
+														<label>권한 설명<span>*</span></label>
+														<textarea id="description" name="description" placeholder="권한 설명은 200자 이하로 입력하세요." th:value="${role.description()}" required rows="10" cols="20"></textarea>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="form-group login-btn">
+														<button class="btn btn-block" type="submit">수정하기</button>
+													</div>
+												</div>
 
-						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
-							<div style="padding: 20px">
-								<table class="table table-bordered" >
-									<thead>
-										<tr style="text-align: center;">
-											<th>ID</th>
-											<th>이름</th>
-											<th>적립률</th>
-											<th>설명</th>
-											<th>수정</th>
-											<th>삭제</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr style="text-align: center;" th:each="grade : ${grades}" >
-											<td th:text="${grade.id}"></td>
-											<td th:text="${grade.name}"></td>
-											<td th:text="${grade.accumulationRate}"></td>
-											<td th:text="${grade.description}"></td>
-											<td>
-												<form th:action="@{/admin/grades/modify/{grade-id}(grade-id=${grade.id})}" method="get">
-													<button class="btn-outline-primary" type="submit">수정</button>
-												</form>
-											</td>
-											<td>
-												<form th:action="@{/admin/grades/remove/{grade-id}(grade-id=${grade.id})}" method="post">
-													<input type="hidden" name="_method" value="delete"/>
-													<button class="btn-outline-danger" type="submit">삭제</button>
-												</form>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+											</div>
+										</form>
+										<!--/ End Form -->
+									</div>
+								</div>
 							</div>
-						</div>
+						</section>
 
-						<div class="col-12">
-							<!-- Pagination -->
-							<div class="pagination center">
-								<ul class="pagination-list">
-									<!-- 이전 페이지 -->
-									<li th:if="${grades.hasPrevious()}">
-										<a th:href="@{/admin/grades(page=${grades.getNumber() - 1}, pageSize=${grades.getSize()})}">
-											<i class="ti-arrow-left"></i>
-										</a>
-									</li>
-									<!-- 페이지 번호 -->
-									<li th:each="i : ${#numbers.sequence(0, grades.getTotalPages()-1)}"
-										th:class="${i == grades.getNumber()} ? 'active'">
-										<a th:href="@{/admin/grades(page=${i}, pageSize=${grades.getSize()})}" th:text="${i+1}"></a>
-									</li>
-									<!-- 다음 페이지 -->
-									<li th:if="${grades.hasNext()}">
-										<a th:href="@{/admin/grades(page=${grades.getNumber() + 1}, pageSize=${grades.getSize()})}">
-											<i class="ti-arrow-right"></i>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<!--/ End Pagination -->
 						</div>
 <!--					END	최근 3개월 순수 주문금액 content-->
 					</div>
 				</div>
 			</div>
 	</section>
-
 
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	
@@ -291,7 +244,7 @@
 	<!-- Nice Select JS -->
 	<script src="/js/nicesellect.js"></script>
 	<!-- Ytplayer JS -->
-<!--	<script src="/js/ytplayer.min.js"></script>-->
+	<script src="/js/ytplayer.min.js"></script>
 	<!-- Flex Slider JS -->
 	<script src="/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->

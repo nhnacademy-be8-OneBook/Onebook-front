@@ -68,12 +68,16 @@
         </tbody>
     </table>
 </div>
-
 <script>
     function selectCoupon(couponNumber, couponName, discountPrice) {
         // URL에서 book-id 파라미터 가져오기
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('book-id');
+
+        // 콘솔에 값 출력해서 확인
+        console.log('couponNumber:', couponNumber);
+        console.log('bookId:', bookId);
+        console.log('discountPrice:', discountPrice);
 
         // 부모 창의 함수 호출 (bookId 추가)
         if (window.opener) {

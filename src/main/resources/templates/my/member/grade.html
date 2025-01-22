@@ -151,7 +151,7 @@
 										<tbody>
 										<tr>
 											<td style="border: none; padding: 0">내 등급 적립률: <strong class="h5" style="margin-left: 10px" th:text="${memberGrade.accumulationRate()}"></strong><span> %</span></td>
-											<td style="border: none; padding: 0;">최근 3개월 순수 주문금액 총액: <strong class="h5" style="margin-left: 10px" th:text="${memberNetPaymentAmount}"></strong><span> 원</span></td>
+											<td style="border: none; padding: 0;">최근 3개월 순수 주문금액 총액: <strong class="h5" style="margin-left: 10px" th:text="${T(java.lang.String).format('%,d', memberNetPaymentAmount)}"></strong><span> 원</span></td>
 										</tr>
 										</tbody>
 									</table>
@@ -176,7 +176,7 @@
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
 							<div style="padding:20px">
-								<p style="text-align: center">순수구매 총액 =<span style="color:#FF1D38" th:text="${memberNetPaymentAmount}"></span>원</p>
+								<p style="text-align: center">순수구매 총액 =<span style="color:#FF1D38" th:text="${T(java.lang.String).format('%,d', memberNetPaymentAmount)}"></span>원</p>
 								<br/>
 								<table class="table table-bordered color1" >
 									<thead>
@@ -212,7 +212,7 @@
 						</div>
 
 						<div class="col-12" style="display: flex; justify-content: flex-end; padding: 0;">
-							<span class="d-inline" style="color:#bbbbbd;">* 순수금액 = 주문금액 - (쿠폰 + 배송비 + 취소 금액 + 포장비)</span>
+							<span class="d-inline" style="color:#bbbbbd;">* 최근 3개월 이내 순수 금액 기준으로 산정합니다</span>
 						</div>
 
 						<div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
