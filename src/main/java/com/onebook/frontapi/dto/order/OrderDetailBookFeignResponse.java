@@ -9,4 +9,5 @@ public class OrderDetailBookFeignResponse {
     private String bookTitle;
     private int quantity;
     private int price;
+    private int discountAmount;
 }
