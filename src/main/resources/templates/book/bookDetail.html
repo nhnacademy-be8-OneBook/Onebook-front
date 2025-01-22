@@ -462,7 +462,7 @@
         function loadAverageRating() {
             fetch(`/front/reviews/${currentBookId}/average`,  {
                 method: "GET",
-                credentials: "include"  // ★ JWT 쿠키 포함
+                // credentials: "include"  // ★ JWT 쿠키 포함
             })
                 .then(res => {
                     if(!res.ok) { throw new Error('평균 평점 조회 실패'); }
@@ -523,7 +523,7 @@
             let realPage = page - 1;
             fetch(`/front/reviews/${currentBookId}?page=${realPage}&size=${size}`, {
                 method: "GET",
-                credentials: "include"  // ★ JWT 쿠키 포함
+                // credentials: "include"  // ★ JWT 쿠키 포함
             })
                 .then(res => {
                     if(!res.ok) { throw new Error('리뷰 조회 실패'); }
