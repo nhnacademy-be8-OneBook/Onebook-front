@@ -8,24 +8,26 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PointPolicyRequest {
+public class UpdatePointPolicyRequest {
     private Long pointPolicyId;
     private String pointPolicyName;
     private Integer pointPolicyRate;
     private Integer pointPolicyConditionAmount;
     private Integer pointPolicyApplyAmount;
     private String pointPolicyCondition;
-    private boolean pointPolicyApplyType;
+    private Boolean pointPolicyApplyType;
+    private Boolean pointPolicyState;
 
-    public static PointPolicyRequest from(PointPolicyResponse response) {
-        return PointPolicyRequest.builder()
-                .pointPolicyId(response.pointPolicyId())  // pointPolicyId 포함
+    public static UpdatePointPolicyRequest from(PointPolicyResponse response) {
+        return UpdatePointPolicyRequest.builder()
+                .pointPolicyId(response.pointPolicyId())
                 .pointPolicyName(response.pointPolicyName())
                 .pointPolicyRate(response.pointPolicyRate())
                 .pointPolicyConditionAmount(response.pointPolicyConditionAmount())
                 .pointPolicyApplyAmount(response.pointPolicyApplyAmount())
                 .pointPolicyCondition(response.pointPolicyCondition())
                 .pointPolicyApplyType(response.pointPolicyApplyType())
+                .pointPolicyState(response.pointPolicyState())
                 .build();
     }
 }
