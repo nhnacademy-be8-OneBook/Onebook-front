@@ -1,17 +1,24 @@
 package com.onebook.frontapi.common;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class CommonResponse<T> {
-    private final CommonHeader header;
-    private final T result;
+    private int status;
+    private String message;
+    private T data;
 
-    @Builder
-    public CommonResponse(CommonHeader header, T result) {
-        this.header = header;
-        this.result = result;
+    public CommonResponse(int status, String message, T data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
+    public T getResult() {
+        return this.data;
     }
 }
+
 //API 응답의 구조를 나타내는 클래스

@@ -1,10 +1,12 @@
 package com.onebook.frontapi.dto.point.request;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreatePointPolicyRequest {
     private String pointPolicyName;
     private int pointPolicyRate;
