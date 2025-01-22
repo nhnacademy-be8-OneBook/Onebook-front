@@ -149,8 +149,7 @@
                             <!-- 새로 추가: 할인 쿠폰 번호를 위한 input -->
                             <input type="hidden"
                                     th:id="'coupon-number-' + ${entry.key.bookId}"
-                                    th:name="'items[' + ${iterStat.index} + '].couponNumber'"
-                                    th:value="0">
+                                    th:name="'items[' + ${iterStat.index} + '].couponNumber'" >
                         </tr>
                         </tbody>
                     </table>
