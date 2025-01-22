@@ -141,7 +141,7 @@
                                    th:id="'applied-discount-' + ${entry.key.bookId}"
                                    th:name="'items[' + ${iterStat.index} + '].discountAmount'"
                                    th:value="0">
-                            <!-- 할인된 가격을 위한 input -->
+                            <!-- 할인된 실제 결제 가격을 위한 input -->
                             <input type="hidden"
                                     th:id="'discounted-' + ${entry.key.bookId}"
                                     th:name="'items[' + ${iterStat.index} + '].discountedPrice'"
@@ -149,8 +149,7 @@
                             <!-- 새로 추가: 할인 쿠폰 번호를 위한 input -->
                             <input type="hidden"
                                     th:id="'coupon-number-' + ${entry.key.bookId}"
-                                    th:name="'items[' + ${iterStat.index} + '].couponNumber'"
-                                    th:value="0">
+                                    th:name="'items[' + ${iterStat.index} + '].couponNumber'" >
                         </tr>
                         </tbody>
                     </table>
@@ -206,21 +205,21 @@
                     <td>주소</td>
                     <td>
                         <input type="text" id="recipientInputAddress" name="delivery.recipientAddress"
-                               class="form-input" placeholder="주소" readonly required>
+                               class="form-input" placeholder="주소" th:value="${defaultAddress.roadNameAddress} + ' ' + ${defaultAddress.notes} + ' ' + ${defaultAddress.detailAddress}" readonly required>
                     </td>
                 </tr>
                 <tr>
                     <td>요청사항</td>
                     <td>
                         <input type="text" id="recipientInputRequestedTerm" name="delivery.recipientRequestedTerm"
-                               class="form-input" placeholder="요청사항" readonly>
+                               class="form-input" placeholder="요청사항" th:value="${defaultAddress.getRequestedTerm()}" readonly>
                     </td>
                 </tr>
                 <tr>
                     <td>받으실 분 이름</td>
                     <td>
                         <input type="text" id="recipientInputName" name="delivery.recipientName" class="form-input"
-                               placeholder="받으실 분 이름" readonly>
+                               placeholder="받으실 분 이름" th:value="${defaultAddress.name}" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -228,7 +227,7 @@
 
                     <td>
                         <input type="text" id="recipientInputPhoneNumber" name="delivery.recipientPhoneNumber"
-                               class="form-input" placeholder="받으실 분 전화번호" readonly>
+                               class="form-input" placeholder="받으실 분 전화번호" th:value="${defaultAddress.phoneNumber}" readonly>
                     </td>
                 </tr>
                 <tr>
