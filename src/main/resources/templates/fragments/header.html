@@ -19,9 +19,20 @@
                         <ul class="list-main">
 <!--                            <li><i class="ti-location-pin"></i> Store location</li>-->
 <!--                            <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>-->
-                            <li><i class="ti-user"></i> <a href="/my/home">My account</a></li>
-                            <li><i class="ti-power-off"></i><a href="/login">Login</a></li>
+                            <span th:if="${role} == 'ROLE_ADMIN'">
+                            <li><i class="ti-user"></i> <a href="/admin">Admin Page</a></li>
                             <li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>
+
+                            </span>
+                            <span th:if="${role} == 'ROLE_MEMBER'">
+                            <li><i class="ti-user"></i> <a href="/my/home">My account</a></li>
+                            <li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>
+
+                            </span>
+                            <span th:if="${role} == 'ROLE_ANONYMOUS'">
+                            <li><i class="ti-power-off"></i><a href="/login">Login</a></li>
+                            </span>
+
                         </ul>
                     </div>
                     <!-- End Top Right -->
@@ -66,7 +77,7 @@
 <!--                        <div class="sinlge-bar">-->
 <!--                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>-->
 <!--                        </div>-->
-                        <div class="sinlge-bar">
+                             <div class="sinlge-bar">
                             <a id="home" th:href="@{/my/home}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                         </div>
                         <!-- Joo - 장바구니 아이콘에 href랑 cart-count 추가 -->
