@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/admin")
 public class CouponController {
 
     private final CouponService couponService;
@@ -55,34 +56,34 @@ public class CouponController {
     @PostMapping("/coupon/rate-for-book/create")
     public String createRateCouponForBook(@ModelAttribute CreateCouponRequest createCouponRequest){
         couponService.createRateCouponForBook(createCouponRequest);
-        return "redirect:/coupon";
+        return "redirect:/admin/coupon";
     }
 
     @PostMapping("/coupon/rate-for-category/create")
     public String createRateCouponForCategory(@ModelAttribute CreateCouponRequest createCouponRequest){
         couponService.createRateCouponForCategory(createCouponRequest);
-        return "redirect:/coupon";
+        return "redirect:/admin/coupon";
 
     }
 
     @PostMapping("/coupon/price-for-book/create")
     public String createPriceCouponForBook(@ModelAttribute CreateCouponRequest createCouponRequest){
         couponService.createPriceCouponForBook(createCouponRequest);
-        return "redirect:/coupon";
+        return "redirect:/admin/coupon";
 
     }
 
     @PostMapping("/coupon/price-for-category/create")
     public String createPriceCouponForCategory(@ModelAttribute CreateCouponRequest createCouponRequest){
         couponService.createPriceCouponForCategory(createCouponRequest);
-        return "redirect:/coupon";
+        return "redirect:/admin/coupon";
     }
 
     @DeleteMapping("/coupon/{coupon-number}")
     public String deleteCoupon(@PathVariable(name = "coupon-number") String couponNumber){
 
         couponService.deleteCoupon(couponNumber);
-        return "redirect:/coupon";
+        return "redirect:/admin/coupon";
     }
 
 

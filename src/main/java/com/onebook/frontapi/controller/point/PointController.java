@@ -1,6 +1,6 @@
 package com.onebook.frontapi.controller.point;
 
-import com.onebook.frontapi.dto.point.MemberPointResponse;
+import com.onebook.frontapi.dto.point.response.MemberPointResponse;
 import com.onebook.frontapi.service.point.PointService;
 import feign.FeignException;
 import jakarta.servlet.http.HttpSession;
@@ -34,8 +34,12 @@ public class PointController {
         }
 
         try {
+            // 세션에서 사용자 ID를 가져옴
+            Long memberId = (Long) session.getAttribute("userId"); // "userId"는 예시로, 실제 저장된 키를 사용해야 함
+
             // 외부 서비스에서 포인트 히스토리를 가져옴
-            List<MemberPointResponse> memberPointHistories = pointService.getMemberPointHistories();
+            List<MemberPointResponse> memberPointHistories = pointService.getMemberPointHistories(memberId);
+
             ModelAndView modelAndView = new ModelAndView("mypage/mypagePoint");
             modelAndView.addObject("memberPointHistories", memberPointHistories);
             return modelAndView;
@@ -51,8 +55,3 @@ public class PointController {
         }
     }
 }
-
-
-
-
-// 예외 처리 코드 추가 (+ FeignException을 처리하는 방식)

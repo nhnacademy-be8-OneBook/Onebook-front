@@ -67,25 +67,22 @@
     margin-top: 16px;
 }
 
+.order-footer form {
+    flex: 1; /* form이 동일한 너비를 가지도록 */
+    margin: 0 4px; /* 좌우 간격 */
+}
+
 .order-action {
-    flex: 1;
+    width: 100%; /* 버튼이 form 너비를 채우도록 */
     background-color: #FCFBF9;
     border: 1px solid #ddd;
-    padding: 10px 18px; /* 버튼 크기 조정 */
-    margin: 0 4px;
+    padding: 10px 18px;
     border-radius: 4px;
-    font-size: 17px; /* 기존 14px에서 5px 증가 */
+    font-size: 17px;
     color: #333;
     cursor: pointer;
     text-align: center;
 }
 
-/*.order-action:hover {*/
-    /*background-color: #ffe6e6; !* 연한 빨간색 *!*/
-/*}*/
 
-.order-action {
-    /*background-color: #f5f5f5; !* 연한 빨간색 *!*/
-    /*border-color: #ff4d4d; !* 테두리 빨간색 *!*/
-    /*color: #ff4d4d; !* 글자 색 *!*/
-}
+

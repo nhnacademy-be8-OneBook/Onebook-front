@@ -68,6 +68,7 @@ public class PaymentFrontController {
                  dto.getPaymentKey(), dto.getOrderId(), dto.getAmount());
 
         TossConfirmResponseDto result = paymentClient.confirmTossPayment(dto);
+
         return ResponseEntity.ok(result);
     }
 }

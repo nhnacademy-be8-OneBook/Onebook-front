@@ -6,10 +6,14 @@ import java.time.LocalDateTime;
 
 @Getter
 public class OrderFeignResponse {
-    private long orderId;
+    private Long orderId;
+    private Long memberId;
     private String orderName;
-    private String orderer;
+    private String ordererName;
+    private String ordererPhoneNumber;
     private LocalDateTime dateTime;
+    private int deliveryPrice;
     private int totalPrice;
     private String orderStatusName;
+    private int packagingPrice;
 }

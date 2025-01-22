@@ -1,9 +1,7 @@
 package com.onebook.frontapi.feign.book;
 
 import com.onebook.frontapi.adaptor.packaging.PackagingResponseAdaptor;
-import com.onebook.frontapi.dto.book.BookDTO;
-import com.onebook.frontapi.dto.book.BookSaveDTO;
-import com.onebook.frontapi.dto.book.BookUpdateDTO;
+import com.onebook.frontapi.dto.book.*;
 import com.onebook.frontapi.feign.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
@@ -51,4 +49,9 @@ public interface BookClient {
     @GetMapping("/task/book/bestsellers")
     Page<BookDTO> getBestSellers(Pageable pageable);
 
+    @GetMapping("/task/book/search/all")
+    List<BookSearchAllResponse> searchBookAll(@RequestParam("searchString") String searchString);
+
+    @GetMapping("/task/book/recommend")
+    List<BookRecommendDto> recommendBook();
 }

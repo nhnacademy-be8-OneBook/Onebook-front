@@ -7,7 +7,7 @@
     <meta name='copyright' content=''>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
+    <title>1nebook - 작성 가능한 리뷰</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <!-- Web Font -->
@@ -57,6 +57,7 @@
             padding-bottom: 30px;
         }
         .btn-primary {
+            white-space: nowrap;
             background-color: #f8f9fa;
             color: #000000;
             border-color: #000000;
@@ -76,16 +77,6 @@
 </head>
 <body class="js">
 
-<!-- Preloader -->
-<div class="preloader">
-    <div class="preloader-inner">
-        <div class="preloader-icon">
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div>
-<!-- End Preloader -->
 <div th:replace="~{fragments/header :: header}"></div>
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
@@ -128,8 +119,8 @@
                         <br/>
                         <h3 class="title">혜택 관리</h3>
                         <ul class="categor-list">
-                            <li><a href="#">쿠폰</a></li>
-                            <li><a href="#">포인트</a></li>
+                            <li><a href="/coupon/coupon-box">쿠폰</a></li>
+                            <li><a href="/point/logs">포인트</a></li>
                         </ul>
                         <br/>
                         <br/>
@@ -186,9 +177,7 @@
                                     <td th:text="${book.bookName}">책제목</td>
                                     <td th:text="${#temporals.format(book.purchasedAt, 'yyyy-MM-dd HH:mm')}"></td>
                                     <td>
-                                        <a th:href="@{/review(bookId=${book.bookId})}" class="btn btn-primary">
-                                            리뷰 작성
-                                        </a>
+                                        <a th:href="@{/review(bookId=${book.bookId})}" class="btn btn-primary">리뷰 작성</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -309,6 +298,7 @@
 <!-- Slicknav JS -->
 <script src="/js/slicknav.min.js"></script>
 <!-- Owl Carousel JS -->
+<script src="/js/owl-carousel.js"></script>
 <script src="/js/owl-carousel.js"></script>
 <!-- Magnific Popup JS -->
 <script src="/js/magnific-popup.js"></script>

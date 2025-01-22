@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Title Tag  -->
-<title>Eshop - eCommerce HTML5 Template.</title>
+<title>1nebook - 결제대기</title>
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <!-- Web Font -->
@@ -48,8 +48,20 @@
 <link rel="stylesheet" href="#" id="colors">
 <link rel="stylesheet" href="/css/order/order-my-style.css">
 
-<div th:insert="fragments/header :: header"></div>
 
+<script>
+    function confirmOrderCancel(orderId) {
+        const userConfirmed = confirm("주문을 취소하시겠습니까?");
+        if (userConfirmed) {
+            const form = document.getElementById('cancelForm');
+            form.action = `/my/order/cancel/${orderId}`;  // URL 동적 설정
+            form.submit();
+        }
+    }
+</script>
+
+
+<div th:insert="fragments/header :: header"></div>
 
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
@@ -95,26 +107,25 @@
                         <br/>
                         <h3 class="title">혜택 관리</h3>
                         <ul class="categor-list">
-                            <li><a href="#">쿠폰</a></li>
-                            <li><a href="#">포인트</a></li>
+                            <li><a href="/coupon/coupon-box">쿠폰</a></li>
+                            <li><a href="/point/logs">포인트</a></li>
                         </ul>
-                        <br/>
                         <br/>
                         <br/>
                         <h3 class="title">리뷰</h3>
                         <ul class="categor-list">
-                            <li><a href="review/pending">작성 가능한 리뷰</a></li>
-                            <li><a href="review/my-review">내가 작성한 리뷰</a></li>
+                            <li><a href="/review/pending">작성 가능한 리뷰</a></li>
+                            <li><a href="/review/my-review">내가 작성한 리뷰</a></li>
                         </ul>
                         <br/>
                         <br/>
                         <br/>
                         <h3 class="title">회원 정보</h3>
                         <ul class="categor-list">
-                            <li><a href="#">회원정보 수정</a></li>
-                            <li><a href="#">회원 등급</a></li>
-                            <li><a href="#">주소 관리</a></li>
-                            <li><a href="#">회원 탈퇴</a></li>
+                            <li><a href="/my/member/modify-validate">회원정보 수정</a></li>
+                            <li><a href="/my/member/grade">회원 등급</a></li>
+                            <li><a href="/addresses">주소 관리</a></li>
+                            <li><a href="/my/member/leave-validate">회원 탈퇴</a></li>
                         </ul>
                     </div>
                     <!--/ End Single Widget -->
@@ -158,7 +169,7 @@
 
                 <!--	Start 주문/배송 현황 content  -->
 
-                <div class="order-card" th:each="order : ${waitingOrders}">
+                <div class="order-card" th:each="order : ${orderList}">
                     <div class="order-header">
 <!--                        <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}   ${order.orderStatusName}"></span>-->
                         <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')} + ' ' + ${order.orderStatusName}"></span>
@@ -176,7 +187,13 @@
                         </div>
                     </div>
                     <div class="order-footer">
-                        <button class="order-action" type="button">재결제</button>
+                        <form action="/front/payments/checkout-page" method="get">
+                            <input type="hidden" name="orderId" th:value="${order.orderId}"/>
+                            <button class="order-action" type="submit">재결제</button>
+                        </form>
+                        <form id="cancelForm" method="get">
+                            <button class="order-action" type="button" th:onclick="'confirmOrderCancel(\'' + ${order.orderId} + '\')'">주문취소</button>
+                        </form>
                     </div>
                 </div>
 

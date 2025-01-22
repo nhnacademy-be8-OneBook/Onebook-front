@@ -21,10 +21,21 @@ public class OrderResponse {
         return new OrderResponse(
                 feignResponse.getOrderId(),
                 feignResponse.getOrderName(),
-                feignResponse.getOrderer(),
+                feignResponse.getOrdererName(),
                 feignResponse.getDateTime(),
                 feignResponse.getTotalPrice(),
                 feignResponse.getOrderStatusName()
+        );
+    }
+
+    public static OrderResponse fromFeign(OrderMemberFeignResponse feignResponse) {
+        return new OrderResponse(
+                feignResponse.getOrderId(),
+                feignResponse.getOrderName(),
+                feignResponse.getOrdererName(),
+                feignResponse.getDateTime(),
+                feignResponse.getTotalPrice(),
+                feignResponse.getStatusName()
         );
     }
 }

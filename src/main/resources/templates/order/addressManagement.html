@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Address List</title>
+    <title>1nebook - 주소목록</title>
     <style>
         table {
             width: 80%;
@@ -38,25 +38,28 @@
 <body>
 <h1 style="text-align: center;">Address List</h1>
 <table>
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>Name</th>-->
-<!--        <th>Phone Number</th>-->
-<!--        <th>Address</th>-->
-<!--        <th>Notes</th>-->
-<!--        <th>Select</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
+    <thead>
+    <tr>
+        <th>별칭</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>우편번호</th>
+        <th>주소</th>
+        <th>상세주소</th>
+        <th>요청사항</th>
+        <th>선택</th>
+    </tr>
+    </thead>
     <tbody>
     <!-- 주소 리스트 -->
     <tr th:each="address : ${addressList}">
+        <td th:text="${address.alias}"></td>
         <td th:text="${address.name}"></td>
         <td th:text="${address.phoneNumber}"></td>
-        <td th:text="${address.alias}"></td>
-        <td th:text="${address.requestedTerm}"></td>
         <td th:text="${address.zipCode}"></td>
         <td th:text="${address.roadNameAddress}"></td>
         <td th:text="${address.detailAddress}"></td>
+        <td th:text="${address.requestedTerm}"></td>
         <td>
             <button type="button" class="btn"
                     th:attr="data-address-name=${address.name},data-address-phone=${address.phoneNumber},

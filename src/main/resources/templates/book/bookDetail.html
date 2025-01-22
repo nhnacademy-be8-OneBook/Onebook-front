@@ -7,7 +7,7 @@
     <meta name='copyright' content=''>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
+    <title>1nebook - 도서 상세</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <!-- Web Font -->
@@ -138,6 +138,14 @@
             border-radius:3px;
             cursor:pointer;
         }
+        #like-button.liked i {
+            color: red;
+        }
+
+        #like-button i {
+            color: #000; /* 기본 색상 */
+            transition: color 0.3s ease;
+        }
     </style>
 </head>
 <body class="js">
@@ -184,7 +192,14 @@
                                     <!-- 김주혁 추가 end -->
 
 <!--                                    <a href="#" class="btn">장바구니</a>-->
-                                    <a href="#" class="btn min"><i class="ti-heart"></i></a>
+                                    <button
+                                            id="like-button"
+                                            class="btn min"
+                                            th:data-book-id="${book.bookId}"
+                                            data-liked="false">
+                                        <i class="ti-heart"></i>
+                                    </button>
+
 <!--                                    <a href="#" class="btn min"><i class="fa fa-compress"></i></a>-->
                                 </div>
 
@@ -640,7 +655,64 @@
         loadAverageRating();
         // (Reviews 탭을 눌러야 리뷰 목록이 보임)
     });
+
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        const likeButton = document.querySelector("#like-button");
+        if (likeButton) {
+            const bookId = likeButton.getAttribute("data-book-id");
+            try {
+                const response = await fetch(`/like/check?bookId=${bookId}`);
+                if (response.ok) {
+                    const isLiked = await response.json();
+                    if (isLiked) {
+                        likeButton.classList.add("liked");
+                        likeButton.setAttribute("data-liked", "true");
+                    }
+                }
+            } catch (error) {
+                console.error("좋아요 상태 확인 중 오류 발생:", error);
+            }
+        }
+
+        document.addEventListener("click", async (event) => {
+            if (event.target.closest("#like-button")) {
+                const likeButton = event.target.closest("#like-button");
+                const bookId = likeButton.getAttribute("data-book-id");
+
+                try {
+                    const response = await fetch(`/like?bookId=${bookId}`, {
+                        method: "GET",
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (response.ok) {
+                        const newLikeState = await response.json();
+                        console.log("서버 응답:", newLikeState);
+
+                        if (newLikeState) {
+                            likeButton.classList.add("liked");
+                        } else {
+                            likeButton.classList.remove("liked");
+                        }
+
+                        likeButton.setAttribute("data-liked", newLikeState);
+                    } else {
+                        console.error("서버 응답 에러:", response.status);
+                        alert("좋아요 상태를 변경할 수 없습니다.");
+                    }
+                } catch (error) {
+                    console.error("상세 에러:", error);
+                    alert("오류가 발생했습니다.");
+                }
+            }
+        });
+    });
 </script>
+
+
 
 
 </body>

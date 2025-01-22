@@ -1,21 +1,21 @@
 package com.onebook.frontapi.controller.book;
 
 import com.onebook.frontapi.dto.author.AuthorDTO;
-import com.onebook.frontapi.dto.book.BookAuthorDTO;
-import com.onebook.frontapi.dto.book.BookCategoryDTO;
-import com.onebook.frontapi.dto.book.BookDTO;
-import com.onebook.frontapi.dto.book.BookSaveDTO;
+import com.onebook.frontapi.dto.book.*;
 import com.onebook.frontapi.dto.image.ImageDTO;
 import com.onebook.frontapi.dto.publisher.PublisherDTO;
 import com.onebook.frontapi.dto.review.ReviewPageResponseDto;
 import com.onebook.frontapi.dto.stock.StockDTO;
+import com.onebook.frontapi.dto.tag.TagDTO;
 import com.onebook.frontapi.dto.tag.TagResponse;
 import com.onebook.frontapi.feign.review.ReviewClient;
 import com.onebook.frontapi.service.author.AuthorService;
 import com.onebook.frontapi.service.book.BookAuthorService;
 import com.onebook.frontapi.service.book.BookCategoryService;
 import com.onebook.frontapi.service.book.BookService;
+import com.onebook.frontapi.service.book.BookTagService;
 import com.onebook.frontapi.service.image.ImageService;
+import com.onebook.frontapi.service.like.LikeService;
 import com.onebook.frontapi.service.publisher.PublisherService;
 import com.onebook.frontapi.service.stock.StockService;
 import com.onebook.frontapi.service.tag.TagService;
@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -31,8 +32,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.html.HTML;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -43,8 +48,7 @@ public class BookController {
     private final BookAuthorService bookAuthorService;
     private final AuthorService authorService;
     private final BookCategoryService bookCategoryService;
-    private final PublisherService publisherService;
-    private final TagService tagService;
+    private final BookTagService bookTagService;
     private final ImageService imageService;
     private final StockService stockService;
 
@@ -173,11 +177,69 @@ public class BookController {
     }
 
 
+    @GetMapping("/search")
+    public String bookSearch(@RequestParam(value = "search") String searchString,
+                             @RequestParam(defaultValue = "0") Integer page,
+                             Model model) {
+        Pageable pageable = PageRequest.of(page, 10);
 
-// 작업중임
-//    @PutMapping("/update")
-//    public String updateBook(@RequestParam("bookId") long bookId,
-//                             Model model) {
-//
-//    }
+        List<BookSearchAllResponse> bookList = bookService.searchBookAll(searchString);
+
+
+        List<ProductSearchResponse> productList = new ArrayList<>();
+        for (BookSearchAllResponse bookSearchAllResponse : bookList) {
+            if (!bookSearchAllResponse.isStatus()) {
+                ProductSearchResponse productSearchResponse = new ProductSearchResponse();
+                productSearchResponse.setBookId(bookSearchAllResponse.getBookId());
+                productSearchResponse.setTitle(bookSearchAllResponse.getTitle());
+                productSearchResponse.setPublisherName(bookSearchAllResponse.getPublisherName());
+                productSearchResponse.setPrice(bookSearchAllResponse.getPrice());
+                productSearchResponse.setDescription(bookSearchAllResponse.getDescription());
+                productSearchResponse.setSalePrice(bookSearchAllResponse.getSalePrice());
+                productSearchResponse.setAmount(bookSearchAllResponse.getAmount());
+                productSearchResponse.setPubdate(bookSearchAllResponse.getPubdate());
+                productSearchResponse.setStatus(bookSearchAllResponse.isStatus());
+                productSearchResponse.setAuthorName(bookAuthorService.getBookAuthor(bookSearchAllResponse.getBookId()).getAuthor().getName());
+                productSearchResponse.setImageUrl(imageService.getImage(bookSearchAllResponse.getBookId()).getUrl());
+                productList.add(productSearchResponse);
+            }
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), productList.size());
+
+
+        List<ProductSearchResponse> productPage = productList.subList(start, end);
+        Page<ProductSearchResponse> products = new PageImpl<>(productPage, pageable, productList.size());
+
+        model.addAttribute("productList", products);
+        model.addAttribute("search", searchString);
+
+        return "book/bookSearch";
+
+    }
+
+    @GetMapping("/recommend")
+    public String bookRecommend(Model model) {
+        List<BookRecommendDto> bookList = bookService.recommendBooks();
+        List<String> tagNameList = new ArrayList<>();
+        List<String> imageUrlList = new ArrayList<>();
+
+        for(BookRecommendDto bookRecommendDto : bookList) {
+            long bookId = bookRecommendDto.getBookId();
+            imageUrlList.add(imageService.getImage(bookId).getUrl());
+            if(Objects.isNull(bookTagService.getBookTagByBookId(bookId))) {
+                tagNameList.add("");
+            }else{
+                TagDTO tag = bookTagService.getBookTagByBookId(bookRecommendDto.getBookId()).getTag();
+                tagNameList.add(tag.getName());
+            }
+        }
+
+        model.addAttribute("urlList", imageUrlList);
+        model.addAttribute("tagList", tagNameList);
+        model.addAttribute("bookList", bookList);
+
+        return "book/bookRecommend";
+    }
 }

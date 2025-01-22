@@ -1,12 +1,13 @@
 package com.onebook.frontapi.controller.order;
 
+import com.onebook.frontapi.dto.address.response.MemberAddressResponse;
 import com.onebook.frontapi.dto.order.BookListRequest;
 import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.book.BookOrderRequest;
 import com.onebook.frontapi.dto.order.*;
+import com.onebook.frontapi.service.address.AddressService;
 import com.onebook.frontapi.service.book.BookService;
 import com.onebook.frontapi.service.member.MemberService;
-import com.onebook.frontapi.service.order.OrderAddressService;
 import com.onebook.frontapi.service.order.OrderService;
 import com.onebook.frontapi.service.order.OrderStatusService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -29,14 +29,9 @@ public class OrderController {
 
     private final OrderService orderService;
     private final MemberService memberService;
-    private final OrderAddressService orderAddressService;
     private final OrderStatusService orderStatusService;
     private final BookService bookService;
-
-    @GetMapping("/order/order-test")
-    public String orderTest() {
-        return "order/order-test";
-    }
+    private final AddressService addressService;
 
     @PostMapping("/order/register-form")
     public String orderRegistesr(@ModelAttribute BookListRequest bookListRequest, Model model) {
@@ -53,12 +48,12 @@ public class OrderController {
         model.addAttribute("ordererPhoneNumber", orderderPhoneNumber);
 
         // TODO 사용자의 기본 배송지
-        /*
-        List<OrderAddressResponseDto> allOrderAddress = orderAddressService.getAllOrderAddress();
-        if (allOrderAddress.getFirst().isDefaultLocation()) {
-            model.addAttribute("orderAddressDefaultLocation", allOrderAddress.getFirst());
+        List<MemberAddressResponse> address = addressService.getAllMemberAddressByMemberId();
+        for (MemberAddressResponse memberAddressResponse : address) {
+            if (memberAddressResponse.isDefaultLocation()) {
+                model.addAttribute("orderAddressDefaultLocation", memberAddressResponse);
+            }
         }
-        */
 
         // 배송 선택 날짜
         // TODO utils에 넘기고싶음
@@ -108,4 +103,5 @@ public class OrderController {
 
         return "redirect:/admin/orders?status=" + encodedStatus;
     }
+
 }

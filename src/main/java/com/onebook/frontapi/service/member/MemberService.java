@@ -1,6 +1,7 @@
 package com.onebook.frontapi.service.member;
 
 import com.onebook.frontapi.adaptor.member.MemberAdaptor;
+import com.onebook.frontapi.dto.book.BookDTO;
 import com.onebook.frontapi.dto.grade.GradeFeignResponse;
 import com.onebook.frontapi.dto.grade.GradeResponse;
 import com.onebook.frontapi.dto.member.*;
@@ -8,9 +9,12 @@ import com.onebook.frontapi.feign.member.MemberClient;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -107,6 +111,43 @@ public class MemberService {
         }
 
         return false;
+    }
+
+    /**
+     * 멤버 좋아요 책 조회
+     */
+    public List<MemberLikeBooksResponse> getLikeBooks() {
+        ResponseEntity<List<MemberLikeBooksResponse>> result = memberClient.getLikeBooksForMember();
+        return result.getBody();
+    }
+
+    /**
+     * 회원 순수 금액 조회 (+등급 업데이트)
+     */
+    public Integer getMemberNetPaymentAmount() {
+        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmount();
+        if(Objects.isNull(result)) {
+            return 0;
+        }
+        return result.getBody();
+    }
+
+    /**
+     * 관리자용 - 회원 순수 금액 조회(+등급 업데이트)
+     */
+    public Integer getMemberNetPaymentAmountForAdmin(Long memberId) {
+        ResponseEntity<Integer> result = memberClient.getMemberNetPaymentAmountForAdmin(memberId);
+        if(Objects.isNull(result)) {
+            return 0;
+        }
+        return result.getBody();
+    }
+
+    /**
+     * 관리자용 - 회원 리스트 조회
+     */
+    public Page<MemberResponseForAdmin> getMemberListForAdmin(Pageable pageable) {
+        return memberClient.getMemberListForAdmin(pageable).getBody();
     }
 
 }

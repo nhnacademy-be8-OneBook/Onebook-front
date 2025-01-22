@@ -1,8 +1,6 @@
 package com.onebook.frontapi.service.book;
 
-import com.onebook.frontapi.dto.book.BookDTO;
-import com.onebook.frontapi.dto.book.BookSaveDTO;
-import com.onebook.frontapi.dto.book.BookUpdateDTO;
+import com.onebook.frontapi.dto.book.*;
 import com.onebook.frontapi.feign.book.BookClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -57,5 +55,14 @@ public class BookService {
 
     public Page<BookDTO> getBestSellerBooks(Pageable pageable) {
         return bookClient.getBestSellers(pageable);
+    }
+
+    //통합검색
+    public List<BookSearchAllResponse> searchBookAll(String searchString) {
+        return bookClient.searchBookAll(searchString);
+    }
+
+    public List<BookRecommendDto> recommendBooks() {
+        return bookClient.recommendBook();
     }
  }

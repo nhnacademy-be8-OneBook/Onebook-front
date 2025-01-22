@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/toss/style.css"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>결제 성공</title>
+    <title>1nebook - 결제 성공</title>
 </head>
 <body>
 <div class="box_section" style="width:600px">
@@ -55,6 +55,12 @@
 </div>
 
 <script>
+    // 숫자를 3자리마다 콤마로 포맷팅하는 함수
+    function formatNumberWithComma(num) {
+        if (!num && num !== 0) return "";
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     // 1) URL 파라미터
     const urlParams = new URLSearchParams(window.location.search);
     const paymentKeyParam = urlParams.get("paymentKey");
@@ -68,17 +74,16 @@
 
     paymentKeyElement.textContent = paymentKeyParam;
     orderIdElement.textContent = orderIdParam;
-    amountElement.textContent = amountParam + "원";
+    // 금액에 콤마를 찍고 "원"을 붙여서 표시
+    amountElement.textContent = formatNumberWithComma(Number(amountParam)) + "원";
 
     // 3) 금액 0원이면 confirmPayment() 호출 스킵
     async function confirmPayment() {
-        // amountParam이 문자열이므로, 숫자로 비교
         if (Number(amountParam) === 0) {
             console.log("[SUCCESS PAGE] 전액 포인트 결제 → 이미 DONE, confirmPayment() 생략.");
-            return; // 승인 요청 X
+            return;
         }
 
-        // 0원이 아닌 경우 → 일반 결제 승인 로직
         let requestData = {
             paymentKey: paymentKeyParam,
             orderId: orderIdParam,
@@ -97,14 +102,11 @@
             const json = await res.json();
             if (!res.ok) {
                 console.error("결제 승인 실패", json);
-                // 실패 페이지로 이동
                 const failMessage = encodeURIComponent(json.message || 'fail');
                 const failCode = encodeURIComponent(json.code || 'fail');
                 window.location.href = `/fail?message=${failMessage}&code=${failCode}`;
                 return null;
             }
-
-            // 결제 승인 성공 → 화면에 응답 표시
             return json;
         } catch (error) {
             console.error("결제 승인 요청 중 오류:", error);
@@ -113,7 +115,7 @@
 
     // 4) 함수 호출
     confirmPayment().then((data) => {
-        if(!data) return; // data가 없으면 표시 X (전액 포인트면 skip됨)
+        if(!data) return;
         document.getElementById("response").innerHTML =
             "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
     });

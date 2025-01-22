@@ -7,8 +7,8 @@
                     <!-- Top Left -->
                     <div class="top-left">
                         <ul class="list-main">
-                            <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
-                            <li><i class="ti-email"></i> support@shophub.com</li>
+                            <li><i class="ti-headphone-alt"></i>010-3082-2878</li>
+                            <span><li><i class="ti-email"></i>rlawngur145@naver.com</li></span>
                         </ul>
                     </div>
                     <!--/ End Top Left -->
@@ -42,75 +42,69 @@
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
-                    <div class="search-top">
-                        <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-                        <!-- Search Form -->
-                        <div class="search-top">
-                            <form class="search-form">
-                                <input type="text" placeholder="Search here..." name="search">
-                                <button value="search" type="submit"><i class="ti-search"></i></button>
-                            </form>
-                        </div>
-                        <!--/ End Search Form -->
-                    </div>
+
                     <!--/ End Search Form -->
                     <div class="mobile-nav"></div>
                 </div>
-                <div class="col-lg-8 col-md-7 col-12">
-                    <div class="search-bar-top">
-                        <div class="search-bar">
-                            <select name="option">
-                                <option value="all" selected>통합검색</option>
-                                <option value="publisher">출판사</option>
-                                <option value="author">작가</option>
-                                <option value="tag">태그</option>
-                            </select>
-                            <form>
+                <form action="/book/search" method="GET">
+                    <div class="col-lg-8 col-md-7 col-12">
+                        <div class="search-bar-top">
+                            <div class="search-bar">
+                                <select name="searchTarget">
+                                    <option value="all" selected>통합검색</option>
+                                </select>
                                 <input name="search" placeholder="Search Products Here....." type="search">
-                                <button class="btnn"><i class="ti-search"></i></button>
-                            </form>
+                                <button class="btnn" type="submit"><i class="ti-search"></i></button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
+
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
-                        <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
+<!--                        <div class="sinlge-bar">-->
+<!--                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>-->
+<!--                        </div>-->
                         <div class="sinlge-bar">
                             <a id="home" th:href="@{/my/home}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                         </div>
+                        <!-- Joo - 장바구니 아이콘에 href랑 cart-count 추가 -->
                         <div class="sinlge-bar shopping">
-                            <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
-                            <!-- Shopping Item -->
-                            <div class="shopping-item">
-                                <div class="dropdown-cart-header">
-                                    <span>2 Items</span>
-                                    <a href="#">View Cart</a>
-                                </div>
-                                <ul class="shopping-list">
-                                    <li>
-                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                        <h4><a href="#">Woman Ring</a></h4>
-                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-                                        <h4><a href="#">Woman Necklace</a></h4>
-                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                    </li>
-                                </ul>
-                                <div class="bottom">
-                                    <div class="total">
-                                        <span>Total</span>
-                                        <span class="total-amount">$134.00</span>
-                                    </div>
-                                    <a href="checkout.html" class="btn animate">Checkout</a>
-                                </div>
-                            </div>
+                            <a href="/cart" class="single-icon" th:if="${cartCount == 0}">
+                                <i class="ti-bag"></i>
+                            </a>
+                            <a href="/cart" class="single-icon" th:if="${cartCount != 0}">
+                                <i class="ti-bag"></i> <span class="total-count" th:text="${cartCount}"></span>
+                            </a>
+                            <!-- 장바구니 view -->
+<!--                            <div class="shopping-item">-->
+<!--                                <div class="dropdown-cart-header">-->
+<!--                                    <span>2 Items</span>-->
+<!--                                    <a href="/cart">View Cart</a>-->
+<!--                                </div>-->
+<!--                                <ul class="shopping-list">-->
+<!--                                    <li>-->
+<!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
+<!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
+<!--                                        <h4><a href="#">Woman Ring</a></h4>-->
+<!--                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
+<!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
+<!--                                        <h4><a href="#">Woman Necklace</a></h4>-->
+<!--                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                                <div class="bottom">-->
+<!--                                    <div class="total">-->
+<!--                                        <span>Total</span>-->
+<!--                                        <span class="total-amount">$134.00</span>-->
+<!--                                    </div>-->
+<!--                                    <a href="checkout.html" class="btn animate">Checkout</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <!--/ End Shopping Item -->
                         </div>
                     </div>

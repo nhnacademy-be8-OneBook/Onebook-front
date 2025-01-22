@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
+    <title>1nebook - 관리자 페이지</title>
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 	<!-- Web Font -->
@@ -62,37 +62,8 @@
 	
 </head>
 <body class="js">
-	
-	<!-- Preloader -->
-	<div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	</div>
-	<!-- End Preloader -->
-	
-	<!-- Eshop Color Plate -->
-	<div class="color-plate ">
-		<a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
-		<h4>Eshop Colors</h4>
-		<p>Here is some awesome color's available on Eshop Template.</p>
-		<span class="color1"></span>
-		<span class="color2"></span>
-		<span class="color3"></span>
-		<span class="color4"></span>
-		<span class="color5"></span>
-		<span class="color6"></span>
-		<span class="color7"></span>
-		<span class="color8"></span>
-		<span class="color9"></span>
-		<span class="color10"></span>
-		<span class="color11"></span>
-		<span class="color12"></span>
-	</div>
-	<!-- /End Color Plate -->
+
+
 
 	<div th:replace="~{fragments/header :: header}"></div>
 
@@ -122,8 +93,8 @@
 						<div class="shop-sidebar">
 							<!-- Single Widget -->
 							<div class="single-widget category" style="border-radius: 10px">
-								<a href="/my/home" class="title-line" style="text-align: center">
-									<h4>마이 페이지</h4>
+								<a href="/admin" class="title-line" style="text-align: center">
+									<h4>관리자 페이지</h4>
 								</a>
 								<br/>
 								<br/>
@@ -173,16 +144,16 @@
 								<br/>
 								<h3 class="title">회원 관리</h3>
 								<ul class="categor-list">
-									<li><a href="/my/member/modify-validate">휴면 회원 관리</a></li>
-									<li><a href="/my/member/grade">1년 미접속 회원 관리</a></li>
-									<li><a href="/my/member/grade"> -- </a></li>
-									<li><a href="/addresses"> -- </a></li>
+									<li><a href="/admin/members">회원 관리</a></li>
+									<li><a href="/admin/grades">회원등급 관리</a></li>
+									<li><a href="/admin/roles">회원권한 관리</a></li>
 								</ul>
 								<br/>
 								<br/>
 								<h3 class="title">쿠폰 관리</h3>
 								<ul class="categor-list">
-									<li><a href="/coupon-policies/rate/book">쿠폰 정책 관리</a></li>
+									<li><a href="/admin/coupon-policies/rate/book">쿠폰 정책 관리</a></li>
+									<li><a href="/admin/coupon">쿠폰 관리</a></li>
 									<br/>
 								</ul>
 								</ul>
@@ -190,10 +161,10 @@
 								<br/>
 								<h3 class="title">포인트 관리</h3>
 								<ul class="categor-list">
-									<li><a href="/my/member/modify-validate">회원 별 포인트 관리</a></li>
-									<li><a href="/my/member/grade"> -- </a></li>
-									<li><a href="/addresses"> -- </a></li>
-									<li><a href="/my/member/leave-validate"> -- </a></li>
+									<li><a href="/admin/point/createPointPolicy">포인트 정책 등록</a></li>
+									<li><a href="/admin/point/updatePointPolicy">포인트 정책 수정</a></li>
+									<li><a href="/admin/point/deletePointPolicy">포인트 정책 삭제</a></li>
+									<li><a href="/admin/point/allPointPolicies">모든 포인트 정책 목록</a></li>
 								</ul>
 							</div>
 							<!--/ End Single Widget -->

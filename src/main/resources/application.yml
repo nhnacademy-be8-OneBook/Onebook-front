@@ -12,5 +12,19 @@ server:
 #  port: 8101
 
 onebook:
-  gatewayUrl: http://localhost:8210
+  gatewayUrl: http://localhost:8200
 
+# redis 관련 설정
+# 주석처리된 것: nhn cloud의 secret키 관련 설정임.
+# 문의사항: 김주혁에게
+nhnKey:
+#  url: https://api-keymanager.nhncloudservice.com
+#  appKey: qTQNj7LyHhdAazH3
+#  keyPath: 1nebook.p12
+#  password: 1nebook
+#  keyId: a53e608fbf3744a594162277fb824907
+  host: 220.67.216.14
+  port: 6379
+  password: '*N2vya7H@muDTwdNMR!'
+  default_db: 201
+  cart_redis_db: 202
