@@ -95,9 +95,9 @@
                         </thead>
                         <tbody>
                         <tr th:each="entry, iterStat : ${bookMap}">
-                            <td>
                                 <input type="hidden" th:text="${entry.key.bookId}">책 아이디</input>
                                 <input type="hidden" th:text="'현재 인덱스: ' + ${iterStat.index}"></input>
+                            <td>
                                 <p>
                                     <a th:href="@{'/book/bookDetail?bookId=' + ${entry.key.bookId}}"
                                        th:text="${entry.key.title}">책 제목</a>
