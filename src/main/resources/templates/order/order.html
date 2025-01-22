@@ -135,6 +135,21 @@
                             <input type="hidden"
                                    th:name="'items[' + ${iterStat.index} + '].price'"
                                    th:value="${entry.key.salePrice}">
+                            <!-- 새로 추가: 실제 적용된 할인 금액을 위한 input -->
+                            <input type="hidden"
+                                   th:id="'applied-discount-' + ${entry.key.bookId}"
+                                   th:name="'items[' + ${iterStat.index} + '].discountAmount'"
+                                   th:value="0">
+                            <!-- 할인된 가격을 위한 input -->
+                            <input type="hidden"
+                                    th:id="'discounted-' + ${entry.key.bookId}"
+                                    th:name="'items[' + ${iterStat.index} + '].discountedPrice'"
+                                    th:value="0">
+                            <!-- 새로 추가: 할인 쿠폰 번호를 위한 input -->
+                            <input type="hidden"
+                                    th:id="'coupon-number-' + ${entry.key.bookId}"
+                                    th:name="'items[' + ${iterStat.index} + '].couponNumber'"
+                                    th:value="0">
                         </tr>
                         </tbody>
                     </table>

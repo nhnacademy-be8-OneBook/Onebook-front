@@ -12,9 +12,17 @@ function openCouponPopup(bookId) {
 function applyCoupon(couponNumber, couponName, discountPrice, bookId) {
     const totalElement = document.getElementById('total-' + bookId);
     const button = document.querySelector(`button[onclick*="${bookId}"]`);
+    const discountedInput = document.getElementById('discounted-' + bookId);
+    const couponNumberInput = document.getElementById('coupon-number-' + bookId);
+    const appliedDiscountInput = document.getElementById('applied-discount-' + bookId);
 
-    if (!totalElement) {
-        alert('총 가격 요소를 찾을 수 없습니다.');
+    console.log(totalElement)
+    console.log(discountedInput)
+    console.log(couponNumberInput)
+    console.log(appliedDiscountInput)
+
+    if (!totalElement || !discountedInput || !couponNumberInput || !appliedDiscountInput) {
+        alert('요소를 찾을 수 없습니다.');
         return;
     }
 
@@ -32,7 +40,13 @@ function applyCoupon(couponNumber, couponName, discountPrice, bookId) {
     // 쿠폰 적용 상태 업데이트
     button.setAttribute('data-has-coupon', 'true');
 
-    // 가격 업데이트
+    // hidden input들의 값 업데이트
+    // discountInput.value = discountPrice;  // items[index].discountPrice용
+    couponNumberInput.value = couponNumber;  // discount[index].couponNumber용
+    appliedDiscountInput.value = discountPrice;  // discount[index].discountAmount용
+    discountedInput.value = discountedPrice;
+
+    // 화면에 표시되는 가격 업데이트
     totalElement.textContent = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0

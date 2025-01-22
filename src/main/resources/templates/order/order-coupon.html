@@ -9,6 +9,7 @@
 <table border="1">
     <thead>
     <tr>
+        <th>쿠폰 번호</th>
         <th>쿠폰 이름</th>
         <th>할인 금액</th>
         <th>만료일</th>
@@ -17,7 +18,7 @@
     </thead>
     <tbody>
     <tr th:each="coupon : ${coupons}">
-        <input type="hidden" th:value="${coupon.couponNumber}">
+        <td th:text="${coupon.couponNumber}">
         <td th:text="${coupon.couponName}">쿠폰 이름</td>
         <td th:text="${coupon.discountPrice}">0</td>
         <td th:text="${#temporals.format(coupon.expirationDate, 'yyyy-MM-dd')}">만료일</td>
@@ -35,6 +36,11 @@
         // URL에서 book-id 파라미터 가져오기
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('book-id');
+
+        // 콘솔에 값 출력해서 확인
+        console.log('couponNumber:', couponNumber);
+        console.log('bookId:', bookId);
+        console.log('discountPrice:', discountPrice);
 
         // 부모 창의 함수 호출 (bookId 추가)
         if (window.opener) {

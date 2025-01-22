@@ -11,5 +11,8 @@ public class BookOrderRequest {
     long orderDetailId;
     long bookId;
     int quantity;
+    int discountAmount;
     int price;
+    int discountedPrice;
+    String couponNumber;
 }
