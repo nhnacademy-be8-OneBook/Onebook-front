@@ -6,7 +6,7 @@ function openCouponPopup(bookId) {
             return;
         }
     }
-    const popup = window.open('/order/coupon?book-id=' + bookId, '쿠폰 선택', 'width=600,height=400');
+    const popup = window.open('/order/coupon?book-id=' + bookId, '쿠폰 선택', 'width=700,height=500');
 }
 
 function applyCoupon(couponNumber, couponName, discountPrice, bookId) {
@@ -43,7 +43,7 @@ function applyCoupon(couponNumber, couponName, discountPrice, bookId) {
 
 // 팝업창 열기 함수
 function openAddressPopup() {
-    window.open('/order/addresses', 'addressPopup', 'width=1400,height=800');
+    window.open('/order/addresses', 'addressPopup', 'width=1200,height=700');
 }
 
 // 팝업창에서 선택된 주소 데이터를 업데이트
