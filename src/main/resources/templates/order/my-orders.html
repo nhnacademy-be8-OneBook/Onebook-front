@@ -170,7 +170,7 @@
                         <div class="order-info">
                             <h3 class="order-name" th:text="${order.orderName}"></h3>
                             <p class="orderer" th:text="${order.orderer}"></p>
-                            <p class="order-total-price" th:text="${T(java.lang.String).format('%,d', order.totalPrice)}"></p>
+                            <p class="order-total-price" th:text="${T(java.lang.String).format('%,d', order.totalPrice) + '원'}"></p>
                         </div>
                     </div>
                     <div class="order-footer">
