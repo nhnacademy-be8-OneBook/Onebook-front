@@ -94,9 +94,10 @@
             <tbody>
             <tr th:each="item : ${orderDetail.items}">
                 <td th:text="${item.bookTitle}"></td>
-                <td th:text="${item.price} + '원'"></td>
+                <td th:text="${T(java.lang.String).format('%,d', item.price)} + '원'"></td>
                 <td th:text="${item.quantity}"></td>
-                <td th:text="${item.price} * ${item.quantity} + '원'"></td>
+                <td th:text="${T(java.lang.String).format('%,d', item.price * item.quantity)} + '원'"></td>
+
             </tr>
             </tbody>
         </table>
@@ -106,7 +107,8 @@
         <table class="order-items">
             <thead>
             <tr>
-                <th>배송비</th>
+<!--                <th>배송비</th>-->
+                <a>총 주문 금액이 3만원 미만일 시 배송비 5천원이 추가됩니다.</a>
             </tr>
             </thead>
             <tbody>
