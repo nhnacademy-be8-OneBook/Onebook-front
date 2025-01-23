@@ -6,10 +6,13 @@ import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 import java.util.Map;
@@ -47,5 +50,17 @@ public class GlobalControllerAdvice {
         }
 
         model.addAttribute("cartCount", count);
+    }
+
+    @ModelAttribute
+    public void checkRole(Model model){
+
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+
+        String role = authentication.getAuthorities().stream().findFirst().get().toString();
+
+        model.addAttribute("role",role);
+
     }
 }
