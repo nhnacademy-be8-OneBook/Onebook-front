@@ -88,8 +88,9 @@ public class SecurityConfig {
 
         // logout 시 쿠키 삭제하기
         http.logout(logout -> {
-            logout.logoutUrl("/logout").
-                    deleteCookies("Authorization")
+            logout.logoutUrl("/logout")
+                    .deleteCookies("Authorization")
+                    .deleteCookies("CART_ID")
                     .logoutSuccessUrl("/"); // 로그아웃 성공 핸들러 추가
         });
 
