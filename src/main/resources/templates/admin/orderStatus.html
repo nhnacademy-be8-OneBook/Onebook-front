@@ -33,19 +33,55 @@
         .submit-button:hover {
             background-color: #45a049;
         }
+
+        .form-container {
+            display: flex;
+            flex-direction: column; /* 수직 정렬 */
+            align-items: center; /* 중앙 정렬 */
+            justify-content: center; /* 중앙 정렬 */
+            gap: 10px; /* 요소 간 간격 */
+            margin: 20px auto; /* 화면 중앙으로 위치 */
+            width: fit-content; /* 콘텐츠 크기에 맞춤 */
+        }
+
+        .submit-button {
+            margin-top: 10px; /* 추가 여유 간격 */
+        }
+
+        .redirect-button {
+            position: absolute; /* 위치 고정을 위한 절대 위치 */
+            top: 20px; /* 화면 상단에서 간격 */
+            right: 20px; /* 화면 오른쪽에서 간격 */
+            background-color: #F7941D; /* 버튼 배경색 */
+            border: 1px solid #F7941D; /* 버튼 테두리 */
+            padding: 8px 16px; /* 버튼 패딩 */
+            text-decoration: none; /* 링크 스타일 제거 */
+            color: #333; /* 텍스트 색상 */
+            border-radius: 4px; /* 버튼 둥근 모서리 */
+            text-align: center;
+        }
+
+        .redirect-button:hover {
+            background-color: #e0e0e0; /* 호버 시 배경색 */
+            color: #000; /* 호버 시 텍스트 색상 */
+        }
     </style>
 </head>
 <body>
-<h1>Orders by Status</h1>
+<h1>주문 관리 - 관리자 전용</h1>
+<a href="/admin" class="redirect-button">Back to Admin</a>
+
 <form th:action="@{/admin/update-orderstatus}" method="post">
     <input type="hidden" name="preStatus" th:value="${status}">
-    <select id="postStatus" name="postStatus" required>
-        <option value="" disabled selected>상태를 선택하세요</option>
-        <option th:each="status : ${orderStatusList}"
-                th:value="${status}"
-                th:text="${status}"></option>
-    </select>
-    <button type="submit" class="submit-button">Submit Selected Orders</button>
+    <div class="form-container">
+        <select id="postStatus" name="postStatus" required>
+            <option value="" disabled selected>상태를 선택하세요</option>
+            <option th:each="status : ${orderStatusList}"
+                    th:value="${status}"
+                    th:text="${status}"></option>
+        </select>
+        <button type="submit" class="submit-button">Submit Selected Orders</button>
+    </div>
     <table>
         <thead>
         <tr>
