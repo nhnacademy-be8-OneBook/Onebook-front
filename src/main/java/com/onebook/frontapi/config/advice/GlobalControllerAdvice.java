@@ -29,12 +29,12 @@ public class GlobalControllerAdvice {
 
     private final CategoryService categoryService;
 
-    // 모든 요청에서 topCategories를 자동으로 추가
-    @ModelAttribute("topCategories")
-    public List<CategoryDTO> getTopCategories() {
-        List<CategoryDTO> categories = categoryService.getTopCategories();
-        return categories;
-    }
+//    // 모든 요청에서 topCategories를 자동으로 추가
+//    @ModelAttribute("topCategories")
+//    public List<CategoryDTO> getTopCategories() {
+//        List<CategoryDTO> categories = categoryService.getTopCategories();
+//        return categories;
+//    }
 
 
     @ModelAttribute(name="cartProductCounting")
