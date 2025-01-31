@@ -24,22 +24,22 @@ import java.util.Objects;
 @Configuration
 public class RedisConfig2 {
 
-    @Value("${nhnKey.host}")
+    @Value("${spring.data.redis.host}")
     private String host;
 
-    @Value("${nhnKey.port}")
+    @Value("${spring.data.redis.port}")
     private int port;
 
-    @Value("${nhnKey.password}")
+    @Value("${spring.data.redis.password}")
     private String password;
 
 //    @Value("${nhnKey.keyId}")
 //    private String keyId;
 
-    @Value("${nhnKey.default_db}")
+    @Value("${spring.data.redis.default_db}")
     private int default_db;
 
-    @Value("${nhnKey.cart_redis_db}")
+    @Value("${spring.data.redis.cart_db}")
     private int cart_db;
 
     public LettuceConnectionFactory createConnectionFactory(int dbNo) {
